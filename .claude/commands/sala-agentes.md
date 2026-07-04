@@ -12,9 +12,9 @@ O hook `agentes-status.py` (PostToolUse, já registrado no `settings.json`) grav
 
 ## Passos
 
-1. Informe ao captador o caminho absoluto para abrir no navegador:
-   `{raiz-do-projeto}/sala-dos-agentes.html`
-2. Oriente a deixar a aba aberta em uma janela ao lado enquanto trabalha. A cada passo (analisar edital, checar elegibilidade, escrever proposta, montar orçamento, avaliar, posicionar), o agente correspondente anda até a estação e trabalha.
+1. Informe ao captador para dar dois cliques em `abrir-sala-dos-agentes.bat` (na raiz do projeto). Isso abre a página direto no navegador padrão.
+2. Alerte: clicar no arquivo `sala-dos-agentes.html` dentro do VS Code só mostra o código-fonte (texto), nunca os agentes andando. Para ver a sala renderizada, é preciso abrir fora do VS Code (pelo `.bat` ou pelo Explorador de Arquivos do Windows), nunca pelo clique simples no Explorer do editor.
+3. Oriente a deixar a aba aberta em uma janela ao lado enquanto trabalha. A cada passo (analisar edital, checar elegibilidade, escrever proposta, montar orçamento, avaliar, posicionar), o agente correspondente anda até a estação e trabalha.
 
 ## O elenco (as salas do escritório)
 

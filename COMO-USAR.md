@@ -59,7 +59,7 @@ Já deixei uma organização fictícia cadastrada (Instituto Semente) com um pro
 
 ## Ver os agentes trabalhando (Sala dos Agentes)
 
-Abra `sala-dos-agentes.html` (na raiz do projeto) no navegador e deixe em uma janela ao lado enquanto trabalha. É um escritório em pixel art onde cada agente da captação circula até a sua estação e mostra num balão o que está fazendo a cada passo do sistema (analisar edital, checar elegibilidade, escrever proposta, montar orçamento, avaliar, posicionar). O comando `/sala-agentes` te dá o caminho e explica o elenco. Se todos estiverem parados, é só porque nada aconteceu nos últimos segundos.
+Dê dois cliques em `abrir-sala-dos-agentes.bat` (na raiz do projeto) e deixe a aba aberta em uma janela ao lado enquanto trabalha. É um escritório em pixel art onde cada agente da captação circula até a sua estação e mostra num balão o que está fazendo a cada passo do sistema (analisar edital, checar elegibilidade, escrever proposta, montar orçamento, avaliar, posicionar). Atenção: clicar no arquivo `sala-dos-agentes.html` dentro do VS Code só mostra o código-fonte, nunca os agentes andando. Use sempre o `.bat` (ou abra pelo Explorador de Arquivos do Windows, fora do VS Code). O comando `/sala-agentes` te dá o caminho e explica o elenco. Se todos estiverem parados, é só porque nada aconteceu nos últimos segundos.
 
 ## Atualizar a base de editais
 
