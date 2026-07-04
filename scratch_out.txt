@@ -1,0 +1,6 @@
+Cliente (OSC) atualizado: Semear  (id 74c6f00b-316d-406b-812d-b3135c9903a7)
+
+=== CLIENTE_ATUALIZADO ===
+{"id": "74c6f00b-316d-406b-812d-b3135c9903a7", "nome": "Semear", "sigla": null, "cnpj": "32.757.912/0001-07", "natureza_juridica": "Associação privada sem fins lucrativos", "fundacao": "2019-02-13", "municipio": "Belo Horizonte", "uf": "MG", "territorios": ["Belo Horizonte", "Região Metropolitana de Belo Horizonte (MG)"], "areas_tematicas": ["Cultura", "Assistência Social", "Educação", "Esporte", "Assessoramento institucional a OSCs"], "missao": "Fortalecer o terceiro setor por meio de governança, gestão estratégica e execução de projetos estruturados, promovendo inclusão, cidadania e oportunidades para comunidades em situação de vulnerabilidade social.", "site": "semeargestao3setor.org", "email": "contato@semeargestao3setor.org", "telefone": "31 98575-6050", "status_documental": {"cnpj_ativo": true, "inscricao_cneas": true}, "historico_aprovacoes": [], "created_at": "2026-06-02T15:40:57.627543+00:00", "updated_at": "2026-07-05T02:03:42.87347+00:00"}
+
+---STDERR---
