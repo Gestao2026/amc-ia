@@ -30,10 +30,39 @@ jobs:
       - name: Buscar atualizacoes do upstream
         run: git fetch upstream main
 
-      - name: Mesclar upstream/main na main do fork
+      - name: Mesclar upstream/main sem apagar arquivos do fork
         run: |
+          set -e
           git checkout main
-          git merge upstream/main --no-edit -m "chore: sincronizar automaticamente com DiegoAlmeidaDev/amc-ia"
+          PRE_MERGE=$(git rev-parse HEAD)
+
+          set +e
+          git merge upstream/main --no-commit --no-ff
+          MERGE_EXIT=$?
+          set -e
+
+          if [ $MERGE_EXIT -ne 0 ]; then
+            if git diff --name-only --diff-filter=U | grep -q .; then
+              echo "Conflito real de conteudo entre fork e upstream. Abortando para revisao manual."
+              git merge --abort
+              exit 1
+            fi
+          fi
+
+          if [ -f .git/MERGE_HEAD ]; then
+            DELETADOS=$(git diff --name-only --diff-filter=D "$PRE_MERGE" -- || true)
+            if [ -n "$DELETADOS" ]; then
+              echo "Arquivos que o upstream apagou, mantidos no fork:"
+              echo "$DELETADOS"
+              printf '%s\n' "$DELETADOS" | while IFS= read -r arquivo; do
+                git checkout "$PRE_MERGE" -- "$arquivo"
+                git add "$arquivo"
+              done
+            fi
+            git commit -m "chore: sincronizar automaticamente com DiegoAlmeidaDev/amc-ia (sem remover arquivos do fork)"
+          else
+            echo "Nada novo para mesclar."
+          fi
 
       - name: Enviar atualizacoes para o fork
         run: git push origin main
