@@ -1,0 +1,39 @@
+name: Sincronizar com upstream (DiegoAlmeidaDev/amc-ia)
+
+on:
+  schedule:
+    # 09:00 UTC = 06:00 horario de Brasilia
+    - cron: "0 9 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Baixar repositorio
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Configurar git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Adicionar remoto upstream
+        run: git remote add upstream https://github.com/DiegoAlmeidaDev/amc-ia.git
+
+      - name: Buscar atualizacoes do upstream
+        run: git fetch upstream main
+
+      - name: Mesclar upstream/main na main do fork
+        run: |
+          git checkout main
+          git merge upstream/main --no-edit -m "chore: sincronizar automaticamente com DiegoAlmeidaDev/amc-ia"
+
+      - name: Enviar atualizacoes para o fork
+        run: git push origin main
