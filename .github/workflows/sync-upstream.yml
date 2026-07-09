@@ -37,3 +37,10 @@ jobs:
 
       - name: Enviar atualizacoes para o fork
         run: git push origin main
+
+      - name: Notificar falha no Telegram
+        if: failure()
+        run: |
+          curl -s -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage" \
+            -d chat_id="${{ secrets.TELEGRAM_CHAT_ID }}" \
+            -d text="Falha ao sincronizar o fork amc-ia com o upstream DiegoAlmeidaDev/amc-ia. Provavel conflito de merge. Verifique a aba Acoes no GitHub: https://github.com/Gestao2026/amc-ia/actions"
