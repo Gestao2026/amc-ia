@@ -88,23 +88,3 @@ jobs:
             echo "Pull Request ja aberta, atualizada com o novo push: $PR_URL"
           fi
           echo "pr_url=$PR_URL" >> "$GITHUB_OUTPUT"
-
-      - name: Notificar no Telegram
-        if: steps.merge.outputs.houve_atualizacao == 'true'
-        env:
-          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-        run: |
-          curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
-            -d chat_id="${TELEGRAM_CHAT_ID}" \
-            -d text="Sincronizacao com upstream: PR 'Sincronizar com upstream' criada ou atualizada. A main nao foi alterada. Revise e aprove no GitHub: ${{ steps.pr.outputs.pr_url }}"
-
-      - name: Notificar falha no Telegram
-        if: failure()
-        env:
-          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-        run: |
-          curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
-            -d chat_id="${TELEGRAM_CHAT_ID}" \
-            -d text="Falha ao preparar a sincronizacao do fork amc-ia com o upstream DiegoAlmeidaDev/amc-ia. Provavel conflito de merge. Verifique a aba Acoes no GitHub: https://github.com/Gestao2026/amc-ia/actions"
