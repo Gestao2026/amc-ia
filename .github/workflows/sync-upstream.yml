@@ -2,12 +2,13 @@ name: Sincronizar com upstream (DiegoAlmeidaDev/amc-ia)
 
 on:
   schedule:
-    # 09:00 UTC = 06:00 horario de Brasilia
-    - cron: "0 9 * * *"
+    # 21:00 UTC de sexta-feira = 18:00 horario de Brasilia (UTC-3)
+    - cron: "0 21 * * 5"
   workflow_dispatch: {}
 
 permissions:
   contents: write
+  pull-requests: write
 
 jobs:
   sync:
@@ -30,10 +31,13 @@ jobs:
       - name: Buscar atualizacoes do upstream
         run: git fetch upstream main
 
+      - name: Criar branch de sincronizacao a partir da main
+        run: git checkout -B sync-upstream main
+
       - name: Mesclar upstream/main sem apagar arquivos do fork
+        id: merge
         run: |
           set -e
-          git checkout main
           PRE_MERGE=$(git rev-parse HEAD)
 
           set +e
@@ -59,17 +63,47 @@ jobs:
                 git add "$arquivo"
               done
             fi
-            git commit -m "chore: sincronizar automaticamente com DiegoAlmeidaDev/amc-ia (sem remover arquivos do fork)"
+            git commit -m "chore: sincronizar com DiegoAlmeidaDev/amc-ia (aguardando aprovacao)"
+            echo "houve_atualizacao=true" >> "$GITHUB_OUTPUT"
           else
             echo "Nada novo para mesclar."
+            echo "houve_atualizacao=false" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Enviar atualizacoes para o fork
-        run: git push origin main
+      - name: Enviar branch de sincronizacao (sem tocar na main)
+        if: steps.merge.outputs.houve_atualizacao == 'true'
+        run: git push --force origin sync-upstream
+
+      - name: Abrir ou atualizar Pull Request para aprovacao
+        if: steps.merge.outputs.houve_atualizacao == 'true'
+        id: pr
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -e
+          PR_URL=$(gh pr list --state open --head sync-upstream --json url --jq '.[0].url')
+          if [ -z "$PR_URL" ]; then
+            PR_URL=$(gh pr create \
+              --title "Sincronizar com upstream (DiegoAlmeidaDev/amc-ia)" \
+              --body "Pull Request automatica com as atualizacoes do upstream DiegoAlmeidaDev/amc-ia. A main NAO foi alterada. Revise o diff e clique em Merge para aprovar, ou feche esta PR para recusar." \
+              --base main \
+              --head sync-upstream)
+            echo "Pull Request criada: $PR_URL"
+          else
+            echo "Pull Request ja aberta, atualizada com o novo push: $PR_URL"
+          fi
+          echo "pr_url=$PR_URL" >> "$GITHUB_OUTPUT"
+
+      - name: Notificar Pull Request pendente no Telegram
+        if: steps.merge.outputs.houve_atualizacao == 'true'
+        run: |
+          curl -s -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage" \
+            -d chat_id="${{ secrets.TELEGRAM_CHAT_ID }}" \
+            -d text="Ha atualizacoes do upstream DiegoAlmeidaDev/amc-ia esperando sua aprovacao no fork amc-ia. A main nao foi alterada. Revise e aprove: ${{ steps.pr.outputs.pr_url }}"
 
       - name: Notificar falha no Telegram
         if: failure()
         run: |
           curl -s -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage" \
             -d chat_id="${{ secrets.TELEGRAM_CHAT_ID }}" \
-            -d text="Falha ao sincronizar o fork amc-ia com o upstream DiegoAlmeidaDev/amc-ia. Provavel conflito de merge. Verifique a aba Acoes no GitHub: https://github.com/Gestao2026/amc-ia/actions"
+            -d text="Falha ao preparar a sincronizacao do fork amc-ia com o upstream DiegoAlmeidaDev/amc-ia. Provavel conflito de merge. Verifique a aba Acoes no GitHub: https://github.com/Gestao2026/amc-ia/actions"
