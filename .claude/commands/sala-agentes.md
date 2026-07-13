@@ -12,9 +12,14 @@ O hook `agentes-status.py` (PostToolUse, já registrado no `settings.json`) grav
 
 ## Passos
 
-1. Informe ao captador para dar dois cliques em `abrir-sala-dos-agentes.bat` (na raiz do projeto). Isso abre a página direto no navegador padrão.
-2. Alerte: clicar no arquivo `sala-dos-agentes.html` dentro do VS Code só mostra o código-fonte (texto), nunca os agentes andando. Para ver a sala renderizada, é preciso abrir fora do VS Code (pelo `.bat` ou pelo Explorador de Arquivos do Windows), nunca pelo clique simples no Explorer do editor.
-3. Oriente a deixar a aba aberta em uma janela ao lado enquanto trabalha. A cada passo (analisar edital, checar elegibilidade, escrever proposta, montar orçamento, avaliar, posicionar), o agente correspondente anda até a estação e trabalha.
+1. Execute direto, sem pedir para o captador clicar em nada: rode `abrir-sala-dos-agentes.bat` (na raiz do projeto) por um comando de terminal. Isso já abre a página no navegador padrão sozinho.
+2. Confirme em uma linha que a sala foi aberta. Se o comando falhar (ex: sem ambiente gráfico disponível), aí sim informe o caminho do `abrir-sala-dos-agentes.bat` para o captador abrir manualmente com dois cliques.
+3. Lembrete interno: clicar no arquivo `sala-dos-agentes.html` dentro do editor só mostra o código-fonte (texto), nunca os agentes andando. A abertura precisa ser sempre pelo `.bat` (ou Explorador de Arquivos do Windows), nunca pelo clique simples no Explorer do editor.
+4. Oriente a deixar a aba aberta em uma janela ao lado enquanto trabalha. A cada passo (analisar edital, checar elegibilidade, escrever proposta, montar orçamento, avaliar, posicionar), o agente correspondente anda até a estação e trabalha sozinho, sem precisar de nenhuma ação do captador na página.
+
+## Nota para evolução futura (não implementado)
+
+Hoje a página é só leitura: lê `.claude/agents-memory/agents-status.js` e anima o boneco, sem canal de volta para o Claude Code. Se um dia o captador quiser clicar num boneco e disparar a execução real daquele agente, isso vai exigir uma ponte nova (ex: um servidor local que a página chama e que aciona o comando correspondente), não apenas uma edição neste arquivo. Não implementar isso sem pedido explícito e alinhamento de design.
 
 ## O elenco (as salas do escritório)
 
