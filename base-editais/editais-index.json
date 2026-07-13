@@ -1,5 +1,5 @@
 {
-  "total": 533,
+  "total": 536,
   "campos": [
     "id",
     "title",
@@ -88,215 +88,6 @@
       "is_continuous": true,
       "value": null,
       "url": "https://goias.gov.br/meioambiente/edital-de-chamada-publica-para-compor-cesto-de-projetos-para-biodiversidade-goiana/"
-    },
-    {
-      "id": "d3686215-7472-4e2e-92f9-90ec674b57ad",
-      "title": "Santana da Vargem - EDITAL DE CHAMAMENTO PÚBLICO Nº 03/2026 - PNAB",
-      "institution": "Não informado",
-      "scope": "Municipal",
-      "category": "Cultura",
-      "deadline": "2026-07-07",
-      "is_continuous": false,
-      "value": 30000,
-      "url": "https://produtos.prosas.com.br/editais/edital?edital_id=18296"
-    },
-    {
-      "id": "a0e878e4-a4c2-486d-b0de-67400fd22dbf",
-      "title": "Projeto CITinova II - Promovendo Planejamento Metropolitano Integrado e Investimentos Inovadores em Tecnologias Urbanas no Brasil",
-      "institution": "Não informado",
-      "scope": "Nacional",
-      "category": "Ciência e Tecnologia",
-      "deadline": "2026-07-07",
-      "is_continuous": false,
-      "value": null,
-      "url": "https://produtos.prosas.com.br/editais/edital?edital_id=18267"
-    },
-    {
-      "id": "f75d2fa2-4879-4ec9-8da4-71876e2f1c3b",
-      "title": "Edital 023/2026 Convocatória para Ocupação Artística da Sala Principal do Teatro Castro Alves",
-      "institution": "Não informado",
-      "scope": "Estadual",
-      "category": "Cultura",
-      "deadline": "2026-07-07",
-      "is_continuous": false,
-      "value": null,
-      "url": "https://produtos.prosas.com.br/editais/edital?edital_id=18244"
-    },
-    {
-      "id": "d4ffabee-fa13-49b4-beb2-ef1422cf5599",
-      "title": "Open Calls for Proposals | CEPF",
-      "institution": "Nacional",
-      "scope": "Nacional",
-      "category": "Meio Ambiente",
-      "deadline": "2026-07-07",
-      "is_continuous": false,
-      "value": null,
-      "url": "https://www.cepf.net/grants/open-calls-for-proposals"
-    },
-    {
-      "id": "e5b2f80b-fe89-47be-aec6-c99c726d821e",
-      "title": "Call for Proposals for Large Grants - Madagascar and the Indian Ocean Islands",
-      "institution": "Internacional",
-      "scope": "Internacional",
-      "category": "Meio Ambiente",
-      "deadline": "2026-07-07",
-      "is_continuous": false,
-      "value": null,
-      "url": "https://www.cepf.net/grants/open-calls-for-proposals/2026-large-grants-madio-may-2026"
-    },
-    {
-      "id": "3d731a1b-963a-411f-ae6b-64e6f058f5d0",
-      "title": "EDITAL DE CHAMAMENTO PÚBLICO Nº 008/2026 SELEÇÃO DE PROJETOS PARA FIRMAR TERMO DE EXECUÇÃO CULTURAL COM RECURSOS DA POLÍTICA NACIONAL ALDIR BLANC DE FOMENTO À CULTURA - PNAB (LEI Nº 14.399/2022) – EDITAL DE CULTURA POPULAR TRADICIONAL",
-      "institution": "Não informado",
-      "scope": "Estadual",
-      "category": "Cultura",
-      "deadline": "2026-07-07",
-      "is_continuous": false,
-      "value": 1200000,
-      "url": "https://produtos.prosas.com.br/editais/edital?edital_id=18205"
-    },
-    {
-      "id": "8ec572d4-d61c-4749-bdc1-0d698ca72dbe",
-      "title": "Prêmio Pacto Contra a Fome 2026",
-      "institution": "Nacional",
-      "scope": "Nacional",
-      "category": "Assistência Social",
-      "deadline": "2026-07-07",
-      "is_continuous": false,
-      "value": 600000,
-      "url": "https://filantropia.ong/informacao/328376-inscricoes-para-o-premio-pacto-contra-a-fome-estao-abertas/"
-    },
-    {
-      "id": "dd2f3bae-0041-4977-bd75-c6cbf9cc01e4",
-      "title": "Edital FAPES nº 10/2026 – Dr. Empreendedor Capixaba",
-      "institution": "Não informado",
-      "scope": "Estadual",
-      "category": "Empreendedorismo/Renda",
-      "deadline": "2026-07-07",
-      "is_continuous": false,
-      "value": 10600000,
-      "url": "https://produtos.prosas.com.br/editais/edital?edital_id=17940"
-    },
-    {
-      "id": "6f4fd838-8104-4554-a9bb-e2e41ed631c2",
-      "title": "PNAB Lages 2026 - Fomento",
-      "institution": "Não informado",
-      "scope": "Municipal",
-      "category": "Cultura",
-      "deadline": "2026-07-07",
-      "is_continuous": false,
-      "value": 1146728,
-      "url": "https://produtos.prosas.com.br/editais/edital?edital_id=18278"
-    },
-    {
-      "id": "35ba91dd-ac86-4fb0-84ee-4e5d6ace9545",
-      "title": "EDITAL PNAB 2026",
-      "institution": "Municipal - Lages, SC",
-      "scope": "Municipal",
-      "category": "Cultura",
-      "deadline": "2026-07-08",
-      "is_continuous": false,
-      "value": null,
-      "url": "https://www.lages.sc.gov.br/noticia-descricao/10159/esta-aberto-o-edital-para-inscricoes-ao-pnab-2026"
-    },
-    {
-      "id": "8c9ddc9f-a3e9-46fa-ac78-54f31153a11c",
-      "title": "Seleção de Projetos Culturais",
-      "institution": "Não informado",
-      "scope": "Municipal",
-      "category": "Cultura",
-      "deadline": "2026-07-08",
-      "is_continuous": false,
-      "value": null,
-      "url": "https://produtos.prosas.com.br/editais/edital?edital_id=18237"
-    },
-    {
-      "id": "a9006c99-5a12-45c7-a5d6-ba26e7637bd6",
-      "title": "EDITAL DE CHAMAMENTO PÚBLICO Nº 02/SME/2026",
-      "institution": "Municipal - São Paulo, SP",
-      "scope": "Municipal",
-      "category": "Educação",
-      "deadline": "2026-07-08",
-      "is_continuous": false,
-      "value": null,
-      "url": "https://www.sinesp.org.br/legislacao/saiu-no-doc-legislacao/24402-edital-de-chamamento-publico-n-02-sme-2026-parceria-na-modalidade-de-termo-de-colaboracao-para-execucao-do-programa-jogos-de-tabuleiro-da-rede-municipal-de-ensino-da-cidade-de-sao-paulo-09-06-2026"
-    },
-    {
-      "id": "e9a6ae85-7d22-4972-bcec-d9fd077d3f2a",
-      "title": "Prefeitura publica edital de contratação de Organização da Sociedade Civil para implantação de Central de Libras no Rio Grande",
-      "institution": "Municipal - Rio Grande, RS",
-      "scope": "Municipal",
-      "category": "Comunicação",
-      "deadline": "2026-07-08",
-      "is_continuous": false,
-      "value": null,
-      "url": "http://riogrande.rs.gov.br/noticia/52408/52408?titulo=Prefeitura+publica+edital+de+contrata%C3%A7%C3%A3o+de+Organiza%C3%A7%C3%A3o+da+Sociedade+Civil+para+implanta%C3%A7%C3%A3o+de+Central+de+Libras+no+Rio+Grande"
-    },
-    {
-      "id": "323e8b29-2449-4dc2-a4a6-5c47779c19b1",
-      "title": "SELEÇÃO DE PROJETOS PARA FIRMAR TERMO DE EXECUÇÃO CULTURAL COM RECURSOS DA PNAB",
-      "institution": "Não informado",
-      "scope": "Nacional",
-      "category": "Cultura",
-      "deadline": "2026-07-08",
-      "is_continuous": false,
-      "value": null,
-      "url": "https://produtos.prosas.com.br/editais/edital?edital_id=18282"
-    },
-    {
-      "id": "53c57d4e-ab19-4dea-9b33-b5d6e1facf86",
-      "title": "Edital de Chamamento Público 001/2026",
-      "institution": "Municipal - Rio Grande, RS",
-      "scope": "Municipal",
-      "category": "Direitos Humanos",
-      "deadline": "2026-07-08",
-      "is_continuous": false,
-      "value": null,
-      "url": "http://riogrande.rs.gov.br/noticia/52408?titulo=Prefeitura+publica+edital+de+contrata%C3%A7%C3%A3o+de+Organiza%C3%A7%C3%A3o+da+Sociedade+Civil+para+implanta%C3%A7%C3%A3o+de+Central+de+Libras+no+Rio+Grande"
-    },
-    {
-      "id": "7aecfd2a-6550-4ceb-a521-7e8a87d5c31d",
-      "title": "EDITAL DE CHAMAMENTO PÚBLICO Nº 019/2026/FCMS -  Festival de Vida Sertaneja",
-      "institution": "Não informado",
-      "scope": "Estadual",
-      "category": "Cultura",
-      "deadline": "2026-07-08",
-      "is_continuous": false,
-      "value": 310000,
-      "url": "https://produtos.prosas.com.br/editais/edital?edital_id=18213"
-    },
-    {
-      "id": "38fc61f4-3fba-49a6-9b74-1229d0788633",
-      "title": "EDITAL DE CHAMAMENTO PÚBLICO Nº 018/2026/FCMS -  Festival de Música Escolar ",
-      "institution": "Não informado",
-      "scope": "Estadual",
-      "category": "Cultura",
-      "deadline": "2026-07-08",
-      "is_continuous": false,
-      "value": 389000,
-      "url": "https://produtos.prosas.com.br/editais/edital?edital_id=18212"
-    },
-    {
-      "id": "9c95c3ad-9603-4594-ab92-bfe3dda9781f",
-      "title": "Edital de Chamamento Público nº 02/SME/2026",
-      "institution": "Municipal - São Paulo, SP",
-      "scope": "Municipal",
-      "category": "Educação",
-      "deadline": "2026-07-08",
-      "is_continuous": false,
-      "value": null,
-      "url": "https://www.sinesp.org.br/multimidia/publicacoes-sinesp/category/47-legislacao-geral?download=9396:edital-de-chamamento-publico-n-02-sme-2026"
-    },
-    {
-      "id": "ee00d816-b071-4c44-8264-be8d35297212",
-      "title": "EDITAL DE CHAMAMENTO PÚBLICO Nº 02/SME/2026",
-      "institution": "Municipal - São Paulo, SP",
-      "scope": "Municipal",
-      "category": "Educação",
-      "deadline": "2026-07-08",
-      "is_continuous": false,
-      "value": null,
-      "url": "https://www.sinesp.org.br/multimidia/publicacoes-sinesp/category/47-legislacao-geral?download=9396:edital-de-chamamento-publico-n-02-sme-2026"
     },
     {
       "id": "33a78603-5ce1-45af-aee5-d4e72daf40c8",
@@ -541,6 +332,17 @@
       "url": "https://produtos.prosas.com.br/editais/edital?edital_id=18171"
     },
     {
+      "id": "173f7338-4765-4a03-9629-5d13dbc9951f",
+      "title": "Edital Premiação de Pontos e Pontões de Cultura",
+      "institution": "Estadual - PR",
+      "scope": "Estadual",
+      "category": "Edital",
+      "deadline": "2026-07-13",
+      "is_continuous": false,
+      "value": null,
+      "url": "https://www.cultura.pr.gov.br/Noticia/SEEC-abre-inscricoes-para-Edital-Premiacao-de-Pontos-e-Pontoes-de-Cultura-com-investimentos"
+    },
+    {
       "id": "3bf212b5-98a8-4e11-8879-acbbf8a10b5a",
       "title": "Seleção de Projetos Aprovados via Fundo para a Infância e Adolescência - FIA",
       "institution": "Não informado",
@@ -750,6 +552,17 @@
       "url": "https://openaifoundation.org/en-US/news/2026-people-first-ai-fund"
     },
     {
+      "id": "3bf8db8f-a35f-4631-8cfe-ee5952261d3f",
+      "title": "PARÁ - Chamamento Público Nº 10/2026 - Jardim de Esculturas Parque da Cidade",
+      "institution": "Não informado",
+      "scope": "Nacional",
+      "category": "Edital",
+      "deadline": "2026-07-15",
+      "is_continuous": false,
+      "value": 500000,
+      "url": "https://produtos.prosas.com.br/editais/edital?edital_id=18405"
+    },
+    {
       "id": "58fd789b-c5d4-4116-8e39-ac442315c1c1",
       "title": "Edital Bebedouro: Fomento à comunicação e à produção de narrativas sobre memória, território e reparação",
       "institution": "Não informado",
@@ -825,6 +638,17 @@
       "is_continuous": false,
       "value": null,
       "url": "https://produtos.prosas.com.br/editais/edital?edital_id=18286"
+    },
+    {
+      "id": "acc5841e-fe76-4e2c-b30d-e72cd77adb13",
+      "title": "PARÁ - Chamamento Público Nº 011/2026 - Seleção de OSC para Execução da Ação Arte e Cultura na educação de Tempo Integral",
+      "institution": "Não informado",
+      "scope": "Nacional",
+      "category": "Edital",
+      "deadline": "2026-07-16",
+      "is_continuous": false,
+      "value": null,
+      "url": "https://produtos.prosas.com.br/editais/edital?edital_id=18408"
     },
     {
       "id": "5a5f714f-6ad3-4c73-8cca-8ceabe717371",
@@ -981,6 +805,17 @@
       "url": "https://www.darwininitiative.org.uk/how-to-apply"
     },
     {
+      "id": "58f2dd73-9788-4cd2-83e6-8d1c7d8c08f7",
+      "title": "PARÁ - Chamamento Público Nº 012/2026 - Seleção de Ações Continuadas",
+      "institution": "Não informado",
+      "scope": "Nacional",
+      "category": "Edital",
+      "deadline": "2026-07-21",
+      "is_continuous": false,
+      "value": 5375047,
+      "url": "https://produtos.prosas.com.br/editais/edital?edital_id=18407"
+    },
+    {
       "id": "1b8f62e6-35e4-4838-a0a5-40b1a338cfbc",
       "title": "2º Edital Somando Impactos - Projetos Incentivados 2026",
       "institution": "Nacional",
@@ -1045,6 +880,17 @@
       "is_continuous": false,
       "value": null,
       "url": "https://gife.org.br/confira-editais-com-inscricoes-abertas-no-fim-de-junho-e-em-julho/"
+    },
+    {
+      "id": "ade3d031-dbf2-4f24-ad0f-e04fd55b8018",
+      "title": "2º Edital Somando Impactos – Projetos Incentivados 2026",
+      "institution": "Nacional",
+      "scope": "Nacional",
+      "category": "Edital",
+      "deadline": "2026-07-22",
+      "is_continuous": false,
+      "value": null,
+      "url": "https://fundacaogrupovw.org.br/inscricoes-abertas-2o-edital-somando-impactos-conecta-oscs-a-recursos-via-leis-de-incentivo/"
     },
     {
       "id": "b92bda8a-ace1-4aaf-a606-7e2f0a1580b0",
@@ -1223,6 +1069,17 @@
       "url": "https://produtos.prosas.com.br/editais/edital?edital_id=18363"
     },
     {
+      "id": "51388122-2a1f-48b8-ae63-86a38c948857",
+      "title": "PERNAMBUCO - PREMIAÇÃO PARA OCUPAÇÃO DE PAUTAS DO OBSERVATÓRIO CULTURAL TORRE MALAKOFF",
+      "institution": "Não informado",
+      "scope": "Nacional",
+      "category": "Edital",
+      "deadline": "2026-07-24",
+      "is_continuous": false,
+      "value": 75000,
+      "url": "https://produtos.prosas.com.br/editais/edital?edital_id=18389"
+    },
+    {
       "id": "4d449ebe-ddce-4a63-9001-80ea9b339eab",
       "title": "Prêmio Impactos Positivos",
       "institution": "Não informado",
@@ -1344,6 +1201,28 @@
       "url": "https://produtos.prosas.com.br/editais/edital?edital_id=18356"
     },
     {
+      "id": "b6ded1dc-cbf3-4008-8588-9bcd0f5e38b9",
+      "title": "Editais ProAC/Fomento CultSP 2026 - Audiovisual",
+      "institution": "Estadual - SP",
+      "scope": "Estadual",
+      "category": "Edital",
+      "deadline": "2026-07-27",
+      "is_continuous": false,
+      "value": 47500000,
+      "url": "https://www.audiovisualworld.com.br/eventos/proac-2026-r-47-5-mi-em-editais-de-audiovisual"
+    },
+    {
+      "id": "2aa0409f-e2e0-4b44-a264-e96367ac223d",
+      "title": "Edital 09/2026 – Realização de Projetos Culturais em Municípios de até 50 Mil Habitantes",
+      "institution": "Estadual - SP",
+      "scope": "Estadual",
+      "category": "Edital",
+      "deadline": "2026-07-27",
+      "is_continuous": false,
+      "value": null,
+      "url": "https://cultura.marilia.sp.gov.br/noticias/proac-lanca-nova-etapa-de-editais-com-investimento-de-r-90-milhoes-para-fortalecer-a-cultura-paulista/3642"
+    },
+    {
       "id": "032ee70f-dc73-40ec-abb7-fc6e2679a999",
       "title": "Chamada Pública 16/2026 – Programa de Apoio a Pesquisas e Ações Estratégicas para a Bioeconomia Inclusiva",
       "institution": "Estadual - AM/PR",
@@ -1386,6 +1265,50 @@
       "is_continuous": false,
       "value": 20563200,
       "url": "https://produtos.prosas.com.br/editais/edital?edital_id=18260"
+    },
+    {
+      "id": "110a2237-669e-4bb3-91f1-0f7e2de4e623",
+      "title": "PERNAMBUCO - 8º PRÊMIO ROBERTO DE FRANÇA (PERNALONGA) DE TEATRO",
+      "institution": "Não informado",
+      "scope": "Nacional",
+      "category": "Edital",
+      "deadline": "2026-07-29",
+      "is_continuous": false,
+      "value": null,
+      "url": "https://produtos.prosas.com.br/editais/edital?edital_id=18387"
+    },
+    {
+      "id": "30e6ceaf-8c46-4bcf-9012-963b5e3888ec",
+      "title": "PERNAMBUCO - 10º PRÊMIO ARIANO SUASSUNA DE CULTURA POPULAR E DRAMATURGIA - CATEGORIA DE CULTURA POPULAR",
+      "institution": "Não informado",
+      "scope": "Nacional",
+      "category": "Edital",
+      "deadline": "2026-07-29",
+      "is_continuous": false,
+      "value": null,
+      "url": "https://produtos.prosas.com.br/editais/edital?edital_id=18386"
+    },
+    {
+      "id": "80e54a88-ce3e-4476-9a4d-07301c2976a5",
+      "title": "PERNAMBUCO - 10º PRÊMIO ARIANO SUASSUNA DE CULTURA POPULAR E DRAMATURGIA  - CATEGORIA DE DRAMATURGIA",
+      "institution": "Não informado",
+      "scope": "Nacional",
+      "category": "Edital",
+      "deadline": "2026-07-29",
+      "is_continuous": false,
+      "value": null,
+      "url": "https://produtos.prosas.com.br/editais/edital?edital_id=18385"
+    },
+    {
+      "id": "dd906dff-702c-473d-861e-2bd719c9ecde",
+      "title": "PERNAMBUCO - 7º PRÊMIO PALHAÇO CASCUDO DE INCENTIVO ÀS ARTES CIRCENSES 2026",
+      "institution": "Não informado",
+      "scope": "Nacional",
+      "category": "Edital",
+      "deadline": "2026-07-29",
+      "is_continuous": false,
+      "value": 150000,
+      "url": "https://produtos.prosas.com.br/editais/edital?edital_id=18388"
     },
     {
       "id": "ea261784-4ef6-4b61-9d55-e438d17365ce",
@@ -1586,6 +1509,28 @@
       "url": "https://gife.org.br/confira-editais-com-inscricoes-abertas-no-fim-de-junho-e-em-julho/"
     },
     {
+      "id": "2fb8bdcb-1d01-46e9-91ac-6aa81c16c2a6",
+      "title": "SALVADOR BA - REDE MUNICIPAL DE PONTOS DE CULTURA DE SALVADOR-BA-PNAB CICLO 2",
+      "institution": "Não informado",
+      "scope": "Nacional",
+      "category": "Edital",
+      "deadline": "2026-07-31",
+      "is_continuous": false,
+      "value": null,
+      "url": "https://produtos.prosas.com.br/editais/edital?edital_id=18374"
+    },
+    {
+      "id": "7d6afcc2-3263-4fde-bdb0-fc7bbae24c9e",
+      "title": "CAMPINAS - SELEÇÃO PARA FINANCIAMENTO DE PROJETOS CULTURAIS FUNDO DE INVESTIMENTOS CULTURAIS DE CAMPINAS - FICC 2026",
+      "institution": "Não informado",
+      "scope": "Nacional",
+      "category": "Edital",
+      "deadline": "2026-07-31",
+      "is_continuous": false,
+      "value": null,
+      "url": "https://produtos.prosas.com.br/editais/edital?edital_id=18412"
+    },
+    {
       "id": "016036ec-076b-40ba-ba1a-377d2d8dfa60",
       "title": "Aviso de Chamamento Público nº 24/2026 - Tecnologias Sociais de Acesso à Água na Amazônia",
       "institution": "Nacional",
@@ -1707,6 +1652,17 @@
       "url": "https://produtos.prosas.com.br/editais/edital?edital_id=18266"
     },
     {
+      "id": "2587f58b-d5e8-4818-a3a5-9642ba4e8164",
+      "title": "PERNAMBUCO - EDITAL PNAB DE FOMENTO AOS PONTOS DE CULTURA",
+      "institution": "Não informado",
+      "scope": "Nacional",
+      "category": "Edital",
+      "deadline": "2026-08-03",
+      "is_continuous": false,
+      "value": null,
+      "url": "https://produtos.prosas.com.br/editais/edital?edital_id=18382"
+    },
+    {
       "id": "3b35775d-c30f-4fa9-9d78-d1baf89bf4db",
       "title": "Convocatória Maleta Aberta 2026 - Projetos de Arte Migrante na Ibero-América",
       "institution": "Internacional",
@@ -1727,6 +1683,28 @@
       "is_continuous": false,
       "value": null,
       "url": "https://produtos.prosas.com.br/editais/edital?edital_id=18355"
+    },
+    {
+      "id": "7abb0414-6888-4c62-80e4-38372983bebc",
+      "title": "PERNAMBUCO - 3º PRÊMIO PERNAMBUCO DE ARTESANATO – EDIÇÃO ANA DAS CARRANCAS",
+      "institution": "Não informado",
+      "scope": "Nacional",
+      "category": "Edital",
+      "deadline": "2026-08-05",
+      "is_continuous": false,
+      "value": null,
+      "url": "https://produtos.prosas.com.br/editais/edital?edital_id=18379"
+    },
+    {
+      "id": "f1e87f1b-8b12-41fb-afca-a434cf7387f7",
+      "title": "III PRÊMIO DE SALVAGUARDA DO PATRIMÔNIO CULTURAL IMATERIAL DE PERNAMBUCO",
+      "institution": "Não informado",
+      "scope": "Nacional",
+      "category": "Edital",
+      "deadline": "2026-08-05",
+      "is_continuous": false,
+      "value": null,
+      "url": "https://produtos.prosas.com.br/editais/edital?edital_id=18377"
     },
     {
       "id": "4508a087-e5d7-469e-b599-35fd2ac37e11",
@@ -1782,6 +1760,17 @@
       "is_continuous": false,
       "value": 2554807,
       "url": "https://produtos.prosas.com.br/editais/edital?edital_id=18264"
+    },
+    {
+      "id": "676e7fb9-e181-42ce-b90a-6723911bee2a",
+      "title": "ArcelorMittal Investe – Apoio a ONGs 2026",
+      "institution": "Municipal - Joinville, SC; Municipal - São Francisco do Sul, SC; Municipal - São Bento do Sul, SC",
+      "scope": "Municipal",
+      "category": "Edital",
+      "deadline": "2026-08-14",
+      "is_continuous": false,
+      "value": null,
+      "url": "https://investidor.bussolasocial.com.br/arcelormittal/editais/arcelormittal-investe2026"
     },
     {
       "id": "f9acadb0-ed50-430d-8ef6-f41b0d504221",
@@ -2123,6 +2112,17 @@
       "is_continuous": false,
       "value": 1225637,
       "url": "https://produtos.prosas.com.br/editais/edital?edital_id=17410"
+    },
+    {
+      "id": "cf6167b0-172b-4195-ad97-76ecd024421d",
+      "title": "SANTA CATARINA - CHAMADA PÚBLICA FAPESC N.º 39/2026 NÚCLEO CATARINENSE DE MOBILIDADE ELÉTRICA (NCME)",
+      "institution": "Não informado",
+      "scope": "Nacional",
+      "category": "Edital",
+      "deadline": "2026-09-28",
+      "is_continuous": false,
+      "value": null,
+      "url": "https://produtos.prosas.com.br/editais/edital?edital_id=18417"
     },
     {
       "id": "01ea8056-11cd-4dec-931a-e713afb2c984",
@@ -4424,37 +4424,26 @@
       "url": "https://www.cefet-rj.br/index.php/avisos/10322-divulgado-edital-de-submissao-de-projetos-e-programas-de-extensao-de-fluxo-continuo-em-2026"
     },
     {
-      "id": "0d1cc150-ba5d-42ba-a998-760b30fc0f4b",
-      "title": "Edital de Apoio a Projetos de Arte, Cultura e Extensão Universitária 2026",
-      "institution": "Estadual - SP",
+      "id": "a1846524-d998-4ce9-9a56-6a07ad7673c5",
+      "title": "Edital 19/2026 - LIC RS - Produção e Fruição Cultural",
+      "institution": "Estadual - RS",
       "scope": "Estadual",
       "category": "Cultura",
       "deadline": null,
       "is_continuous": true,
-      "value": 15000,
-      "url": "https://jornal.usp.br/cadernodecultura/usp-abre-edital-de-apoio-a-projetos-de-arte-cultura-e-extensao-universitaria-para-2026/"
+      "value": null,
+      "url": "https://cultura.rs.gov.br/editais-2026-6a2af7987dada"
     },
     {
-      "id": "6045245f-01dd-485c-ad24-a3f4ca9839e3",
-      "title": "Edital Acelen Incentiva para apoio de projetos com impacto social, ambiental e educacional",
-      "institution": "Não informado",
+      "id": "2efae4cf-f780-4a70-a52a-1d7728f04305",
+      "title": "Caixa lança edital de R$ 10 milhões para projetos de cidadania financeira e inclusão econômica",
+      "institution": "Nacional",
       "scope": "Nacional",
-      "category": "Meio Ambiente",
+      "category": "Empreendedorismo/Renda",
       "deadline": null,
       "is_continuous": true,
-      "value": null,
-      "url": "https://produtos.prosas.com.br/editais/edital?edital_id=15488"
-    },
-    {
-      "id": "d677e0a8-ed24-42ea-b602-c3d5a6716244",
-      "title": "Instituto John Deere - Banco de Projetos 2026",
-      "institution": "Não informado",
-      "scope": "Nacional",
-      "category": "Assistência Social",
-      "deadline": null,
-      "is_continuous": true,
-      "value": null,
-      "url": "https://produtos.prosas.com.br/editais/edital?edital_id=15444"
+      "value": 10000000,
+      "url": "https://artequemoraaqui.com.br/caixa-lanca-edital-de-r-10-milhoes-para-projetos-de-cidadania-financeira-e-inclusao-econom/"
     },
     {
       "id": "579dd5c3-971c-4007-bbe1-02cfc7f19c53",
@@ -4490,6 +4479,28 @@
       "url": "https://produtos.prosas.com.br/editais/edital?edital_id=16194"
     },
     {
+      "id": "6045245f-01dd-485c-ad24-a3f4ca9839e3",
+      "title": "Edital Acelen Incentiva para apoio de projetos com impacto social, ambiental e educacional",
+      "institution": "Não informado",
+      "scope": "Nacional",
+      "category": "Meio Ambiente",
+      "deadline": null,
+      "is_continuous": true,
+      "value": null,
+      "url": "https://produtos.prosas.com.br/editais/edital?edital_id=15488"
+    },
+    {
+      "id": "d677e0a8-ed24-42ea-b602-c3d5a6716244",
+      "title": "Instituto John Deere - Banco de Projetos 2026",
+      "institution": "Não informado",
+      "scope": "Nacional",
+      "category": "Assistência Social",
+      "deadline": null,
+      "is_continuous": true,
+      "value": null,
+      "url": "https://produtos.prosas.com.br/editais/edital?edital_id=15444"
+    },
+    {
       "id": "4b75af53-e8e2-4579-83ef-2bc90b7bc125",
       "title": "EDITAL DE CHAMAMENTO PÚBLICO PARA SELEÇÃO DE ORGANIZAÇÃO DE SOCIEDADE CIVIL – OSC – Nº. 001/2026/SEMTUR",
       "institution": "Municipal - Aracruz, ES",
@@ -4501,70 +4512,70 @@
       "url": "https://aracruz.es.gov.br/edital/001-edital-de-chamamento-publico-para-selecao-de-organizacao-de-sociedade-civil-osc-no-0012026semtur"
     },
     {
-      "id": "a1846524-d998-4ce9-9a56-6a07ad7673c5",
-      "title": "Edital 19/2026 - LIC RS - Produção e Fruição Cultural",
-      "institution": "Estadual - RS",
-      "scope": "Estadual",
-      "category": "Cultura",
-      "deadline": null,
-      "is_continuous": true,
-      "value": null,
-      "url": "https://cultura.rs.gov.br/editais-2026-6a2af7987dada"
-    },
-    {
-      "id": "47f57cfa-11aa-4a23-a23b-f4cb34fbcb4d",
-      "title": "Fundo Regenerativo Lagoa Santa",
-      "institution": "Não informado",
-      "scope": "Municipal",
-      "category": "Assistência Social",
-      "deadline": null,
-      "is_continuous": true,
-      "value": 3000,
-      "url": "https://produtos.prosas.com.br/editais/edital?edital_id=16112"
-    },
-    {
-      "id": "61d48c89-4c61-421b-93c1-1c400c8b8b68",
-      "title": "Apoio Emergencial para Defensores de Direitos Humanos",
-      "institution": "Não informado",
-      "scope": "Nacional",
-      "category": "Direitos Humanos",
-      "deadline": null,
-      "is_continuous": true,
-      "value": null,
-      "url": "https://produtos.prosas.com.br/editais/edital?edital_id=16113"
-    },
-    {
-      "id": "26b8a528-dc01-4146-9255-ee1b487fdf8e",
-      "title": "Edital nº 3/2026 - Apoio à Organização, Estruturação e Formalização de Cooperativas, Associações, Empreendimentos de Economia Solidária e Coletivos de Mulheres",
+      "id": "115da85b-7235-44f5-b5d1-f88925c1a853",
+      "title": "Ecommercebr 2026 – ABDI – Agência Brasileira de Desenvolvimento Industrial",
       "institution": "Nacional",
       "scope": "Nacional",
       "category": "Empreendedorismo/Renda",
       "deadline": null,
       "is_continuous": true,
       "value": null,
-      "url": "https://www.gov.br/mulheres/pt-br/acesso-a-informacao/editais/2026/edital-no-3-2026-apoio-a-organizacao-estruturacao-e-formalizacao-de-cooperativas-associacoes-empreendimentos-de-economia-solidaria-e-coletivos-de-mulheres"
+      "url": "https://www.abdi.com.br/ecommercebr2026/"
     },
     {
-      "id": "af967cc3-4c49-439d-8160-3227a9ccd569",
-      "title": "Edital ArcelorMittal Investe - Apoio a ONGs 2026",
+      "id": "90934331-d0df-48b5-8e36-b742cc5c9f88",
+      "title": "Chamamento para Chancela de Projetos - CMDCA Santaluz",
+      "institution": "Não informado",
+      "scope": "Nacional",
+      "category": "Outro",
+      "deadline": null,
+      "is_continuous": true,
+      "value": null,
+      "url": "https://produtos.prosas.com.br/editais/edital?edital_id=15934"
+    },
+    {
+      "id": "04137b28-d1ba-4824-bb7b-f3e8dfeb96e0",
+      "title": "EDITAL DECREDENCIAMENTO E CHAMAMENTO PÚBLICO OSC (BOMBEIROS)",
       "institution": "Estadual - SC",
-      "scope": "Estadual",
+      "scope": "Municipal",
       "category": "Assistência Social",
       "deadline": null,
       "is_continuous": true,
       "value": null,
-      "url": "https://brasil.arcelormittal.com/sala-imprensa/noticias/brasil/arcelormittal-promove-workshops-preparatorios-para-o-edital-arcelormittal-investe-apoio-a-ongs-2026"
+      "url": "https://trezedemaio.sc.gov.br/concursos-publicos/"
     },
     {
-      "id": "acef466c-ac6a-45d5-9bb9-e5f3a3a1de70",
-      "title": "Edital de apoio a projetos sociais",
+      "id": "a148ae80-e9c8-4234-a3e1-d7b509506848",
+      "title": "Chamamento Público nº 01/2026 - Secretaria Executiva (SE)",
       "institution": "Nacional",
       "scope": "Nacional",
-      "category": "Assistência Social",
+      "category": "Saúde",
       "deadline": null,
       "is_continuous": true,
       "value": null,
-      "url": "https://www.fccsa.com.br/pt/fcc-connect/todas-publicacoes/fcc-sa-lanca-edital-para-programa-de-apoio-a-proje/"
+      "url": "https://www.gov.br/saude/pt-br/acesso-a-informacao/participacao-social/chamamentos-publicos/abertos"
+    },
+    {
+      "id": "a2d6f4bc-9b9c-4b41-bace-42e29af9239d",
+      "title": "LIFE-2026-SAP-ENV — Circular Economy and Quality of Life",
+      "institution": "Internacional",
+      "scope": "Internacional",
+      "category": "Meio Ambiente",
+      "deadline": null,
+      "is_continuous": true,
+      "value": null,
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/docs/2021-2027/life/wp-call/2026/call-fiche_life-2026-sap-env_en.pdf"
+    },
+    {
+      "id": "4f28fdbd-03c9-4a0b-9d7d-51d7f67f79e3",
+      "title": "EDITAL DE CHAMAMENTO PÚBLICO Nº 003/2026",
+      "institution": "Municipal - Jeriquara, SP",
+      "scope": "Municipal",
+      "category": "Saúde",
+      "deadline": null,
+      "is_continuous": true,
+      "value": null,
+      "url": "https://www.jeriquara.sp.gov.br/edital-de-chamamento-publico-no-003-2026-servicos-de-atencao-basica-e-especialidades-medicas/"
     },
     {
       "id": "165b4b30-7cfd-4dac-86c1-0406eabc6a63",
@@ -4587,6 +4598,17 @@
       "is_continuous": true,
       "value": null,
       "url": "https://produtos.prosas.com.br/editais/edital?edital_id=16219"
+    },
+    {
+      "id": "91bb415d-e812-45c6-970f-e77f21883006",
+      "title": "Termo de Fomento 008/2026",
+      "institution": "Municipal - Taquari, RS",
+      "scope": "Municipal",
+      "category": "Assistência Social",
+      "deadline": null,
+      "is_continuous": true,
+      "value": null,
+      "url": "https://www.taquari.rs.gov.br/licitacao/id/1012/?termo-de-fomento.html"
     },
     {
       "id": "452c640c-4fba-482e-8e87-7ca07f1f2ebe",
@@ -4677,15 +4699,15 @@
       "url": "https://produtos.prosas.com.br/editais/edital?edital_id=16268"
     },
     {
-      "id": "8d2bb79c-9093-4f3b-b2ba-f5cd58952622",
-      "title": "Edital Coop 2026 - Programa de Benefícios às Entidades",
-      "institution": "Estadual - SP",
-      "scope": "Estadual",
+      "id": "4aff441f-3eb3-4f44-a545-f714823b25d4",
+      "title": "Fund for Innovation in Development Call for Proposals 2026",
+      "institution": "Internacional",
+      "scope": "Internacional",
       "category": "Assistência Social",
       "deadline": null,
       "is_continuous": true,
-      "value": 20000,
-      "url": "https://conjunta.org/recurso-financeiro/edital-coop-2026-organizacoes-sociais/"
+      "value": 4700000,
+      "url": "https://opportunitiesforyouth.org/2026/06/12/fid-call-for-proposals-2026-apply-for-up-to-e4-million-to-scale-innovative-solutions-tackling-poverty-and-inequality-worldwide/"
     },
     {
       "id": "3c5b26af-baa4-4b7d-8dcd-d478ecc72dc0",
@@ -4732,26 +4754,26 @@
       "url": "https://observatoriodoesporte.mg.gov.br/sedese-publica-o-edital-no-02-2026-para-selecao-de-projetos-esportivos-em-minas/"
     },
     {
-      "id": "b621bb5a-719d-47ae-8c52-e54c8e53ee4e",
-      "title": "Fundo Patrimonial Cultural 2026",
-      "institution": "Nacional",
-      "scope": "Nacional",
-      "category": "Cultura",
+      "id": "1444c6a5-6bb4-44d5-be22-94d1c6fc67e0",
+      "title": "Pró-Social volta a receber projetos",
+      "institution": "Estadual - RS",
+      "scope": "Estadual",
+      "category": "Assistência Social",
       "deadline": null,
       "is_continuous": true,
       "value": null,
-      "url": "https://conjunta.org/recurso-financeiro/fundo-patrimonial-cultural-2026/"
+      "url": "https://social.rs.gov.br/pro-social-volta-a-receber-projetos"
     },
     {
-      "id": "dbbf8826-c782-44b0-805d-1b88da4f64e5",
-      "title": "EDITAL Nº 07/2025  Chamamento Público para credenciamento de Intervenções Artísticas e compra de Espetáculos artísticos-culturais.",
-      "institution": "Não informado",
-      "scope": "Municipal",
-      "category": "Cultura",
+      "id": "d8731f97-0b79-42a5-8d1b-212178cfad5c",
+      "title": "Governo do Brasil lança edital de R$ 50 milhões para fortalecer agricultores familiares",
+      "institution": "Nacional",
+      "scope": "Nacional",
+      "category": "Empreendedorismo/Renda",
       "deadline": null,
       "is_continuous": true,
-      "value": null,
-      "url": "https://produtos.prosas.com.br/editais/edital?edital_id=15633"
+      "value": 50000000,
+      "url": "https://www.gov.br/secom/pt-br/acompanhe-a-secom/noticias/2026/05/governo-do-brasil-lanca-edital-de-r-50-milhoes-para-fortalecer-agricultores-familiares"
     },
     {
       "id": "1c121a54-fc3b-4932-b04b-ff6d757a02d3",
@@ -4765,15 +4787,15 @@
       "url": "https://www.croptrust.org/news-events/news/power-of-diversity-grants/"
     },
     {
-      "id": "fbb404f2-59c2-4548-ba00-7a6f23505d26",
-      "title": "Edital Contínuo de Apoio a Projetos Sociais – Ciclo 2026",
+      "id": "34f317c2-e94e-4a82-9d2c-c9411aea33b4",
+      "title": "Chamamento Público nº 29/2026 - Secretaria de Gestão do Trabalho e da Educação na Saúde (SGTES)",
       "institution": "Nacional",
       "scope": "Nacional",
-      "category": "Assistência Social",
+      "category": "Educação",
       "deadline": null,
       "is_continuous": true,
       "value": null,
-      "url": "https://conjunta.org/recurso-financeiro/edital-continuo-de-apoio-a-projetos-sociais-ciclo-2026-instituto-impactarte/"
+      "url": "https://www.gov.br/saude/pt-br/acesso-a-informacao/participacao-social/chamamentos-publicos/2026/chamamento-publico-no-29-2026-sgtes"
     },
     {
       "id": "e410ebd8-d723-40d7-8ad0-bcccf26cd842",
@@ -4809,48 +4831,70 @@
       "url": "https://produtos.prosas.com.br/editais/edital?edital_id=16111"
     },
     {
-      "id": "8b674fa6-20bf-460f-8973-e2caafd4f6c5",
-      "title": "Chamamento Público para seleção de OSC - Aprendizagem Profissional",
-      "institution": "Municipal - Pracinha, SP",
-      "scope": "Municipal",
-      "category": "Edital",
+      "id": "299d1235-7b03-4794-b4b6-ea038edceb0a",
+      "title": "Fundação comunitária que busca soluções sustentáveis ",
+      "institution": "Não informado",
+      "scope": "Internacional",
+      "category": "Meio Ambiente",
       "deadline": null,
       "is_continuous": true,
-      "value": null,
-      "url": "https://www.pracinha.sp.gov.br/licitacao/detalhe/351/pchamamento-publico-para-selecao-de-organizacao-da-sociedade-civil-sem-fins-lucrativos-osc-visando-a-celebracao-de-parceria-entre-a-prefeitura-do-municipio-de-pracinha-sp-para-a-execucao-de-atividades-voltadas-a-aprendizagem-profissional-de-adolescentes-e-jovens-entre-14-e-24-anos-de-idade"
+      "value": 10000,
+      "url": "https://produtos.prosas.com.br/editais/edital?edital_id=15021"
     },
     {
-      "id": "377d0f37-7d4c-43cd-8ba3-2be0d866525f",
-      "title": "Instituto Impactarte abre inscrições para edital contínuo de apoio a projetos sociais",
+      "id": "0d1cc150-ba5d-42ba-a998-760b30fc0f4b",
+      "title": "Edital de Apoio a Projetos de Arte, Cultura e Extensão Universitária 2026",
+      "institution": "Estadual - SP",
+      "scope": "Estadual",
+      "category": "Cultura",
+      "deadline": null,
+      "is_continuous": true,
+      "value": 15000,
+      "url": "https://jornal.usp.br/cadernodecultura/usp-abre-edital-de-apoio-a-projetos-de-arte-cultura-e-extensao-universitaria-para-2026/"
+    },
+    {
+      "id": "892b4e04-5f4c-4f5b-b1af-a6478bebdf3c",
+      "title": "Juventude Solidária - Inscrições para Projetos Sociais",
       "institution": "Nacional",
       "scope": "Nacional",
       "category": "Assistência Social",
       "deadline": null,
       "is_continuous": true,
-      "value": null,
-      "url": "https://captadores.org.br/editais/instituto-impactarte-abre-inscricoes-para-edital-continuo-de-apoio-a-projetos-sociais/"
+      "value": 12000,
+      "url": "https://nossacausa.com/2026/06/juventude-solidaria-abre-inscricoes-para-projetos-sociais"
     },
     {
-      "id": "573bd257-8cd4-4441-812d-31ac49573d66",
-      "title": "Edital Salvador Circula – Ano II",
-      "institution": "Municipal - Salvador, BA",
+      "id": "c36c1a02-1f66-4ada-b8e4-4fd405be5814",
+      "title": "Fundo Internacional para Diversidade Cultural",
+      "institution": "Internacional",
+      "scope": "Internacional",
+      "category": "Cultura",
+      "deadline": null,
+      "is_continuous": true,
+      "value": null,
+      "url": "https://conjunta.org/recurso-financeiro/fundo-internacional-para-diversidade-cultural/"
+    },
+    {
+      "id": "93dc44be-a09a-4668-9964-29e8fbacbdec",
+      "title": "Lei Paulista de Incentivo ao Esporte",
+      "institution": "Estadual - SP",
+      "scope": "Estadual",
+      "category": "Esporte",
+      "deadline": null,
+      "is_continuous": true,
+      "value": null,
+      "url": "https://lesampa.com.br/2026/05/03/sao-paulo-abre-inscricoes-para-lei-paulista-de-incentivo-ao-esporte/"
+    },
+    {
+      "id": "c621a57b-9126-4dcb-8bef-fa4804c2faf0",
+      "title": "PNAB GARANHUNS CICLO II - EDITAL CULTURA VIVA - CHAMAMENTO PÚBLICO Nº 001/2026 REDE MUNICIPAL DE PONTOS DE CULTURA DE GARANHUNS",
+      "institution": "Municipal - Garanhuns, PE",
       "scope": "Municipal",
       "category": "Cultura",
       "deadline": null,
       "is_continuous": true,
       "value": null,
-      "url": "https://fgm.salvador.ba.gov.br/category/editais-abertos/"
-    },
-    {
-      "id": "d28cb59a-168d-46b4-80ec-0c5d3e98ffbd",
-      "title": "Edital de Chamamento Público nº 01/2026 - Regularização Fundiária (Reurb)",
-      "institution": "Municipal - Bocaina de Minas, MG",
-      "scope": "Municipal",
-      "category": "Outro",
-      "deadline": null,
-      "is_continuous": true,
-      "value": null,
-      "url": "https://www.bocainademinas.mg.gov.br/edital-de-chamamento-publico-n-o-01-2026/"
+      "url": "https://prosas.com.br/editais/17964"
     },
     {
       "id": "c89ed978-b9f7-4052-bffe-5bada6975753",
@@ -4862,6 +4906,17 @@
       "is_continuous": true,
       "value": 3000000,
       "url": "https://produtos.prosas.com.br/editais/edital?edital_id=16797"
+    },
+    {
+      "id": "06157646-a808-4748-ad00-e54abb7c1a98",
+      "title": "Edital de Chamamento Público Nº 66/2026 - Programa Municipal de Incentivo ao Esporte",
+      "institution": "Municipal - Sapiranga, RS",
+      "scope": "Municipal",
+      "category": "Esporte",
+      "deadline": null,
+      "is_continuous": true,
+      "value": 3000,
+      "url": "https://www.sapiranga.rs.gov.br/programa-municipal-de-incentivo-ao-esporte-tem-novo-edital-aberto/"
     },
     {
       "id": "c9de2f5a-d2f4-4d60-a864-84047f6effd0",
@@ -4886,15 +4941,26 @@
       "url": "https://www.bnb.gov.br/sustentabilidade/investimentos-sociais-e-esportivos"
     },
     {
-      "id": "a148ae80-e9c8-4234-a3e1-d7b509506848",
-      "title": "Chamamento Público nº 01/2026 - Secretaria Executiva (SE)",
-      "institution": "Nacional",
-      "scope": "Nacional",
-      "category": "Saúde",
+      "id": "c11db0c1-abdb-4d67-a78a-34b749d84208",
+      "title": "PONTO DE CULTURA - Edital Nº 02/2026",
+      "institution": "Estadual - AM",
+      "scope": "Estadual",
+      "category": "Cultura",
       "deadline": null,
       "is_continuous": true,
       "value": null,
-      "url": "https://www.gov.br/saude/pt-br/acesso-a-informacao/participacao-social/chamamentos-publicos/abertos"
+      "url": "https://pnab.cultura.am.gov.br/pontos-cultura-pnab2"
+    },
+    {
+      "id": "57d44470-17cf-4d7a-904b-1ac25a47ad00",
+      "title": "EDITAL DE CHAMAMENTO PÚBLICO N. 009/2026",
+      "institution": "Estadual - BA",
+      "scope": "Estadual",
+      "category": "Assistência Social",
+      "deadline": null,
+      "is_continuous": true,
+      "value": null,
+      "url": "http://www.ba.gov.br/trabalho/edital/5386/editais-e-chamadas"
     },
     {
       "id": "2c93b7fb-c495-4b4a-a451-207a9d64c003",
@@ -4908,15 +4974,26 @@
       "url": "https://produtos.prosas.com.br/editais/edital?edital_id=16201"
     },
     {
-      "id": "282b0205-bac7-4550-9910-900040d5d71e",
-      "title": "Edital de Chamamento Público nº 003/2026 - Secretaria de Esportes",
-      "institution": "Municipal - Cataguases, MG",
-      "scope": "Municipal",
-      "category": "Edital",
+      "id": "c7f3f358-ae7d-408b-ae2e-b2cdf798e630",
+      "title": "Edital de Chamamento Público nº 009/2026 - Secretaria do Trabalho, Emprego, Renda e Esporte",
+      "institution": "Estadual - BA",
+      "scope": "Estadual",
+      "category": "Empreendedorismo/Renda",
       "deadline": null,
       "is_continuous": true,
       "value": null,
-      "url": "https://www.cataguases.mg.gov.br/portal/editais/0/5/1197"
+      "url": "https://www.ba.gov.br/trabalho/edital/5386/editais-e-chamadas"
+    },
+    {
+      "id": "44070795-fc08-4733-8dd7-3a79aad07626",
+      "title": "Lesaffre's call for solidarity projects for the environment",
+      "institution": "Internacional",
+      "scope": "Internacional",
+      "category": "Meio Ambiente",
+      "deadline": null,
+      "is_continuous": true,
+      "value": null,
+      "url": "https://www.lesaffre.com/newsroom/csr/lesaffres-call-for-solidarity-projects/"
     },
     {
       "id": "cd004986-6845-4935-a3d8-84df06ccd09d",
@@ -4974,26 +5051,15 @@
       "url": "https://www.amparo.sp.gov.br/wp-content/uploads/2026/06/EDITAL-DE-CHAMAMENTO-PUBLICO-001-2026-SMS.pdf"
     },
     {
-      "id": "7e4ba374-8013-4247-bdb1-eae396ebf2e2",
-      "title": "EDITAL DE CHAMAMENTO PÚBLICO Nº 05/2026 - SECULT: ANIVERSÁRIO DE SÃO LUÍS 2026 E FESTIVAL NEGRITUDE",
-      "institution": "Municipal - São Luís, MA",
-      "scope": "Municipal",
-      "category": "Edital",
-      "deadline": null,
-      "is_continuous": true,
-      "value": 18975000,
-      "url": "https://www.saoluis.ma.gov.br/portal/editais/0/5/4156/"
-    },
-    {
-      "id": "e22e822e-d5d8-48e5-a538-4c13b574259f",
-      "title": "Chamamento Público nº 03/2026 - Departamento de Economia e Investimento em Saúde (DESID) | FIIS Saúde",
-      "institution": "Nacional",
+      "id": "84e58952-a7cf-47a5-b70e-ca8e2b617b04",
+      "title": "INTERVENÇÃO ARTÍSTICA - Circulação e difusão de propostas artísticas - credenciamento 003/Edital 009/FCCR/2023",
+      "institution": "Não informado",
       "scope": "Nacional",
-      "category": "Edital",
+      "category": "Cultura",
       "deadline": null,
       "is_continuous": true,
-      "value": null,
-      "url": "https://www.gov.br/saude/pt-br/acesso-a-informacao/participacao-social/chamamentos-publicos/2026/chamamento-publico-no-03-2026-desid-fiis-saude"
+      "value": 250000,
+      "url": "https://produtos.prosas.com.br/editais/edital?edital_id=13701"
     },
     {
       "id": "dcda5821-3f0a-4806-8b0b-2f96931826d1",
@@ -5029,15 +5095,15 @@
       "url": "https://www.gov.br/saude/pt-br/acesso-a-informacao/participacao-social/chamamentos-publicos/2026/chamamento-publico-no-01-2026-sctie"
     },
     {
-      "id": "b9517200-8f43-4be1-947b-46686ddf79f0",
-      "title": "Edital de Chamamento Público nº 02/2026 – Gestão das Naves do Conhecimento",
-      "institution": "Municipal - Rio de Janeiro, RJ",
+      "id": "282b0205-bac7-4550-9910-900040d5d71e",
+      "title": "Edital de Chamamento Público nº 003/2026 - Secretaria de Esportes",
+      "institution": "Municipal - Cataguases, MG",
       "scope": "Municipal",
-      "category": "Educação",
+      "category": "Edital",
       "deadline": null,
       "is_continuous": true,
       "value": null,
-      "url": "https://cienciaetecnologia.prefeitura.rio/noticias/edital-de-chamamento-publico-no-02-2026-gestao-das-naves-do-conhecimento/"
+      "url": "https://www.cataguases.mg.gov.br/portal/editais/0/5/1197"
     },
     {
       "id": "5f846001-9094-42f7-8576-796d03be5649",
@@ -5051,268 +5117,15 @@
       "url": "https://www.gov.br/saude/pt-br/acesso-a-informacao/participacao-social/chamamentos-publicos/2026/chamamento-publico-no-34-2026-sgtes"
     },
     {
-      "id": "00eb9b4f-95ab-4293-8099-01fc430410d9",
-      "title": " Chamamento para qualificação de Entidades em Organizações Sociais no Distrito Federal ",
-      "institution": "Não informado",
-      "scope": "Estadual",
-      "category": "Outro",
-      "deadline": null,
-      "is_continuous": true,
-      "value": null,
-      "url": "https://produtos.prosas.com.br/editais/edital?edital_id=15961"
-    },
-    {
-      "id": "b6e2ed9a-28e2-43c1-951f-b7564256acce",
-      "title": "Edital nº 05/2026 – Projetos Sociais COMDICA",
-      "institution": "Nacional",
-      "scope": "Nacional",
-      "category": "Assistência Social",
-      "deadline": null,
-      "is_continuous": true,
-      "value": null,
-      "url": "https://capta.org.br/oportunidades/edital-no-05-2026-projetos-sociais-comdica/"
-    },
-    {
-      "id": "115da85b-7235-44f5-b5d1-f88925c1a853",
-      "title": "Ecommercebr 2026 – ABDI – Agência Brasileira de Desenvolvimento Industrial",
-      "institution": "Nacional",
-      "scope": "Nacional",
-      "category": "Empreendedorismo/Renda",
-      "deadline": null,
-      "is_continuous": true,
-      "value": null,
-      "url": "https://www.abdi.com.br/ecommercebr2026/"
-    },
-    {
-      "id": "ffbba22b-f391-4456-9897-5f74d7d12452",
-      "title": "Instituto Impactarte abre chamada aberta para ONGs",
-      "institution": "Nacional",
-      "scope": "Nacional",
-      "category": "Assistência Social",
-      "deadline": null,
-      "is_continuous": true,
-      "value": null,
-      "url": "https://observatorio3setor.org.br/instituto-impactarte-abre-chamada-aberta-para-ongs/"
-    },
-    {
-      "id": "8de55ae0-ec4a-4b61-b1c7-dcd73e13d9fd",
-      "title": "Edital de Chamamento Público nº 04/2026/SECMA/PNAB - Arte e Cultura nas Escolas de Tempo Integral",
-      "institution": "Estadual - MA",
-      "scope": "Estadual",
-      "category": "Cultura",
-      "deadline": null,
-      "is_continuous": true,
-      "value": null,
-      "url": "https://cultura.ma.gov.br/uploads/secma/docs/AVISO_E_EDITAL_DE_CHAMAMENTO_PUBLICO_ARTE_E_CULTURA_NAS_ESCOLAS_DE_TEMPO_INTEGRAL.pdf"
-    },
-    {
-      "id": "fb800481-5c1c-4a44-a87b-08a6f10752b6",
-      "title": "Chamamento Público nº 12/2026 - Edital de Seleção de Organizações da Sociedade Civil",
-      "institution": "Municipal - Rio Pardo, RS",
-      "scope": "Municipal",
-      "category": "Edital",
-      "deadline": null,
-      "is_continuous": true,
-      "value": null,
-      "url": "https://www.riopardo.rs.gov.br/portal/editais/0/5/1366"
-    },
-    {
-      "id": "b46f68b7-7e48-400d-ad46-998087f8f602",
-      "title": "Edital FOMENTO CULTSP-PROAC nº 09/2026 - Realização de Projetos Culturais em Municípios de até 50 mil Habitantes",
-      "institution": "Estadual - SP",
-      "scope": "Estadual",
-      "category": "Edital",
-      "deadline": null,
-      "is_continuous": true,
-      "value": null,
-      "url": "https://storageproac.blob.core.windows.net/uploads/2026/06/20260610205536_OWYMOW1WTAG_09%20-%202026%20-%20REALIZA%C3%87%C3%83O%20DE%20PROJETOS%20CULTURAIS%20EM%20MUNIC%C3%8DPIOS%20DE%20AT%C3%89%2050%20MIL%20HABITANTES_1781185781057.pdf"
-    },
-    {
-      "id": "653bcf76-c483-4372-bc5a-2806392f1d8c",
-      "title": "EDITAL FUNDOS DA INFÂNCIA E DA ADOLESCÊNCIA 2026",
-      "institution": "Nacional",
-      "scope": "Nacional",
-      "category": "Edital",
-      "deadline": null,
-      "is_continuous": true,
-      "value": 500000,
-      "url": "https://institutoinad.org.br/editais/edital-fundos-da-infancia-e-da-adolescencia-2026/"
-    },
-    {
-      "id": "e868ebba-6268-4c07-a085-595b3b307f16",
-      "title": "Chamamento Público nº 14/2026 - Gabinete do Ministro (GM)",
-      "institution": "Nacional",
-      "scope": "Nacional",
-      "category": "Saúde",
-      "deadline": null,
-      "is_continuous": true,
-      "value": null,
-      "url": "https://www.gov.br/saude/pt-br/acesso-a-informacao/participacao-social/chamamentos-publicos/2026/chamamento-publico-no-14-2026-gm"
-    },
-    {
-      "id": "3f3bec2e-fd36-45d1-a1c9-214a42c9d569",
-      "title": "Edital de Chamamento Público nº 01/2026-FUMPH",
+      "id": "7e4ba374-8013-4247-bdb1-eae396ebf2e2",
+      "title": "EDITAL DE CHAMAMENTO PÚBLICO Nº 05/2026 - SECULT: ANIVERSÁRIO DE SÃO LUÍS 2026 E FESTIVAL NEGRITUDE",
       "institution": "Municipal - São Luís, MA",
       "scope": "Municipal",
-      "category": "Cultura",
+      "category": "Edital",
       "deadline": null,
       "is_continuous": true,
-      "value": 524361,
-      "url": "https://www.saoluis.ma.gov.br/portal/editais/0/5/4143/"
-    },
-    {
-      "id": "57d44470-17cf-4d7a-904b-1ac25a47ad00",
-      "title": "EDITAL DE CHAMAMENTO PÚBLICO N. 009/2026",
-      "institution": "Estadual - BA",
-      "scope": "Estadual",
-      "category": "Assistência Social",
-      "deadline": null,
-      "is_continuous": true,
-      "value": null,
-      "url": "http://www.ba.gov.br/trabalho/edital/5386/editais-e-chamadas"
-    },
-    {
-      "id": "4f28fdbd-03c9-4a0b-9d7d-51d7f67f79e3",
-      "title": "EDITAL DE CHAMAMENTO PÚBLICO Nº 003/2026",
-      "institution": "Municipal - Jeriquara, SP",
-      "scope": "Municipal",
-      "category": "Saúde",
-      "deadline": null,
-      "is_continuous": true,
-      "value": null,
-      "url": "https://www.jeriquara.sp.gov.br/edital-de-chamamento-publico-no-003-2026-servicos-de-atencao-basica-e-especialidades-medicas/"
-    },
-    {
-      "id": "f16d2eed-8f52-4f90-9c8d-20d0e32deff6",
-      "title": "Edital de Penas Pecuniárias nº 01/2026 – Epitaciolândia/AC",
-      "institution": "Não informado",
-      "scope": "Municipal",
-      "category": "Assistência Social",
-      "deadline": null,
-      "is_continuous": true,
-      "value": null,
-      "url": "https://produtos.prosas.com.br/editais/edital?edital_id=17437"
-    },
-    {
-      "id": "1aaf363f-c224-4f7b-8e8d-8904a43326a4",
-      "title": "Chamada Pública de Projetos Culturais 2026 da Equatorial Alagoas",
-      "institution": "Não informado",
-      "scope": "Estadual",
-      "category": "Cultura",
-      "deadline": null,
-      "is_continuous": true,
-      "value": 5000000,
-      "url": "https://produtos.prosas.com.br/editais/edital?edital_id=17823"
-    },
-    {
-      "id": "c70ceba5-5cd7-4847-84ce-803676309926",
-      "title": "Edital de Chamamento Público para financiamentos de projetos com o Fundo da Criança e do Adolescente ",
-      "institution": "Não informado",
-      "scope": "Municipal",
-      "category": "Assistência Social",
-      "deadline": null,
-      "is_continuous": true,
-      "value": 30000,
-      "url": "https://produtos.prosas.com.br/editais/edital?edital_id=17485"
-    },
-    {
-      "id": "e51bb26e-2144-4602-a678-7f1fef010004",
-      "title": "Catalisar 2026 - FCC S.A.",
-      "institution": "Não informado",
-      "scope": "Nacional",
-      "category": "Cultura",
-      "deadline": null,
-      "is_continuous": true,
-      "value": null,
-      "url": "https://produtos.prosas.com.br/editais/edital?edital_id=17727"
-    },
-    {
-      "id": "ff6145aa-4305-4fc5-a4ad-820b83407470",
-      "title": "Edital Pontos de Cultura",
-      "institution": "Não informado",
-      "scope": "Municipal",
-      "category": "Cultura",
-      "deadline": null,
-      "is_continuous": true,
-      "value": 158214,
-      "url": "https://produtos.prosas.com.br/editais/edital?edital_id=16705"
-    },
-    {
-      "id": "ddc704c8-ad14-4a90-be18-eec79385d471",
-      "title": "Edital Programa de Incentivo à Inclusão e Promoção Social - Pró-Social/RS",
-      "institution": "Não informado",
-      "scope": "Estadual",
-      "category": "Assistência Social",
-      "deadline": null,
-      "is_continuous": true,
-      "value": null,
-      "url": "https://produtos.prosas.com.br/editais/edital?edital_id=17857"
-    },
-    {
-      "id": "2426339f-d860-4230-8377-b8ab2598c23a",
-      "title": "EDITAL Nº 013/2026 - CREDENCIAMENTO DE PRESTADORES DE SERVIÇOS ARTÍSTICO-CULTURAIS PARA O MUNICÍPIO DE ITAJAÍ/SC",
-      "institution": "Não informado",
-      "scope": "Municipal",
-      "category": "Cultura",
-      "deadline": null,
-      "is_continuous": true,
-      "value": 2000000,
-      "url": "https://produtos.prosas.com.br/editais/edital?edital_id=17799"
-    },
-    {
-      "id": "d99aab19-1330-4024-883f-73398160bea1",
-      "title": "Prêmio Construindo Cidadania 2026",
-      "institution": "Estadual - SP",
-      "scope": "Estadual",
-      "category": "Educação",
-      "deadline": null,
-      "is_continuous": true,
-      "value": null,
-      "url": "https://conjunta.org/recurso-financeiro/premio-construindo-cidadania-2026-apoia-projetos-de-educacao-para-cidadania-em-sao-paulo/"
-    },
-    {
-      "id": "c851e90b-a3e2-40a8-a84f-8f804267d551",
-      "title": "Cem Cópias Sem Custo - Técnico-científico ",
-      "institution": "Não informado",
-      "scope": "Estadual",
-      "category": "Cultura",
-      "deadline": null,
-      "is_continuous": true,
-      "value": null,
-      "url": "https://produtos.prosas.com.br/editais/edital?edital_id=16345"
-    },
-    {
-      "id": "6d2ef6d4-0cb2-43dd-be3f-5a1e2b307248",
-      "title": "15ª Edição do Certificado de Responsabilidade Social de Santa Catarina",
-      "institution": "Estadual - SC",
-      "scope": "Estadual",
-      "category": "Outro",
-      "deadline": null,
-      "is_continuous": true,
-      "value": null,
-      "url": "https://www.semae.sc.gov.br/estao-abertas-as-inscricoes-para-a-15a-edicao-do-certificado-de-responsabilidade-social-de-santa-catarina-e-o-trofeu-responsabilidade-social-destaque-sc/"
-    },
-    {
-      "id": "3cab51ac-72ea-4a44-92d7-c15874e9ee63",
-      "title": "EDITAL  Nº 003/2026 DE CHAMAMENTO PÚBLICO PARA SELEÇÃO DE AÇÕES CULTURAIS NO PROGRAMA AQUI TEM ARTE",
-      "institution": "Não informado",
-      "scope": "Municipal",
-      "category": "Cultura",
-      "deadline": null,
-      "is_continuous": true,
-      "value": null,
-      "url": "https://produtos.prosas.com.br/editais/edital?edital_id=17097"
-    },
-    {
-      "id": "986d388a-989b-481c-84ae-65ac88d69df6",
-      "title": "Chamada Aberta 2026 – Instituto ACP",
-      "institution": "Nacional",
-      "scope": "Nacional",
-      "category": "Outro",
-      "deadline": null,
-      "is_continuous": true,
-      "value": null,
-      "url": "https://conjunta.org/recurso-financeiro/chamada-aberta-2026-instituto-acp/"
+      "value": 18975000,
+      "url": "https://www.saoluis.ma.gov.br/portal/editais/0/5/4156/"
     },
     {
       "id": "2b7ad373-bb57-44ac-ae45-780fac233e19",
@@ -5337,6 +5150,50 @@
       "url": "https://produtos.prosas.com.br/editais/edital?edital_id=15959"
     },
     {
+      "id": "c851e90b-a3e2-40a8-a84f-8f804267d551",
+      "title": "Cem Cópias Sem Custo - Técnico-científico ",
+      "institution": "Não informado",
+      "scope": "Estadual",
+      "category": "Cultura",
+      "deadline": null,
+      "is_continuous": true,
+      "value": null,
+      "url": "https://produtos.prosas.com.br/editais/edital?edital_id=16345"
+    },
+    {
+      "id": "8de55ae0-ec4a-4b61-b1c7-dcd73e13d9fd",
+      "title": "Edital de Chamamento Público nº 04/2026/SECMA/PNAB - Arte e Cultura nas Escolas de Tempo Integral",
+      "institution": "Estadual - MA",
+      "scope": "Estadual",
+      "category": "Cultura",
+      "deadline": null,
+      "is_continuous": true,
+      "value": null,
+      "url": "https://cultura.ma.gov.br/uploads/secma/docs/AVISO_E_EDITAL_DE_CHAMAMENTO_PUBLICO_ARTE_E_CULTURA_NAS_ESCOLAS_DE_TEMPO_INTEGRAL.pdf"
+    },
+    {
+      "id": "e22e822e-d5d8-48e5-a538-4c13b574259f",
+      "title": "Chamamento Público nº 03/2026 - Departamento de Economia e Investimento em Saúde (DESID) | FIIS Saúde",
+      "institution": "Nacional",
+      "scope": "Nacional",
+      "category": "Edital",
+      "deadline": null,
+      "is_continuous": true,
+      "value": null,
+      "url": "https://www.gov.br/saude/pt-br/acesso-a-informacao/participacao-social/chamamentos-publicos/2026/chamamento-publico-no-03-2026-desid-fiis-saude"
+    },
+    {
+      "id": "653bcf76-c483-4372-bc5a-2806392f1d8c",
+      "title": "EDITAL FUNDOS DA INFÂNCIA E DA ADOLESCÊNCIA 2026",
+      "institution": "Nacional",
+      "scope": "Nacional",
+      "category": "Edital",
+      "deadline": null,
+      "is_continuous": true,
+      "value": 500000,
+      "url": "https://institutoinad.org.br/editais/edital-fundos-da-infancia-e-da-adolescencia-2026/"
+    },
+    {
       "id": "99eebe7b-d322-4d53-85bc-7ff256b8d3fd",
       "title": "Governo de SP abre captação do ProAC ICMS 2026",
       "institution": "Estadual - SP",
@@ -5348,15 +5205,114 @@
       "url": "https://direcaocultura.com.br/noticias/governo-de-sp-abre-captacao-do-proac-icms-2026/"
     },
     {
-      "id": "b7e9cfe9-4aa9-4c10-ba5c-bbd360beec0c",
-      "title": "Programa Europa Criativa 2026",
-      "institution": "Internacional",
-      "scope": "Internacional",
-      "category": "Cultura",
+      "id": "3b65bf58-482b-4129-baa7-70c4bb6ab3c3",
+      "title": "EDITAL DE CREDENCIAMENTO Nº 001/2026",
+      "institution": "Municipal - Altamira, PA",
+      "scope": "Municipal",
+      "category": "Assistência Social",
       "deadline": null,
       "is_continuous": true,
       "value": null,
-      "url": "https://europacriativa.eu/noticias/detalhe/1690-calls-programa-europa-criativa-2026-abertas"
+      "url": "https://altamira.pa.gov.br/diario-oficial-no-314-2026-29-04-2026/"
+    },
+    {
+      "id": "e868ebba-6268-4c07-a085-595b3b307f16",
+      "title": "Chamamento Público nº 14/2026 - Gabinete do Ministro (GM)",
+      "institution": "Nacional",
+      "scope": "Nacional",
+      "category": "Saúde",
+      "deadline": null,
+      "is_continuous": true,
+      "value": null,
+      "url": "https://www.gov.br/saude/pt-br/acesso-a-informacao/participacao-social/chamamentos-publicos/2026/chamamento-publico-no-14-2026-gm"
+    },
+    {
+      "id": "3f3bec2e-fd36-45d1-a1c9-214a42c9d569",
+      "title": "Edital de Chamamento Público nº 01/2026-FUMPH",
+      "institution": "Municipal - São Luís, MA",
+      "scope": "Municipal",
+      "category": "Cultura",
+      "deadline": null,
+      "is_continuous": true,
+      "value": 524361,
+      "url": "https://www.saoluis.ma.gov.br/portal/editais/0/5/4143/"
+    },
+    {
+      "id": "c634a01d-acb8-4ba9-82a2-f35dc679e30f",
+      "title": "Lei Paulista de Incentivo ao Esporte",
+      "institution": "Estadual - SP",
+      "scope": "Estadual",
+      "category": "Esporte",
+      "deadline": null,
+      "is_continuous": true,
+      "value": null,
+      "url": "https://www.esportes.sp.gov.br/sec_esportes/noticia/lei+paulista+de+incentivo+ao+esporte+abre+inscricoes+para+apresentacao+de+projetos"
+    },
+    {
+      "id": "b9517200-8f43-4be1-947b-46686ddf79f0",
+      "title": "Edital de Chamamento Público nº 02/2026 – Gestão das Naves do Conhecimento",
+      "institution": "Municipal - Rio de Janeiro, RJ",
+      "scope": "Municipal",
+      "category": "Educação",
+      "deadline": null,
+      "is_continuous": true,
+      "value": null,
+      "url": "https://cienciaetecnologia.prefeitura.rio/noticias/edital-de-chamamento-publico-no-02-2026-gestao-das-naves-do-conhecimento/"
+    },
+    {
+      "id": "81c519db-300f-4b92-be8f-c9b45f4f0035",
+      "title": "Edital Fundo Ifood Chega Junto",
+      "institution": "Não informado",
+      "scope": "Nacional",
+      "category": "Empreendedorismo/Renda",
+      "deadline": null,
+      "is_continuous": true,
+      "value": 10000000,
+      "url": "https://produtos.prosas.com.br/editais/edital?edital_id=16087"
+    },
+    {
+      "id": "cce13983-3002-4661-8938-697624e8cbcc",
+      "title": "Edital de Chamamento Público n.º 01/2026 - FMEL",
+      "institution": "Municipal - Curitiba, PR",
+      "scope": "Municipal",
+      "category": "Assistência Social",
+      "deadline": null,
+      "is_continuous": true,
+      "value": null,
+      "url": "https://www.curitiba.pr.gov.br/conteudo/chamamento-publico-2026/3489"
+    },
+    {
+      "id": "00eb9b4f-95ab-4293-8099-01fc430410d9",
+      "title": " Chamamento para qualificação de Entidades em Organizações Sociais no Distrito Federal ",
+      "institution": "Não informado",
+      "scope": "Estadual",
+      "category": "Outro",
+      "deadline": null,
+      "is_continuous": true,
+      "value": null,
+      "url": "https://produtos.prosas.com.br/editais/edital?edital_id=15961"
+    },
+    {
+      "id": "b7d203c8-4403-4253-889e-eb35f4097e6d",
+      "title": "Seleção de OSC para execução e manutenção do Projeto Movimento, Cidadania e Inclusão",
+      "institution": "Estadual - CE",
+      "scope": "Estadual",
+      "category": "Assistência Social",
+      "deadline": null,
+      "is_continuous": true,
+      "value": null,
+      "url": "https://www.sps.ce.gov.br/2026/05/12/selecao-de-osc-para-execucao-e-manutencao-do-projeto-movimento-cidadania-e-inclusao/"
+    },
+    {
+      "id": "7d4a0288-3365-44df-a39d-c0d85a1a436c",
+      "title": "Edital – Programa de Financiamento para Comunidades Técnicas Sustentáveis",
+      "institution": "Não informado",
+      "scope": "Nacional",
+      "category": "Ciência e Tecnologia",
+      "deadline": null,
+      "is_continuous": true,
+      "value": null,
+      "url": "https://produtos.prosas.com.br/editais/edital?edital_id=15539"
     },
     {
       "id": "b90da534-e18a-43b7-a206-3a265f5b07ec",
@@ -5370,17 +5326,6 @@
       "url": "https://www.caues.gov.br/cau-es-lanca-edital-para-selecao-de-osc-parceira-do-territorios-em-foco-2026/"
     },
     {
-      "id": "02c46019-c5b2-456c-9824-a80af6866110",
-      "title": "Chamamento Público nº 33/2026 - Programa Nacional de Apoio à Permanência, Diversidade e Visibilidade para Discentes na Área da Saúde - AfirmaSUS",
-      "institution": "Nacional",
-      "scope": "Nacional",
-      "category": "Saúde",
-      "deadline": null,
-      "is_continuous": true,
-      "value": null,
-      "url": "https://www.gov.br/saude/pt-br/acesso-a-informacao/participacao-social/chamamentos-publicos/2026/chamamento-publico-no-33-2026-sgtes"
-    },
-    {
       "id": "f5b46caf-dcc2-4a47-9e0e-722038240f9a",
       "title": "EDITAL DE CHAMAMENTO PÚBLICO DCONV. Nº 002 /2026",
       "institution": "Municipal - Vinhedo, SP",
@@ -5392,6 +5337,17 @@
       "url": "https://www.vinhedo.sp.gov.br/portal/editais/0/5/2900"
     },
     {
+      "id": "ff069bfa-a413-430b-8f43-06b11847d18e",
+      "title": "Edital de Chamamento Público nº 4/2026 Programa Cisternas",
+      "institution": "Nacional",
+      "scope": "Nacional",
+      "category": "Meio Ambiente",
+      "deadline": null,
+      "is_continuous": true,
+      "value": null,
+      "url": "https://conjunta.org/recurso-financeiro/edital-programa-cisternas-2026-oscs/"
+    },
+    {
       "id": "8fbd1c76-74a8-4a6b-a4e0-77db8f5e9cda",
       "title": "Fundação Cargill lança edital do Nutrindo Soluções Locais",
       "institution": "Estadual - PR, SC, RS",
@@ -5401,6 +5357,149 @@
       "is_continuous": true,
       "value": null,
       "url": "https://campoenegocios.com/fundacao-cargill-nutrindo-solucoes-locais-sul-brasil-2026/"
+    },
+    {
+      "id": "d99aab19-1330-4024-883f-73398160bea1",
+      "title": "Prêmio Construindo Cidadania 2026",
+      "institution": "Estadual - SP",
+      "scope": "Estadual",
+      "category": "Educação",
+      "deadline": null,
+      "is_continuous": true,
+      "value": null,
+      "url": "https://conjunta.org/recurso-financeiro/premio-construindo-cidadania-2026-apoia-projetos-de-educacao-para-cidadania-em-sao-paulo/"
+    },
+    {
+      "id": "fd0fad65-61d2-4395-bdcb-2fbdd9e8e830",
+      "title": "EDITAL DE CHAMAMENTO PÚBLICO No 01/2026",
+      "institution": "Municipal - Catanduva, SP",
+      "scope": "Municipal",
+      "category": "Assistência Social",
+      "deadline": null,
+      "is_continuous": true,
+      "value": null,
+      "url": "https://www.catanduva.sp.gov.br/portal/editais/0/5/2262/"
+    },
+    {
+      "id": "6d2ef6d4-0cb2-43dd-be3f-5a1e2b307248",
+      "title": "15ª Edição do Certificado de Responsabilidade Social de Santa Catarina",
+      "institution": "Estadual - SC",
+      "scope": "Estadual",
+      "category": "Outro",
+      "deadline": null,
+      "is_continuous": true,
+      "value": null,
+      "url": "https://www.semae.sc.gov.br/estao-abertas-as-inscricoes-para-a-15a-edicao-do-certificado-de-responsabilidade-social-de-santa-catarina-e-o-trofeu-responsabilidade-social-destaque-sc/"
+    },
+    {
+      "id": "3cab51ac-72ea-4a44-92d7-c15874e9ee63",
+      "title": "EDITAL  Nº 003/2026 DE CHAMAMENTO PÚBLICO PARA SELEÇÃO DE AÇÕES CULTURAIS NO PROGRAMA AQUI TEM ARTE",
+      "institution": "Não informado",
+      "scope": "Municipal",
+      "category": "Cultura",
+      "deadline": null,
+      "is_continuous": true,
+      "value": null,
+      "url": "https://produtos.prosas.com.br/editais/edital?edital_id=17097"
+    },
+    {
+      "id": "433ccc87-a229-4ecc-a4b5-bbeb86b7ad6f",
+      "title": "Programa  Shell Iniciativa Jovem ",
+      "institution": "Não informado",
+      "scope": "Nacional",
+      "category": "Empreendedorismo/Renda",
+      "deadline": null,
+      "is_continuous": true,
+      "value": null,
+      "url": "https://produtos.prosas.com.br/editais/edital?edital_id=13648"
+    },
+    {
+      "id": "02df5af4-da45-48c7-b7fa-a1016aabae46",
+      "title": "Call for Proposals: Power of Diversity Grants 2026 - fundsforNGOs",
+      "institution": "Internacional",
+      "scope": "Internacional",
+      "category": "Empreendedorismo/Renda",
+      "deadline": null,
+      "is_continuous": true,
+      "value": null,
+      "url": "https://www2.fundsforngos.org/community-development-2/call-for-proposals-power-of-diversity-grants-2026/"
+    },
+    {
+      "id": "b46f68b7-7e48-400d-ad46-998087f8f602",
+      "title": "Edital FOMENTO CULTSP-PROAC nº 09/2026 - Realização de Projetos Culturais em Municípios de até 50 mil Habitantes",
+      "institution": "Estadual - SP",
+      "scope": "Estadual",
+      "category": "Edital",
+      "deadline": null,
+      "is_continuous": true,
+      "value": null,
+      "url": "https://storageproac.blob.core.windows.net/uploads/2026/06/20260610205536_OWYMOW1WTAG_09%20-%202026%20-%20REALIZA%C3%87%C3%83O%20DE%20PROJETOS%20CULTURAIS%20EM%20MUNIC%C3%8DPIOS%20DE%20AT%C3%89%2050%20MIL%20HABITANTES_1781185781057.pdf"
+    },
+    {
+      "id": "c5ef4022-1829-4dab-91b0-96e83b6bf76f",
+      "title": "Conserved Territories by Indigenous and Local Communities (Brazil)",
+      "institution": "Nacional",
+      "scope": "Nacional",
+      "category": "Meio Ambiente",
+      "deadline": null,
+      "is_continuous": true,
+      "value": null,
+      "url": "https://www2.fundsforngos.org/community-development-2/cfps-conserved-territories-by-indigenous-and-local-communities-brazil/"
+    },
+    {
+      "id": "b7e9cfe9-4aa9-4c10-ba5c-bbd360beec0c",
+      "title": "Programa Europa Criativa 2026",
+      "institution": "Internacional",
+      "scope": "Internacional",
+      "category": "Cultura",
+      "deadline": null,
+      "is_continuous": true,
+      "value": null,
+      "url": "https://europacriativa.eu/noticias/detalhe/1690-calls-programa-europa-criativa-2026-abertas"
+    },
+    {
+      "id": "250ef243-ae22-4066-b102-844c88ae51d7",
+      "title": "Plataforma Juventude Solidária – Seleção de Projetos Ciclo 2026",
+      "institution": "Nacional",
+      "scope": "Nacional",
+      "category": "Assistência Social",
+      "deadline": null,
+      "is_continuous": true,
+      "value": null,
+      "url": "https://conjunta.org/recurso-financeiro/plataforma-juventude-solidaria-oscs/"
+    },
+    {
+      "id": "02c46019-c5b2-456c-9824-a80af6866110",
+      "title": "Chamamento Público nº 33/2026 - Programa Nacional de Apoio à Permanência, Diversidade e Visibilidade para Discentes na Área da Saúde - AfirmaSUS",
+      "institution": "Nacional",
+      "scope": "Nacional",
+      "category": "Saúde",
+      "deadline": null,
+      "is_continuous": true,
+      "value": null,
+      "url": "https://www.gov.br/saude/pt-br/acesso-a-informacao/participacao-social/chamamentos-publicos/2026/chamamento-publico-no-33-2026-sgtes"
+    },
+    {
+      "id": "e60f4742-b561-44be-b4e3-bd586f2cc9b2",
+      "title": "Edital de chamamento público n° 02/2026. - Parcerias GDF MROSC",
+      "institution": "Estadual - DF",
+      "scope": "Estadual",
+      "category": "Assistência Social",
+      "deadline": null,
+      "is_continuous": true,
+      "value": null,
+      "url": "https://parcerias.df.gov.br/controle/relatorio/licitacaogdf.php?IdLicitacao=4856"
+    },
+    {
+      "id": "7b31c54d-95f3-4ca1-9f20-69bf79d81f49",
+      "title": "CHAMAMENTO PÚBLICO Nº 03/2026 – ATHIS",
+      "institution": "Nacional",
+      "scope": "Nacional",
+      "category": "Assistência Social",
+      "deadline": null,
+      "is_continuous": true,
+      "value": null,
+      "url": "https://caubr.gov.br/observatorioathis/edital-athis/chamamento-publico-no-03-2026-athis/"
     },
     {
       "id": "8fb1ec5b-a6c5-4b61-b176-a88a4fcc9f9a",
@@ -5425,37 +5524,26 @@
       "url": "https://www.gov.br/saude/pt-br/acesso-a-informacao/participacao-social/chamamentos-publicos/2026/chamamento-publico-no-03-2026-saes"
     },
     {
-      "id": "ff069bfa-a413-430b-8f43-06b11847d18e",
-      "title": "Edital de Chamamento Público nº 4/2026 Programa Cisternas",
-      "institution": "Nacional",
+      "id": "34cb3ed6-317a-4c86-8990-476461d9b498",
+      "title": "Culturas Pesqueiras Artesanais do Brasil - Edital de Chamamento Público nº 01/2026 ",
+      "institution": "Não informado",
       "scope": "Nacional",
-      "category": "Meio Ambiente",
+      "category": "Cultura",
       "deadline": null,
       "is_continuous": true,
-      "value": null,
-      "url": "https://conjunta.org/recurso-financeiro/edital-programa-cisternas-2026-oscs/"
+      "value": 2341800,
+      "url": "https://produtos.prosas.com.br/editais/edital?edital_id=17401"
     },
     {
-      "id": "250ef243-ae22-4066-b102-844c88ae51d7",
-      "title": "Plataforma Juventude Solidária – Seleção de Projetos Ciclo 2026",
-      "institution": "Nacional",
-      "scope": "Nacional",
-      "category": "Assistência Social",
-      "deadline": null,
-      "is_continuous": true,
-      "value": null,
-      "url": "https://conjunta.org/recurso-financeiro/plataforma-juventude-solidaria-oscs/"
-    },
-    {
-      "id": "e60f4742-b561-44be-b4e3-bd586f2cc9b2",
-      "title": "Edital de chamamento público n° 02/2026. - Parcerias GDF MROSC",
-      "institution": "Estadual - DF",
+      "id": "a2290a24-cca9-4a42-8cea-eccba69d0172",
+      "title": "Credenciamento - Governo de Sergipe",
+      "institution": "Estadual - SE",
       "scope": "Estadual",
-      "category": "Assistência Social",
+      "category": "Outro",
       "deadline": null,
       "is_continuous": true,
       "value": null,
-      "url": "https://parcerias.df.gov.br/controle/relatorio/licitacaogdf.php?IdLicitacao=4856"
+      "url": "https://www.se.gov.br/seteem/transparencia/licitacoes_e_contratos/credenciamento"
     },
     {
       "id": "2d7be12c-df01-4e7b-9570-1ddf510c1378",
@@ -5480,215 +5568,6 @@
       "url": "https://produtos.prosas.com.br/editais/edital?edital_id=17157"
     },
     {
-      "id": "917c4e3a-d659-4202-9e24-97441859773d",
-      "title": "W.K. Kellogg Foundation Grants 2026 - Opportunities for Youth",
-      "institution": "Internacional",
-      "scope": "Internacional",
-      "category": "Educação",
-      "deadline": null,
-      "is_continuous": true,
-      "value": null,
-      "url": "https://opportunitiesforyouth.org/2026/05/01/w-k-kellogg-foundation-grants-2026-open-funding-opportunities-for-organizations-advancing-equity-child-wellbeing-and-community-development/"
-    },
-    {
-      "id": "7a947106-d7b3-474b-b261-1458188af74b",
-      "title": "Edital Rainforest Trust para proteger ecossistemas e mitigação climática",
-      "institution": "Não informado",
-      "scope": "Internacional",
-      "category": "Meio Ambiente",
-      "deadline": null,
-      "is_continuous": true,
-      "value": 10000,
-      "url": "https://produtos.prosas.com.br/editais/edital?edital_id=15469"
-    },
-    {
-      "id": "bb891b04-d802-488f-bdb2-ca967e80fa86",
-      "title": "PIC - Programa de Incentivo à Cultura Mecenato Estadual",
-      "institution": "Estadual - SC",
-      "scope": "Estadual",
-      "category": "Cultura",
-      "deadline": null,
-      "is_continuous": true,
-      "value": null,
-      "url": "https://www.instagram.com/reel/DXbnpsVls4I/"
-    },
-    {
-      "id": "4d928f09-6e88-40a0-8431-ab9389a98c3d",
-      "title": "Edital de Chamamento Público nº 108/2026 - ADERES",
-      "institution": "Estadual - ES",
-      "scope": "Estadual",
-      "category": "Edital",
-      "deadline": null,
-      "is_continuous": true,
-      "value": null,
-      "url": "https://aderes.es.gov.br/edital-de-chamamento-publico-no-108-2026-selecao-de-organizacao-da-sociedade-civil-osc-especializada-na-prestacao-de-servicos-de-capacitacao-presencial-em-gestao-empresarial-para-a-execucao-do-projeto-colibris-2026"
-    },
-    {
-      "id": "64a0d361-945c-4644-8e99-a0fd44b797bc",
-      "title": "Programa de Assistência para Projetos Comunitários e de Segurança Humana",
-      "institution": "Não informado",
-      "scope": "Nacional",
-      "category": "Assistência Social",
-      "deadline": null,
-      "is_continuous": true,
-      "value": 90000,
-      "url": "https://produtos.prosas.com.br/editais/edital?edital_id=15022"
-    },
-    {
-      "id": "5f6538e4-683f-4933-be26-107a9b0c6339",
-      "title": "Edital de subsídios para proteção e bem-estar animal ",
-      "institution": "Não informado",
-      "scope": "Nacional",
-      "category": "Meio Ambiente",
-      "deadline": null,
-      "is_continuous": true,
-      "value": 1000,
-      "url": "https://produtos.prosas.com.br/editais/edital?edital_id=15898"
-    },
-    {
-      "id": "108ca82c-67e5-4c6f-b85f-cc8d8f152245",
-      "title": "Edital Fumph 01/26 - Chamamento Público 01/2026-FUMPH",
-      "institution": "Municipal - São Luís, MA",
-      "scope": "Municipal",
-      "category": "Edital",
-      "deadline": null,
-      "is_continuous": true,
-      "value": null,
-      "url": "https://www.saoluis.ma.gov.br/editalfumph0126"
-    },
-    {
-      "id": "ba1841b8-6160-4648-800c-7a200b80bd2b",
-      "title": "2026/004: Igualdade Étnico-Racial nas Cidades e Territórios",
-      "institution": "Nacional",
-      "scope": "Nacional",
-      "category": "Edital",
-      "deadline": null,
-      "is_continuous": true,
-      "value": 10000000,
-      "url": "https://investidor.bussolasocial.com.br/caixaeconomicafederal/editais/igualdade-etnico-racial-nas-cidades-2026"
-    },
-    {
-      "id": "c3347702-2788-44f2-a93b-53120fc926ab",
-      "title": "BIP: Fundo para Infância e Adolescência (FIA)",
-      "institution": "Não informado",
-      "scope": "Nacional",
-      "category": "Educação",
-      "deadline": null,
-      "is_continuous": true,
-      "value": null,
-      "url": "https://produtos.prosas.com.br/editais/edital?edital_id=16243"
-    },
-    {
-      "id": "edb65038-4cb1-48da-b331-71e2f8404fb2",
-      "title": "ABERTURA DO EDITAL CMDCA / FIA 2026",
-      "institution": "Municipal - Carmo do Paranaíba, MG",
-      "scope": "Municipal",
-      "category": "Assistência Social",
-      "deadline": null,
-      "is_continuous": true,
-      "value": null,
-      "url": "https://carmodoparanaiba.mg.gov.br/abertura-do-edital-cmdca-fia-2026/"
-    },
-    {
-      "id": "74d06829-877e-4369-af77-3b185d0922ca",
-      "title": "Apoio para Pequenos Projetos",
-      "institution": "Não informado",
-      "scope": "Nacional",
-      "category": "Direitos Humanos",
-      "deadline": null,
-      "is_continuous": true,
-      "value": 25000,
-      "url": "https://produtos.prosas.com.br/editais/edital?edital_id=15004"
-    },
-    {
-      "id": "8247a422-507c-4545-aa29-aa97d341484c",
-      "title": "Edital de apoio de projetos que visam a conservação dos oceanos",
-      "institution": "Não informado",
-      "scope": "Internacional",
-      "category": "Meio Ambiente",
-      "deadline": null,
-      "is_continuous": true,
-      "value": 20000,
-      "url": "https://produtos.prosas.com.br/editais/edital?edital_id=14989"
-    },
-    {
-      "id": "2efae4cf-f780-4a70-a52a-1d7728f04305",
-      "title": "Caixa lança edital de R$ 10 milhões para projetos de cidadania financeira e inclusão econômica",
-      "institution": "Nacional",
-      "scope": "Nacional",
-      "category": "Empreendedorismo/Renda",
-      "deadline": null,
-      "is_continuous": true,
-      "value": 10000000,
-      "url": "https://artequemoraaqui.com.br/caixa-lanca-edital-de-r-10-milhoes-para-projetos-de-cidadania-financeira-e-inclusao-econom/"
-    },
-    {
-      "id": "90934331-d0df-48b5-8e36-b742cc5c9f88",
-      "title": "Chamamento para Chancela de Projetos - CMDCA Santaluz",
-      "institution": "Não informado",
-      "scope": "Nacional",
-      "category": "Outro",
-      "deadline": null,
-      "is_continuous": true,
-      "value": null,
-      "url": "https://produtos.prosas.com.br/editais/edital?edital_id=15934"
-    },
-    {
-      "id": "0c244b89-f2bb-4eb3-a168-7f4ba22d01af",
-      "title": "Chamamento Público nº 14/2026 - Seleção de Organização Social para Gestão de Hospitais",
-      "institution": "Nacional",
-      "scope": "Nacional",
-      "category": "Edital",
-      "deadline": null,
-      "is_continuous": true,
-      "value": null,
-      "url": "https://www.gov.br/saude/pt-br/acesso-a-informacao/participacao-social/chamamentos-publicos/2026"
-    },
-    {
-      "id": "83ac4601-3f03-49d9-af19-4e84b9c5346f",
-      "title": "Oportunidade de financiamento para organizações sem fins lucrativos em estágio inicial",
-      "institution": "Não informado",
-      "scope": "Internacional",
-      "category": "Outro",
-      "deadline": null,
-      "is_continuous": true,
-      "value": 250000,
-      "url": "https://produtos.prosas.com.br/editais/edital?edital_id=15489"
-    },
-    {
-      "id": "04137b28-d1ba-4824-bb7b-f3e8dfeb96e0",
-      "title": "EDITAL DECREDENCIAMENTO E CHAMAMENTO PÚBLICO OSC (BOMBEIROS)",
-      "institution": "Estadual - SC",
-      "scope": "Municipal",
-      "category": "Assistência Social",
-      "deadline": null,
-      "is_continuous": true,
-      "value": null,
-      "url": "https://trezedemaio.sc.gov.br/concursos-publicos/"
-    },
-    {
-      "id": "a2d6f4bc-9b9c-4b41-bace-42e29af9239d",
-      "title": "LIFE-2026-SAP-ENV — Circular Economy and Quality of Life",
-      "institution": "Internacional",
-      "scope": "Internacional",
-      "category": "Meio Ambiente",
-      "deadline": null,
-      "is_continuous": true,
-      "value": null,
-      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/docs/2021-2027/life/wp-call/2026/call-fiche_life-2026-sap-env_en.pdf"
-    },
-    {
-      "id": "91bb415d-e812-45c6-970f-e77f21883006",
-      "title": "Termo de Fomento 008/2026",
-      "institution": "Municipal - Taquari, RS",
-      "scope": "Municipal",
-      "category": "Assistência Social",
-      "deadline": null,
-      "is_continuous": true,
-      "value": null,
-      "url": "https://www.taquari.rs.gov.br/licitacao/id/1012/?termo-de-fomento.html"
-    },
-    {
       "id": "de9a0766-a61a-4e9b-adaa-8194beac1982",
       "title": "Energisa Cultural",
       "institution": "Não informado",
@@ -5700,37 +5579,103 @@
       "url": "https://produtos.prosas.com.br/editais/edital?edital_id=16153"
     },
     {
-      "id": "012dba80-506d-4b5a-8d62-8526b180f110",
-      "title": "Patrocínios Claro",
+      "id": "eeefc4fb-c298-4bda-a2d1-2ee43dd097d6",
+      "title": "Seleção de projetos no setor audiovisual para receber apoio financeiro no Estado da Bahia",
+      "institution": "Não informado",
+      "scope": "Estadual",
+      "category": "Cultura",
+      "deadline": null,
+      "is_continuous": true,
+      "value": 7200000,
+      "url": "https://produtos.prosas.com.br/editais/edital?edital_id=15085"
+    },
+    {
+      "id": "31f5c4ae-6808-4d62-a522-7561badae195",
+      "title": "Edital Contínuo de Apoio a Projetos Sociais – Ciclo 2026",
       "institution": "Não informado",
       "scope": "Nacional",
+      "category": "Assistência Social",
+      "deadline": null,
+      "is_continuous": true,
+      "value": null,
+      "url": "https://produtos.prosas.com.br/editais/edital?edital_id=18265"
+    },
+    {
+      "id": "69357c1f-c0f3-485b-8957-ea7396da6778",
+      "title": "Cem Cópias Sem Custo - Literatura infantil",
+      "institution": "Não informado",
+      "scope": "Estadual",
       "category": "Cultura",
       "deadline": null,
       "is_continuous": true,
       "value": null,
-      "url": "https://produtos.prosas.com.br/editais/edital?edital_id=14944"
+      "url": "https://produtos.prosas.com.br/editais/edital?edital_id=16347"
     },
     {
-      "id": "fa9ec19c-fb77-4ec5-9512-dcc29999aeeb",
-      "title": "Financiamento para Projetos Inovadores ",
-      "institution": "Não informado",
-      "scope": "Internacional",
-      "category": "Ciência e Tecnologia",
-      "deadline": null,
-      "is_continuous": true,
-      "value": 4000000,
-      "url": "https://produtos.prosas.com.br/editais/edital?edital_id=15007"
-    },
-    {
-      "id": "433ccc87-a229-4ecc-a4b5-bbeb86b7ad6f",
-      "title": "Programa  Shell Iniciativa Jovem ",
-      "institution": "Não informado",
+      "id": "b6e2ed9a-28e2-43c1-951f-b7564256acce",
+      "title": "Edital nº 05/2026 – Projetos Sociais COMDICA",
+      "institution": "Nacional",
       "scope": "Nacional",
-      "category": "Empreendedorismo/Renda",
+      "category": "Assistência Social",
       "deadline": null,
       "is_continuous": true,
       "value": null,
-      "url": "https://produtos.prosas.com.br/editais/edital?edital_id=13648"
+      "url": "https://capta.org.br/oportunidades/edital-no-05-2026-projetos-sociais-comdica/"
+    },
+    {
+      "id": "33559463-681e-4afc-b7a0-0d4b609038cf",
+      "title": "Orientadores artisticos de Oficinas Culturais - Credenciamento 001_Edital 001_2023",
+      "institution": "Não informado",
+      "scope": "Municipal",
+      "category": "Cultura",
+      "deadline": null,
+      "is_continuous": true,
+      "value": null,
+      "url": "https://produtos.prosas.com.br/editais/edital?edital_id=12743"
+    },
+    {
+      "id": "fb800481-5c1c-4a44-a87b-08a6f10752b6",
+      "title": "Chamamento Público nº 12/2026 - Edital de Seleção de Organizações da Sociedade Civil",
+      "institution": "Municipal - Rio Pardo, RS",
+      "scope": "Municipal",
+      "category": "Edital",
+      "deadline": null,
+      "is_continuous": true,
+      "value": null,
+      "url": "https://www.riopardo.rs.gov.br/portal/editais/0/5/1366"
+    },
+    {
+      "id": "8b1482e9-c1f0-434d-b7c9-dd12d5db4d88",
+      "title": "Seleção da Havan para patrocínios, projetos e doações",
+      "institution": "Não informado",
+      "scope": "Nacional",
+      "category": "Outro",
+      "deadline": null,
+      "is_continuous": true,
+      "value": null,
+      "url": "https://produtos.prosas.com.br/editais/edital?edital_id=15965"
+    },
+    {
+      "id": "767f1f07-4a34-40da-8a35-bc7e3874988e",
+      "title": "EDITAL DE CREDENCIAMENTO DE Nº001/2026 - ORGANIZAÇÕES DA SOCIEDADE CIVIL",
+      "institution": "Municipal - Goianésia, GO",
+      "scope": "Municipal",
+      "category": "Assistência Social",
+      "deadline": null,
+      "is_continuous": true,
+      "value": null,
+      "url": "https://goianesia.go.gov.br/wp-content/uploads/2023/11/Edital-Credenciamento-Promocao.pdf"
+    },
+    {
+      "id": "31776b99-b15c-43b3-8b2f-b55721a4cb06",
+      "title": "Edital Órizon 2026",
+      "institution": "Estadual - SP",
+      "scope": "Estadual",
+      "category": "Educação",
+      "deadline": null,
+      "is_continuous": true,
+      "value": null,
+      "url": "https://www.instagram.com/reel/DXHxJgDhh70/"
     },
     {
       "id": "d164ee2d-296e-4789-84a0-ef4e4cc5188d",
@@ -5766,6 +5711,17 @@
       "url": "https://produtos.prosas.com.br/editais/edital?edital_id=16668"
     },
     {
+      "id": "fa9ec19c-fb77-4ec5-9512-dcc29999aeeb",
+      "title": "Financiamento para Projetos Inovadores ",
+      "institution": "Não informado",
+      "scope": "Internacional",
+      "category": "Ciência e Tecnologia",
+      "deadline": null,
+      "is_continuous": true,
+      "value": 4000000,
+      "url": "https://produtos.prosas.com.br/editais/edital?edital_id=15007"
+    },
+    {
       "id": "6957f82f-5c29-44f1-8daf-3aa035c77dd5",
       "title": "Financiamento Rainforest Trust",
       "institution": "Não informado",
@@ -5777,15 +5733,37 @@
       "url": "https://produtos.prosas.com.br/editais/edital?edital_id=16381"
     },
     {
-      "id": "4aff441f-3eb3-4f44-a545-f714823b25d4",
-      "title": "Fund for Innovation in Development Call for Proposals 2026",
-      "institution": "Internacional",
-      "scope": "Internacional",
-      "category": "Assistência Social",
+      "id": "012dba80-506d-4b5a-8d62-8526b180f110",
+      "title": "Patrocínios Claro",
+      "institution": "Não informado",
+      "scope": "Nacional",
+      "category": "Cultura",
       "deadline": null,
       "is_continuous": true,
-      "value": 4700000,
-      "url": "https://opportunitiesforyouth.org/2026/06/12/fid-call-for-proposals-2026-apply-for-up-to-e4-million-to-scale-innovative-solutions-tackling-poverty-and-inequality-worldwide/"
+      "value": null,
+      "url": "https://produtos.prosas.com.br/editais/edital?edital_id=14944"
+    },
+    {
+      "id": "dbbf8826-c782-44b0-805d-1b88da4f64e5",
+      "title": "EDITAL Nº 07/2025  Chamamento Público para credenciamento de Intervenções Artísticas e compra de Espetáculos artísticos-culturais.",
+      "institution": "Não informado",
+      "scope": "Municipal",
+      "category": "Cultura",
+      "deadline": null,
+      "is_continuous": true,
+      "value": null,
+      "url": "https://produtos.prosas.com.br/editais/edital?edital_id=15633"
+    },
+    {
+      "id": "b621bb5a-719d-47ae-8c52-e54c8e53ee4e",
+      "title": "Fundo Patrimonial Cultural 2026",
+      "institution": "Nacional",
+      "scope": "Nacional",
+      "category": "Cultura",
+      "deadline": null,
+      "is_continuous": true,
+      "value": null,
+      "url": "https://conjunta.org/recurso-financeiro/fundo-patrimonial-cultural-2026/"
     },
     {
       "id": "94fc072e-5b3c-4f77-9224-30aa095251f8",
@@ -5799,6 +5777,17 @@
       "url": "https://produtos.prosas.com.br/editais/edital?edital_id=17265"
     },
     {
+      "id": "8d2bb79c-9093-4f3b-b2ba-f5cd58952622",
+      "title": "Edital Coop 2026 - Programa de Benefícios às Entidades",
+      "institution": "Estadual - SP",
+      "scope": "Estadual",
+      "category": "Assistência Social",
+      "deadline": null,
+      "is_continuous": true,
+      "value": 20000,
+      "url": "https://conjunta.org/recurso-financeiro/edital-coop-2026-organizacoes-sociais/"
+    },
+    {
       "id": "eae595d1-9cb7-4f56-a0ec-58879fc24f82",
       "title": "Cultura Vicentina: Edital PNAB São Vicente 01/2026",
       "institution": "Não informado",
@@ -5810,26 +5799,37 @@
       "url": "https://produtos.prosas.com.br/editais/edital?edital_id=17385"
     },
     {
-      "id": "1444c6a5-6bb4-44d5-be22-94d1c6fc67e0",
-      "title": "Pró-Social volta a receber projetos",
-      "institution": "Estadual - RS",
-      "scope": "Estadual",
+      "id": "fbb404f2-59c2-4548-ba00-7a6f23505d26",
+      "title": "Edital Contínuo de Apoio a Projetos Sociais – Ciclo 2026",
+      "institution": "Nacional",
+      "scope": "Nacional",
       "category": "Assistência Social",
       "deadline": null,
       "is_continuous": true,
       "value": null,
-      "url": "https://social.rs.gov.br/pro-social-volta-a-receber-projetos"
+      "url": "https://conjunta.org/recurso-financeiro/edital-continuo-de-apoio-a-projetos-sociais-ciclo-2026-instituto-impactarte/"
     },
     {
-      "id": "d8731f97-0b79-42a5-8d1b-212178cfad5c",
-      "title": "Governo do Brasil lança edital de R$ 50 milhões para fortalecer agricultores familiares",
-      "institution": "Nacional",
-      "scope": "Nacional",
-      "category": "Empreendedorismo/Renda",
+      "id": "8b674fa6-20bf-460f-8973-e2caafd4f6c5",
+      "title": "Chamamento Público para seleção de OSC - Aprendizagem Profissional",
+      "institution": "Municipal - Pracinha, SP",
+      "scope": "Municipal",
+      "category": "Edital",
       "deadline": null,
       "is_continuous": true,
-      "value": 50000000,
-      "url": "https://www.gov.br/secom/pt-br/acompanhe-a-secom/noticias/2026/05/governo-do-brasil-lanca-edital-de-r-50-milhoes-para-fortalecer-agricultores-familiares"
+      "value": null,
+      "url": "https://www.pracinha.sp.gov.br/licitacao/detalhe/351/pchamamento-publico-para-selecao-de-organizacao-da-sociedade-civil-sem-fins-lucrativos-osc-visando-a-celebracao-de-parceria-entre-a-prefeitura-do-municipio-de-pracinha-sp-para-a-execucao-de-atividades-voltadas-a-aprendizagem-profissional-de-adolescentes-e-jovens-entre-14-e-24-anos-de-idade"
+    },
+    {
+      "id": "ffbba22b-f391-4456-9897-5f74d7d12452",
+      "title": "Instituto Impactarte abre chamada aberta para ONGs",
+      "institution": "Nacional",
+      "scope": "Nacional",
+      "category": "Assistência Social",
+      "deadline": null,
+      "is_continuous": true,
+      "value": null,
+      "url": "https://observatorio3setor.org.br/instituto-impactarte-abre-chamada-aberta-para-ongs/"
     },
     {
       "id": "ab4c90f0-341e-4879-92c7-c5254df77e61",
@@ -5843,26 +5843,26 @@
       "url": "https://produtos.prosas.com.br/editais/edital?edital_id=15029"
     },
     {
-      "id": "34f317c2-e94e-4a82-9d2c-c9411aea33b4",
-      "title": "Chamamento Público nº 29/2026 - Secretaria de Gestão do Trabalho e da Educação na Saúde (SGTES)",
+      "id": "377d0f37-7d4c-43cd-8ba3-2be0d866525f",
+      "title": "Instituto Impactarte abre inscrições para edital contínuo de apoio a projetos sociais",
       "institution": "Nacional",
       "scope": "Nacional",
-      "category": "Educação",
+      "category": "Assistência Social",
       "deadline": null,
       "is_continuous": true,
       "value": null,
-      "url": "https://www.gov.br/saude/pt-br/acesso-a-informacao/participacao-social/chamamentos-publicos/2026/chamamento-publico-no-29-2026-sgtes"
+      "url": "https://captadores.org.br/editais/instituto-impactarte-abre-inscricoes-para-edital-continuo-de-apoio-a-projetos-sociais/"
     },
     {
-      "id": "299d1235-7b03-4794-b4b6-ea038edceb0a",
-      "title": "Fundação comunitária que busca soluções sustentáveis ",
+      "id": "83ac4601-3f03-49d9-af19-4e84b9c5346f",
+      "title": "Oportunidade de financiamento para organizações sem fins lucrativos em estágio inicial",
       "institution": "Não informado",
       "scope": "Internacional",
-      "category": "Meio Ambiente",
+      "category": "Outro",
       "deadline": null,
       "is_continuous": true,
-      "value": 10000,
-      "url": "https://produtos.prosas.com.br/editais/edital?edital_id=15021"
+      "value": 250000,
+      "url": "https://produtos.prosas.com.br/editais/edital?edital_id=15489"
     },
     {
       "id": "4e0543cc-3ffa-4104-b49c-5e7ca8d5b092",
@@ -5874,6 +5874,39 @@
       "is_continuous": true,
       "value": null,
       "url": "https://produtos.prosas.com.br/editais/edital?edital_id=14991"
+    },
+    {
+      "id": "040bcfda-7b80-43e0-a6e5-002272b8e624",
+      "title": "Fundação está buscando parcerias com organizações para financiamento anual de até US$ 1 milhão",
+      "institution": "Não informado",
+      "scope": "Nacional",
+      "category": "Empreendedorismo/Renda",
+      "deadline": null,
+      "is_continuous": true,
+      "value": 1000000,
+      "url": "https://produtos.prosas.com.br/editais/edital?edital_id=15155"
+    },
+    {
+      "id": "4c03323c-673f-417d-b04c-dae80be9cb04",
+      "title": "Chamada Pública Brasilidades & Futuros: Programação do centro cultural Futuros - Arte e Tecnologia",
+      "institution": "Nacional",
+      "scope": "Nacional",
+      "category": "Cultura",
+      "deadline": null,
+      "is_continuous": true,
+      "value": null,
+      "url": "https://produtos.prosas.com.br/editais/edital?edital_id=17743"
+    },
+    {
+      "id": "e17a1bf6-be30-4bc6-acc1-72dd743ed028",
+      "title": "EDITAL FAPERGS 03/2026 PROGRAMA DE APOIO AOS ECOSSISTEMAS DE INOVAÇÃO - EDIÇÃO 2026",
+      "institution": "Estadual - RS",
+      "scope": "Estadual",
+      "category": "Ciência e Tecnologia",
+      "deadline": null,
+      "is_continuous": true,
+      "value": 8000000,
+      "url": "https://produtos.prosas.com.br/editais/edital?edital_id=17691"
     }
   ]
 }
