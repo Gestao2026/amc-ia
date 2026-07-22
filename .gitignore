@@ -25,3 +25,6 @@ painel/pipeline-*.html
 __pycache__/
 *.pyc
 node_modules/
+
+# Relatorios da sincronizacao automatica diaria (operacional, gerado local)
+logs/sincronizacao-diaria/

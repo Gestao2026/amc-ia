@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Apostila de Comandos. AMC IA</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root{
+    --tinta:#1c1f26;
+    --tinta-suave:#4a5160;
+    --linha:#d8dce3;
+    --acento:#2f6f5e;
+    --acento-suave:#eaf3f0;
+    --alerta:#a5501c;
+    --alerta-suave:#fbf1e8;
+    --fundo:#ffffff;
+  }
+  *{ box-sizing:border-box; }
+  html,body{
+    margin:0; padding:0;
+    background:var(--fundo);
+    color:var(--tinta);
+    font-family: "Segoe UI", -apple-system, "Helvetica Neue", Arial, sans-serif;
+    font-size:15.5px;
+    line-height:1.55;
+  }
+  .pagina{
+    max-width:840px;
+    margin:0 auto;
+    padding:48px 40px 80px;
+  }
+  header.capa{
+    border-bottom:3px solid var(--acento);
+    padding-bottom:22px;
+    margin-bottom:20px;
+  }
+  header.capa .selo{
+    display:inline-block;
+    font-size:12px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--acento);
+    font-weight:600;
+    border:1px solid var(--acento);
+    border-radius:20px;
+    padding:4px 12px;
+    margin-bottom:14px;
+  }
+  header.capa h1{
+    font-size:28px;
+    margin:0 0 8px;
+    letter-spacing:-.01em;
+  }
+  header.capa p.subtitulo{
+    margin:0;
+    color:var(--tinta-suave);
+    font-size:15px;
+    max-width:640px;
+  }
+  .como-usar{
+    margin:0 0 30px;
+    padding:14px 18px;
+    border-left:3px solid var(--acento);
+    background:var(--acento-suave);
+    font-size:14px;
+  }
+  .regra{
+    margin:16px 0;
+    padding:12px 16px;
+    border-left:3px solid var(--acento);
+    background:var(--acento-suave);
+    font-size:14.5px;
+  }
+  h2{
+    font-size:19px;
+    margin:40px 0 6px;
+    padding-bottom:6px;
+    border-bottom:1px solid var(--linha);
+    display:flex;
+    align-items:baseline;
+    gap:10px;
+  }
+  h2 .num{
+    color:var(--acento);
+    font-variant-numeric:tabular-nums;
+    font-size:15px;
+    font-weight:700;
+  }
+  h3{ font-size:16px; margin:22px 0 6px; }
+  p{ margin:10px 0; }
+  strong{ color:var(--tinta); }
+  ul,ol{ margin:10px 0; padding-left:22px; }
+  li{ margin:4px 0; }
+  table{
+    width:100%;
+    border-collapse:collapse;
+    margin:14px 0 18px;
+    font-size:13.5px;
+  }
+  th,td{
+    border:1px solid var(--linha);
+    padding:8px 10px;
+    text-align:left;
+    vertical-align:top;
+  }
+  th{
+    background:var(--acento-suave);
+    font-weight:600;
+    color:var(--tinta);
+  }
+  code{
+    font-family:"Cascadia Code","Consolas",monospace;
+    background:var(--acento-suave);
+    border:1px solid var(--linha);
+    border-radius:4px;
+    padding:1px 6px;
+    font-size:13px;
+    color:var(--acento);
+    white-space:nowrap;
+  }
+  pre{
+    background:var(--acento-suave);
+    border:1px solid var(--linha);
+    border-radius:6px;
+    padding:14px 16px;
+    font-size:13px;
+    line-height:1.6;
+    overflow-x:auto;
+    font-family:"Cascadia Code","Consolas",monospace;
+    color:var(--tinta);
+  }
+  footer{
+    margin-top:56px;
+    padding-top:16px;
+    border-top:1px solid var(--linha);
+    font-size:12.5px;
+    color:var(--tinta-suave);
+    font-style:italic;
+  }
+
+  @media print{
+    .pagina{ padding:0; max-width:none; }
+    h2{ break-after:avoid; }
+    table, .regra, .como-usar, pre{ break-inside:avoid; }
+    @page{ size:A4; margin:18mm 16mm; }
+  }
+</style>
+</head>
+<body>
+<div class="pagina">
+
+  <header class="capa">
+    <span class="selo">Apostila de comandos</span>
+    <h1>Apostila de Comandos. AMC IA</h1>
+    <p class="subtitulo">Guia de referência de todos os comandos, agentes e áreas de trabalho da AMC IA. Use para saber, na hora da dúvida, qual comando digitar para cada situação.</p>
+  </header>
+
+  <div class="como-usar">
+    <strong>Como esta apostila está organizada:</strong> pelas mesmas fases do Método Captar 2.0. Primeiro <strong>CAPTAR</strong> (o dia a dia técnico com um edital e uma OSC), depois <strong>POSICIONAR</strong> (o marketing do captador como negócio) e <strong>ASSESSORAR</strong> (a venda e a prestação do serviço). No fim, uma área de Apoio e Sistema reúne o que dá suporte a tudo isso. Cada comando tem: para que serve, quando usar.
+  </div>
+
+  <div class="regra"><strong>Como o sistema pensa:</strong> a AMC IA sempre trabalha em cima de duas coisas, uma OSC ativa e, dentro dela, um projeto (um edital sendo trabalhado). Quase todo comando começa lendo qual organização está em foco. O CaptaHub é a fonte da verdade (editais, carteira, pipeline); a AMC IA é o estúdio de elaboração que transforma um edital em projeto aprovado.</div>
+  <pre>CaptaHub (fonte da verdade: editais + carteira + pipeline)
+        |  puxa
+        v
+    AMC IA (estúdio de elaboração)
+        |
+  OSC ativa -&gt; Projeto (edital) -&gt; os 4 agentes -&gt; entrega pronta para submeter</pre>
+
+  <h2><span class="num">1</span> Organização (a OSC)</h2>
+  <p>Cadastro e gestão da organização atendida. Todo o resto do sistema depende de existir uma OSC ativa.</p>
+  <table>
+    <thead><tr><th>Comando</th><th>Para que serve</th><th>Quando usar</th></tr></thead>
+    <tbody>
+      <tr><td><code>/osc-nova</code></td><td>Cadastra uma OSC nova (dados cadastrais, natureza jurídica, área de atuação, território, documentos) e a define como ativa.</td><td>Primeira vez que vai trabalhar com aquela organização, e ela não está na carteira do CaptaHub.</td></tr>
+      <tr><td><code>/osc-importar</code></td><td>Traz uma OSC que já existe na carteira do CaptaHub para dentro da AMC IA, criando o perfil local.</td><td>A organização já está cadastrada no CaptaHub, só falta trazer para cá.</td></tr>
+      <tr><td><code>/osc-trocar</code></td><td>Mostra a carteira completa (CaptaHub + local) e troca qual OSC está ativa.</td><td>Vai atender outro cliente na mesma sessão.</td></tr>
+      <tr><td><code>/osc-perfil</code></td><td>Mostra e atualiza o perfil da OSC ativa: dados cadastrais, documentos, capacidade técnica.</td><td>Precisa checar ou corrigir um dado da organização, ou marcar documento obtido ou vencido.</td></tr>
+    </tbody>
+  </table>
+
+  <h2><span class="num">2</span> Editais</h2>
+  <p>Descoberta e leitura de oportunidades. Os editais sempre vêm do CaptaHub; a base local é só um cache de apoio.</p>
+  <table>
+    <thead><tr><th>Comando</th><th>Para que serve</th><th>Quando usar</th></tr></thead>
+    <tbody>
+      <tr><td><code>/edital-minerar</code></td><td>Puxa os editais do CaptaHub e lista os mais aderentes ao perfil da OSC ativa (escopo, valor, prazo, área).</td><td>Está procurando qual edital vale a pena para a OSC ativa.</td></tr>
+      <tr><td><code>/edital-analisar</code></td><td>Lê um edital inteiro (PDF, link ou texto colado) e extrai critérios, prazos, exigências, o que pontua e o que derruba nota.</td><td>Já escolheu o edital e precisa entender a fundo antes de qualquer outra etapa. É a entrada de dados dos 4 agentes.</td></tr>
+    </tbody>
+  </table>
+
+  <h2><span class="num">3</span> Projeto. Os 4 agentes (o coração do sistema)</h2>
+  <p>A linha de montagem que transforma um edital analisado em um projeto pronto para submeter. Segue sempre esta ordem, protegida pelo <strong>Gate de Elegibilidade</strong>: nunca se escreve proposta sem elegibilidade verificada primeiro.</p>
+  <pre>CaptaDoc -&gt; CaptaBuilder -&gt; CaptaBudget -&gt; CaptaScore</pre>
+  <table>
+    <thead><tr><th>Comando</th><th>Agente</th><th>Para que serve</th><th>Quando usar</th></tr></thead>
+    <tbody>
+      <tr><td><code>/projeto-elegibilidade</code></td><td>CaptaDoc</td><td>Cruza o edital com o perfil da OSC e dá o veredito: APTO, APTO COM PENDÊNCIAS ou INAPTO NO MOMENTO, com checklist documental.</td><td>Sempre o primeiro passo depois de <code>/edital-analisar</code>. Nenhuma proposta começa sem isso.</td></tr>
+      <tr><td><code>/projeto-escrever</code></td><td>CaptaBuilder</td><td>Conduz a entrevista por blocos (justificativa, objetivos, metas, metodologia, cronograma etc.) e escreve a proposta completa, ancorada nos critérios do edital.</td><td>Depois da elegibilidade confirmada (APTO ou APTO COM PENDÊNCIAS).</td></tr>
+      <tr><td><code>/projeto-orcamento</code></td><td>CaptaBudget</td><td>Monta o orçamento técnico por rubrica, com memória de cálculo, dentro do teto e das regras financeiras do edital.</td><td>Depois que a proposta existe: o orçamento nasce das atividades descritas nela.</td></tr>
+      <tr><td><code>/projeto-avaliar</code></td><td>CaptaScore</td><td>Dá nota de 0 a 10 por critério, estima a chance de aprovação por fase e reescreve os campos mais críticos.</td><td>Proposta e orçamento prontos, antes de revisar e submeter. É a auditoria com visão de banca.</td></tr>
+      <tr><td><code>/projeto-revisar</code></td><td>revisor-proposta</td><td>Checklist final: completude, coerência interna, conformidade com o formulário oficial e revisão de português.</td><td>Último passo antes de exportar e submeter.</td></tr>
+      <tr><td><code>/projeto-exportar</code></td><td>—</td><td>Gera a entrega final em Word, PDF e planilha, prontos para anexar na plataforma de submissão.</td><td>Projeto revisado e aprovado, hora de gerar os arquivos finais.</td></tr>
+    </tbody>
+  </table>
+
+  <h2><span class="num">4</span> CaptaHub (conexão e sincronização)</h2>
+  <p>Comandos de integração entre a AMC IA e a plataforma que centraliza editais, carteira e pipeline.</p>
+  <table>
+    <thead><tr><th>Comando</th><th>Para que serve</th><th>Quando usar</th></tr></thead>
+    <tbody>
+      <tr><td><code>/captahub-conectar</code></td><td>Conecta a AMC IA ao CaptaHub (token de API no <code>.env</code>) para puxar editais e carteira ao vivo.</td><td>Primeira configuração, ou se a conexão parou de funcionar.</td></tr>
+      <tr><td><code>/captahub-sincronizar</code></td><td>Reconcilia carteira e pipeline nos dois sentidos: puxa atualizações do CaptaHub e sobe o que existe só localmente (OSC nova, status de projeto).</td><td>Ao abrir a sessão, ao terminar uma etapa importante, ou quando quer garantir que tudo está espelhado.</td></tr>
+    </tbody>
+  </table>
+
+  <h2><span class="num">5</span> Marketing do captador (Fase 2. POSICIONAR)</h2>
+  <div class="regra">Diferente das áreas anteriores: aqui o contexto não é uma OSC, é o próprio captador como negócio (<code>captador/perfil-captador.md</code>). O público é o gestor de OSC que pode contratar a assessoria.</div>
+  <table>
+    <thead><tr><th>Comando</th><th>Para que serve</th><th>Quando usar</th></tr></thead>
+    <tbody>
+      <tr><td><code>/captador-perfil</code></td><td>Cadastra ou atualiza o perfil do captador e da marca da assessoria: quem é, especialidade, público, diferenciais.</td><td>Antes de qualquer outro comando desta área. Sem perfil, o conteúdo sai genérico.</td></tr>
+      <tr><td><code>/captador-conteudo</code></td><td>Gera conteúdo de autoridade (carrossel, post de texto ou roteiro de reel) para atrair OSCs nas redes.</td><td>Quer publicar algo esta semana para se posicionar como referência em captação.</td></tr>
+      <tr><td><code>/captador-pagina</code></td><td>Gera a página de captura de leads da assessoria: copy completa mais HTML de arquivo único.</td><td>Precisa de um link para direcionar tráfego (bio, anúncio, indicação).</td></tr>
+      <tr><td><code>/captador-anuncio</code></td><td>Gera anúncios (copy e direção de criativo) para levar gestores de OSC até a página ou o diagnóstico.</td><td>Vai investir em tráfego pago ou impulsionamento.</td></tr>
+    </tbody>
+  </table>
+
+  <h2><span class="num">6</span> Venda e prestação do serviço (Fase 2 e 3. OFERTA e ASSESSORAR)</h2>
+  <table>
+    <thead><tr><th>Comando</th><th>Para que serve</th><th>Quando usar</th></tr></thead>
+    <tbody>
+      <tr><td><code>/assessoria-estruturar</code></td><td>Estrutura o serviço de assessoria: escopo, pacotes, precificação, e gera a proposta comercial.</td><td>Antes de sair vendendo: precisa decidir o que está oferecendo e por quanto.</td></tr>
+      <tr><td><code>/assessoria-pitch</code></td><td>Gera o playbook de venda do contrato anual de assessoria para uma OSC específica, com script e objeções mapeadas.</td><td>Vai ter uma reunião de fechamento com uma organização prospectada.</td></tr>
+    </tbody>
+  </table>
+
+  <h2><span class="num">7</span> Apoio e sistema</h2>
+  <table>
+    <thead><tr><th>Comando</th><th>Para que serve</th><th>Quando usar</th></tr></thead>
+    <tbody>
+      <tr><td><code>/configurar</code></td><td>Centraliza conexões e integrações: CaptaHub, atualização de editais, geração de imagens (opcional).</td><td>Configuração inicial do projeto ou ajuste de alguma integração.</td></tr>
+      <tr><td><code>/sala-agentes</code></td><td>Abre a Sala dos Agentes: um escritório visual em pixel art que mostra em tempo real qual agente está trabalhando e em que etapa.</td><td>Quer acompanhar visualmente o sistema em ação, ou mostrar para alguém como funciona.</td></tr>
+    </tbody>
+  </table>
+
+  <h2><span class="num">8</span> Agentes especialistas (por trás dos comandos)</h2>
+  <p>Os comandos acima acionam agentes especializados. Normalmente você não invoca um agente diretamente, mas é útil saber quem faz o quê:</p>
+  <table>
+    <thead><tr><th>Agente</th><th>Acionado por</th><th>O que faz</th></tr></thead>
+    <tbody>
+      <tr><td><strong>CaptaDoc</strong> (captador-doc)</td><td><code>/projeto-elegibilidade</code></td><td>Triagem documental e elegibilidade. Guardião do Gate de Elegibilidade.</td></tr>
+      <tr><td><strong>CaptaBuilder</strong> (captador-builder)</td><td><code>/projeto-escrever</code></td><td>Elaboração estratégica da proposta, bloco a bloco.</td></tr>
+      <tr><td><strong>CaptaBudget</strong> (captador-budget)</td><td><code>/projeto-orcamento</code></td><td>Orçamento técnico por rubrica, com memória de cálculo e pesquisa de preço quando o edital exige.</td></tr>
+      <tr><td><strong>CaptaScore</strong> (captador-score)</td><td><code>/projeto-avaliar</code></td><td>Avaliação com visão de banca: nota, chance de aprovação, reescrita dos campos críticos.</td></tr>
+      <tr><td><strong>revisor-proposta</strong></td><td><code>/projeto-revisar</code></td><td>Revisão final de completude, coerência e português antes da submissão.</td></tr>
+      <tr><td><strong>minerador-editais</strong></td><td><code>/edital-minerar</code></td><td>Puxa e prioriza editais do CaptaHub conforme o perfil da OSC.</td></tr>
+      <tr><td><strong>minerador-web</strong></td><td>Fallback automático de <code>/edital-minerar</code></td><td>Busca editais na web quando o CaptaHub não traz nada alinhado ao perfil.</td></tr>
+      <tr><td><strong>posicionador-captador</strong></td><td><code>/captador-conteudo</code>, <code>/captador-pagina</code>, <code>/captador-anuncio</code></td><td>Marketing e posicionamento do captador como negócio.</td></tr>
+      <tr><td><strong>orquestrador-captacao</strong></td><td>Uso interno</td><td>Diagnostica em que etapa da linha de montagem o captador está e direciona para o comando certo.</td></tr>
+    </tbody>
+  </table>
+
+  <h2><span class="num">9</span> Bases de conhecimento (skills consultadas pelos agentes)</h2>
+  <p>Não são comandos, mas fundamentam as respostas dos agentes. Cite-as se quiser entender de onde vem um critério ou uma regra:</p>
+  <table>
+    <thead><tr><th>Base de conhecimento</th><th>Consultada por</th><th>Conteúdo</th></tr></thead>
+    <tbody>
+      <tr><td>editais-fundamentos</td><td><code>/edital-analisar</code>, CaptaDoc</td><td>MROSC, tipos de parceria, naturezas jurídicas, plataformas de submissão, leis de incentivo.</td></tr>
+      <tr><td>elaboracao-proposta</td><td>CaptaBuilder</td><td>Estrutura de proposta seção a seção, como construir objetivos, metas, indicadores, metodologia e cronograma.</td></tr>
+      <tr><td>orcamento-tecnico</td><td>CaptaBudget</td><td>Rubricas, memória de cálculo, regras de teto e percentual, despesas vedadas, 3 cotações, glosa.</td></tr>
+      <tr><td>avaliacao-projeto</td><td>CaptaScore</td><td>Critérios de pontuação, fases de seleção, riscos de desclassificação, como estimar chance de aprovação.</td></tr>
+      <tr><td>posicionamento-captador</td><td>posicionador-captador</td><td>Público da assessoria, ângulos de conteúdo, precificação da oferta, Light Copy adaptada à captação.</td></tr>
+    </tbody>
+  </table>
+
+  <h2><span class="num">10</span> Fluxo completo de um projeto, do zero à submissão</h2>
+  <p>Para visualizar a jornada inteira, do primeiro contato com a OSC até o arquivo pronto para enviar:</p>
+  <pre> 1. /osc-nova (ou /osc-importar)      -&gt; cadastra ou importa a organização
+ 2. /edital-minerar                   -&gt; encontra o edital certo
+ 3. /edital-analisar                  -&gt; entende o edital a fundo
+ 4. /projeto-elegibilidade            -&gt; CaptaDoc dá o veredito (Gate de Elegibilidade)
+ 5. /projeto-escrever                 -&gt; CaptaBuilder escreve a proposta
+ 6. /projeto-orcamento                -&gt; CaptaBudget monta o orçamento
+ 7. /projeto-avaliar                  -&gt; CaptaScore dá a nota e a chance de aprovação
+ 8. /projeto-revisar                  -&gt; checklist final pré-submissão
+ 9. /projeto-exportar                 -&gt; gera Word, PDF e planilha
+10. (no CaptaHub) atualizar o status do projeto para "submetido"</pre>
+  <p>Em paralelo, sempre que fizer sentido: <code>/captahub-sincronizar</code> para manter a carteira e o pipeline espelhados.</p>
+
+  <h2><span class="num">11</span> Perguntas rápidas. "Quero fazer X, qual comando uso?"</h2>
+  <table>
+    <thead><tr><th>Eu quero...</th><th>Comando</th></tr></thead>
+    <tbody>
+      <tr><td>Cadastrar uma organização nova</td><td><code>/osc-nova</code></td></tr>
+      <tr><td>Trazer uma OSC que já está no CaptaHub</td><td><code>/osc-importar</code></td></tr>
+      <tr><td>Trabalhar com outro cliente agora</td><td><code>/osc-trocar</code></td></tr>
+      <tr><td>Ver ou corrigir os dados da organização</td><td><code>/osc-perfil</code></td></tr>
+      <tr><td>Achar um edital bom para a OSC ativa</td><td><code>/edital-minerar</code></td></tr>
+      <tr><td>Entender um edital específico a fundo</td><td><code>/edital-analisar</code></td></tr>
+      <tr><td>Saber se a OSC pode concorrer a este edital</td><td><code>/projeto-elegibilidade</code></td></tr>
+      <tr><td>Escrever a proposta do projeto</td><td><code>/projeto-escrever</code></td></tr>
+      <tr><td>Montar o orçamento do projeto</td><td><code>/projeto-orcamento</code></td></tr>
+      <tr><td>Saber a chance de aprovação antes de enviar</td><td><code>/projeto-avaliar</code></td></tr>
+      <tr><td>Fazer a checagem final antes de submeter</td><td><code>/projeto-revisar</code></td></tr>
+      <tr><td>Gerar os arquivos finais (Word, PDF, planilha)</td><td><code>/projeto-exportar</code></td></tr>
+      <tr><td>Conectar ou reconectar ao CaptaHub</td><td><code>/captahub-conectar</code></td></tr>
+      <tr><td>Colocar tudo em dia com o CaptaHub</td><td><code>/captahub-sincronizar</code></td></tr>
+      <tr><td>Cadastrar meu perfil como captador</td><td><code>/captador-perfil</code></td></tr>
+      <tr><td>Criar um post ou carrossel para atrair clientes</td><td><code>/captador-conteudo</code></td></tr>
+      <tr><td>Gerar minha página de captação de leads</td><td><code>/captador-pagina</code></td></tr>
+      <tr><td>Criar um anúncio para tráfego pago</td><td><code>/captador-anuncio</code></td></tr>
+      <tr><td>Definir pacotes e preços da assessoria</td><td><code>/assessoria-estruturar</code></td></tr>
+      <tr><td>Preparar o discurso de venda para uma OSC</td><td><code>/assessoria-pitch</code></td></tr>
+      <tr><td>Configurar integrações do projeto</td><td><code>/configurar</code></td></tr>
+      <tr><td>Ver os agentes trabalhando visualmente</td><td><code>/sala-agentes</code></td></tr>
+    </tbody>
+  </table>
+
+  <footer>
+    A AMC IA não tem pipeline, kanban nem CRM. Gestão de carteira, prazos de vários projetos e status de clientes ficam sempre no CaptaHub. Se a dúvida for "em que pé está cada projeto" ou "quais clientes tenho no total", a resposta está lá, não em um comando desta apostila.
+  </footer>
+
+</div>
+</body>
+</html>

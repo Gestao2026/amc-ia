@@ -29,6 +29,11 @@ import sys
 from datetime import date
 from pathlib import Path
 
+# No Windows o stdout usa o codepage do console (ex: cp1252), não UTF-8,
+# o que quebra a acentuação em pt_BR na saída. Força UTF-8 aqui.
+sys.stdout.reconfigure(encoding="utf-8")
+sys.stderr.reconfigure(encoding="utf-8")
+
 RAIZ = Path(__file__).resolve().parent.parent
 OSCS = RAIZ / "minhas-oscs"
 

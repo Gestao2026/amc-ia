@@ -16,6 +16,11 @@ import re
 import sys
 from pathlib import Path
 
+# No Windows o stdout usa o codepage do console (ex: cp1252), não UTF-8,
+# o que quebra a acentuação em pt_BR na saída. Força UTF-8 aqui.
+sys.stdout.reconfigure(encoding="utf-8")
+sys.stderr.reconfigure(encoding="utf-8")
+
 # Palavra sem acento -> forma acentuada esperada (contexto mais comum)
 SUSPEITAS = {
     "nao": "não", "sao": "são", "voce": "você", "esta": "está", "ja": "já",

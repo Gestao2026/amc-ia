@@ -1,0 +1,417 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Apostila de Treinamento. CaptaHub</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root{
+    --tinta:#1c1f26;
+    --tinta-suave:#4a5160;
+    --linha:#d8dce3;
+    --acento:#2f6f5e;
+    --acento-suave:#eaf3f0;
+    --alerta:#a5501c;
+    --alerta-suave:#fbf1e8;
+    --fundo:#ffffff;
+  }
+  *{ box-sizing:border-box; }
+  html,body{
+    margin:0; padding:0;
+    background:var(--fundo);
+    color:var(--tinta);
+    font-family: "Segoe UI", -apple-system, "Helvetica Neue", Arial, sans-serif;
+    font-size:15.5px;
+    line-height:1.55;
+  }
+  .pagina{
+    max-width:840px;
+    margin:0 auto;
+    padding:48px 40px 80px;
+  }
+  header.capa{
+    border-bottom:3px solid var(--acento);
+    padding-bottom:22px;
+    margin-bottom:20px;
+  }
+  header.capa .selo{
+    display:inline-block;
+    font-size:12px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--acento);
+    font-weight:600;
+    border:1px solid var(--acento);
+    border-radius:20px;
+    padding:4px 12px;
+    margin-bottom:14px;
+  }
+  header.capa h1{
+    font-size:28px;
+    margin:0 0 8px;
+    letter-spacing:-.01em;
+  }
+  header.capa p.subtitulo{
+    margin:0;
+    color:var(--tinta-suave);
+    font-size:15px;
+    max-width:640px;
+  }
+  .aviso{
+    margin:0 0 30px;
+    padding:14px 18px;
+    border-left:3px solid var(--alerta);
+    background:var(--alerta-suave);
+    font-size:14px;
+  }
+  .como-usar{
+    margin:0 0 30px;
+    padding:14px 18px;
+    border-left:3px solid var(--acento);
+    background:var(--acento-suave);
+    font-size:14px;
+  }
+  .como-usar ol{ margin:8px 0 0; padding-left:20px; }
+  h2{
+    font-size:19px;
+    margin:40px 0 6px;
+    padding-bottom:6px;
+    border-bottom:1px solid var(--linha);
+    display:flex;
+    align-items:baseline;
+    gap:10px;
+  }
+  h2 .num{
+    color:var(--acento);
+    font-variant-numeric:tabular-nums;
+    font-size:15px;
+    font-weight:700;
+  }
+  h3{ font-size:16px; margin:22px 0 6px; }
+  p{ margin:10px 0; }
+  strong{ color:var(--tinta); }
+  ul,ol{ margin:10px 0; padding-left:22px; }
+  li{ margin:4px 0; }
+  .regra{
+    margin:16px 0;
+    padding:12px 16px;
+    border-left:3px solid var(--acento);
+    background:var(--acento-suave);
+    font-size:14.5px;
+  }
+  .exercicio{
+    margin:16px 0;
+    padding:12px 16px;
+    border-left:3px solid #2f5e6f;
+    background:#eaf2f3;
+    font-size:14.5px;
+  }
+  table{
+    width:100%;
+    border-collapse:collapse;
+    margin:14px 0 18px;
+    font-size:14px;
+  }
+  th,td{
+    border:1px solid var(--linha);
+    padding:8px 10px;
+    text-align:left;
+    vertical-align:top;
+  }
+  th{
+    background:var(--acento-suave);
+    font-weight:600;
+    color:var(--tinta);
+  }
+  code{
+    font-family:"Cascadia Code","Consolas",monospace;
+    background:var(--acento-suave);
+    border:1px solid var(--linha);
+    border-radius:4px;
+    padding:1px 6px;
+    font-size:13px;
+    color:var(--acento);
+  }
+  pre{
+    background:var(--acento-suave);
+    border:1px solid var(--linha);
+    border-radius:6px;
+    padding:14px 16px;
+    font-size:13px;
+    line-height:1.6;
+    overflow-x:auto;
+    font-family:"Cascadia Code","Consolas",monospace;
+    color:var(--tinta);
+  }
+  .checklist{ list-style:none; padding-left:0; margin:14px 0; }
+  .checklist li{
+    display:flex;
+    gap:10px;
+    align-items:flex-start;
+    padding:7px 0;
+    border-bottom:1px dashed var(--linha);
+  }
+  .checklist li:last-child{ border-bottom:none; }
+  .caixa{
+    width:16px; height:16px;
+    flex:0 0 16px;
+    margin-top:2px;
+    border:1.5px solid var(--tinta-suave);
+    border-radius:3px;
+  }
+  .estagio-num{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:22px; height:22px;
+    border-radius:50%;
+    border:1.5px solid var(--acento);
+    color:var(--acento);
+    font-size:12px;
+    font-weight:700;
+    flex:0 0 22px;
+  }
+  .preencher{
+    margin:8px 0;
+    padding:10px 14px;
+    border:1.5px dashed var(--tinta-suave);
+    border-radius:6px;
+    color:var(--tinta-suave);
+    font-size:14px;
+    min-height:22px;
+  }
+  .preencher .rotulo{
+    font-weight:600;
+    color:var(--tinta);
+  }
+  .passos-vazios{
+    list-style:decimal;
+    margin:10px 0;
+    padding-left:22px;
+  }
+  .passos-vazios li{
+    border-bottom:1px dashed var(--linha);
+    padding:8px 0;
+    min-height:18px;
+  }
+  .passos-vazios li:last-child{ border-bottom:none; }
+  footer{
+    margin-top:56px;
+    padding-top:16px;
+    border-top:1px solid var(--linha);
+    font-size:12.5px;
+    color:var(--tinta-suave);
+    font-style:italic;
+  }
+
+  @media print{
+    .pagina{ padding:0; max-width:none; }
+    h2{ break-after:avoid; }
+    table, .regra, .aviso, .checklist, .exercicio, .como-usar, pre{ break-inside:avoid; }
+    @page{ size:A4; margin:18mm 16mm; }
+  }
+</style>
+</head>
+<body>
+<div class="pagina">
+
+  <header class="capa">
+    <span class="selo">Apostila de treinamento</span>
+    <h1>Apostila de Treinamento. CaptaHub</h1>
+    <p class="subtitulo">Material para treinar uma pessoa sem experiência prévia a usar o CaptaHub, combinando a parte conceitual (o que o sistema organiza e por quê) com um roteiro prático de telas, completado ao vivo durante o primeiro acesso.</p>
+  </header>
+
+  <div class="como-usar">
+    <strong>Como usar esta apostila:</strong>
+    <ol>
+      <li>Leia os Módulos 1 a 6 (parte conceitual) antes do primeiro acesso à tela.</li>
+      <li>No primeiro acesso real ao CaptaHub, complete o Módulo 7 (passo a passo de telas) junto com a pessoa treinada, com prints de cada tela.</li>
+      <li>Feche o treinamento com o Checklist do Módulo 8.</li>
+      <li>Use o Módulo 9 como roteiro de dois dias, se o treinamento for programado com antecedência.</li>
+    </ol>
+  </div>
+
+  <h2><span class="num">1</span> Glossário essencial (comece por aqui)</h2>
+  <p>Se a pessoa treinada é nova no setor de captação de recursos, sem esses termos o resto da apostila não faz sentido.</p>
+  <table>
+    <thead><tr><th>Termo</th><th>O que significa</th></tr></thead>
+    <tbody>
+      <tr><td>OSC</td><td>Organização da Sociedade Civil. Toda entidade sem fins lucrativos (associação, fundação, OSCIP) atendida pela assessoria.</td></tr>
+      <tr><td>Edital</td><td>Chamada pública de um financiador (governo, empresa, fundação) oferecendo recurso para projetos que atendam certos critérios.</td></tr>
+      <tr><td>Elegibilidade</td><td>Se uma OSC específica pode ou não concorrer a um edital específico, cruzando natureza jurídica, tempo de existência, território e documentos.</td></tr>
+      <tr><td>Proponente</td><td>A organização que se candidata ao edital, ou seja, a OSC.</td></tr>
+      <tr><td>Financiador</td><td>Quem lança o edital e paga pelo projeto aprovado. Também chamado de parceiro, patrocinador ou concedente.</td></tr>
+      <tr><td>Termo de fomento / colaboração</td><td>O contrato assinado entre a OSC e o poder público depois que o projeto é aprovado, previsto no MROSC.</td></tr>
+      <tr><td>Rubrica</td><td>Cada categoria de despesa do orçamento de um projeto, por exemplo pessoal, material de consumo ou equipamento.</td></tr>
+      <tr><td>Contrapartida</td><td>O que a OSC oferece com recursos próprios, além do que está sendo pedido ao financiador, como espaço, equipe ou insumos.</td></tr>
+      <tr><td>Prestação de contas</td><td>A comprovação, depois do projeto executado, de que o dinheiro foi usado exatamente como planejado.</td></tr>
+      <tr><td>Pipeline</td><td>A esteira de estágios por onde passa cada candidatura de uma OSC a um edital, do início ao resultado final.</td></tr>
+      <tr><td>Glosa</td><td>Quando o financiador não aceita uma despesa na prestação de contas e exige a devolução do valor.</td></tr>
+    </tbody>
+  </table>
+
+  <h2><span class="num">2</span> O que é o CaptaHub</h2>
+  <p>O CaptaHub é a plataforma central de captação de recursos: é onde ficam os editais disponíveis, a carteira de clientes (as OSCs atendidas) e o pipeline de cada projeto em andamento, do primeiro contato até o resultado final. É a fonte da verdade: qualquer pessoa da equipe que precisar saber "que editais existem", "quais são nossos clientes" ou "em que pé está cada projeto" consulta o CaptaHub, em vez de perguntar para um colega ou procurar numa planilha solta.</p>
+  <p>O CaptaHub organiza o trabalho em três grandes blocos de informação, que conversam entre si. Guarde essa equação, ela é a chave para entender qualquer tela do sistema:</p>
+  <pre>EDITAIS  (as oportunidades)
+    +
+CLIENTES (as OSCs atendidas, a carteira)
+    =
+PROJETOS (o pipeline: cada candidatura de um cliente a um edital, acompanhada estágio a estágio)</pre>
+
+  <h2><span class="num">3</span> Bloco 1. Editais, o banco de oportunidades</h2>
+  <p>O CaptaHub mantém um banco de editais permanentemente atualizado, aberto a todos os usuários da plataforma, não é exclusivo de cada conta. Isso poupa a garimpagem manual em Diário Oficial, sites de prefeitura ou grupos de WhatsApp. O banco reúne centenas de editais ativos, cobrindo escopo municipal, estadual, nacional e internacional.</p>
+  <p>Cada edital carrega estas informações:</p>
+  <table>
+    <thead><tr><th>Campo</th><th>O que significa</th><th>Exemplo real</th></tr></thead>
+    <tbody>
+      <tr><td>Título</td><td>Nome do edital ou chamada</td><td>"Chamada Pública - Educação 001/2026 - OSC"</td></tr>
+      <tr><td>Órgão / financiador</td><td>Quem lança o edital</td><td>"Municipal - Cotia, SP"</td></tr>
+      <tr><td>Escopo</td><td>Abrangência geográfica</td><td>Municipal, Estadual, Nacional ou Internacional</td></tr>
+      <tr><td>Categoria</td><td>Área temática</td><td>Educação, Cultura, Meio Ambiente, entre outras</td></tr>
+      <tr><td>Valor</td><td>Valor total ou teto do edital, quando informado</td><td>R$ 30.800.000,00 (ou "não informado")</td></tr>
+      <tr><td>Prazo</td><td>Data limite para submissão</td><td>2026-05-29</td></tr>
+      <tr><td>Fluxo contínuo</td><td>Se recebe propostas o ano todo, sem janela fechada</td><td>sim / não</td></tr>
+      <tr><td>Link</td><td>Endereço oficial da fonte, para conferência</td><td>link direto para o edital</td></tr>
+      <tr><td>Descrição</td><td>Resumo do objeto do edital</td><td>"Edital para seleção de 22 projetos culturais..."</td></tr>
+    </tbody>
+  </table>
+  <p><strong>Como usar na prática:</strong> ao buscar um edital para uma OSC, filtre por escopo, categoria e prazo mínimo para submeter. O CaptaHub descarta automaticamente editais com prazo vencido nas buscas por "somente abertos".</p>
+  <div class="exercicio"><strong>Exercício:</strong> peça para a pessoa treinada encontrar, no banco de editais, um edital de qualquer categoria com escopo estadual e prazo em aberto, e descrever os nove campos da tabela acima só olhando aquele registro.</div>
+
+  <h2><span class="num">4</span> Bloco 2. Clientes, a carteira de OSCs</h2>
+  <p>Cada cliente cadastrado no CaptaHub é uma organização atendida (OSC). O cadastro reúne os dados que qualquer edital vai pedir para checar elegibilidade, então vale cadastrar completo desde o início, em vez de deixar para completar depois.</p>
+  <table>
+    <thead><tr><th>Campo</th><th>O que significa</th></tr></thead>
+    <tbody>
+      <tr><td>Nome / sigla</td><td>Razão social e nome fantasia da OSC</td></tr>
+      <tr><td>CNPJ</td><td>Documento de identificação da organização</td></tr>
+      <tr><td>Natureza jurídica</td><td>Associação, fundação, OSCIP, entre outras</td></tr>
+      <tr><td>Data de fundação</td><td>Usada para comprovar tempo mínimo de existência exigido por muitos editais</td></tr>
+      <tr><td>Município e UF</td><td>Sede da organização</td></tr>
+      <tr><td>Territórios de atuação</td><td>Onde a OSC efetivamente atua, pode ser diferente da sede</td></tr>
+      <tr><td>Área(s) temática(s)</td><td>Educação, cultura, esporte, meio ambiente, assistência social, entre outras</td></tr>
+      <tr><td>Missão</td><td>Resumo da missão institucional</td></tr>
+      <tr><td>Situação documental</td><td>Checklist de documentos em dia: CNPJ ativo, estatuto, CEBAS, certidões federal, estadual e municipal, FGTS, CNDT, cadastro no Transferegov</td></tr>
+      <tr><td>Histórico de aprovações</td><td>Projetos já aprovados anteriormente, com financiador, valor e ano</td></tr>
+    </tbody>
+  </table>
+  <div class="regra"><strong>Por que isso importa:</strong> a situação documental é o que decide se uma OSC pode ou não concorrer a um edital antes mesmo de escrever qualquer proposta. Manter esse checklist atualizado no CaptaHub evita perder tempo elaborando um projeto para uma organização que está com certidão vencida.</div>
+  <div class="exercicio"><strong>Exercício:</strong> peça para a pessoa treinada abrir o cadastro de um cliente real da carteira e apontar, na tela, onde fica cada um dos dez campos da tabela acima.</div>
+
+  <h2><span class="num">5</span> Bloco 3. Projetos, o pipeline de cada candidatura</h2>
+  <p>Um projeto no CaptaHub nasce quando um cliente (OSC) se candidata a um edital. É o cartão que acompanha aquela candidatura do início ao fim. Cada projeto carrega:</p>
+  <table>
+    <thead><tr><th>Campo</th><th>O que significa</th></tr></thead>
+    <tbody>
+      <tr><td>Nome</td><td>Nome do projeto ou identificação da candidatura</td></tr>
+      <tr><td>Cliente vinculado</td><td>A OSC dona da candidatura</td></tr>
+      <tr><td>Edital vinculado</td><td>O edital ao qual está concorrendo</td></tr>
+      <tr><td>Status</td><td>Em qual dos 11 estágios do pipeline o projeto está agora</td></tr>
+      <tr><td>Nota técnica</td><td>Nota de 0 a 10 atribuída na avaliação antes da submissão</td></tr>
+      <tr><td>Chance de aprovação</td><td>Estimativa de chance, por faixa, por exemplo "28% a 38%"</td></tr>
+      <tr><td>Valor solicitado</td><td>Quanto está sendo pedido ao financiador</td></tr>
+      <tr><td>Valor aprovado</td><td>Quanto foi de fato aprovado, depois do resultado</td></tr>
+      <tr><td>Data de submissão</td><td>Quando o projeto foi enviado ao financiador</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Os 11 estágios do pipeline, em ordem</h3>
+  <p>É a esteira por onde todo projeto passa:</p>
+  <table>
+    <thead><tr><th style="width:32px">#</th><th>Estágio</th><th>O que representa</th></tr></thead>
+    <tbody>
+      <tr><td><span class="estagio-num">1</span></td><td>Selecionado</td><td>O edital foi escolhido como oportunidade para aquele cliente</td></tr>
+      <tr><td><span class="estagio-num">2</span></td><td>Encontrar cliente</td><td>Buscando qual OSC da carteira se encaixa nesse edital, ou o caminho inverso</td></tr>
+      <tr><td><span class="estagio-num">3</span></td><td>Checklist</td><td>Checagem de elegibilidade e documentação em andamento</td></tr>
+      <tr><td><span class="estagio-num">4</span></td><td>Contrato</td><td>Formalização da relação com o cliente para aquele projeto</td></tr>
+      <tr><td><span class="estagio-num">5</span></td><td>Separar documentos</td><td>Reunindo a documentação exigida pelo edital</td></tr>
+      <tr><td><span class="estagio-num">6</span></td><td>Elaborar projeto</td><td>Escrevendo a proposta e montando o orçamento</td></tr>
+      <tr><td><span class="estagio-num">7</span></td><td>Submetido</td><td>Projeto enviado ao financiador</td></tr>
+      <tr><td><span class="estagio-num">8</span></td><td>Aprovado</td><td>Resultado positivo</td></tr>
+      <tr><td><span class="estagio-num">9</span></td><td>Reprovado</td><td>Resultado negativo</td></tr>
+      <tr><td><span class="estagio-num">10</span></td><td>Pagamento pendente</td><td>Aprovado, aguardando o repasse do recurso</td></tr>
+      <tr><td><span class="estagio-num">11</span></td><td>Pagamento recebido</td><td>Recurso recebido, projeto encerrado com sucesso</td></tr>
+    </tbody>
+  </table>
+  <p><strong>Como usar na prática:</strong> todo projeto deveria estar sempre em algum desses 11 estágios, nunca "solto". Mover o cartão de estágio conforme o trabalho avança é o que permite que qualquer pessoa da equipe, ao abrir o CaptaHub, entenda o andamento de toda a carteira sem precisar perguntar a ninguém.</p>
+  <div class="exercicio"><strong>Exercício:</strong> peça para a pessoa treinada decorar a ordem dos 11 estágios sem olhar a tabela, e explicar em voz alta o que aconteceria se um projeto pulasse direto de "Selecionado" para "Submetido".</div>
+
+  <h2><span class="num">6</span> O ciclo completo, do edital ao pagamento</h2>
+  <p>Juntando os três blocos, o fluxo típico de uma captação dentro do CaptaHub é:</p>
+  <pre>1. Um edital aparece no banco (Bloco 1)
+2. Ele é cruzado com o perfil de um cliente da carteira (Bloco 2)
+3. Nasce um projeto (Bloco 3), começando no estágio "Selecionado"
+4. O projeto avança estágio a estágio: encontrar cliente -&gt; checklist -&gt; contrato -&gt;
+   separar documentos -&gt; elaborar projeto -&gt; submetido
+5. O financiador dá o resultado: aprovado ou reprovado
+6. Se aprovado, o projeto segue até pagamento pendente e pagamento recebido</pre>
+  <p>Cada estágio percorrido fica registrado, então o histórico de qualquer projeto pode ser reconstruído a qualquer momento: quanto tempo ficou em cada fase, quando foi submetido, qual nota recebeu, qual valor foi aprovado.</p>
+  <p><strong>Boas práticas de uso:</strong></p>
+  <ul>
+    <li><strong>Nunca cadastre um cliente ou um edital duas vezes.</strong> Antes de criar, procure pelo nome ou CNPJ (no caso de cliente) para confirmar que ainda não existe.</li>
+    <li><strong>Mantenha a situação documental do cliente sempre atualizada.</strong> É a base de qualquer checagem de elegibilidade.</li>
+    <li><strong>Não pule estágios do pipeline sem necessidade.</strong> Um projeto que salta direto de "selecionado" para "submetido" esconde informação de quanto tempo cada etapa real levou.</li>
+    <li><strong>Prazo vencido não é oportunidade.</strong> Ao consultar editais, sempre confira a data de prazo antes de considerar um edital como candidato.</li>
+    <li><strong>Valor "não informado" é diferente de "zero".</strong> Quando o campo de valor do edital vem vazio, significa que o financiador não divulgou o valor, não que o edital não paga nada.</li>
+  </ul>
+
+  <h2><span class="num">7</span> Passo a passo de telas (completar ao vivo)</h2>
+  <div class="aviso"><strong>Este módulo está em branco de propósito.</strong> O restante da apostila foi montado a partir do acesso aos dados da plataforma, não da navegação visual nas telas, então os passos abaixo precisam ser preenchidos durante o primeiro acesso real ao CaptaHub, com prints de cada tela mencionada. Depois de preenchido uma vez, esse módulo pode ser reaproveitado nos próximos treinamentos.</div>
+
+  <h3>7.1 Login e primeiro acesso</h3>
+  <div class="preencher"><span class="rotulo">URL de acesso:</span></div>
+  <div class="preencher"><span class="rotulo">Como recuperar ou trocar a senha:</span></div>
+  <div class="preencher"><span class="rotulo">O que aparece na tela inicial e onde ficam os três blocos no menu:</span></div>
+
+  <h3>7.2 Como cadastrar um cliente (OSC) novo</h3>
+  <ol class="passos-vazios"><li></li><li></li><li></li></ol>
+  <div class="preencher"><span class="rotulo">Onde, na tela de cadastro, ficam os dez campos do Módulo 4:</span></div>
+
+  <h3>7.3 Como buscar e filtrar editais</h3>
+  <ol class="passos-vazios"><li></li><li></li><li></li></ol>
+  <div class="preencher"><span class="rotulo">Onde ficam os filtros de escopo, categoria e prazo:</span></div>
+
+  <h3>7.4 Como criar um projeto (vincular um cliente a um edital)</h3>
+  <ol class="passos-vazios"><li></li><li></li><li></li></ol>
+
+  <h3>7.5 Como mover um projeto de estágio no pipeline</h3>
+  <ol class="passos-vazios"><li></li><li></li><li></li></ol>
+
+  <h3>7.6 Como atualizar a situação documental de um cliente</h3>
+  <ol class="passos-vazios"><li></li><li></li><li></li></ol>
+
+  <h2><span class="num">8</span> Checklist de treinamento</h2>
+  <p>Use esta lista para validar que a pessoa entendeu a estrutura do CaptaHub, na teoria e na prática.</p>
+  <p><strong>Parte conceitual:</strong></p>
+  <ul class="checklist">
+    <li><span class="caixa"></span> Sabe explicar, em uma frase, os três blocos de informação do CaptaHub: editais, clientes e projetos.</li>
+    <li><span class="caixa"></span> Sabe quais campos compõem o cadastro de um edital e o que significa "valor não informado".</li>
+    <li><span class="caixa"></span> Sabe quais campos compõem o cadastro de um cliente e por que a situação documental importa.</li>
+    <li><span class="caixa"></span> Consegue listar, em ordem, os 11 estágios do pipeline de um projeto.</li>
+    <li><span class="caixa"></span> Entende que projeto, cliente e edital são registros ligados entre si, nunca soltos.</li>
+    <li><span class="caixa"></span> Sabe por que não se deve cadastrar cliente ou edital duplicado.</li>
+    <li><span class="caixa"></span> Sabe explicar, com as próprias palavras, o que é elegibilidade, contrapartida e prestação de contas.</li>
+  </ul>
+  <p><strong>Parte prática (tela real):</strong></p>
+  <ul class="checklist">
+    <li><span class="caixa"></span> Consegue fazer login sozinha(o).</li>
+    <li><span class="caixa"></span> Consegue buscar e filtrar um edital por escopo, categoria e prazo.</li>
+    <li><span class="caixa"></span> Consegue abrir o cadastro de um cliente existente e localizar a situação documental.</li>
+    <li><span class="caixa"></span> Consegue cadastrar um cliente novo, sem duplicar um já existente.</li>
+    <li><span class="caixa"></span> Consegue criar um projeto vinculando um cliente a um edital.</li>
+    <li><span class="caixa"></span> Consegue mover um projeto de um estágio para o próximo no pipeline.</li>
+  </ul>
+
+  <h2><span class="num">9</span> Roteiro sugerido de dois dias</h2>
+  <p>Se o treinamento for programado com antecedência, esta divisão funciona bem para uma pessoa sem experiência prévia:</p>
+  <p><strong>Dia 1, parte teórica (Módulos 1 a 6):</strong> leitura guiada do glossário, dos três blocos e do ciclo completo, com os exercícios de cada módulo feitos em voz alta, sem tela. Encerrar o dia com uma recapitulação oral dos 11 estágios, sem consultar a tabela.</p>
+  <p><strong>Dia 2, parte prática (Módulo 7 e Checklist do Módulo 8):</strong> primeiro acesso real ao CaptaHub, completando o Módulo 7 tela por tela junto com a pessoa treinada. Fechar com o checklist completo do Módulo 8, teoria e prática, antes de liberar a pessoa para uso autônomo.</p>
+
+  <footer>
+    Esta apostila reaproveita o conteúdo confirmado em <code>docs/manual-captahub.md</code> (estágios oficiais do pipeline e estrutura de dados real da plataforma), reorganizado para fins de treinamento. Para o passo a passo visual de telas e botões que ainda não foi preenchido no Módulo 7, use o guia oficial ou o suporte do CaptaHub como apoio.
+  </footer>
+
+</div>
+</body>
+</html>
