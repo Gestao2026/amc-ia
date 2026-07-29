@@ -25,7 +25,7 @@
     line-height:1.55;
   }
   .pagina{
-    max-width:840px;
+    max-width:860px;
     margin:0 auto;
     padding:48px 40px 80px;
   }
@@ -55,7 +55,7 @@
     margin:0;
     color:var(--tinta-suave);
     font-size:15px;
-    max-width:640px;
+    max-width:680px;
   }
   .como-usar{
     margin:0 0 30px;
@@ -64,6 +64,7 @@
     background:var(--acento-suave);
     font-size:14px;
   }
+  .como-usar ul{ margin:8px 0 0; padding-left:20px; }
   .regra{
     margin:16px 0;
     padding:12px 16px;
@@ -71,25 +72,55 @@
     background:var(--acento-suave);
     font-size:14.5px;
   }
+  h1.area{
+    font-size:13px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:#fff;
+    background:var(--tinta);
+    padding:8px 14px;
+    margin:52px 0 4px;
+    border-radius:5px;
+  }
+  p.area-desc{
+    margin:0 0 18px;
+    color:var(--tinta-suave);
+    font-size:14px;
+  }
   h2{
     font-size:19px;
-    margin:40px 0 6px;
+    margin:34px 0 10px;
     padding-bottom:6px;
-    border-bottom:1px solid var(--linha);
+    border-bottom:2px solid var(--acento);
     display:flex;
     align-items:baseline;
     gap:10px;
+    break-before:avoid;
   }
-  h2 .num{
+  h2 code{
+    font-size:18px;
+    background:none;
+    border:none;
+    padding:0;
     color:var(--acento);
-    font-variant-numeric:tabular-nums;
-    font-size:15px;
-    font-weight:700;
+    white-space:normal;
   }
   h3{ font-size:16px; margin:22px 0 6px; }
+  .comando{ break-inside:avoid-page; margin-bottom:8px; }
+  .campo{ margin:10px 0 14px; }
+  .campo .rotulo{
+    display:block;
+    font-size:11.5px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    font-weight:700;
+    color:var(--acento);
+    margin-bottom:3px;
+  }
+  .campo p{ margin:0; }
   p{ margin:10px 0; }
   strong{ color:var(--tinta); }
-  ul,ol{ margin:10px 0; padding-left:22px; }
+  ul,ol{ margin:6px 0; padding-left:22px; }
   li{ margin:4px 0; }
   table{
     width:100%;
@@ -140,7 +171,9 @@
 
   @media print{
     .pagina{ padding:0; max-width:none; }
+    h1.area{ break-after:avoid; }
     h2{ break-after:avoid; }
+    .comando{ break-inside:avoid; }
     table, .regra, .como-usar, pre{ break-inside:avoid; }
     @page{ size:A4; margin:18mm 16mm; }
   }
@@ -152,14 +185,24 @@
   <header class="capa">
     <span class="selo">Apostila de comandos</span>
     <h1>Apostila de Comandos. AMC IA</h1>
-    <p class="subtitulo">Guia de referência de todos os comandos, agentes e áreas de trabalho da AMC IA. Use para saber, na hora da dúvida, qual comando digitar para cada situação.</p>
+    <p class="subtitulo">Guia de referência completo de todos os comandos, agentes e áreas de trabalho da AMC IA. Um capítulo por comando: o que faz, o que pede, o passo a passo, o que entrega, onde salva e as travas que protegem o seu trabalho.</p>
   </header>
 
   <div class="como-usar">
-    <strong>Como esta apostila está organizada:</strong> pelas mesmas fases do Método Captar 2.0. Primeiro <strong>CAPTAR</strong> (o dia a dia técnico com um edital e uma OSC), depois <strong>POSICIONAR</strong> (o marketing do captador como negócio) e <strong>ASSESSORAR</strong> (a venda e a prestação do serviço). No fim, uma área de Apoio e Sistema reúne o que dá suporte a tudo isso. Cada comando tem: para que serve, quando usar.
+    <strong>Como esta apostila está organizada:</strong> pelas mesmas fases do Método Captar 2.0. Primeiro <strong>CAPTAR</strong> (o dia a dia técnico com um edital e uma OSC), depois <strong>POSICIONAR</strong> (o marketing do captador como negócio) e <strong>ASSESSORAR</strong> (a venda e a prestação do serviço). No fim, uma área de Apoio e Sistema, seguida das tabelas de referência rápida.
+    <ul>
+      <li><strong>Para que serve.</strong> A função do comando em uma frase.</li>
+      <li><strong>Quando usar.</strong> O momento certo de digitar aquele comando.</li>
+      <li><strong>Contexto que ele lê.</strong> O que o sistema consulta antes de começar.</li>
+      <li><strong>Passo a passo.</strong> O que o comando pergunta e faz, na ordem.</li>
+      <li><strong>O que entrega.</strong> O documento ou resultado final, com a estrutura do conteúdo.</li>
+      <li><strong>Onde salva.</strong> O caminho exato do arquivo gerado.</li>
+      <li><strong>Travas e dependências.</strong> O que precisa existir antes, e o que impede de seguir.</li>
+      <li><strong>Próximo passo sugerido.</strong> Para onde ir depois.</li>
+    </ul>
   </div>
 
-  <div class="regra"><strong>Como o sistema pensa:</strong> a AMC IA sempre trabalha em cima de duas coisas, uma OSC ativa e, dentro dela, um projeto (um edital sendo trabalhado). Quase todo comando começa lendo qual organização está em foco. O CaptaHub é a fonte da verdade (editais, carteira, pipeline); a AMC IA é o estúdio de elaboração que transforma um edital em projeto aprovado.</div>
+  <div class="regra"><strong>Como o sistema pensa:</strong> a AMC IA sempre trabalha em cima de duas coisas, uma OSC ativa e, dentro dela, um projeto (um edital sendo trabalhado). Quase todo comando começa lendo qual organização está em foco. O CaptaHub é a fonte da verdade (editais, carteira, pipeline); a AMC IA é o estúdio de elaboração que transforma um edital em projeto aprovado. Duas regras valem para quase todo comando: o <strong>Gate de Elegibilidade</strong> (nenhuma proposta nasce sem elegibilidade verificada) e a <strong>aprovação antes de salvar</strong> (o sistema sempre mostra o resultado e pergunta se aprova antes de gravar).</div>
   <pre>CaptaHub (fonte da verdade: editais + carteira + pipeline)
         |  puxa
         v
@@ -167,85 +210,483 @@
         |
   OSC ativa -&gt; Projeto (edital) -&gt; os 4 agentes -&gt; entrega pronta para submeter</pre>
 
-  <h2><span class="num">1</span> Organização (a OSC)</h2>
-  <p>Cadastro e gestão da organização atendida. Todo o resto do sistema depende de existir uma OSC ativa.</p>
-  <table>
-    <thead><tr><th>Comando</th><th>Para que serve</th><th>Quando usar</th></tr></thead>
-    <tbody>
-      <tr><td><code>/osc-nova</code></td><td>Cadastra uma OSC nova (dados cadastrais, natureza jurídica, área de atuação, território, documentos) e a define como ativa.</td><td>Primeira vez que vai trabalhar com aquela organização, e ela não está na carteira do CaptaHub.</td></tr>
-      <tr><td><code>/osc-importar</code></td><td>Traz uma OSC que já existe na carteira do CaptaHub para dentro da AMC IA, criando o perfil local.</td><td>A organização já está cadastrada no CaptaHub, só falta trazer para cá.</td></tr>
-      <tr><td><code>/osc-trocar</code></td><td>Mostra a carteira completa (CaptaHub + local) e troca qual OSC está ativa.</td><td>Vai atender outro cliente na mesma sessão.</td></tr>
-      <tr><td><code>/osc-perfil</code></td><td>Mostra e atualiza o perfil da OSC ativa: dados cadastrais, documentos, capacidade técnica.</td><td>Precisa checar ou corrigir um dado da organização, ou marcar documento obtido ou vencido.</td></tr>
-    </tbody>
-  </table>
+  <h1 class="area">Área 1. Organização (a OSC)</h1>
+  <p class="area-desc">Cadastro e gestão da organização atendida. Todo o resto do sistema depende de existir uma OSC ativa.</p>
 
-  <h2><span class="num">2</span> Editais</h2>
-  <p>Descoberta e leitura de oportunidades. Os editais sempre vêm do CaptaHub; a base local é só um cache de apoio.</p>
-  <table>
-    <thead><tr><th>Comando</th><th>Para que serve</th><th>Quando usar</th></tr></thead>
-    <tbody>
-      <tr><td><code>/edital-minerar</code></td><td>Puxa os editais do CaptaHub e lista os mais aderentes ao perfil da OSC ativa (escopo, valor, prazo, área).</td><td>Está procurando qual edital vale a pena para a OSC ativa.</td></tr>
-      <tr><td><code>/edital-analisar</code></td><td>Lê um edital inteiro (PDF, link ou texto colado) e extrai critérios, prazos, exigências, o que pontua e o que derruba nota.</td><td>Já escolheu o edital e precisa entender a fundo antes de qualquer outra etapa. É a entrada de dados dos 4 agentes.</td></tr>
-    </tbody>
-  </table>
+  <div class="comando">
+    <h2><code>/osc-nova</code></h2>
+    <div class="campo"><span class="rotulo">Para que serve</span><p>Cadastra uma organização da sociedade civil do zero e a define como ativa. É a porta de entrada do sistema: sem OSC cadastrada não há contexto para minerar editais ou elaborar projetos.</p></div>
+    <div class="campo"><span class="rotulo">Quando usar</span><p>Primeira vez que você vai trabalhar com aquela organização, e ela ainda não está na carteira do CaptaHub (se já estiver lá, use <code>/osc-importar</code>).</p></div>
+    <div class="campo"><span class="rotulo">Contexto que ele lê</span><p><code>minhas-oscs/.ativa</code> e verifica a conexão com o CaptaHub. Se conectado, avisa que a OSC pode já existir lá e sugere <code>/osc-importar</code> antes de cadastrar do zero.</p></div>
+    <div class="campo"><span class="rotulo">Passo a passo (entrevista, uma pergunta por vez)</span>
+      <ol>
+        <li>Nome da organização.</li>
+        <li>CNPJ.</li>
+        <li>Natureza jurídica (Associação, Fundação, OSCIP, Organização religiosa, Cooperativa social, Outra).</li>
+        <li>Data de fundação (para calcular o tempo de existência).</li>
+        <li>Município e UF da sede, e territórios onde atua.</li>
+        <li>Área(s) temática(s) de atuação.</li>
+        <li>Missão e principais programas.</li>
+        <li>Experiência com editais e projetos já aprovados (valor, financiador, ano).</li>
+        <li>Situação documental, pelo checklist do modelo.</li>
+      </ol>
+      <p>Ao final, resume os dados e o slug gerado (kebab-case do nome) e pede OK antes de salvar.</p>
+    </div>
+    <div class="campo"><span class="rotulo">O que entrega</span><p>O perfil completo da organização: identificação, dados cadastrais, natureza jurídica, território, área de atuação, missão, histórico de projetos e checklist documental.</p></div>
+    <div class="campo"><span class="rotulo">Onde salva</span><p><code>minhas-oscs/{slug}/perfil-osc.md</code>, com a subpasta <code>projetos/</code> já criada. O slug é gravado em <code>minhas-oscs/.ativa</code>. Se o CaptaHub estiver conectado, cria automaticamente o cliente na carteira e grava o id retornado no perfil.</p></div>
+    <div class="campo"><span class="rotulo">Travas e dependências</span><p>Nenhuma; é o primeiro comando do sistema.</p></div>
+    <div class="campo"><span class="rotulo">Próximo passo sugerido</span><p><code>/edital-minerar</code> ou <code>/edital-analisar</code>, se já tiver um edital em mãos.</p></div>
+  </div>
 
-  <h2><span class="num">3</span> Projeto. Os 4 agentes (o coração do sistema)</h2>
-  <p>A linha de montagem que transforma um edital analisado em um projeto pronto para submeter. Segue sempre esta ordem, protegida pelo <strong>Gate de Elegibilidade</strong>: nunca se escreve proposta sem elegibilidade verificada primeiro.</p>
+  <div class="comando">
+    <h2><code>/osc-importar</code></h2>
+    <div class="campo"><span class="rotulo">Para que serve</span><p>Traz uma organização que já existe na carteira do CaptaHub para dentro da AMC IA, criando o perfil local completo e definindo-a como ativa.</p></div>
+    <div class="campo"><span class="rotulo">Quando usar</span><p>A organização já está na carteira do CaptaHub, mas ainda não tem pasta de trabalho aqui.</p></div>
+    <div class="campo"><span class="rotulo">Contexto que ele lê</span><p>Verifica a conexão com o CaptaHub. Sem token, orienta <code>/captahub-conectar</code> primeiro, ou <code>/osc-nova</code> se preferir cadastrar manualmente.</p></div>
+    <div class="campo"><span class="rotulo">Passo a passo</span>
+      <ol>
+        <li>Lista a carteira inteira (nome, UF, município, área) numerada para escolha.</li>
+        <li>Busca o registro completo da OSC escolhida.</li>
+        <li>Mapeia cada campo do CaptaHub para o campo do perfil local. Campo vazio fica marcado como "a confirmar com a OSC", nunca inventado.</li>
+        <li>Resume o que foi importado e o que ficou pendente, pede OK.</li>
+      </ol>
+    </div>
+    <div class="campo"><span class="rotulo">O que entrega</span><p>O perfil local completo, já ligado ao registro do CaptaHub pelo id.</p></div>
+    <div class="campo"><span class="rotulo">Onde salva</span><p><code>minhas-oscs/{slug}/perfil-osc.md</code> e a subpasta <code>projetos/</code>. O slug é gravado em <code>minhas-oscs/.ativa</code>.</p></div>
+    <div class="campo"><span class="rotulo">Travas e dependências</span><p>Exige <code>CAPTAHUB_API_TOKEN</code> configurado.</p></div>
+    <div class="campo"><span class="rotulo">Próximo passo sugerido</span><p><code>/osc-perfil</code> para completar os campos "a confirmar", ou <code>/edital-minerar</code>.</p></div>
+  </div>
+
+  <div class="comando">
+    <h2><code>/osc-trocar</code></h2>
+    <div class="campo"><span class="rotulo">Para que serve</span><p>Mostra a carteira inteira (sincronizada com o CaptaHub) e troca qual OSC está ativa.</p></div>
+    <div class="campo"><span class="rotulo">Quando usar</span><p>Vai atender outro cliente na mesma sessão, ou quer ver o estágio de todas as organizações.</p></div>
+    <div class="campo"><span class="rotulo">Contexto que ele lê</span><p>Puxa a carteira ao vivo do CaptaHub e varre as pastas locais em <code>minhas-oscs/</code>, ligando pelo id (ou nome, na falta).</p></div>
+    <div class="campo"><span class="rotulo">Passo a passo</span>
+      <ol>
+        <li>Sincroniza a carteira com o CaptaHub.</li>
+        <li>Apresenta lista numerada e unificada: no CaptaHub + local (pronta), só no CaptaHub (precisa importar) ou só local (fora da carteira). Mostra nome, UF, área, projetos abertos e marca a ativa atual.</li>
+        <li>Pergunta qual tornar ativa.</li>
+        <li>Se for "só no CaptaHub", importa primeiro. Grava o slug em <code>minhas-oscs/.ativa</code>.</li>
+      </ol>
+    </div>
+    <div class="campo"><span class="rotulo">O que entrega</span><p>A confirmação "OSC ativa agora: {nome}".</p></div>
+    <div class="campo"><span class="rotulo">Onde salva</span><p>Atualiza <code>minhas-oscs/.ativa</code>.</p></div>
+    <div class="campo"><span class="rotulo">Travas e dependências</span><p>Nenhuma; funciona mesmo sem CaptaHub conectado, usando só as OSCs locais.</p></div>
+    <div class="campo"><span class="rotulo">Próximo passo sugerido</span><p><code>/edital-minerar</code>, ou retomar um projeto aberto dessa OSC.</p></div>
+  </div>
+
+  <div class="comando">
+    <h2><code>/osc-perfil</code></h2>
+    <div class="campo"><span class="rotulo">Para que serve</span><p>Mostra e atualiza o perfil da OSC ativa: dados cadastrais, documentos, capacidade técnica.</p></div>
+    <div class="campo"><span class="rotulo">Quando usar</span><p>Precisa checar ou corrigir um dado, ou marcar um documento como obtido ou vencido (crítico para o CaptaDoc).</p></div>
+    <div class="campo"><span class="rotulo">Contexto que ele lê</span><p><code>minhas-oscs/.ativa</code> e o <code>perfil-osc.md</code> da OSC ativa. Sem OSC ativa, orienta <code>/osc-nova</code>.</p></div>
+    <div class="campo"><span class="rotulo">Passo a passo</span>
+      <ol>
+        <li>Apresenta um resumo legível do perfil, destacando o que falta na situação documental.</li>
+        <li>Pergunta: atualizar um dado, atualizar a situação documental, ou só visualizar.</li>
+        <li>Se for atualização, faz a edição cirúrgica no arquivo, sem reescrever o resto.</li>
+      </ol>
+    </div>
+    <div class="campo"><span class="rotulo">O que entrega</span><p>O perfil atualizado, ou apenas a visualização, conforme a escolha.</p></div>
+    <div class="campo"><span class="rotulo">Onde salva</span><p><code>minhas-oscs/{ativa}/perfil-osc.md</code>.</p></div>
+    <div class="campo"><span class="rotulo">Travas e dependências</span><p>Precisa de uma OSC ativa definida.</p></div>
+    <div class="campo"><span class="rotulo">Próximo passo sugerido</span><p>Conforme o que estiver em andamento no momento.</p></div>
+  </div>
+
+  <h1 class="area">Área 2. Editais</h1>
+  <p class="area-desc">Descoberta e leitura de oportunidades. Os editais sempre vêm do CaptaHub; a base local é só um cache de apoio.</p>
+
+  <div class="comando">
+    <h2><code>/edital-minerar</code></h2>
+    <div class="campo"><span class="rotulo">Para que serve</span><p>Puxa os editais do CaptaHub, atualiza o cache local e lista os mais aderentes ao perfil da OSC ativa (escopo, valor, prazo, área).</p></div>
+    <div class="campo"><span class="rotulo">Quando usar</span><p>Está procurando qual edital vale a pena buscar para a OSC ativa.</p></div>
+    <div class="campo"><span class="rotulo">Contexto que ele lê</span><p><code>minhas-oscs/.ativa</code> e o <code>perfil-osc.md</code>. Sem OSC ativa, orienta <code>/osc-nova</code>.</p></div>
+    <div class="campo"><span class="rotulo">Passo a passo</span>
+      <ol>
+        <li>Anuncia o início (cerca de 30 segundos).</li>
+        <li>Atualiza o cache do CaptaHub; sem conexão, avisa e usa o último cache local, sem travar.</li>
+        <li>Aciona o agente minerador-editais: aplica os filtros do perfil, descarta vencidos, classifica por aderência (ALTA, MÉDIA, BAIXA). Aceita filtros extras: escopo, valor, prazo mínimo, palavra-chave.</li>
+        <li><strong>Fallback de varredura web.</strong> Sem candidato ALTA ou MÉDIA no CaptaHub, aciona o agente minerador-web, que busca editais abertos na internet, confirma o prazo na fonte oficial e devolve candidatos marcados como "ainda fora do CaptaHub".</li>
+      </ol>
+    </div>
+    <div class="campo"><span class="rotulo">O que entrega</span><p>Lista priorizada (top 10 a 15) em tabela: edital, órgão, escopo, valor, prazo, aderência, motivo. Os de aderência ALTA já podem virar projeto (pasta e <code>edital.md</code> inicial).</p></div>
+    <div class="campo"><span class="rotulo">Onde salva</span><p>Se abrir um projeto: <code>minhas-oscs/{ativa}/projetos/{edital-slug}/edital.md</code>.</p></div>
+    <div class="campo"><span class="rotulo">Travas e dependências</span><p>Nunca recomenda edital vencido. A aderência é indicativa; o veredito final é do CaptaDoc.</p></div>
+    <div class="campo"><span class="rotulo">Próximo passo sugerido</span><p><code>/edital-analisar</code> e depois <code>/projeto-elegibilidade</code>.</p></div>
+  </div>
+
+  <div class="comando">
+    <h2><code>/edital-analisar</code></h2>
+    <div class="campo"><span class="rotulo">Para que serve</span><p>Lê um edital inteiro e o transforma em um resumo estruturado que alimenta os 4 agentes.</p></div>
+    <div class="campo"><span class="rotulo">Quando usar</span><p>Já escolheu o edital, para a OSC ativa, e precisa entendê-lo a fundo antes de qualquer outra etapa.</p></div>
+    <div class="campo"><span class="rotulo">Contexto que ele lê</span><p><code>minhas-oscs/.ativa</code> e o <code>perfil-osc.md</code>.</p></div>
+    <div class="campo"><span class="rotulo">Passo a passo</span>
+      <ol>
+        <li>Pergunta como fornecer o edital: colar texto, caminho de PDF, ou link.</li>
+        <li>Anuncia o início (2 a 4 minutos).</li>
+        <li>Extrai 8 pontos: identificação, quem pode participar, documentos exigidos, valores, despesas permitidas e vedadas, critérios de pontuação e pesos, prazos, forma de submissão.</li>
+      </ol>
+    </div>
+    <div class="campo"><span class="rotulo">O que entrega</span><p>O resumo estruturado nos 8 pontos, ancorado no texto original; ambiguidade vira "verificar no edital".</p></div>
+    <div class="campo"><span class="rotulo">Onde salva</span><p><code>minhas-oscs/{ativa}/projetos/{edital-slug}/edital.md</code>, mais <code>estado.md</code> marcando "edital analisado".</p></div>
+    <div class="campo"><span class="rotulo">Travas e dependências</span><p>Precisa de OSC ativa. Nunca invente exigência que não esteja no texto.</p></div>
+    <div class="campo"><span class="rotulo">Próximo passo sugerido</span><p><code>/projeto-elegibilidade</code>, sempre.</p></div>
+  </div>
+
+  <div class="comando">
+    <h2><code>/descricao-edital</code></h2>
+    <div class="campo"><span class="rotulo">Para que serve</span><p>Gera uma ficha descritiva completa e avulsa de um edital, em <code>.doc</code>, sem vincular a nenhuma OSC. Mais profunda que o <code>/edital-analisar</code>: cobre também execução, prestação de contas, comunicação/divulgação e uma seção de pontos de atenção que passam despercebidos.</p></div>
+    <div class="campo"><span class="rotulo">Quando usar</span><p>Quer entender rápido as regras de um edital, sem ainda ter decidido a OSC, ou checar as regras de execução e prestação de contas antes de assumir o compromisso.</p></div>
+    <div class="campo"><span class="rotulo">Contexto que ele lê</span><p>Nenhum. É intencionalmente desvinculado de qualquer organização: não lê <code>minhas-oscs/.ativa</code> nem perfil algum.</p></div>
+    <div class="campo"><span class="rotulo">Passo a passo</span>
+      <ol>
+        <li>Pergunta como fornecer o edital.</li>
+        <li>Anuncia o início (2 a 4 minutos, 12 pontos).</li>
+        <li>Extrai 12 seções: identificação; quem pode participar; documentos exigidos; valores; despesas permitidas e vedadas; critérios de pontuação e desempate; prazos completos (submissão, resultado, recurso, habilitação, pagamento, execução, prestação de contas); forma de submissão; execução e contratação; prestação de contas; comunicação e divulgação; e pontos de atenção críticos (comprovante de residência com janela de validade, critérios que pontuam ao contrário do intuitivo, valores que precisam fechar exatamente, limite de propostas por proponente, itens cuja ausência já desclassifica, situações cadastrais externas como SIAFI ou Cadin).</li>
+        <li>Converte o conteúdo em <code>.doc</code>.</li>
+      </ol>
+    </div>
+    <div class="campo"><span class="rotulo">O que entrega</span><p>Documento <code>.doc</code> com as 12 seções, pronto para consulta ou impressão.</p></div>
+    <div class="campo"><span class="rotulo">Onde salva</span><p><code>Descrição Editais/{edital-slug}.doc</code>, pasta na raiz do projeto.</p></div>
+    <div class="campo"><span class="rotulo">Travas e dependências</span><p>Nenhuma; não lê nem grava nada dentro de <code>minhas-oscs/</code>, mesmo com OSC ativa.</p></div>
+    <div class="campo"><span class="rotulo">Próximo passo sugerido</span><p>Nenhum específico de OSC, a menos que peça.</p></div>
+  </div>
+
+  <div class="comando">
+    <h2><code>/editais-pasta-processar</code></h2>
+    <div class="campo"><span class="rotulo">Para que serve</span><p>Lê tudo que estiver em <code>editais-para-cadastrar/</code>, extrai os dados de cada edital, confere duplicidade (base local e CaptaHub ao vivo) e prepara os editais novos para cadastro.</p></div>
+    <div class="campo"><span class="rotulo">Quando usar</span><p>Toda vez que chegam editais novos para cadastrar (pensado para segundas-feiras, mas pode rodar a qualquer momento).</p></div>
+    <div class="campo"><span class="rotulo">Contexto que ele lê</span><p>Testa a conexão com o CaptaHub; sem resposta, avisa que a checagem vai usar só a base local e segue mesmo assim.</p></div>
+    <div class="campo"><span class="rotulo">Passo a passo</span>
+      <ol>
+        <li>Anuncia o início (2 a 4 minutos).</li>
+        <li>Lista os arquivos da pasta (ignora LEIAME.md, processados/ e prontos-para-cadastro.json). Sem arquivo, avisa e para.</li>
+        <li>Extrai o texto conforme a extensão (PDF/imagem direto, .txt/.md direto ou via link, .docx/.xlsx por script auxiliar). Formato não suportado é pulado, nunca apagado.</li>
+        <li>Extrai os campos no formato do CaptaHub (título, instituição, categoria, escopo, valor, prazo, url etc). Campo não encontrado fica nulo, nunca inventado.</li>
+        <li>Checa duplicidade de cada edital contra a base local e o CaptaHub.</li>
+        <li>Separa duplicados (descartados) de novos (candidatos).</li>
+      </ol>
+    </div>
+    <div class="campo"><span class="rotulo">O que entrega</span><p>Relatório final com quantos arquivos foram lidos, quantos editais novos foram preparados, quantos já existiam. Como ainda não há endpoint de criação confirmado, orienta cadastrar manualmente no CaptaHub usando o JSON gerado.</p></div>
+    <div class="campo"><span class="rotulo">Onde salva</span><p>Os novos em <code>editais-para-cadastrar/prontos-para-cadastro.json</code>. Os arquivos processados são movidos (nunca apagados) para <code>editais-para-cadastrar/processados/{AAAA-MM-DD}/</code>.</p></div>
+    <div class="campo"><span class="rotulo">Travas e dependências</span><p>Na dúvida entre duplicado e novo, trata como duplicado e pede conferência manual.</p></div>
+    <div class="campo"><span class="rotulo">Próximo passo sugerido</span><p>Cadastrar manualmente no CaptaHub os editais novos listados.</p></div>
+  </div>
+
+  <h1 class="area">Área 3. Projeto. Os 4 agentes (o coração do sistema)</h1>
+  <p class="area-desc">A linha de montagem que transforma um edital analisado em um projeto pronto para submeter, protegida pelo Gate de Elegibilidade. Os quatro tratam, em ordem, os quatro motivos recorrentes de reprovação: edital errado, elegibilidade falha, texto fraco e orçamento furado.</p>
   <pre>CaptaDoc -&gt; CaptaBuilder -&gt; CaptaBudget -&gt; CaptaScore</pre>
-  <table>
-    <thead><tr><th>Comando</th><th>Agente</th><th>Para que serve</th><th>Quando usar</th></tr></thead>
-    <tbody>
-      <tr><td><code>/projeto-elegibilidade</code></td><td>CaptaDoc</td><td>Cruza o edital com o perfil da OSC e dá o veredito: APTO, APTO COM PENDÊNCIAS ou INAPTO NO MOMENTO, com checklist documental.</td><td>Sempre o primeiro passo depois de <code>/edital-analisar</code>. Nenhuma proposta começa sem isso.</td></tr>
-      <tr><td><code>/projeto-escrever</code></td><td>CaptaBuilder</td><td>Conduz a entrevista por blocos (justificativa, objetivos, metas, metodologia, cronograma etc.) e escreve a proposta completa, ancorada nos critérios do edital.</td><td>Depois da elegibilidade confirmada (APTO ou APTO COM PENDÊNCIAS).</td></tr>
-      <tr><td><code>/projeto-orcamento</code></td><td>CaptaBudget</td><td>Monta o orçamento técnico por rubrica, com memória de cálculo, dentro do teto e das regras financeiras do edital.</td><td>Depois que a proposta existe: o orçamento nasce das atividades descritas nela.</td></tr>
-      <tr><td><code>/projeto-avaliar</code></td><td>CaptaScore</td><td>Dá nota de 0 a 10 por critério, estima a chance de aprovação por fase e reescreve os campos mais críticos.</td><td>Proposta e orçamento prontos, antes de revisar e submeter. É a auditoria com visão de banca.</td></tr>
-      <tr><td><code>/projeto-revisar</code></td><td>revisor-proposta</td><td>Checklist final: completude, coerência interna, conformidade com o formulário oficial e revisão de português.</td><td>Último passo antes de exportar e submeter.</td></tr>
-      <tr><td><code>/projeto-exportar</code></td><td>—</td><td>Gera a entrega final em Word, PDF e planilha, prontos para anexar na plataforma de submissão.</td><td>Projeto revisado e aprovado, hora de gerar os arquivos finais.</td></tr>
-    </tbody>
-  </table>
 
-  <h2><span class="num">4</span> CaptaHub (conexão e sincronização)</h2>
-  <p>Comandos de integração entre a AMC IA e a plataforma que centraliza editais, carteira e pipeline.</p>
-  <table>
-    <thead><tr><th>Comando</th><th>Para que serve</th><th>Quando usar</th></tr></thead>
-    <tbody>
-      <tr><td><code>/captahub-conectar</code></td><td>Conecta a AMC IA ao CaptaHub (token de API no <code>.env</code>) para puxar editais e carteira ao vivo.</td><td>Primeira configuração, ou se a conexão parou de funcionar.</td></tr>
-      <tr><td><code>/captahub-sincronizar</code></td><td>Reconcilia carteira e pipeline nos dois sentidos: puxa atualizações do CaptaHub e sobe o que existe só localmente (OSC nova, status de projeto).</td><td>Ao abrir a sessão, ao terminar uma etapa importante, ou quando quer garantir que tudo está espelhado.</td></tr>
-    </tbody>
-  </table>
+  <div class="comando">
+    <h2><code>/projeto-elegibilidade</code></h2>
+    <div class="campo"><span class="rotulo">Para que serve</span><p>Aciona o CaptaDoc para cruzar o edital com o perfil da OSC e emitir o veredito de elegibilidade. É o Gate de Elegibilidade: ninguém escreve proposta antes deste passo.</p></div>
+    <div class="campo"><span class="rotulo">Quando usar</span><p>Sempre o primeiro passo depois de <code>/edital-analisar</code>, antes de qualquer elaboração.</p></div>
+    <div class="campo"><span class="rotulo">Contexto que ele lê</span><p><code>minhas-oscs/.ativa</code> e o projeto. Sem <code>edital.md</code>, orienta <code>/edital-analisar</code> antes.</p></div>
+    <div class="campo"><span class="rotulo">Passo a passo</span>
+      <ol>
+        <li>Anuncia o início (cerca de 90 segundos).</li>
+        <li>Aciona o agente captador-doc, que confere natureza jurídica, tempo de existência, território, área e certidões da OSC contra o edital, e monta o checklist documental com riscos de inabilitação.</li>
+      </ol>
+    </div>
+    <div class="campo"><span class="rotulo">O que entrega</span><p>Veredito <strong>APTO</strong>, <strong>APTO COM PENDÊNCIAS</strong> ou <strong>INAPTO NO MOMENTO</strong>, checklist documental completo e riscos identificados.</p></div>
+    <div class="campo"><span class="rotulo">Onde salva</span><p><code>minhas-oscs/{ativa}/projetos/{edital-slug}/elegibilidade.md</code>.</p></div>
+    <div class="campo"><span class="rotulo">Travas e dependências</span><p>Exige <code>edital.md</code>. É a trava que protege <code>/projeto-escrever</code>.</p></div>
+    <div class="campo"><span class="rotulo">Próximo passo sugerido</span><p>APTO: <code>/projeto-escrever</code>. APTO COM PENDÊNCIAS: lista o que falta e permite elaborar em paralelo. INAPTO: explica o impedimento e sugere <code>/edital-minerar</code> para outro edital.</p></div>
+  </div>
 
-  <h2><span class="num">5</span> Marketing do captador (Fase 2. POSICIONAR)</h2>
+  <div class="comando">
+    <h2><code>/projeto-escrever</code></h2>
+    <div class="campo"><span class="rotulo">Para que serve</span><p>Aciona o CaptaBuilder para elaborar a proposta completa do projeto, bloco a bloco, ancorada nos critérios do edital.</p></div>
+    <div class="campo"><span class="rotulo">Quando usar</span><p>Depois da elegibilidade confirmada como APTO ou APTO COM PENDÊNCIAS.</p></div>
+    <div class="campo"><span class="rotulo">Contexto que ele lê</span><p><code>minhas-oscs/.ativa</code>, o projeto e o <code>elegibilidade.md</code>. Ausente, roda <code>/projeto-elegibilidade</code> antes; se INAPTO, não prossegue.</p></div>
+    <div class="campo"><span class="rotulo">Passo a passo</span>
+      <ol>
+        <li>Anuncia o início (4 a 8 minutos).</li>
+        <li>Aciona o agente captador-builder, que conduz a coleta por blocos (uma pergunta por vez, reaproveitando o que já está no perfil): identificação, justificativa, problema central, público-alvo, objetivo geral, objetivos específicos, metas, metodologia, cronograma, equipe, orçamento resumido, monitoramento e avaliação, resultados esperados, sustentabilidade, contrapartida, diferenciais competitivos e riscos/mitigação.</li>
+        <li>Mostra a proposta completa para aprovação (aprovar e salvar / ajustar).</li>
+      </ol>
+    </div>
+    <div class="campo"><span class="rotulo">O que entrega</span><p>A proposta completa, ancorada no edital, com pontos fortes, fragilidades e estimativa de desempenho.</p></div>
+    <div class="campo"><span class="rotulo">Onde salva</span><p><code>minhas-oscs/{ativa}/projetos/{edital-slug}/proposta.md</code>.</p></div>
+    <div class="campo"><span class="rotulo">Travas e dependências</span><p>Não escreve nada sem <code>elegibilidade.md</code> existente e sem veredito diferente de INAPTO.</p></div>
+    <div class="campo"><span class="rotulo">Próximo passo sugerido</span><p><code>/projeto-orcamento</code>.</p></div>
+  </div>
+
+  <div class="comando">
+    <h2><code>/projeto-orcamento</code></h2>
+    <div class="campo"><span class="rotulo">Para que serve</span><p>Aciona o CaptaBudget para transformar a proposta em um orçamento técnico defensável, por rubrica, com memória de cálculo.</p></div>
+    <div class="campo"><span class="rotulo">Quando usar</span><p>Depois que a proposta existe: o orçamento nasce das atividades descritas nela.</p></div>
+    <div class="campo"><span class="rotulo">Contexto que ele lê</span><p><code>minhas-oscs/.ativa</code>, o projeto e a <code>proposta.md</code>. Sem ela, orienta <code>/projeto-escrever</code> antes.</p></div>
+    <div class="campo"><span class="rotulo">Passo a passo</span>
+      <ol>
+        <li>Anuncia o início (2 a 4 minutos).</li>
+        <li>Aciona o agente captador-budget: lê as regras financeiras do edital, deriva os itens das atividades, monta o quadro por rubrica (pessoal e encargos, serviços de terceiros, material de consumo, material permanente, diárias e passagens, despesas administrativas, contrapartida) com memória de cálculo e justificativa, busca referências de preço na web quando exigido, sinaliza risco de glosa e a exigência de 3 cotações.</li>
+        <li>Mostra o orçamento para aprovação.</li>
+      </ol>
+    </div>
+    <div class="campo"><span class="rotulo">O que entrega</span><p>Orçamento técnico completo por rubrica, dentro do teto e das regras financeiras, com pendências identificadas.</p></div>
+    <div class="campo"><span class="rotulo">Onde salva</span><p><code>minhas-oscs/{ativa}/projetos/{edital-slug}/orcamento.md</code>.</p></div>
+    <div class="campo"><span class="rotulo">Travas e dependências</span><p>Exige <code>proposta.md</code>. Coerência absoluta entre proposta e orçamento.</p></div>
+    <div class="campo"><span class="rotulo">Próximo passo sugerido</span><p><code>/projeto-avaliar</code>.</p></div>
+  </div>
+
+  <div class="comando">
+    <h2><code>/projeto-avaliar</code></h2>
+    <div class="campo"><span class="rotulo">Para que serve</span><p>Aciona o CaptaScore para auditar o projeto com visão de banca antes da submissão. Você sabe a chance de aprovação antes de enviar.</p></div>
+    <div class="campo"><span class="rotulo">Quando usar</span><p>Proposta e orçamento prontos, antes de revisar e submeter.</p></div>
+    <div class="campo"><span class="rotulo">Contexto que ele lê</span><p><code>minhas-oscs/.ativa</code>, o projeto, <code>proposta.md</code> e <code>orcamento.md</code>. Avalia o que existir e avisa o que não pôde ser pontuado.</p></div>
+    <div class="campo"><span class="rotulo">Passo a passo</span>
+      <ol>
+        <li>Anuncia o início (2 a 3 minutos).</li>
+        <li>Aciona o agente captador-score: extrai os critérios do edital (ou usa os padrão do método), dá nota de 0 a 10 por critério, estima a chance por fase (eliminatória, técnica, contemplação final), aponta riscos de desclassificação e reescreve os campos críticos numa versão "nota 9,5".</li>
+      </ol>
+    </div>
+    <div class="campo"><span class="rotulo">O que entrega</span><p>Nota geral, chance por fase, nota por critério, riscos e as reescritas dos campos críticos.</p></div>
+    <div class="campo"><span class="rotulo">Onde salva</span><p><code>minhas-oscs/{ativa}/projetos/{edital-slug}/score.md</code>.</p></div>
+    <div class="campo"><span class="rotulo">Travas e dependências</span><p>Nenhuma trava de bloqueio, mas a avaliação fica incompleta se faltar proposta ou orçamento.</p></div>
+    <div class="campo"><span class="rotulo">Próximo passo sugerido</span><p>PRONTO PARA SUBMETER: <code>/projeto-revisar</code>. AJUSTAR ANTES: aplique as reescritas e reavalie.</p></div>
+  </div>
+
+  <div class="comando">
+    <h2><code>/projeto-revisar</code></h2>
+    <div class="campo"><span class="rotulo">Para que serve</span><p>Faz a última checagem do projeto antes de submeter, acionando o agente revisor-proposta.</p></div>
+    <div class="campo"><span class="rotulo">Quando usar</span><p>Último passo antes de exportar e submeter, depois da avaliação do CaptaScore.</p></div>
+    <div class="campo"><span class="rotulo">Contexto que ele lê</span><p><code>minhas-oscs/.ativa</code>, o projeto, <code>proposta.md</code> e <code>orcamento.md</code>.</p></div>
+    <div class="campo"><span class="rotulo">Passo a passo</span>
+      <ol>
+        <li>Anuncia o início (cerca de 60 segundos).</li>
+        <li>Aciona o agente revisor-proposta, que aplica 4 blocos: A completude, B coerência interna, C conformidade com o edital (teto, prazo, formulário oficial), D revisão de português.</li>
+      </ol>
+    </div>
+    <div class="campo"><span class="rotulo">O que entrega</span><p>Relatório com o que já foi corrigido, o que exige decisão sua, e o veredito: PRONTO PARA SUBMETER ou AJUSTAR ANTES.</p></div>
+    <div class="campo"><span class="rotulo">Onde salva</span><p>Correções aplicadas em <code>proposta.md</code> e <code>orcamento.md</code>. Se PRONTO, atualiza <code>estado.md</code>.</p></div>
+    <div class="campo"><span class="rotulo">Travas e dependências</span><p>Nunca altera conteúdo que exige decisão sua sem perguntar; corrige só português e formatação por conta própria.</p></div>
+    <div class="campo"><span class="rotulo">Próximo passo sugerido</span><p>Se PRONTO, lembra a forma de submissão e sugere <code>/projeto-exportar</code>.</p></div>
+  </div>
+
+  <div class="comando">
+    <h2><code>/projeto-exportar</code></h2>
+    <div class="campo"><span class="rotulo">Para que serve</span><p>Transforma a proposta e o orçamento (em markdown) nos arquivos finais que o financiador aceita: Word, PDF e planilha.</p></div>
+    <div class="campo"><span class="rotulo">Quando usar</span><p>Projeto revisado e aprovado, hora de gerar os arquivos finais para anexar na plataforma de submissão.</p></div>
+    <div class="campo"><span class="rotulo">Contexto que ele lê</span><p><code>minhas-oscs/.ativa</code>, o projeto, <code>proposta.md</code> e <code>orcamento.md</code>. Pode exportar só o que existir, avisando o que falta.</p></div>
+    <div class="campo"><span class="rotulo">Passo a passo</span>
+      <ol>
+        <li>Anuncia o início (cerca de 30 segundos).</li>
+        <li>Roda o script de exportação, removendo automaticamente a seção interna "Notas do CaptaBuilder (não submeter)".</li>
+      </ol>
+    </div>
+    <div class="campo"><span class="rotulo">O que entrega</span>
+      <ul>
+        <li><code>proposta.doc</code> (edita no Word ou Google Docs)</li>
+        <li><code>proposta.pdf</code> (pronto para anexar)</li>
+        <li><code>orcamento.xls</code> e <code>orcamento.csv</code> (Excel ou Google Sheets)</li>
+        <li><code>orcamento.pdf</code></li>
+        <li><code>projeto-completo.pdf</code> (proposta, orçamento, parecer e nota em um arquivo)</li>
+        <li>versões <code>-impressao.html</code>, para gerar o PDF manualmente se o Chrome não estiver instalado</li>
+      </ul>
+    </div>
+    <div class="campo"><span class="rotulo">Onde salva</span><p><code>minhas-oscs/{ativa}/projetos/{edital-slug}/entrega-final/</code>.</p></div>
+    <div class="campo"><span class="rotulo">Travas e dependências</span><p>O PDF automático depende do Google Chrome instalado. Confira sempre o documento final contra o modelo oficial do edital, se houver.</p></div>
+    <div class="campo"><span class="rotulo">Próximo passo sugerido</span><p>Submeter na plataforma e atualizar o status do projeto para "submetido" no CaptaHub.</p></div>
+  </div>
+
+  <h1 class="area">Área 4. CaptaHub (conexão e sincronização)</h1>
+  <p class="area-desc">Comandos de integração entre a AMC IA e a plataforma que centraliza editais, carteira e pipeline.</p>
+
+  <div class="comando">
+    <h2><code>/captahub-conectar</code></h2>
+    <div class="campo"><span class="rotulo">Para que serve</span><p>Liga a AMC IA ao CaptaHub, de onde vêm os editais e onde mora a carteira (pipeline e clientes).</p></div>
+    <div class="campo"><span class="rotulo">Quando usar</span><p>Primeira configuração do projeto, ou se a conexão parou de funcionar.</p></div>
+    <div class="campo"><span class="rotulo">Contexto que ele lê</span><p>As credenciais ficam só no <code>.env</code>; nunca aparecem em outro arquivo nem sem máscara.</p></div>
+    <div class="campo"><span class="rotulo">Passo a passo (caminho recomendado, API por token)</span>
+      <ol>
+        <li>Pergunta se já tem o token da API (gerado na aba API do CaptaHub); se não, orienta a gerá-lo.</li>
+        <li>Grava <code>CAPTAHUB_API_URL</code> e <code>CAPTAHUB_API_TOKEN</code> no <code>.env</code>, sem ecoar o valor (mostra mascarado).</li>
+        <li>Testa a conexão e informa o dono do token e os escopos concedidos.</li>
+      </ol>
+      <p>Há também um caminho legado (banco direto), usado só como fallback de leitura de editais.</p>
+    </div>
+    <div class="campo"><span class="rotulo">O que entrega</span><p>Confirmação da conexão ativa, com editais, carteira e clientes disponíveis pelo conector.</p></div>
+    <div class="campo"><span class="rotulo">Onde salva</span><p>As variáveis no <code>.env</code> da raiz do projeto.</p></div>
+    <div class="campo"><span class="rotulo">Travas e dependências</span><p>Sem credenciais, o sistema segue com o último cache local de editais, sem acesso à carteira ao vivo.</p></div>
+    <div class="campo"><span class="rotulo">Próximo passo sugerido</span><p><code>/edital-minerar</code> ou <code>/osc-trocar</code>.</p></div>
+  </div>
+
+  <div class="comando">
+    <h2><code>/captahub-sincronizar</code></h2>
+    <div class="campo"><span class="rotulo">Para que serve</span><p>Reconcilia a carteira e o pipeline com o CaptaHub nos dois sentidos: puxa as atualizações de lá e sobe o que existe só localmente.</p></div>
+    <div class="campo"><span class="rotulo">Quando usar</span><p>Ao abrir a sessão, ao terminar uma etapa importante, ou sempre que quiser garantir que tudo está espelhado.</p></div>
+    <div class="campo"><span class="rotulo">Contexto que ele lê</span><p>Verifica <code>CAPTAHUB_API_TOKEN</code>. Sem token, orienta <code>/captahub-conectar</code> e para.</p></div>
+    <div class="campo"><span class="rotulo">Passo a passo</span>
+      <ol>
+        <li>Anuncia o início (cerca de 30 segundos).</li>
+        <li>Puxa do CaptaHub a carteira de OSCs e atualiza o cache de editais.</li>
+        <li>Cruza carteira local x CaptaHub: em dia, só no CaptaHub (importável), ou só local.</li>
+        <li>Sobe o que está só local, checando o id antes de criar (nunca duplica): cria OSCs que existam só aqui e cria/atualiza o projeto da OSC ativa (valor do orçamento, nota técnica, chance de aprovação, status, data de submissão).</li>
+      </ol>
+    </div>
+    <div class="campo"><span class="rotulo">O que entrega</span><p>Resumo em tabela do que foi puxado, criado, atualizado e do que ficou pendente, em linguagem de captador.</p></div>
+    <div class="campo"><span class="rotulo">Onde salva</span><p>Grava os ids do CaptaHub em <code>perfil-osc.md</code> e <code>estado.md</code> na primeira vez que cada registro é criado.</p></div>
+    <div class="campo"><span class="rotulo">Travas e dependências</span><p>Idempotência: confere o id antes de criar. Se a API falhar em algo, não trava; lista como pendente.</p></div>
+    <div class="campo"><span class="rotulo">Próximo passo sugerido</span><p>Nenhum específico; é um comando de manutenção.</p></div>
+  </div>
+
+  <h1 class="area">Área 5. Marketing do captador (Fase 2. Posicionar)</h1>
   <div class="regra">Diferente das áreas anteriores: aqui o contexto não é uma OSC, é o próprio captador como negócio (<code>captador/perfil-captador.md</code>). O público é o gestor de OSC que pode contratar a assessoria.</div>
-  <table>
-    <thead><tr><th>Comando</th><th>Para que serve</th><th>Quando usar</th></tr></thead>
-    <tbody>
-      <tr><td><code>/captador-perfil</code></td><td>Cadastra ou atualiza o perfil do captador e da marca da assessoria: quem é, especialidade, público, diferenciais.</td><td>Antes de qualquer outro comando desta área. Sem perfil, o conteúdo sai genérico.</td></tr>
-      <tr><td><code>/captador-conteudo</code></td><td>Gera conteúdo de autoridade (carrossel, post de texto ou roteiro de reel) para atrair OSCs nas redes.</td><td>Quer publicar algo esta semana para se posicionar como referência em captação.</td></tr>
-      <tr><td><code>/captador-pagina</code></td><td>Gera a página de captura de leads da assessoria: copy completa mais HTML de arquivo único.</td><td>Precisa de um link para direcionar tráfego (bio, anúncio, indicação).</td></tr>
-      <tr><td><code>/captador-anuncio</code></td><td>Gera anúncios (copy e direção de criativo) para levar gestores de OSC até a página ou o diagnóstico.</td><td>Vai investir em tráfego pago ou impulsionamento.</td></tr>
-    </tbody>
-  </table>
 
-  <h2><span class="num">6</span> Venda e prestação do serviço (Fase 2 e 3. OFERTA e ASSESSORAR)</h2>
-  <table>
-    <thead><tr><th>Comando</th><th>Para que serve</th><th>Quando usar</th></tr></thead>
-    <tbody>
-      <tr><td><code>/assessoria-estruturar</code></td><td>Estrutura o serviço de assessoria: escopo, pacotes, precificação, e gera a proposta comercial.</td><td>Antes de sair vendendo: precisa decidir o que está oferecendo e por quanto.</td></tr>
-      <tr><td><code>/assessoria-pitch</code></td><td>Gera o playbook de venda do contrato anual de assessoria para uma OSC específica, com script e objeções mapeadas.</td><td>Vai ter uma reunião de fechamento com uma organização prospectada.</td></tr>
-    </tbody>
-  </table>
+  <div class="comando">
+    <h2><code>/captador-perfil</code></h2>
+    <div class="campo"><span class="rotulo">Para que serve</span><p>Cadastra ou atualiza o perfil do captador e da marca da assessoria. Fundação de toda a Fase 2.</p></div>
+    <div class="campo"><span class="rotulo">Quando usar</span><p>Antes de qualquer outro comando desta área.</p></div>
+    <div class="campo"><span class="rotulo">Contexto que ele lê</span><p>Verifica se já existe <code>captador/perfil-captador.md</code>; se existir, oferece atualizar.</p></div>
+    <div class="campo"><span class="rotulo">Passo a passo (entrevista, uma pergunta por vez)</span>
+      <ol>
+        <li>Nome do captador e da assessoria (se tiver).</li>
+        <li>Cidade, região de atuação, tempo de experiência.</li>
+        <li>Projetos já aprovados (valor, financiador, ano); sem nenhum, a autoridade nasce da jornada e do método.</li>
+        <li>A jornada de origem: o que enfrentou antes de ter método, e a virada.</li>
+        <li>Áreas e temas que mais domina.</li>
+        <li>Perfil das OSCs que quer atender e quem decide a contratação.</li>
+        <li>Serviços que quer oferecer e faixa de preço pretendida.</li>
+        <li>Tom de voz e canais.</li>
+      </ol>
+    </div>
+    <div class="campo"><span class="rotulo">O que entrega</span><p>O perfil completo do captador como negócio.</p></div>
+    <div class="campo"><span class="rotulo">Onde salva</span><p><code>captador/perfil-captador.md</code>.</p></div>
+    <div class="campo"><span class="rotulo">Travas e dependências</span><p>Nenhuma.</p></div>
+    <div class="campo"><span class="rotulo">Próximo passo sugerido</span><p><code>/assessoria-estruturar</code> ou <code>/captador-conteudo</code>.</p></div>
+  </div>
 
-  <h2><span class="num">7</span> Apoio e sistema</h2>
-  <table>
-    <thead><tr><th>Comando</th><th>Para que serve</th><th>Quando usar</th></tr></thead>
-    <tbody>
-      <tr><td><code>/configurar</code></td><td>Centraliza conexões e integrações: CaptaHub, atualização de editais, geração de imagens (opcional).</td><td>Configuração inicial do projeto ou ajuste de alguma integração.</td></tr>
-      <tr><td><code>/sala-agentes</code></td><td>Abre a Sala dos Agentes: um escritório visual em pixel art que mostra em tempo real qual agente está trabalhando e em que etapa.</td><td>Quer acompanhar visualmente o sistema em ação, ou mostrar para alguém como funciona.</td></tr>
-    </tbody>
-  </table>
+  <div class="comando">
+    <h2><code>/captador-conteudo</code></h2>
+    <div class="campo"><span class="rotulo">Para que serve</span><p>Gera conteúdo de autoridade (carrossel, post ou reel) que atrai gestores de OSC.</p></div>
+    <div class="campo"><span class="rotulo">Quando usar</span><p>Quer publicar algo esta semana para reforçar seu posicionamento.</p></div>
+    <div class="campo"><span class="rotulo">Contexto que ele lê</span><p><code>captador/perfil-captador.md</code>. Sem ele, orienta <code>/captador-perfil</code>.</p></div>
+    <div class="campo"><span class="rotulo">Passo a passo</span>
+      <ol>
+        <li>Pergunta o formato: carrossel, post de texto, roteiro de reel.</li>
+        <li>Pergunta o ângulo (erro que reprova, bastidor do método, mito x verdade, antes e depois, pergunta do público, edital da semana, número que choca), ou pede sugestão.</li>
+        <li>Pergunta (opcional) um tema ou dor específica.</li>
+        <li>Aciona o agente posicionador-captador, que gera a peça sempre nascendo de uma dor, dúvida ou desejo do gestor, nunca do serviço.</li>
+      </ol>
+    </div>
+    <div class="campo"><span class="rotulo">O que entrega</span><p>Carrossel: textos por card mais legenda. Reel: roteiro com tempos. Post: texto com tese e argumento.</p></div>
+    <div class="campo"><span class="rotulo">Onde salva</span><p><code>captador/entregas/conteudo/</code>.</p></div>
+    <div class="campo"><span class="rotulo">Travas e dependências</span><p>Exige <code>captador/perfil-captador.md</code>. Sem travessão, sem exclamação, sem promessa vaga.</p></div>
+    <div class="campo"><span class="rotulo">Próximo passo sugerido</span><p>Nenhum específico; entrega recorrente.</p></div>
+  </div>
 
-  <h2><span class="num">8</span> Agentes especialistas (por trás dos comandos)</h2>
-  <p>Os comandos acima acionam agentes especializados. Normalmente você não invoca um agente diretamente, mas é útil saber quem faz o quê:</p>
+  <div class="comando">
+    <h2><code>/captador-pagina</code></h2>
+    <div class="campo"><span class="rotulo">Para que serve</span><p>Gera a página de captura de leads da assessoria: copy das 9 seções mais o HTML de arquivo único.</p></div>
+    <div class="campo"><span class="rotulo">Quando usar</span><p>Precisa de um link para direcionar tráfego (bio, anúncio, indicação).</p></div>
+    <div class="campo"><span class="rotulo">Contexto que ele lê</span><p><code>captador/perfil-captador.md</code> e, se existir, <code>captador/oferta.md</code>.</p></div>
+    <div class="campo"><span class="rotulo">Passo a passo</span>
+      <ol>
+        <li>Pergunta o objetivo: captar leads para diagnóstico, ou vender direto um pacote.</li>
+        <li>Pergunta as provas disponíveis (projetos aprovados, depoimentos, números).</li>
+        <li>Pergunta a chamada para ação principal.</li>
+        <li>Aciona o agente posicionador-captador, que escreve as 9 seções (dobra inicial, problema real, método dos 4 agentes, prova, como funciona, oferta, autoridade, objeções/FAQ, chamada final) e gera o HTML no design de referência (navy e ciano).</li>
+      </ol>
+    </div>
+    <div class="campo"><span class="rotulo">O que entrega</span><p>O HTML pronto para abrir no navegador, mais a copy em markdown ao lado.</p></div>
+    <div class="campo"><span class="rotulo">Onde salva</span><p><code>captador/entregas/pagina/</code>.</p></div>
+    <div class="campo"><span class="rotulo">Travas e dependências</span><p>Exige <code>captador/perfil-captador.md</code>. Não mostra o código no chat; só informa os caminhos.</p></div>
+    <div class="campo"><span class="rotulo">Próximo passo sugerido</span><p><code>/captador-anuncio</code> para levar tráfego até essa página.</p></div>
+  </div>
+
+  <div class="comando">
+    <h2><code>/captador-anuncio</code></h2>
+    <div class="campo"><span class="rotulo">Para que serve</span><p>Gera anúncios (copy e direção de criativo) para levar gestores de OSC até a página ou o diagnóstico.</p></div>
+    <div class="campo"><span class="rotulo">Quando usar</span><p>Vai investir em tráfego pago ou impulsionamento.</p></div>
+    <div class="campo"><span class="rotulo">Contexto que ele lê</span><p><code>captador/perfil-captador.md</code>.</p></div>
+    <div class="campo"><span class="rotulo">Passo a passo</span>
+      <ol>
+        <li>Pergunta o objetivo: atrair quem não conhece, relacionamento com quem já segue, ou conversão.</li>
+        <li>Pergunta a dor ou desejo principal a tocar.</li>
+        <li>Pergunta o destino (página, WhatsApp, perfil).</li>
+        <li>Aciona o agente posicionador-captador, que gera o gancho (tocando a dor, nunca o serviço), o argumento com tese, a chamada para ação e a direção do criativo.</li>
+      </ol>
+    </div>
+    <div class="campo"><span class="rotulo">O que entrega</span><p>Copy do anúncio e direção do criativo.</p></div>
+    <div class="campo"><span class="rotulo">Onde salva</span><p><code>captador/entregas/anuncios/</code>.</p></div>
+    <div class="campo"><span class="rotulo">Travas e dependências</span><p>Exige <code>captador/perfil-captador.md</code>.</p></div>
+    <div class="campo"><span class="rotulo">Próximo passo sugerido</span><p>Nenhum específico.</p></div>
+  </div>
+
+  <h1 class="area">Área 6. Venda e prestação do serviço (Fase 2 e 3. Oferta e Assessorar)</h1>
+
+  <div class="comando">
+    <h2><code>/assessoria-estruturar</code></h2>
+    <div class="campo"><span class="rotulo">Para que serve</span><p>Estrutura o serviço de assessoria: o que entra, em quais pacotes, por quanto, e gera a proposta comercial.</p></div>
+    <div class="campo"><span class="rotulo">Quando usar</span><p>Antes de sair vendendo: precisa decidir o que está oferecendo e por quanto.</p></div>
+    <div class="campo"><span class="rotulo">Contexto que ele lê</span><p><code>captador/perfil-captador.md</code>.</p></div>
+    <div class="campo"><span class="rotulo">Passo a passo</span>
+      <ol>
+        <li>Pergunta os modelos que quer oferecer (proposta avulsa, triagem avulsa, contrato anual, combinação).</li>
+        <li>Pergunta a capacidade de entrega (quantos editais por mês).</li>
+        <li>Pergunta a faixa de preço pretendida em cada modelo.</li>
+        <li>Pergunta o que incluir e deixar de fora do escopo.</li>
+        <li>Monta pacotes, precificação ancorada (avulsa R$ 3.000 a R$ 8.000, contrato anual R$ 20.000 a R$ 30.000), modelo de cobrança e proposta comercial com as 5 objeções respondidas.</li>
+      </ol>
+    </div>
+    <div class="campo"><span class="rotulo">O que entrega</span><p>A oferta estruturada e a proposta comercial pronta para apresentar.</p></div>
+    <div class="campo"><span class="rotulo">Onde salva</span><p><code>captador/oferta.md</code> e a proposta em <code>captador/entregas/comercial/</code>.</p></div>
+    <div class="campo"><span class="rotulo">Travas e dependências</span><p>Exige <code>captador/perfil-captador.md</code>. Preço sempre com lógica e ancoragem, nunca no chute.</p></div>
+    <div class="campo"><span class="rotulo">Próximo passo sugerido</span><p><code>/captador-pagina</code> ou <code>/assessoria-pitch</code>.</p></div>
+  </div>
+
+  <div class="comando">
+    <h2><code>/assessoria-pitch</code></h2>
+    <div class="campo"><span class="rotulo">Para que serve</span><p>Gera o playbook completo de venda do contrato anual para uma OSC específica, com script consultivo e objeções mapeadas.</p></div>
+    <div class="campo"><span class="rotulo">Quando usar</span><p>Vai ter uma reunião de fechamento com uma organização prospectada.</p></div>
+    <div class="campo"><span class="rotulo">Contexto que ele lê</span><p><code>minhas-oscs/.ativa</code> e o <code>perfil-osc.md</code> (a OSC ativa pode ser o alvo ou um caso de referência).</p></div>
+    <div class="campo"><span class="rotulo">Passo a passo</span>
+      <ol>
+        <li>Pergunta qual OSC é o alvo.</li>
+        <li>Pergunta o modelo de cobrança pretendido.</li>
+        <li>Pergunta a dor principal dessa OSC.</li>
+        <li>Monta o playbook: abertura consultiva, reconhecimento da dor com os 4 motivos de reprovação, apresentação do serviço como linha de montagem, ancoragem de valor, proposta comercial, objeções mapeadas e fechamento.</li>
+      </ol>
+    </div>
+    <div class="campo"><span class="rotulo">O que entrega</span><p>O playbook completo, pronto para conduzir a reunião.</p></div>
+    <div class="campo"><span class="rotulo">Onde salva</span><p><code>minhas-oscs/{ativa}/assessoria/pitch-{osc-alvo}.md</code>.</p></div>
+    <div class="campo"><span class="rotulo">Travas e dependências</span><p>Nenhuma. Argumento sempre ancorado em dado e no método.</p></div>
+    <div class="campo"><span class="rotulo">Próximo passo sugerido</span><p>A reunião de fechamento.</p></div>
+  </div>
+
+  <h1 class="area">Área 7. Apoio e sistema</h1>
+
+  <div class="comando">
+    <h2><code>/configurar</code></h2>
+    <div class="campo"><span class="rotulo">Para que serve</span><p>Centraliza as conexões e integrações da AMC IA.</p></div>
+    <div class="campo"><span class="rotulo">Quando usar</span><p>Configuração inicial do projeto, ou ajuste de alguma integração.</p></div>
+    <div class="campo"><span class="rotulo">Passo a passo</span>
+      <ol>
+        <li>Conectar ao CaptaHub (encaminha para <code>/captahub-conectar</code>).</li>
+        <li>Atualizar os editais agora.</li>
+        <li>Configurar geração de imagens, opcional, para os criativos da Fase 2.</li>
+      </ol>
+    </div>
+    <div class="campo"><span class="rotulo">O que entrega</span><p>A integração configurada e testada, conforme a opção escolhida.</p></div>
+    <div class="campo"><span class="rotulo">Onde salva</span><p>Variáveis no <code>.env</code>.</p></div>
+    <div class="campo"><span class="rotulo">Travas e dependências</span><p>Tokens e chaves só no <code>.env</code>, sempre mascarados na exibição.</p></div>
+    <div class="campo"><span class="rotulo">Próximo passo sugerido</span><p>Depende da opção escolhida.</p></div>
+  </div>
+
+  <div class="comando">
+    <h2><code>/sala-agentes</code></h2>
+    <div class="campo"><span class="rotulo">Para que serve</span><p>Abre a Sala dos Agentes: um escritório visual em pixel art que mostra em tempo real qual agente está trabalhando e em que etapa.</p></div>
+    <div class="campo"><span class="rotulo">Quando usar</span><p>Quer acompanhar visualmente o sistema em ação, ou mostrar como o método funciona.</p></div>
+    <div class="campo"><span class="rotulo">Passo a passo</span><p>Executa direto o <code>abrir-sala-dos-agentes.bat</code> na raiz, que abre a página no navegador padrão sozinho. Se falhar, informa o caminho do <code>.bat</code> para abrir manualmente (nunca clicar no <code>.html</code> dentro do editor, que só mostra o código).</p></div>
+    <div class="campo"><span class="rotulo">O que entrega</span><p>A página aberta com um boneco por agente (MINERADOR, CAPTADOC, CAPTABUILDER, CAPTABUDGET, CAPTASCORE, POSICIONADOR, ORQUESTRADOR), andando e mostrando a atividade num balão conforme os comandos rodam.</p></div>
+    <div class="campo"><span class="rotulo">Travas e dependências</span><p>Funciona sem servidor. O selo "claude ativo/inativo" só acende com atividade recente.</p></div>
+    <div class="campo"><span class="rotulo">Próximo passo sugerido</span><p>Deixar a aba aberta ao lado enquanto trabalha nos outros comandos.</p></div>
+  </div>
+
+  <h1 class="area">Área 8. Agentes especialistas (por trás dos comandos)</h1>
+  <p class="area-desc">Os comandos acima acionam agentes especializados. Normalmente você não invoca um agente diretamente, mas é útil saber quem faz o quê:</p>
   <table>
     <thead><tr><th>Agente</th><th>Acionado por</th><th>O que faz</th></tr></thead>
     <tbody>
@@ -261,12 +702,12 @@
     </tbody>
   </table>
 
-  <h2><span class="num">9</span> Bases de conhecimento (skills consultadas pelos agentes)</h2>
-  <p>Não são comandos, mas fundamentam as respostas dos agentes. Cite-as se quiser entender de onde vem um critério ou uma regra:</p>
+  <h1 class="area">Área 9. Bases de conhecimento (skills consultadas pelos agentes)</h1>
+  <p class="area-desc">Não são comandos, mas fundamentam as respostas dos agentes. Cite-as se quiser entender de onde vem um critério ou uma regra:</p>
   <table>
     <thead><tr><th>Base de conhecimento</th><th>Consultada por</th><th>Conteúdo</th></tr></thead>
     <tbody>
-      <tr><td>editais-fundamentos</td><td><code>/edital-analisar</code>, CaptaDoc</td><td>MROSC, tipos de parceria, naturezas jurídicas, plataformas de submissão, leis de incentivo.</td></tr>
+      <tr><td>editais-fundamentos</td><td><code>/edital-analisar</code>, <code>/descricao-edital</code>, CaptaDoc</td><td>MROSC, tipos de parceria, naturezas jurídicas, plataformas de submissão, leis de incentivo.</td></tr>
       <tr><td>elaboracao-proposta</td><td>CaptaBuilder</td><td>Estrutura de proposta seção a seção, como construir objetivos, metas, indicadores, metodologia e cronograma.</td></tr>
       <tr><td>orcamento-tecnico</td><td>CaptaBudget</td><td>Rubricas, memória de cálculo, regras de teto e percentual, despesas vedadas, 3 cotações, glosa.</td></tr>
       <tr><td>avaliacao-projeto</td><td>CaptaScore</td><td>Critérios de pontuação, fases de seleção, riscos de desclassificação, como estimar chance de aprovação.</td></tr>
@@ -274,8 +715,8 @@
     </tbody>
   </table>
 
-  <h2><span class="num">10</span> Fluxo completo de um projeto, do zero à submissão</h2>
-  <p>Para visualizar a jornada inteira, do primeiro contato com a OSC até o arquivo pronto para enviar:</p>
+  <h1 class="area">Fluxo completo de um projeto, do zero à submissão</h1>
+  <p class="area-desc">Para visualizar a jornada inteira, do primeiro contato com a OSC até o arquivo pronto para enviar:</p>
   <pre> 1. /osc-nova (ou /osc-importar)      -&gt; cadastra ou importa a organização
  2. /edital-minerar                   -&gt; encontra o edital certo
  3. /edital-analisar                  -&gt; entende o edital a fundo
@@ -288,7 +729,7 @@
 10. (no CaptaHub) atualizar o status do projeto para "submetido"</pre>
   <p>Em paralelo, sempre que fizer sentido: <code>/captahub-sincronizar</code> para manter a carteira e o pipeline espelhados.</p>
 
-  <h2><span class="num">11</span> Perguntas rápidas. "Quero fazer X, qual comando uso?"</h2>
+  <h1 class="area">Perguntas rápidas. "Quero fazer X, qual comando uso?"</h1>
   <table>
     <thead><tr><th>Eu quero...</th><th>Comando</th></tr></thead>
     <tbody>
@@ -297,7 +738,9 @@
       <tr><td>Trabalhar com outro cliente agora</td><td><code>/osc-trocar</code></td></tr>
       <tr><td>Ver ou corrigir os dados da organização</td><td><code>/osc-perfil</code></td></tr>
       <tr><td>Achar um edital bom para a OSC ativa</td><td><code>/edital-minerar</code></td></tr>
-      <tr><td>Entender um edital específico a fundo</td><td><code>/edital-analisar</code></td></tr>
+      <tr><td>Entender um edital específico a fundo (dentro de um projeto de uma OSC)</td><td><code>/edital-analisar</code></td></tr>
+      <tr><td>Entender rápido um edital avulso, sem vincular a nenhuma OSC</td><td><code>/descricao-edital</code></td></tr>
+      <tr><td>Cadastrar editais novos que chegaram na pasta de trabalho</td><td><code>/editais-pasta-processar</code></td></tr>
       <tr><td>Saber se a OSC pode concorrer a este edital</td><td><code>/projeto-elegibilidade</code></td></tr>
       <tr><td>Escrever a proposta do projeto</td><td><code>/projeto-escrever</code></td></tr>
       <tr><td>Montar o orçamento do projeto</td><td><code>/projeto-orcamento</code></td></tr>

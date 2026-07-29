@@ -12,6 +12,7 @@
 - **Município e UF (sede):**
 - **Territórios de atuação:**
 - **Site e redes:**
+- **Pasta de documentos no computador (Desktop):** (caminho completo da pasta do cliente dentro de "06 - Clientes", usada para leitura direta dos documentos brutos)
 
 ## Atuação
 
