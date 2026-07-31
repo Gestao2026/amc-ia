@@ -1,0 +1,169 @@
+{
+  "pasta_origem": "C:\\Users\\rosep\\Desktop\\Controle Editais\\1. EDITAIS",
+  "descricao": "Log definitivo de controle da rotina diária (02h) que le a pasta do Desktop, extrai os dados de cada edital por financiador, confere duplicidade contra o CaptaHub e prepara o cadastro em prontos-para-cadastro.json. Cada financiador processado entra aqui para não ser reprocessado no dia seguinte, a menos que os arquivos da pasta mudem.",
+  "financiadores": [
+    {
+      "financiador": "AMBIPAR",
+      "arquivos": [
+        {
+          "nome": "Política de Patrocínio e Doação Ambipar Group.pdf",
+          "tamanho_bytes": 826350
+        }
+      ],
+      "data_processamento": "2026-07-29",
+      "resultado": "novo",
+      "titulo_extraido": "Política de Patrocínio e Doação Ambipar Group",
+      "acao": "adicionado a prontos-para-cadastro.json"
+    },
+    {
+      "financiador": "BANCO NORDESTE - RECICLAGEM",
+      "arquivos": [
+        {
+          "nome": "Edital Social _Reciclagem 2025_Final.pdf",
+          "tamanho_bytes": 221093
+        }
+      ],
+      "data_processamento": "2026-07-29",
+      "resultado": "duplicado",
+      "titulo_extraido": "Edital Social Lei de Incentivo à Reciclagem FAVORECICLE/2025",
+      "acao": "descartado, ja existe na base local do CaptaHub (id 88978971-2f77-4f0d-82e2-d36a5ef79c60)"
+    },
+    {
+      "financiador": "BARRAGINHA",
+      "arquivos": [
+        {
+          "nome": "Edital Seleção Pública_Florestas Produtivas com Barraginhas_FINAL.pdf",
+          "tamanho_bytes": 315728
+        },
+        {"nome": "Acordo Judicial Anexto 5 - PRE Eixo Rural_Extraído do Acordo completo.pdf", "tamanho_bytes": null},
+        {"nome": "ANEXO 01_Orientações Gerais_FINAL.pdf", "tamanho_bytes": null},
+        {"nome": "ANEXO 02_ Composição dos Lotes_FINAL.pdf", "tamanho_bytes": null},
+        {"nome": "ANEXO 03_Lista Documentos Habilitação_FINAL.pdf", "tamanho_bytes": null},
+        {"nome": "ANEXO 04 - Lista Documentos Criterios-Julgamento Tecnico_FINAL.pdf", "tamanho_bytes": null},
+        {"nome": "ANEXO 05_Equipe Técnica e Coordenação_FINAL.pdf", "tamanho_bytes": null}
+      ],
+      "data_processamento": "2026-07-29",
+      "resultado": "novo",
+      "titulo_extraido": "Edital de Seleção Pública nº 001/2026 - Florestas Produtivas com Barraginhas para a Retomada Econômica na Bacia do Rio Doce",
+      "acao": "adicionado a prontos-para-cadastro.json",
+      "alerta": "prazo de envio encerra 30/07/2026, praticamente vencido"
+    },
+    {
+      "financiador": "BB RIO DOCE",
+      "arquivos": [
+        {"nome": "BB EDITAL_RIO_DOCE_PARTICIPATIVO_E_COMUNITARIO_-_2026.011.pdf", "tamanho_bytes": 180879},
+        {"nome": "EDITAL-RIO-DOCE-PARTICIPATIVO-E-COMUNITARIO_2a-RETIFICACAO.pdf", "tamanho_bytes": 184171},
+        {"nome": "ERRATA-EDITAL-RIO-DOCE-2a-Errata.pdf", "tamanho_bytes": 106318},
+        {"nome": "ANEXO 3.pdf", "tamanho_bytes": null},
+        {"nome": "ANEXO-11-ROTEIRO-PARA-CONFERENCIA.pdf", "tamanho_bytes": null},
+        {"nome": "ANEXO-3-MODELO-DE-PROPOSTA-DE-PROJETO-EDITAL-RIO-DOCE.pdf", "tamanho_bytes": null},
+        {"nome": "ANEXO-5-ROTEIRO-PARA-UTILIZACAO-DO-SISTEMA.pdf", "tamanho_bytes": null},
+        {"nome": "ANEXO-6-FLUXO-DO-PROCESSO-FASES.pdf", "tamanho_bytes": null},
+        {"nome": "ANEXO-7-CRITERIOS-TECNICOS-DE-PONTUACAO-RETIFICADO.pdf", "tamanho_bytes": null},
+        {"nome": "ANEXO-8-CRITERIOS-DE-PRIORIZACAO-DE-PONTUACAO.pdf", "tamanho_bytes": null},
+        {"nome": "ANEXO-9-DECLARACAO-DE-PARTICIPACAO-EM-COORDENACAO-DE-PROJETO.pdf", "tamanho_bytes": null},
+        {"nome": "Banco de Tecnologias Aplicadas ao Desenvolvimento Social.pdf", "tamanho_bytes": null},
+        {"nome": "[PRORROGADO]202604_Termo de Referência_Edital Chamada Aberta_Mês Mundial da Localização (2).pdf", "tamanho_bytes": null}
+      ],
+      "data_processamento": "2026-07-29",
+      "resultado": "novo",
+      "titulo_extraido": "Edital Rio Doce Participativo e Comunitário - Chamada Pública nº 2026/011",
+      "acao": "adicionado a prontos-para-cadastro.json",
+      "alerta": "pela 2a retificacao, prazo de envio antecipado para 29/07/2026 23h59 (hoje). Praticamente vencido."
+    },
+    {
+      "financiador": "BB SOCIO CULTURAL",
+      "arquivos": [
+        {
+          "nome": "BB Projetos Socioculturais - Regulamento.pdf",
+          "tamanho_bytes": 358775
+        }
+      ],
+      "data_processamento": "2026-07-29",
+      "resultado": "duplicado",
+      "titulo_extraido": "Projetos Socioculturais / Leis de Incentivo (Brasilseg, BB Seguros)",
+      "acao": "descartado, mesmo programa da Brasilseg (BB Seguros) ja pendente de cadastro em prontos-para-cadastro.json (origem: pasta BB SEGURO, processada em 2026-07-19). Duplicidade identificada manualmente, o checador automatico nao cobre a propria lista pendente."
+    },
+    {
+      "financiador": "BEM BRASIL",
+      "arquivos": [
+        {
+          "nome": "Bem Brasil a Projetos Sociais e Leis de Incentivo - Edital.pdf",
+          "tamanho_bytes": 3895089
+        }
+      ],
+      "data_processamento": "2026-07-29",
+      "resultado": "novo",
+      "titulo_extraido": "Patrocínio a Projetos Sociais e Leis de Incentivo - Bem Brasil",
+      "acao": "adicionado a prontos-para-cadastro.json"
+    },
+    {
+      "financiador": "BIP CULTURA",
+      "arquivos": [{"nome": "BIP CULTURA.docx", "tamanho_bytes": null}],
+      "data_processamento": "2026-07-29",
+      "resultado": "nao_e_edital",
+      "titulo_extraido": "BIP Cultura - Banco de Incentivados da Prosas",
+      "acao": "descartado, nao cadastrado. E uma vitrine/plataforma de visibilidade para projetos que ja tem lei de incentivo aprovada, sem chamada publica ou selecao (o proprio texto diz 'o BIP nao e um edital'). Nao se encaixa no schema de editais do CaptaHub."
+    },
+    {
+      "financiador": "BIP ESPORTE",
+      "arquivos": [{"nome": "BIP ESPORTE.docx", "tamanho_bytes": null}],
+      "data_processamento": "2026-07-29",
+      "resultado": "nao_e_edital",
+      "titulo_extraido": "BIP Esporte - Banco de Incentivados da Prosas",
+      "acao": "descartado, nao cadastrado. Mesmo motivo do BIP CULTURA (vitrine, nao e edital)."
+    },
+    {
+      "financiador": "BRASILPREV",
+      "arquivos": [{"nome": "Brasilprev–Doações a Projetos Incentivados de Impacto Social-Regulamento.pdf", "tamanho_bytes": null}],
+      "data_processamento": "2026-07-29",
+      "resultado": "novo",
+      "titulo_extraido": "Doações a Projetos Incentivados de Impacto Social - Brasilprev",
+      "acao": "adicionado a prontos-para-cadastro.json"
+    },
+    {
+      "financiador": "CBMM",
+      "arquivos": [{"nome": "CBMM - 2026.docx", "tamanho_bytes": null}],
+      "data_processamento": "2026-07-29",
+      "resultado": "novo",
+      "titulo_extraido": "Investimento Social CBMM - Educação, Esporte, Saúde e Cultura",
+      "acao": "adicionado a prontos-para-cadastro.json"
+    },
+    {
+      "financiador": "CEMIG FIA",
+      "arquivos": [{"nome": "Cemig-Chamada_Publica_FIA_2025_2026.pdf", "tamanho_bytes": null}],
+      "data_processamento": "2026-07-29",
+      "resultado": "vencido",
+      "titulo_extraido": "Chamada Pública CEMIG 01/2025 - Seleção de Projetos Aprovados via Fundo para a Infância e Adolescência",
+      "acao": "descartado, nao cadastrado. Inscricoes encerraram em 13/07/2026 (ultimo corte trimestral), e hoje e 29/07/2026. Edital vencido."
+    },
+    {
+      "financiador": "EDP",
+      "arquivos": [{"nome": "EDP 2026.docx", "tamanho_bytes": null}, {"nome": "EDP_Modelo_de_Cronograma_e_Orcamento_2026.xlsx", "tamanho_bytes": null}],
+      "data_processamento": "2026-07-29",
+      "resultado": "novo",
+      "titulo_extraido": "Instituto EDP - Canal de Captação Contínua de Projetos Sociais",
+      "acao": "adicionado a prontos-para-cadastro.json"
+    },
+    {
+      "financiador": "EMS",
+      "arquivos": [
+        {"nome": "EMS.docx", "tamanho_bytes": null},
+        {"nome": "EMS Política de Patrocínios e Doações - Regulamento.pdf", "tamanho_bytes": null},
+        {"nome": "EMS Farmacêutica-MODELO-Resumo do Projeto.docx", "tamanho_bytes": null}
+      ],
+      "data_processamento": "2026-07-29",
+      "resultado": "novo",
+      "titulo_extraido": "Patrocínio Institucional EMS",
+      "acao": "adicionado a prontos-para-cadastro.json"
+    },
+    {
+      "financiador": "ENERGISA CULTURAL",
+      "arquivos": [{"nome": "Energisa Cultural.pdf", "tamanho_bytes": null}],
+      "data_processamento": "2026-07-29",
+      "resultado": "novo",
+      "titulo_extraido": "Programa Energisa Cultural",
+      "acao": "adicionado a prontos-para-cadastro.json"
+    }
+  ]
+}

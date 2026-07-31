@@ -10,6 +10,7 @@
 | Minerar editais na base local (filtro + ranking) | cerca de 30 segundos |
 | Analisar um edital colado ou em PDF | 2 a 4 minutos |
 | Atualizar a base de editais | 3 a 6 minutos |
+| Conferir duplicidade no CaptaHub e buscar OSC compatível (dentro do `/descricao-edital`) | cerca de 30 segundos |
 
 ## Projeto (os 4 agentes)
 

@@ -15,7 +15,7 @@ Antes de emitir o veredito (APTO, APTO COM PENDÊNCIAS ou INAPTO NO MOMENTO), o 
 3. Quem não pode participar (impedimentos previstos)
 4. Categorias ou linhas de financiamento (objetivo, valor, quantidade de vagas, despesas permitidas por categoria)
 5. Critérios de elegibilidade e de habilitação
-6. Critérios de pontuação e de desempate
+6. Critérios de pontuação e de desempate. Aqui inclui-se sempre verificar se algum critério depende de uma **base de cálculo externa e variável de edital para edital** (IDHM do município, faixa de população do IBGE, renda per capita, outro índice social ou territorial): quando existir, extrair a tabela real de faixas e valores, não uma descrição genérica; quando não existir, registrar explicitamente que não há
 7. Checklist documental da inscrição e da habilitação (certidões, cadastros, plataforma, anexos obrigatórios)
 8. Cronograma do edital (etapas, recursos, prazos)
 9. Itens financiáveis e itens vedados

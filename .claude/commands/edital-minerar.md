@@ -40,6 +40,24 @@ Apresente a lista priorizada (top 10 a 15) em tabela: edital, órgão, escopo, v
 
 Para os de ALTA aderência, ofereça abrir o projeto: criar a pasta `projetos/{edital-slug}/` e gravar um `edital.md` inicial com os dados (da base do CaptaHub ou da fonte web). Para os achados na web, sugira também cadastrá-los no CaptaHub.
 
+### Passo 4.1. Abrir (ou atualizar) o Controle no CaptaHub, para o edital escolhido
+
+Quando o captador confirmar a abertura de um edital específico (Passo 4), esta origem ("mineração") segue a mesma regra de negócio central do SOL-0007 (`.claude/rules/decisoes-tecnicas.md`), usada também por `/descricao-edital` e `/editais-pasta-processar`. Diferença aqui: já se sabe qual OSC está em jogo (a OSC ativa), então a checagem de compatibilidade usa só ela, não a carteira inteira.
+
+1. Leia a linha `ID CaptaHub: {id}` do `perfil-osc.md` da OSC ativa (Passo 0). Sem esse id (OSC ainda não sincronizada com o CaptaHub), pule este passo inteiro e avise: "esta OSC ainda não está sincronizada com o CaptaHub (`/osc-importar` ou `/osc-perfil`), Controle não foi aberto".
+2. Rode o resolvedor central, em modo OSC específica (`--cliente-id`):
+   ```
+   python3 scripts/controle-resolver.py --titulo "{title}" --edital-id "{id do edital, se veio do CaptaHub}" --category "{category}" --scope "{scope}" --uf "{uf, se houver}" --description "{description}" --tags "{tags}" --cliente-id "{ID CaptaHub da OSC ativa}"
+   ```
+   Leia o bloco `=== JSON ===`.
+3. **Se `duplicado: true`:** não crie outro Controle. Informe o `controle_existente.id`. Se ele já pertence a outra OSC (`cliente_id` diferente da OSC ativa), avise isso claramente antes de prosseguir, não sobrescreva o vínculo sem o captador confirmar.
+4. **Se `duplicado: false`:** crie o Controle:
+   ```
+   python3 scripts/captahub-api.py controle-criar --nome "{title}" --status {status_sugerido} {--cliente-id {ID CaptaHub da OSC ativa} se vincular_automaticamente=true} {--edital-id {id} se veio do CaptaHub, senão --edital-json '{json com os campos do edital}'}
+   ```
+   Se usou `--edital-json`, guarde os dados também em `editais-para-cadastrar/controles-criados.json` (mesmo formato dos outros dois comandos).
+5. Sem CaptaHub conectado, pule este passo inteiro; a pasta local (`projetos/{edital-slug}/`) continua sendo criada normalmente.
+
 ## Passo 5. Próximo passo
 
 Sugira `/edital-analisar` para aprofundar o edital escolhido e, na sequência, `/projeto-elegibilidade`.

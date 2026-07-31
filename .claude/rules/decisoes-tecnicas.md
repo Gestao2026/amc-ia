@@ -127,3 +127,33 @@ Impacto: esta entrada registra a regra de negócio, não a implementação. Fica
 - Definir o critério objetivo de "OSC compatível o suficiente para vincular automaticamente" (hoje a aderência do `/edital-minerar` é qualitativa, ALTA/MÉDIA/BAIXA; decidir se some um piso mínimo, ex: só vincula automaticamente aderência ALTA).
 
 Data: 2026-07-31
+
+### SOL-0008. Implementação do SOL-0007: `controle-resolver.py` e dois bugs reais corrigidos no caminho
+
+Problema: o SOL-0007 registrou a regra de negócio, mas nada foi implementado. O captador pediu a implementação, com prioridade explícita: um mecanismo central único, reutilizado pelas três origens que hoje criam Controle (`/descricao-edital`, `/editais-pasta-processar`, `/edital-minerar`), antes de qualquer novo trabalho na sincronização da tela "Editar Controle".
+
+Solução: criado `scripts/controle-resolver.py`, único ponto de decisão de dedup + compatibilidade + etapa inicial do pipeline (documentado em `docs/integracao-captahub-api.md`, seção 3.5). Não escreve no CaptaHub, só decide; os três comandos (`.claude/commands/descricao-edital.md` Passo 5, `editais-pasta-processar.md` Passo 6, `edital-minerar.md` Passo 4.1, este último novo, mineração não abria Controle antes) passaram a chamá-lo e agir sobre o resultado.
+
+Decisões de parâmetro tomadas nesta implementação (ajustáveis, documentadas como constantes no topo do script):
+- Dedup de Controle: `edital_id` exato quando conhecido; senão título normalizado contra o `nome` dos Controles existentes, `SequenceMatcher`, limiar 0,82 (mesmo limiar do dedup de catálogo já existente, para previsibilidade, mesmo sendo um sinal mais fraco já que o Controle não guarda instituição nem link).
+- Pontuação de compatibilidade edital -> OSC (direção inversa da já existente em `minerar-editais.py`, que pontua editais para uma OSC): categoria exata +3, categoria aproximada +2, palavra-chave (até 3) +1 cada, território local +4, alcance nacional/internacional +1, fora do território -6.
+- Bandas: ALTA (score ≥ 6), MÉDIA (≥ 3), BAIXA (resto). **Só ALTA vincula automaticamente** (`BANDA_MINIMA_PARA_VINCULO_AUTOMATICO = "ALTA"`), resolvendo a pendência que o SOL-0007 tinha deixado em aberto. Critério deliberadamente conservador: evitar vínculo errado de OSC direto na etapa Selecionado.
+- `--cliente-id` no resolvedor: modo alternativo que avalia compatibilidade só contra uma OSC específica (não a carteira inteira), usado por `/edital-minerar`, que já opera no contexto da OSC ativa.
+
+Bugs reais encontrados e corrigidos durante a implementação (não hipotéticos, reproduzidos):
+1. **Marcador de bloco machine-readable inexistente.** `editais-pasta-checar-duplicado.py` (e o rascunho inicial deste resolvedor) procuravam o texto fixo `=== JSON ===` na saída de `captahub-api.py`, mas o script sempre imprime `=== {RÓTULO} ===` (`=== EDITAIS ===`, `=== PROJETOS ===`, `=== CLIENTES ===`...). Isso nunca gerava exceção, então o efeito era silencioso: `buscar_captahub()` sempre retornava lista vazia, e a checagem de duplicidade ao vivo contra o CaptaHub em `/editais-pasta-processar` nunca funcionou de fato, mesmo com o CaptaHub conectado (caía sempre para "sem duplicata" sem avisar). Corrigido nos dois arquivos: busca por regex `^=== .+ ===$` em vez de string fixa.
+2. **Ordem de impressão invertida em `cmd_projeto` e `cmd_cliente`.** Essas duas funções imprimiam o bloco `=== JSON ===` antes da linha de texto legível (`cmd_edital`, ao lado, já fazia na ordem certa: texto primeiro, JSON por último). Isso quebra qualquer parser que leia "tudo depois do marcador" (o JSON fica com uma linha de texto solta depois, erro de parsing). Só apareceu porque o resolvedor precisou chamar `projeto --id`/`cliente --id` pela primeira vez de forma automatizada; nenhum uso anterior desses dois subcomandos dependia de parsear a saída via `=== JSON ===`. Corrigido invertendo a ordem das duas linhas em ambas as funções.
+3. **Windows decodifica `subprocess.run(..., text=True)` em cp1252 por padrão**, mas a saída do processo filho é UTF-8 (`sys.stdout.reconfigure`); com acento no texto (comum em pt-BR), a leitura do stdout quebrava com `UnicodeDecodeError`. Corrigido passando `encoding="utf-8"` explicitamente nas duas chamadas de `subprocess.run` (`controle-resolver.py` e `editais-pasta-checar-duplicado.py`).
+
+Também estendido `projeto-atualizar` (`scripts/captahub-api.py`) com `--cliente-id` e `--edital-id`, ausentes até então na CLI (o método do cliente já aceitava qualquer campo via `**campos`, só a CLI não expunha), necessários para o backfill do ponto 3 do SOL-0007 (edital já existente ganha o vínculo ou o `edital_id` que ainda não tinha).
+
+Testado ao vivo (31/07/2026) contra o pipeline real: duplicidade por `edital_id` exato, duplicidade por título (100% de similaridade), edital novo sem OSC compatível na carteira, edital novo com aderência MÉDIA (não vincula) e edital novo com aderência ALTA (vincula e sugere `selecionado`), nos dois modos (carteira inteira e `--cliente-id` específico).
+
+Alternativas descartadas: manter a checagem de compatibilidade qualitativa (ALTA/MÉDIA/BAIXA por julgamento do agente, como o `minerador-editais` já faz) em vez de uma pontuação determinística; descartada porque o vínculo automático de OSC é uma ação de escrita (não só uma recomendação em texto), e precisa de um critério reproduzível e testável, não uma estimativa de agente que pode variar entre execuções.
+
+Impacto: o que fica explicitamente fora desta implementação, por pedido do captador ("somente após essa validação voltaremos à sincronização da tela Editar Controle"):
+- Nenhum enriquecimento de campo (Descrição, Prazo, Categoria, Valor do Captador etc.) em Controle já existente. A ação "atualizar" do SOL-0007, nesta fase, significa só "não duplicar" mais o backfill pontual de `edital_id`/`cliente_id` quando estavam nulos.
+- A pontuação de compatibilidade aqui é independente da lógica qualitativa do `minerador-editais` (que ranqueia editais para uma OSC); as duas podem, em tese, divergir de rótulo (ALTA/MÉDIA/BAIXA) para o mesmo par edital-OSC, porque respondem perguntas de direção inversa com heurísticas próprias. Não foi unificado nesta rodada.
+- Próximo passo combinado com o captador: testes com editais reais para validar ausência de duplicidade end-to-end, antes de retomar a decisão pendente sobre a sincronização da tela "Editar Controle" (captura de rede feita, mas decisão entre pedir ao CaptaHub vs. usar a rota crua do Supabase ainda em aberto).
+
+Data: 2026-07-31

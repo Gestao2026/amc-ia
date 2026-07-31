@@ -60,21 +60,29 @@ def carregar_base_local():
     return []
 
 
+MARCADOR_BLOCO = re.compile(r"^=== .+ ===\s*$", re.MULTILINE)
+
+
 def buscar_captahub(titulo):
+    """Consulta o CaptaHub ao vivo. O rótulo do bloco varia por comando (=== EDITAIS ===
+    aqui), por isso a busca é pelo padrão "=== ... ===", não por um marcador fixo
+    (correção de um bug real: a versão anterior procurava "=== JSON ===", que nunca
+    existe de fato, então esta consulta ao vivo sempre falhava em silêncio)."""
     try:
         resultado = subprocess.run(
             [sys.executable, str(RAIZ / "scripts" / "captahub-api.py"), "editais", "--q", titulo, "--limit", "10"],
-            capture_output=True, text=True, timeout=20,
+            capture_output=True, text=True, encoding="utf-8", timeout=20,
         )
     except Exception:
         return []
-    saida = resultado.stdout or ""
-    marcador = "=== JSON ==="
-    if marcador not in saida:
+    if resultado.returncode != 0:
         return []
-    bloco = saida.split(marcador, 1)[1]
+    saida = resultado.stdout or ""
+    m = MARCADOR_BLOCO.search(saida)
+    if not m:
+        return []
     try:
-        dados = json.loads(bloco)
+        dados = json.loads(saida[m.end():])
     except json.JSONDecodeError:
         return []
     return dados.get("data") or dados.get("editais") or []

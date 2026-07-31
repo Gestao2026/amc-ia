@@ -19,9 +19,11 @@ CaptaHub (ou na base local) para não duplicar, e prepara os que são novos.
 2. Rode `/editais-pasta-processar` (ou aguarde a rotina de segunda-feira, quando estiver configurada).
 3. O sistema mostra quantos são novos e quantos já existiam (duplicados, não cadastrados de novo).
 4. Os arquivos já processados vão para `processados/{data}/`, para não reprocessar por engano.
-5. Os editais novos ficam prontos em `prontos-para-cadastro.json`, no formato de campos do CaptaHub,
-   aguardando a confirmação do endpoint de criação (`POST /v1/editais`) junto ao time do CaptaHub.
-   Enquanto isso não existir, veja `prontos-para-cadastro.json` para cadastrar manualmente na tela do CaptaHub.
+5. Os editais novos ganham um **Controle** aberto direto no CaptaHub (pipeline, etapa "Encontrar
+   cliente"), a mesma operação do botão "Novo Controle" da tela. A base de editais em si não é
+   escrita pela AMC IA (não existe, e não deve ser tentado, nenhum `POST /v1/editais`; é o próprio
+   CaptaHub que administra o catálogo). Os dados extraídos de cada edital também ficam guardados em
+   `controles-criados.json`, porque o CaptaHub hoje não persiste esses campos junto ao Controle.
 
 ## Observação
 

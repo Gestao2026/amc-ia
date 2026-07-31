@@ -59,42 +59,77 @@ python3 scripts/editais-pasta-checar-duplicado.py --titulo "{title}" --orgao "{i
 
 (Some `--sem-captahub` se o Passo 0 indicou que o CaptaHub não respondeu.)
 
-Leia o bloco `=== JSON ===` da saída. Se `"duplicado": true`, marque este edital como
-duplicado e não o inclua no cadastro. Se `false`, é candidato a edital novo.
+Leia o bloco `=== JSON ===` da saída. Se `"duplicado": true`, guarde o `correspondente.id`
+retornado (é um `edital_id` real do catálogo do CaptaHub, útil no Passo 6). Se `false`, é
+candidato a edital novo, sem `edital_id` no CaptaHub.
 
-## Passo 6. Preparar o cadastro
+## Passo 6. Abrir ou atualizar o Controle no CaptaHub (nunca escrever na base de editais)
 
-Ainda não existe endpoint confirmado de criação de edital via API (`POST /v1/editais`).
-Enquanto isso:
+**Regra de arquitetura, absoluta:** a base de editais é administrada pelo próprio CaptaHub;
+a AMC IA nunca escreve nela (não existe `POST /v1/editais` nem qualquer variante — não
+tente). O que este comando faz para cada edital do lote é abrir (ou atualizar) um
+**Controle** no pipeline, seguindo a regra de negócio central do SOL-0007
+(`.claude/rules/decisoes-tecnicas.md`), a mesma usada por `/descricao-edital` e
+`/edital-minerar` (não confundir com a duplicidade de **edital no catálogo**, já resolvida
+no Passo 5).
 
-1. Salve todos os editais novos (não duplicados) em
-   `editais-para-cadastrar/prontos-para-cadastro.json`, uma lista no formato de campos do
-   CaptaHub (Passo 4), acrescentando `"origem_arquivo"` com o nome do arquivo de origem.
-2. Mova os arquivos já processados (novos e duplicados) para
+1. **Para cada edital do lote, rode o resolvedor central:**
+   ```
+   python3 scripts/controle-resolver.py --titulo "{title}" --edital-id "{correspondente.id, se o Passo 5 achou}" --category "{category}" --scope "{scope}" --uf "{uf, se houver}" --description "{description}" --tags "{tags separadas por vírgula}"
+   ```
+   Leia o bloco `=== JSON ===` da saída.
+2. **Se `duplicado: true`:** não crie outro Controle. Guarde `controle_existente.id` como o
+   Controle deste edital, trate como já processado. Se `sugerir_backfill_edital_id: true` e o
+   Passo 5 trouxe `correspondente.id`, rode
+   `python3 scripts/captahub-api.py projeto-atualizar --id {controle_existente.id} --edital-id {correspondente.id}`
+   para completar o vínculo. Não enriqueça outros campos agora (ver SOL-0007, sincronização
+   de campo a campo ainda pendente).
+3. **Se `duplicado: false`:** crie o Controle já na etapa e no vínculo sugeridos:
+   ```
+   python3 scripts/captahub-api.py controle-criar --nome "{title}" --status {status_sugerido} {--cliente-id {candidato_osc.id} se vincular_automaticamente=true} {--edital-id {correspondente.id} se o Passo 5 achou, senão --edital-json '{json com os campos do Passo 4}'}
+   ```
+   Leia o bloco `=== JSON ===` e guarde o `id` do Controle criado.
+4. **Guardar os dados extraídos localmente, sempre que um Controle novo foi criado com
+   `--edital-json`.** O CaptaHub aceita esse campo mas hoje não o persiste (confirmado em
+   teste real, `edital_id` volta `null`). Acrescente um registro em
+   `editais-para-cadastrar/controles-criados.json` (leia o array existente e acrescente; crie
+   com `[]` se não existir) com: `controle_id`, os campos do edital (Passo 4), `osc_vinculada`
+   (nome e id, se `vincular_automaticamente` foi true, ou `null`), `origem_arquivo`,
+   `criado_em` (data de hoje).
+5. Mova os arquivos já processados (novos e duplicados) para
    `editais-para-cadastrar/processados/{AAAA-MM-DD}/`, preservando o nome original.
-3. Se, num próximo passo, o endpoint de criação já estiver confirmado e implementado no
-   conector, use-o aqui para cadastrar automaticamente em vez de só gerar o JSON.
+6. Sem token do CaptaHub configurado (Passo 0), pule este passo inteiro: não há como criar
+   nem atualizar Controle. Avise isso no relatório final.
 
 ## Passo 7. Relatório final
 
 Informe em poucas linhas, sem detalhe técnico:
 
 ```
-✅ Concluído: {N} arquivos lidos. {X} editais novos preparados para cadastro, {Y} já existiam (não duplicados).
+✅ Concluído: {N} arquivos lidos. {X} editais novos, {Y} já existiam (não duplicados no catálogo).
+Controles criados no CaptaHub: {X'} ({X''} vinculados a OSC compatível e já em Selecionado, {X'''} em Encontrar cliente)
+Controles já existentes, não duplicados: {Z} (backfill de edital_id feito em {Z'})
 Novos: {lista com título e órgão}
 Já existentes (pulados): {lista com título e órgão}
-Caminho dos novos prontos para cadastro: editais-para-cadastrar/prontos-para-cadastro.json
+Dados extraídos guardados também em: editais-para-cadastrar/controles-criados.json
 ```
 
-Se houver editais novos e o cadastro automático ainda não estiver disponível, oriente:
-"cadastre estes {X} editais manualmente na tela do CaptaHub, ou aguarde a confirmação do
-endpoint de criação para automatizar."
+Se o CaptaHub não estava conectado, avise: "CaptaHub não conectado, nenhum Controle foi
+aberto nem atualizado; edite `.env` e rode `/captahub-conectar` para ativar essa parte do
+fluxo."
 
 ## Regras
 
 - Nunca cadastre (ou marque como pronto) um edital já existente. Na dúvida entre duplicado
   e novo, trate como duplicado e avise para conferência manual.
+- **Nunca tente `POST /v1/editais` nem qualquer escrita na base de editais.** A única
+  operação de escrita válida para um edital novo é `controle-criar`; para um Controle já
+  existente, a única escrita válida hoje é o backfill de `edital_id`/`cliente_id` via
+  `projeto-atualizar` (ver Passo 6, SOL-0007).
+- **Regra de ouro (SOL-0007): um edital nunca gera dois Controles.** A checagem do Passo 6
+  (via `controle-resolver.py`) é obrigatória para todo edital do lote, mesmo os que já
+  passaram pelo dedup de catálogo do Passo 5.
 - Nunca apague arquivo da pasta, só mova para `processados/`.
 - Português correto, sem travessão.
-- Sem token do CaptaHub configurado, a checagem de duplicidade funciona só com a base
-  local; avise essa limitação no relatório final.
+- Sem token do CaptaHub configurado, a checagem de duplicidade de edital funciona só com a
+  base local, e o Passo 6 (Controle) é pulado inteiro; avise essa limitação no relatório final.

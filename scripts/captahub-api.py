@@ -27,6 +27,7 @@ Uso como ferramenta de linha de comando (o que os comandos e agentes chamam):
   python3 scripts/captahub-api.py projetos --status submetido
   python3 scripts/captahub-api.py projeto-criar --nome "..." --cliente-id <uuid> --edital-id <uuid>
   python3 scripts/captahub-api.py projeto-atualizar --id <uuid> --status elaborar_projeto --nota-tecnica 8.5
+  python3 scripts/captahub-api.py controle-criar --nome "..." --edital-json '{"title":"...","scope":"Nacional"}'
   python3 scripts/captahub-api.py clientes --uf PE
   python3 scripts/captahub-api.py cliente-criar --nome "OSC Teste" --uf PE
   python3 scripts/captahub-api.py cliente-atualizar --id <uuid> --site https://...
@@ -254,9 +255,43 @@ class CaptaHubClient:
             body["status"] = status
         return self.post("/v1/projetos", body)
 
+    def criar_controle(self, nome, status="encontrar_cliente", edital=None,
+                        cliente_id=None, edital_id=None, descricao=None):
+        """Cria um Controle no pipeline (POST /v1/projetos) — a mesma chamada usada pelo
+        botão "Novo Controle" do CaptaHub, para um edital que a equipe encontrou por fora
+        (pasta de entrada, PDF, link), sem cliente e sem edital ainda cadastrados no CaptaHub.
+
+        Testado ao vivo em 30/07/2026: diferente do que `criar_projeto` supõe, o servidor
+        aceita a criação sem `cliente_id` nem `edital_id` (ambos ficam `null`), e o card nasce
+        direto no `status` pedido — normalmente `encontrar_cliente`, a etapa inicial correta
+        para um Controle sem OSC vinculada ainda.
+
+        ATENÇÃO — limite real confirmado no mesmo teste: o campo `edital` (dict com os campos
+        extraídos: title, institution, category, scope, value, deadline, is_continuous, url,
+        description, tags) é aceito pelo servidor sem erro, mas HOJE NÃO É PERSISTIDO em
+        lugar nenhum recuperável pela API (a resposta voltou com `edital_id: null`, e nenhum
+        subcampo do objeto `edital` aparece de volta). Ele continua sendo enviado — para o dia
+        em que o servidor passar a usar esse campo —, mas quem chama esta função precisa
+        guardar os dados extraídos também localmente, ou eles se perdem. Não existe hoje
+        nenhuma via (API nem endpoint confirmado) para escrever na base global de editais;
+        só a criação do Controle é uma operação de escrita real e validada.
+        """
+        body = {"nome": nome, "status": status}
+        if cliente_id is not None:
+            body["cliente_id"] = cliente_id
+        if edital_id is not None:
+            body["edital_id"] = edital_id
+        if descricao is not None:
+            body["descricao"] = descricao
+        if edital is not None:
+            body["edital"] = edital
+        return self.post("/v1/projetos", body)
+
     def atualizar_projeto(self, projeto_id, **campos):
         """Campos parciais: status, nota_tecnica, chance_aprovacao,
-        valor_solicitado, valor_aprovado, data_submissao."""
+        valor_solicitado, valor_aprovado, data_submissao, cliente_id, edital_id
+        (os dois últimos usados pelo fluxo de dedup do SOL-0007, para vincular
+        OSC compatível ou completar o edital_id de um Controle já existente)."""
         body = {k: v for k, v in campos.items() if v is not None}
         if "status" in body and body["status"] not in ESTAGIOS_PIPELINE:
             raise ValueError(
@@ -405,8 +440,8 @@ def cmd_projetos(cli, args):
 
 def cmd_projeto(cli, args):
     p = cli.obter_projeto(args.id)
-    _emitir_json("PROJETO", p)
     print(f"{p.get('nome')}  [{p.get('status')}]  (id {p.get('id')})")
+    _emitir_json("PROJETO", p)
 
 
 def cmd_projeto_criar(cli, args):
@@ -417,11 +452,24 @@ def cmd_projeto_criar(cli, args):
     _emitir_json("PROJETO_CRIADO", p)
 
 
+def cmd_controle_criar(cli, args):
+    edital = _json_param(args.edital_json, "--edital-json")
+    p = cli.criar_controle(nome=args.nome, status=args.status or "encontrar_cliente",
+                           edital=edital, cliente_id=args.cliente_id,
+                           edital_id=args.edital_id, descricao=args.descricao)
+    print(f"Controle criado: {p.get('nome')}  [{p.get('status')}]  (id {p.get('id')})")
+    if edital is not None and p.get("edital_id") is None:
+        print("Aviso: o CaptaHub ainda não persiste o campo 'edital' enviado neste teste. "
+              "Guarde os dados extraídos também localmente (não ficam recuperáveis pela API).")
+    _emitir_json("CONTROLE_CRIADO", p)
+
+
 def cmd_projeto_atualizar(cli, args):
     p = cli.atualizar_projeto(
         args.id, status=args.status, nota_tecnica=args.nota_tecnica,
         chance_aprovacao=args.chance_aprovacao, valor_solicitado=args.valor_solicitado,
-        valor_aprovado=args.valor_aprovado, data_submissao=args.data_submissao)
+        valor_aprovado=args.valor_aprovado, data_submissao=args.data_submissao,
+        cliente_id=args.cliente_id, edital_id=args.edital_id)
     print(f"Projeto atualizado: {p.get('nome')}  [{p.get('status')}]  (id {p.get('id')})")
     _emitir_json("PROJETO_ATUALIZADO", p)
 
@@ -449,8 +497,8 @@ def cmd_clientes(cli, args):
 
 def cmd_cliente(cli, args):
     c = cli.obter_cliente(args.id)
-    _emitir_json("CLIENTE", c)
     print(f"{c.get('nome')}  (id {c.get('id')})")
+    _emitir_json("CLIENTE", c)
 
 
 def cmd_cliente_criar(cli, args):
@@ -526,6 +574,17 @@ def construir_parser():
     ppc.add_argument("--descricao")
     ppc.add_argument("--status")
 
+    pcn = sub.add_parser("controle-criar", help='Cria um Controle no pipeline, mesma chamada do botão "Novo Controle" (POST /v1/projetos).')
+    pcn.add_argument("--nome", required=True)
+    pcn.add_argument("--status", default="encontrar_cliente", help="Estágio inicial (padrão: encontrar_cliente).")
+    pcn.add_argument("--cliente-id", dest="cliente_id", help="Opcional. Sem isso o card fica sem OSC vinculada.")
+    pcn.add_argument("--edital-id", dest="edital_id", help="Opcional. Só use se o edital já existir no catálogo do CaptaHub.")
+    pcn.add_argument("--descricao")
+    pcn.add_argument("--edital-json", dest="edital_json",
+                     help="Objeto JSON com os campos extraídos do edital (title, institution, category, "
+                          "scope, value, deadline, is_continuous, url, description, tags). Enviado ao "
+                          "servidor, mas hoje NÃO é persistido lá — guarde os dados também localmente.")
+
     ppa = sub.add_parser("projeto-atualizar", help="Atualiza um projeto (PATCH /v1/projetos/{id}).")
     ppa.add_argument("--id", required=True)
     ppa.add_argument("--status")
@@ -534,6 +593,11 @@ def construir_parser():
     ppa.add_argument("--valor-solicitado", dest="valor_solicitado", type=float)
     ppa.add_argument("--valor-aprovado", dest="valor_aprovado", type=float)
     ppa.add_argument("--data-submissao", dest="data_submissao")
+    ppa.add_argument("--cliente-id", dest="cliente_id",
+                     help="Vincula (ou troca) a OSC do Controle. Uso do SOL-0007: vínculo automático "
+                          "quando a compatibilidade é ALTA, ou backfill manual depois.")
+    ppa.add_argument("--edital-id", dest="edital_id",
+                     help="Backfill do edital_id quando o Controle foi criado sem ele (SOL-0007).")
 
     pc = sub.add_parser("clientes", help="Lista clientes (OSCs) do usuário.")
     pc.add_argument("--q")
@@ -584,6 +648,7 @@ DISPATCH = {
     "estagios": cmd_estagios,
     "projetos": cmd_projetos, "projeto": cmd_projeto,
     "projeto-criar": cmd_projeto_criar, "projeto-atualizar": cmd_projeto_atualizar,
+    "controle-criar": cmd_controle_criar,
     "clientes": cmd_clientes, "cliente": cmd_cliente,
     "cliente-criar": cmd_cliente_criar, "cliente-atualizar": cmd_cliente_atualizar,
 }
