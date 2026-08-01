@@ -1,11 +1,16 @@
 #!/usr/bin/env python3
-"""Confirma e sincroniza automaticamente as alteracoes do dia com o GitHub.
+"""Confirma automaticamente, em commit local, as alteracoes do dia.
 
-Disparado pelo Agendador de Tarefas do Windows, todos os dias a meia-noite.
-So confirma o que passa numa checagem tecnica basica (sintaxe Python valida,
-JSON valido). O que falha fica de fora do commit e vai para o relatorio do
-dia, em logs/sincronizacao-diaria/. Essa checagem nao substitui revisao
-humana de conteudo, so pega quebra tecnica.
+Disparado pelo Agendador de Tarefas do Windows, todos os dias. So confirma
+o que passa numa checagem tecnica basica (sintaxe Python valida, JSON
+valido). O que falha fica de fora do commit e vai para o relatorio do dia,
+em logs/sincronizacao-diaria/. Essa checagem nao substitui revisao humana
+de conteudo, so pega quebra tecnica.
+
+Nao faz "git push". O envio para o GitHub fica sempre para uma decisao
+manual (voce ou uma sessao do Claude Code), depois de revisar o que foi
+commitado. Isso existe de proposito: nenhuma alteracao sai do computador
+sem alguem ter olhado antes.
 """
 import json
 import subprocess
@@ -18,6 +23,7 @@ sys.stderr.reconfigure(encoding="utf-8")
 
 RAIZ = Path(__file__).resolve().parent.parent
 PASTA_RELATORIOS = RAIZ / "logs" / "sincronizacao-diaria"
+LIMITE_ARQUIVOS_NA_MENSAGEM = 15
 
 
 def git(*args, check=True):
@@ -85,15 +91,33 @@ def avaliar(status, caminho):
     return None
 
 
-def escrever_relatorio(agora, incluidos, pendentes, erro_commit, erro_push):
+def montar_mensagem_commit(agora, incluidos):
+    linhas = [f"chore: sincronizacao automatica {agora:%Y-%m-%d %H:%M}", ""]
+    visiveis = incluidos[:LIMITE_ARQUIVOS_NA_MENSAGEM]
+    linhas += [f"- {c}" for c in visiveis]
+    resto = len(incluidos) - len(visiveis)
+    if resto > 0:
+        linhas.append(f"- (e mais {resto} arquivo{'s' if resto > 1 else ''})")
+    return "\n".join(linhas)
+
+
+def contar_commits_aguardando_push():
+    try:
+        total = git("rev-list", "--count", "origin/main..HEAD")
+        return int(total)
+    except (RuntimeError, ValueError):
+        return None
+
+
+def escrever_relatorio(agora, incluidos, pendentes, erro_commit):
     PASTA_RELATORIOS.mkdir(parents=True, exist_ok=True)
     caminho = PASTA_RELATORIOS / f"{agora:%Y-%m-%d}.md"
     linhas = [f"# Sincronizacao automatica - {agora:%d/%m/%Y as %H:%M}", ""]
 
     if not incluidos and not pendentes:
-        linhas.append("Nenhuma alteracao encontrada. Nada foi confirmado ou sincronizado hoje.")
+        linhas.append("Nenhuma alteracao encontrada. Nada foi confirmado hoje.")
     else:
-        linhas.append(f"## Confirmado e sincronizado ({len(incluidos)})")
+        linhas.append(f"## Confirmado em commit local ({len(incluidos)})")
         linhas += [f"- {c}" for c in incluidos] if incluidos else ["- (nenhum)"]
         linhas.append("")
         linhas.append(f"## Pendente. Precisa de ajuste antes de confirmar ({len(pendentes)})")
@@ -106,19 +130,22 @@ def escrever_relatorio(agora, incluidos, pendentes, erro_commit, erro_push):
     if erro_commit:
         linhas.append("")
         linhas.append("## Atencao. Nao foi possivel confirmar as alteracoes (git add/commit)")
-        linhas.append(
-            "Nenhuma alteracao foi commitada nem enviada ao GitHub. "
-            f"Erro: {erro_commit}"
-        )
+        linhas.append(f"Nenhuma alteracao foi commitada hoje. Erro: {erro_commit}")
         linhas.append("Tente novamente mais tarde ou confirme manualmente.")
-    elif erro_push:
+    elif incluidos:
+        total_aguardando = contar_commits_aguardando_push()
         linhas.append("")
-        linhas.append("## Atencao. A sincronizacao com o GitHub falhou")
-        linhas.append(
-            "O commit foi feito localmente, mas o envio para o GitHub nao "
-            f"funcionou: {erro_push}"
-        )
-        linhas.append("Sincronize manualmente assim que possivel (Confirmar e Sincronizar).")
+        linhas.append("## Push pendente de aprovacao")
+        if total_aguardando is not None:
+            linhas.append(
+                f"Ha {total_aguardando} commit(s) local(is) aguardando envio ao GitHub. "
+                "Revise e rode o push manualmente (ou peca numa conversa do Claude Code)."
+            )
+        else:
+            linhas.append(
+                "O commit de hoje esta pronto localmente. Revise e rode o push manualmente "
+                "(ou peca numa conversa do Claude Code)."
+            )
 
     caminho.write_text("\n".join(linhas), encoding="utf-8")
     return caminho
@@ -129,7 +156,7 @@ def principal():
     alteracoes = listar_alteracoes()
 
     if not alteracoes:
-        relatorio = escrever_relatorio(agora, [], [], None, None)
+        relatorio = escrever_relatorio(agora, [], [], None)
         print(f"Nada para sincronizar hoje. Relatorio: {relatorio}")
         return
 
@@ -143,24 +170,17 @@ def principal():
             incluidos.append(caminho)
 
     erro_commit = None
-    erro_push = None
     if incluidos:
-        mensagem = f"chore: sincronizacao automatica {agora:%Y-%m-%d %H:%M}"
         try:
             git("add", "--", *incluidos)
-            git("commit", "-m", mensagem)
+            git("commit", "-m", montar_mensagem_commit(agora, incluidos))
         except RuntimeError as erro:
             erro_commit = str(erro)
             incluidos = []
-        else:
-            try:
-                git("push")
-            except RuntimeError as erro:
-                erro_push = str(erro)
 
-    relatorio = escrever_relatorio(agora, incluidos, pendentes, erro_commit, erro_push)
+    relatorio = escrever_relatorio(agora, incluidos, pendentes, erro_commit)
     print(
-        f"Confirmados e sincronizados: {len(incluidos)}. "
+        f"Confirmados em commit local: {len(incluidos)}. "
         f"Pendentes: {len(pendentes)}. Relatorio: {relatorio}"
     )
 
