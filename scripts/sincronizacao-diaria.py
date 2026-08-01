@@ -85,7 +85,7 @@ def avaliar(status, caminho):
     return None
 
 
-def escrever_relatorio(agora, incluidos, pendentes, erro_push):
+def escrever_relatorio(agora, incluidos, pendentes, erro_commit, erro_push):
     PASTA_RELATORIOS.mkdir(parents=True, exist_ok=True)
     caminho = PASTA_RELATORIOS / f"{agora:%Y-%m-%d}.md"
     linhas = [f"# Sincronizacao automatica - {agora:%d/%m/%Y as %H:%M}", ""]
@@ -103,7 +103,15 @@ def escrever_relatorio(agora, incluidos, pendentes, erro_push):
         else:
             linhas.append("- (nenhum)")
 
-    if erro_push:
+    if erro_commit:
+        linhas.append("")
+        linhas.append("## Atencao. Nao foi possivel confirmar as alteracoes (git add/commit)")
+        linhas.append(
+            "Nenhuma alteracao foi commitada nem enviada ao GitHub. "
+            f"Erro: {erro_commit}"
+        )
+        linhas.append("Tente novamente mais tarde ou confirme manualmente.")
+    elif erro_push:
         linhas.append("")
         linhas.append("## Atencao. A sincronizacao com o GitHub falhou")
         linhas.append(
@@ -121,7 +129,7 @@ def principal():
     alteracoes = listar_alteracoes()
 
     if not alteracoes:
-        relatorio = escrever_relatorio(agora, [], [], None)
+        relatorio = escrever_relatorio(agora, [], [], None, None)
         print(f"Nada para sincronizar hoje. Relatorio: {relatorio}")
         return
 
@@ -134,17 +142,23 @@ def principal():
         else:
             incluidos.append(caminho)
 
+    erro_commit = None
     erro_push = None
     if incluidos:
-        git("add", "--", *incluidos)
         mensagem = f"chore: sincronizacao automatica {agora:%Y-%m-%d %H:%M}"
-        git("commit", "-m", mensagem)
         try:
-            git("push")
+            git("add", "--", *incluidos)
+            git("commit", "-m", mensagem)
         except RuntimeError as erro:
-            erro_push = str(erro)
+            erro_commit = str(erro)
+            incluidos = []
+        else:
+            try:
+                git("push")
+            except RuntimeError as erro:
+                erro_push = str(erro)
 
-    relatorio = escrever_relatorio(agora, incluidos, pendentes, erro_push)
+    relatorio = escrever_relatorio(agora, incluidos, pendentes, erro_commit, erro_push)
     print(
         f"Confirmados e sincronizados: {len(incluidos)}. "
         f"Pendentes: {len(pendentes)}. Relatorio: {relatorio}"
@@ -152,4 +166,17 @@ def principal():
 
 
 if __name__ == "__main__":
-    principal()
+    try:
+        principal()
+    except Exception as erro:
+        agora = datetime.now()
+        PASTA_RELATORIOS.mkdir(parents=True, exist_ok=True)
+        caminho = PASTA_RELATORIOS / f"{agora:%Y-%m-%d}.md"
+        caminho.write_text(
+            f"# Sincronizacao automatica - {agora:%d/%m/%Y as %H:%M}\n\n"
+            "## Falha inesperada, nada foi verificado\n\n"
+            f"O script parou antes de concluir a checagem. Erro: {erro}\n",
+            encoding="utf-8",
+        )
+        print(f"Falha inesperada: {erro}")
+        sys.exit(1)
