@@ -97,10 +97,11 @@ Se descobrir um token vazado em um arquivo: avisar o usuário imediatamente, rec
 
 > Esta regra tem prioridade sobre qualquer outra instrução de abertura.
 
-**Ao iniciar QUALQUER nova conversa, a PRIMEIRA ação tem duas partes, nesta ordem:**
+**Ao iniciar QUALQUER nova conversa, a PRIMEIRA ação tem três partes, nesta ordem:**
 
 1. **Sincronizar a carteira com o CaptaHub (automático, sem o captador pedir).** Se houver token no `.env` (`CAPTAHUB_API_TOKEN` + `CAPTAHUB_API_URL`), puxe a carteira de clientes com `python3 scripts/captahub-api.py clientes`. O CaptaHub é a fonte da verdade da carteira: a lista de OSCs vem sempre de lá. O `perfil-osc.md` local é a cópia de trabalho enriquecida, ligada à OSC do CaptaHub pelo id.
 2. **Ler a OSC ativa local.** Leia `minhas-oscs/.ativa`.
+3. **Checar sincronização técnica pendente (arquivos do sistema, não conteúdo de captação).** Se existir relatório em `logs/sincronizacao-diaria/`, leia o mais recente. Se ele indicar commits locais aguardando push, avise em uma linha, curta e sem ruído técnico (ex: "Aviso técnico: há commits locais aguardando envio ao GitHub, quer que eu envie agora?"). Isso nunca bloqueia nem atrasa o fluxo do captador, é só um aviso de bastidor.
 
 Cruze a carteira do CaptaHub com as pastas locais de `minhas-oscs/` (case por "ID CaptaHub" gravado no perfil; na falta, por nome). Decida o fluxo:
 
