@@ -1,0 +1,201 @@
+[
+  {
+    "controle_id": "628e9afb-26c0-45a1-9257-8bb0ad69f475",
+    "title": "Patrocínio Ambipar Group - Projetos Socioambientais, Culturais e Esportivos",
+    "institution": "Ambipar Group",
+    "category": "Socioambiental",
+    "scope": "Nacional",
+    "value": null,
+    "deadline": null,
+    "is_continuous": true,
+    "url": null,
+    "description": "Programa de patrocínio contínuo da Ambipar Group para projetos socioambientais, culturais e esportivos, com ou sem uso de incentivo fiscal. Propostas com antecedência mínima de 120 dias.",
+    "tags": [
+      "patrocinio",
+      "socioambiental",
+      "cultural",
+      "esportivo",
+      "continuo"
+    ],
+    "origem_arquivo": "CONTROLE EDITAIS/1. EDITAIS/AMBIPAR/Política de Patrocínio e Doação Ambipar Group.pdf",
+    "osc_vinculada": null,
+    "criado_em": "2026-08-03"
+  },
+  {
+    "controle_id": "1865ae5a-b7da-40a0-9980-16eb459bf563",
+    "title": "BB Seguros - Patrocínios Socioculturais (Leis de Incentivo)",
+    "institution": "BB Seguros / Brasilseg (Companhia de Seguros Aliança do Brasil)",
+    "category": "Sociocultural",
+    "scope": "Nacional",
+    "value": null,
+    "deadline": null,
+    "is_continuous": true,
+    "url": "https://www.bbseguros.com.br",
+    "description": "Programa contínuo de patrocínio da BB Seguros (Brasilseg) via leis de incentivo (Rouanet, Incentivo ao Esporte, FIA, Fundo do Idoso, Pronon, Pronas) nas áreas de Cultura, Educação, Esporte e Saúde. Une as pastas locais BB SEGURO e BB SOCIO CULTURAL (mesmo programa).",
+    "tags": [
+      "patrocinio",
+      "sociocultural",
+      "cultura",
+      "esporte",
+      "continuo"
+    ],
+    "origem_arquivo": "CONTROLE EDITAIS/1. EDITAIS/BB SEGURO/BB Socioculturais - Proposta de Patrocínio.pdf + BB SOCIO CULTURAL/BB Projetos Socioculturais - Regulamento.pdf",
+    "osc_vinculada": null,
+    "criado_em": "2026-08-03"
+  },
+  {
+    "controle_id": "5f5e45b9-6b25-46a2-822f-a79cfafba927",
+    "title": "Bem Brasil - Projetos Sociais e Leis de Incentivo",
+    "institution": "Bem Brasil Alimentos",
+    "category": "Social",
+    "scope": "Nacional",
+    "value": null,
+    "deadline": null,
+    "is_continuous": true,
+    "url": null,
+    "description": "Programa contínuo da Bem Brasil Alimentos de apoio a projetos via Lei de Incentivo ao Esporte, Lei de Incentivo à Cultura, Fundo do Idoso, Fundo da Criança e Adolescente, Pronon e Pronas.",
+    "tags": [
+      "patrocinio",
+      "social",
+      "esporte",
+      "cultura",
+      "continuo"
+    ],
+    "origem_arquivo": "CONTROLE EDITAIS/1. EDITAIS/BEM BRASIL/Bem Brasil a Projetos Sociais e Leis de Incentivo - Edital.pdf",
+    "osc_vinculada": null,
+    "criado_em": "2026-08-03"
+  },
+  {
+    "controle_id": "182d805a-b7ca-45a0-a0b9-1c41faba5822",
+    "title": "Brasilprev - Doações a Projetos Incentivados de Impacto Social",
+    "institution": "Brasilprev Seguros e Previdência S.A.",
+    "category": "Social",
+    "scope": "Nacional",
+    "value": null,
+    "deadline": null,
+    "is_continuous": true,
+    "url": "https://www1.brasilprev.com.br/patrocinios-e-doacoes/diretrizes-de-doacoes",
+    "description": "Programa anual da Brasilprev de doações a projetos incentivados via FIA/FUMCAD, Lei do Idoso, PRONON e PRONAS/PCD, nos eixos Educação, Trabalho e Renda e Qualidade de Vida. Prazo de envio até o último dia útil de outubro de cada ano.",
+    "tags": [
+      "doacao",
+      "social",
+      "continuo"
+    ],
+    "origem_arquivo": "CONTROLE EDITAIS/1. EDITAIS/BRASILPREV/Brasilprev–Doações a Projetos Incentivados de Impacto Social-Regulamento.pdf",
+    "osc_vinculada": null,
+    "criado_em": "2026-08-03"
+  },
+  {
+    "controle_id": "3a560a89-79d1-43e8-8cc3-4817587b799f",
+    "title": "Fazcultura - Programa Estadual de Incentivo ao Patrocínio Cultural (Bahia)",
+    "institution": "Secretaria de Cultura do Estado da Bahia (SECULT) / SEFAZ-BA",
+    "category": "Cultural",
+    "scope": "Estadual",
+    "uf": "BA",
+    "value": null,
+    "deadline": null,
+    "is_continuous": true,
+    "url": "https://www.cultura.ba.gov.br",
+    "description": "Programa estadual contínuo (abatimento de ICMS) da Secretaria de Cultura da Bahia para patrocínio de propostas culturais, com inscrições geralmente abertas do primeiro quadrimestre a dezembro de cada ano.",
+    "tags": [
+      "cultura",
+      "incentivo-fiscal",
+      "icms",
+      "bahia",
+      "continuo"
+    ],
+    "origem_arquivo": "CONTROLE EDITAIS/1. EDITAIS/FAZCULTURA/Programa Estadual de Incentivo ao Patrocínio Cultural – Fazcultura-Guia de Orientação ao Proponente e ao Patrocinador.pdf",
+    "osc_vinculada": null,
+    "criado_em": "2026-08-03"
+  },
+  {
+    "controle_id": "843b8ce9-658c-459d-87e1-d161efd5761d",
+    "title": "Rumo S.A. - Doações e Patrocínios",
+    "institution": "Rumo S.A. (Cosan)",
+    "category": "Social",
+    "scope": "Nacional",
+    "value": null,
+    "deadline": null,
+    "is_continuous": true,
+    "url": null,
+    "description": "Programa contínuo da Rumo S.A. (Cosan) de doações e patrocínios a causas humanitárias, culturais, esportivas e educacionais, incluindo Lei Rouanet e Lei de Incentivo ao Esporte.",
+    "tags": [
+      "patrocinio",
+      "social",
+      "cultura",
+      "esporte",
+      "continuo"
+    ],
+    "origem_arquivo": "CONTROLE EDITAIS/1. EDITAIS/RUMO/Política de Doações e Patrocínios Rumo S.A.-Regulamento.pdf",
+    "osc_vinculada": null,
+    "criado_em": "2026-08-03"
+  },
+  {
+    "controle_id": "0e14872d-aa4e-440f-8470-dd80bc5e9c43",
+    "title": "Santander - Projetos e Patrocínios (Educação, Esporte e Cultura)",
+    "institution": "Banco Santander Brasil",
+    "category": "Social",
+    "scope": "Nacional",
+    "value": null,
+    "deadline": null,
+    "is_continuous": true,
+    "url": null,
+    "description": "Programa contínuo do Santander Brasil de patrocínio a projetos de Ensino Superior, Investimento Social e Patrocínios nas áreas de cultura, esporte e sustentabilidade. Propostas enviadas por email (patrocinios@santander.com.br) com antecedência mínima de 90 dias.",
+    "tags": [
+      "patrocinio",
+      "educacao",
+      "esporte",
+      "cultura",
+      "continuo"
+    ],
+    "origem_arquivo": "CONTROLE EDITAIS/1. EDITAIS/SANTANDER/Politica de Patrocinios Santander 2025 - Regulamento.pdf",
+    "osc_vinculada": null,
+    "criado_em": "2026-08-03"
+  },
+  {
+    "controle_id": "c159853d-a24f-4865-8209-304029ae95f4",
+    "title": "STIHL - Solicitação de Patrocínio (Cultural, Ambiental e Esportivo)",
+    "institution": "STIHL Ferramentas Motorizadas Ltda.",
+    "category": "Social",
+    "scope": "Nacional",
+    "value": null,
+    "deadline": null,
+    "is_continuous": true,
+    "url": null,
+    "description": "Programa contínuo da STIHL Ferramentas Motorizadas de patrocínio a projetos culturais, ambientais e esportivos, com ou sem leis de incentivo fiscal. Propostas enviadas com antecedência mínima de 90 dias.",
+    "tags": [
+      "patrocinio",
+      "cultura",
+      "ambiental",
+      "esporte",
+      "continuo"
+    ],
+    "origem_arquivo": "CONTROLE EDITAIS/1. EDITAIS/STIHL/Solicitação de patrocínio - STIHL - Edital.pdf",
+    "osc_vinculada": null,
+    "criado_em": "2026-08-03"
+  },
+  {
+    "controle_id": "2412cf45-c63a-4058-a830-4b0841688a9d",
+    "title": "Edital de Seleção Pública 001/2026 - Florestas Produtivas com Barraginhas para a Retomada Econômica na Bacia do Rio Doce",
+    "institution": "Anater (Agência Nacional de Assistência Técnica e Extensão Rural) / Fundo Rio Doce - BNDES",
+    "category": "Desenvolvimento Rural",
+    "scope": "Estadual",
+    "uf": "MG, ES",
+    "value": 97887504.0,
+    "deadline": "2026-08-17",
+    "is_continuous": false,
+    "url": null,
+    "description": "Seleção pública para organizações da sociedade civil executarem o projeto Florestas Produtivas com Barraginhas na Bacia do Rio Doce (Ater, implantação de florestas produtivas e barraginhas), em 6 lotes distribuídos por 30 municípios de MG e ES. Prazo de envio de propostas prorrogado de 30/07/2026 para 17/08/2026.",
+    "tags": [
+      "desenvolvimento-rural",
+      "ater",
+      "rio-doce",
+      "anater",
+      "barraginhas"
+    ],
+    "origem_arquivo": "CONTROLE EDITAIS/1. EDITAIS/BARRAGINHA/Edital Seleção Pública_Florestas Produtivas com Barraginhas_FINAL.pdf",
+    "osc_vinculada": null,
+    "criado_em": "2026-08-03",
+    "observacao": "Prazo originalmente encerrado em 30/07/2026; captador informou prorrogação para 17/08/2026, por isso entrou no pipeline após a checagem inicial."
+  }
+]

@@ -1,0 +1,461 @@
+<!--
+  MODELO. Checklist de documentos, anexos e manuais do edital.
+
+  Como usar
+  1. Substitua todo texto entre {{ }} pelo dado real do edital e da OSC.
+  2. Cada linha de tabela tem uma pilula de situacao. Use sempre uma destas:
+     Resolvido | Pendente | Bloqueador (eliminatorio) | Fase de celebracao | Nao se aplica a este edital
+     Nunca apague uma linha so porque nao se aplica: troque a pilula para "Nao se aplica a este edital"
+     e explique o motivo em uma frase. E o mesmo principio do checklist de 13 pontos do CaptaDoc:
+     nunca pular em silencio.
+  3. As secoes 2 a 8 sao modulares. Um edital pequeno pode nao ter "Anexos tecnicos" complexos
+     ou "Comprovacoes fisicas": nesse caso, deixe so uma linha na secao dizendo
+     "Este edital nao exige X" em vez de apagar a secao inteira. Isso preserva o historico
+     de que o ponto foi checado, nao ignorado.
+  4. A secao 9 (Manuais e fontes) e o unico lugar do sistema hoje pensado para reunir
+     Manual do Proponente, Portaria, Instrucao Normativa, FAQ e contato do orgao. Preencha
+     sempre que o edital tiver mais de um documento normativo (comum em editais complexos).
+  5. Cores e pilulas seguem o mesmo sistema visual do parecer de elegibilidade e da auditoria
+     de banca (MODELO-parecer-elegibilidade.html e MODELO-auditoria-banca.html), para o captador
+     reconhecer o padrao nos tres documentos.
+-->
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Checklist de documentos {{PROPONENTE_SIGLA}} · {{EDITAL_IDENTIFICACAO}}</title>
+<style>
+  :root{
+    --paper:#F2F4EC;
+    --paper-raised:#FFFFFF;
+    --surface-2:#E8ECDE;
+    --ink:#1B2A1E;
+    --ink-soft:#4C5B49;
+    --ink-faint:#7C8A78;
+    --green-deep:#1F4738;
+    --green-mid:#2E6A4E;
+    --gold:#9A6B1F;
+    --gold-soft:#F3E7CC;
+    --critical:#9A3324;
+    --critical-bg:#FBEAE4;
+    --warn:#8A5A14;
+    --warn-bg:#FBF0DD;
+    --ok:#2F6B4F;
+    --ok-bg:#E6F1EA;
+    --info:#2B577A;
+    --info-bg:#E4EEF5;
+    --neutral:#626F60;
+    --neutral-bg:#E9ECE3;
+    --hairline:#D6DCC7;
+    --shadow: 0 1px 2px rgba(27,42,30,0.06), 0 8px 24px rgba(27,42,30,0.06);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#101812;
+      --paper-raised:#161F17;
+      --surface-2:#1E2A1F;
+      --ink:#E8EEE4;
+      --ink-soft:#A9B6A2;
+      --ink-faint:#829080;
+      --green-deep:#8FCBA9;
+      --green-mid:#79B592;
+      --gold:#D9AE5C;
+      --gold-soft:#332813;
+      --critical:#E7907A;
+      --critical-bg:#3A2018;
+      --warn:#E3BE7C;
+      --warn-bg:#3A2E14;
+      --ok:#8FD4AE;
+      --ok-bg:#173226;
+      --info:#8FB9DA;
+      --info-bg:#182A38;
+      --neutral:#AAB4A6;
+      --neutral-bg:#212B21;
+      --hairline:#2A342A;
+      --shadow: 0 1px 2px rgba(0,0,0,0.4), 0 8px 24px rgba(0,0,0,0.35);
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#101812; --paper-raised:#161F17; --surface-2:#1E2A1F;
+    --ink:#E8EEE4; --ink-soft:#A9B6A2; --ink-faint:#829080;
+    --green-deep:#8FCBA9; --green-mid:#79B592;
+    --gold:#D9AE5C; --gold-soft:#332813;
+    --critical:#E7907A; --critical-bg:#3A2018;
+    --warn:#E3BE7C; --warn-bg:#3A2E14;
+    --ok:#8FD4AE; --ok-bg:#173226;
+    --info:#8FB9DA; --info-bg:#182A38;
+    --neutral:#AAB4A6; --neutral-bg:#212B21;
+    --hairline:#2A342A;
+    --shadow: 0 1px 2px rgba(0,0,0,0.4), 0 8px 24px rgba(0,0,0,0.35);
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:var(--paper); color:var(--ink);
+    font-family:"Charter","Bitstream Charter","Sitka Small",Georgia,"Noto Serif",serif;
+    line-height:1.5; -webkit-font-smoothing:antialiased;
+  }
+  .sans{ font-family:"Seravek","Segoe UI","Helvetica Neue",Arial,sans-serif; }
+  .mono{ font-family:"SF Mono","Cascadia Mono",Consolas,"Liberation Mono",monospace; letter-spacing:0.01em; }
+
+  .wrap{ max-width:980px; margin:0 auto; padding:40px 24px 96px; }
+
+  header.doc-head{ border-bottom:2px solid var(--green-deep); padding-bottom:20px; margin-bottom:28px; }
+  .eyebrow{
+    font-family:"Seravek","Segoe UI",Arial,sans-serif; text-transform:uppercase;
+    letter-spacing:0.14em; font-size:11.5px; color:var(--green-mid); font-weight:600; margin:0 0 10px;
+  }
+  h1{
+    font-family:"Iowan Old Style","Sitka Text",Georgia,"Noto Serif",serif;
+    font-size:clamp(26px,4vw,34px); line-height:1.15; margin:0 0 10px;
+    color:var(--green-deep); text-wrap:balance; font-weight:700;
+  }
+  .subtitle{ font-size:16px; color:var(--ink-soft); margin:0; max-width:68ch; }
+  .meta-row{
+    display:flex; flex-wrap:wrap; gap:8px 22px; margin-top:16px;
+    font-family:"Seravek","Segoe UI",Arial,sans-serif; font-size:13px; color:var(--ink-soft);
+  }
+  .meta-row strong{ color:var(--ink); font-weight:600; }
+
+  .deadline{
+    display:flex; align-items:baseline; gap:12px; flex-wrap:wrap;
+    background:var(--critical-bg); color:var(--critical); border:1px solid var(--critical);
+    border-radius:6px; padding:14px 18px; margin:24px 0 28px;
+    font-family:"Seravek","Segoe UI",Arial,sans-serif;
+  }
+  .deadline .big{ font-size:20px; font-weight:700; font-variant-numeric:tabular-nums; white-space:nowrap; }
+  .deadline .txt{ font-size:14px; line-height:1.4; }
+
+  .fact-panel{
+    background:var(--paper-raised); border:1px solid var(--hairline); border-radius:8px;
+    box-shadow:var(--shadow); padding:4px 0; margin:0 0 28px; overflow:hidden;
+  }
+  .fact-row{ display:flex; border-bottom:1px solid var(--hairline); }
+  .fact-row:last-child{ border-bottom:none; }
+  .fact-label{
+    flex:0 0 220px; padding:12px 16px; font-family:"Seravek","Segoe UI",Arial,sans-serif;
+    font-size:12.5px; text-transform:uppercase; letter-spacing:0.05em; color:var(--ink-faint);
+  }
+  .fact-value{ flex:1; padding:12px 16px; font-size:14.5px; color:var(--ink); }
+
+  section{ margin-bottom:40px; }
+  h2{
+    font-family:"Iowan Old Style","Sitka Text",Georgia,serif; font-size:21px; color:var(--green-deep);
+    margin:0 0 4px; display:flex; align-items:baseline; gap:10px; flex-wrap:wrap;
+  }
+  h2 .tag{ font-family:"SF Mono","Cascadia Mono",Consolas,monospace; font-size:12px; color:var(--ink-soft); font-weight:400; }
+  .section-note{
+    font-family:"Seravek","Segoe UI",Arial,sans-serif; font-size:14px; color:var(--ink-soft);
+    margin:0 0 16px; max-width:70ch;
+  }
+
+  .callout{ border-left:4px solid var(--critical); background:var(--critical-bg); color:var(--ink); border-radius:4px; padding:16px 20px; margin-bottom:20px; }
+  .callout.ok{ border-left-color:var(--ok); background:var(--ok-bg); }
+  .callout.info{ border-left-color:var(--info); background:var(--info-bg); }
+  .callout .callout-label{
+    font-family:"Seravek","Segoe UI",Arial,sans-serif; text-transform:uppercase; letter-spacing:0.1em;
+    font-size:11px; font-weight:700; color:var(--critical); margin-bottom:6px;
+  }
+  .callout.ok .callout-label{ color:var(--ok); }
+  .callout.info .callout-label{ color:var(--info); }
+  .callout p{ margin:0 0 8px; font-size:15px; }
+  .callout p:last-child{ margin-bottom:0; }
+
+  .table-scroll{ overflow-x:auto; border-radius:8px; box-shadow:var(--shadow); }
+  table{
+    width:100%; border-collapse:collapse; background:var(--paper-raised);
+    font-family:"Seravek","Segoe UI",Arial,sans-serif; font-size:13.5px; min-width:600px;
+  }
+  thead th{
+    text-align:left; background:var(--green-deep); color:var(--paper); font-weight:600;
+    font-size:11.5px; text-transform:uppercase; letter-spacing:0.06em; padding:10px 14px;
+  }
+  tbody td{ padding:11px 14px; border-bottom:1px solid var(--hairline); vertical-align:top; color:var(--ink); }
+  tbody tr:last-child td{ border-bottom:none; }
+  tbody tr.done td{ opacity:0.62; }
+  td.chk{ width:26px; text-align:center; font-size:16px; color:var(--ink-soft); }
+  td.ref{ font-family:"SF Mono","Cascadia Mono",Consolas,monospace; font-size:12px; color:var(--ink-soft); white-space:nowrap; }
+  td.item strong{ display:block; color:var(--ink); font-weight:600; }
+  td.item span{ color:var(--ink-soft); font-size:12.5px; }
+
+  .pill{
+    display:inline-block; font-family:"Seravek","Segoe UI",Arial,sans-serif; font-size:10.5px;
+    font-weight:700; letter-spacing:0.03em; padding:3px 8px; border-radius:99px; white-space:nowrap;
+    print-color-adjust:exact; -webkit-print-color-adjust:exact;
+  }
+  .pill-block{ background:var(--critical-bg); color:var(--critical); border:1px solid var(--critical); }
+  .pill-req{ background:var(--warn-bg); color:var(--warn); border:1px solid var(--warn); }
+  .pill-later{ background:var(--info-bg); color:var(--info); border:1px solid var(--info); }
+  .pill-done{ background:var(--ok-bg); color:var(--ok); border:1px solid var(--ok); }
+  .pill-na{ background:var(--neutral-bg); color:var(--neutral); border:1px solid var(--neutral); }
+
+  .source-list{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:10px; }
+  .source-list li{
+    background:var(--paper-raised); border:1px solid var(--hairline); border-radius:8px;
+    padding:12px 16px; box-shadow:var(--shadow); font-family:"Seravek","Segoe UI",Arial,sans-serif; font-size:13.5px;
+  }
+  .source-list strong{ display:block; color:var(--ink); font-size:14px; margin-bottom:2px; }
+  .source-list span{ color:var(--ink-soft); }
+  .source-list a{ color:var(--green-mid); }
+
+  .legend{
+    display:flex; flex-wrap:wrap; gap:8px 14px; margin:0 0 28px;
+    font-family:"Seravek","Segoe UI",Arial,sans-serif; font-size:12px; color:var(--ink-soft);
+  }
+  .legend span{ display:inline-flex; align-items:center; gap:6px; }
+
+  footer{
+    margin-top:56px; padding-top:20px; border-top:1px solid var(--hairline);
+    font-family:"Seravek","Segoe UI",Arial,sans-serif; font-size:12.5px; color:var(--ink-faint);
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;
+  }
+
+  @media print{ body{ background:#fff; } .wrap{ padding:16px; max-width:none; } .table-scroll{ box-shadow:none; } }
+  @media (max-width:620px){ .meta-row{ flex-direction:column; gap:4px; } .deadline{ flex-direction:column; } .fact-row{ flex-direction:column; } .fact-label{ flex:none; padding-bottom:2px; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="doc-head">
+    <p class="eyebrow">Assessoria de Captação · Checklist de Documentos · Atualizado em {{DATA_ATUALIZACAO}}</p>
+    <h1>Checklist de documentos, anexos e manuais</h1>
+    <p class="subtitle">{{EDITAL_NOME_COMPLETO}} ({{EDITAL_IDENTIFICACAO}}), {{EDITAL_OBJETO_RESUMIDO_UMA_LINHA}}</p>
+    <div class="meta-row">
+      <span><strong>Proponente:</strong> {{OSC_NOME}} ({{OSC_MUNICIPIO_UF}})</span>
+      <span><strong>Projeto:</strong> {{NOME_DO_PROJETO}}</span>
+      <span><strong>Plataforma de submissão:</strong> {{PLATAFORMA_SUBMISSAO}}</span>
+    </div>
+  </header>
+
+  <div class="deadline">
+    <span class="big mono">{{DATA_HORA_PRAZO_FINAL}}</span>
+    <span class="txt">Prazo final de envio da proposta (item {{ITEM_EDITAL_PRAZO}} do edital). Depois desse horário, nenhum documento ou complemento é aceito.</span>
+  </div>
+
+  <div class="legend">
+    <span><span class="pill pill-done">Resolvido</span> já anexado ou emitido</span>
+    <span><span class="pill pill-req">Pendente</span> falta providenciar</span>
+    <span><span class="pill pill-block">Bloqueador</span> item eliminatório sem este documento</span>
+    <span><span class="pill pill-later">Fase de celebração</span> só exigido se a OSC for selecionada</span>
+    <span><span class="pill pill-na">Não se aplica</span> checado, não vale para este edital</span>
+  </div>
+
+  <section>
+    <h2>1. Painel geral do edital</h2>
+    <p class="section-note">Dados administrativos que orientam a leitura do restante do checklist. Preencher sempre, mesmo em edital pequeno.</p>
+    <div class="fact-panel">
+      <div class="fact-row"><div class="fact-label">Órgão ou instituição financiadora</div><div class="fact-value">{{ORGAO_FINANCIADOR}}</div></div>
+      <div class="fact-row"><div class="fact-label">Objeto do edital</div><div class="fact-value">{{OBJETO_DO_EDITAL}}</div></div>
+      <div class="fact-row"><div class="fact-label">Valor total e por proposta</div><div class="fact-value">{{VALOR_TOTAL}} no total, até {{VALOR_MAXIMO_POR_PROPOSTA}} por proposta</div></div>
+      <div class="fact-row"><div class="fact-label">Quantidade de propostas contempladas</div><div class="fact-value">{{QUANTIDADE_PROPOSTAS_PREVISTA}}</div></div>
+      <div class="fact-row"><div class="fact-label">Vigência do instrumento</div><div class="fact-value">{{VIGENCIA_MESES_OU_DATAS}}</div></div>
+      <div class="fact-row"><div class="fact-label">Instrumento jurídico</div><div class="fact-value">{{TIPO_INSTRUMENTO: termo de fomento, termo de colaboração, contrato de repasse, outorga}}</div></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>2. Declarações e anexos do próprio edital</h2>
+    <p class="section-note">Modelos oficiais fornecidos pelo edital, geralmente para preencher e assinar sem alteração de formato.</p>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th></th><th>Documento</th><th>Referência</th><th>Situação</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="chk">&#9633;</td>
+            <td class="item"><strong>{{ANEXO_1_NOME}}</strong><span>{{ANEXO_1_OBSERVACAO}}</span></td>
+            <td class="ref">{{ITEM_EDITAL_ANEXO_1}}</td>
+            <td><span class="pill pill-req">Pendente</span></td>
+          </tr>
+          <tr>
+            <td class="chk">&#9633;</td>
+            <td class="item"><strong>{{ANEXO_2_NOME}}</strong><span>{{ANEXO_2_OBSERVACAO}}</span></td>
+            <td class="ref">{{ITEM_EDITAL_ANEXO_2}}</td>
+            <td><span class="pill pill-block">Eliminatório</span></td>
+          </tr>
+          <tr>
+            <td class="chk">&#9633;</td>
+            <td class="item"><strong>{{ANEXO_N_NOME}}</strong><span>Repita esta linha para cada anexo declaratório do edital</span></td>
+            <td class="ref">{{ITEM_EDITAL_ANEXO_N}}</td>
+            <td><span class="pill pill-na">Não se aplica</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>3. Anexos técnicos do projeto <span class="tag">plano de trabalho, orçamento, cronograma</span></h2>
+    <p class="section-note">Diferente da seção 2: aqui o conteúdo é redigido pela OSC dentro de um modelo, não apenas assinado. Comum em editais complexos com roteiro de proposta próprio; em editais simples pode se resumir a 1 ou 2 itens.</p>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th></th><th>Documento</th><th>Referência</th><th>Situação</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="chk">&#9633;</td>
+            <td class="item"><strong>Plano de trabalho no modelo oficial</strong><span>Metas, etapas, indicadores e prazos no formato exigido pelo edital.</span></td>
+            <td class="ref">{{ITEM_EDITAL_PLANO_TRABALHO}}</td>
+            <td><span class="pill pill-block">Eliminatório</span></td>
+          </tr>
+          <tr>
+            <td class="chk">&#9633;</td>
+            <td class="item"><strong>Planilha orçamentária detalhada por meta ou etapa</strong><span>Anexar como arquivo separado, não só descrever no texto da proposta.</span></td>
+            <td class="ref">{{ITEM_EDITAL_ORCAMENTO}}</td>
+            <td><span class="pill pill-req">Pendente</span></td>
+          </tr>
+          <tr>
+            <td class="chk">&#9633;</td>
+            <td class="item"><strong>{{ANEXO_TECNICO_ADICIONAL: termo de referência de equipamentos, cronograma físico-financeiro}}</strong><span>{{OBSERVACAO}}</span></td>
+            <td class="ref">{{ITEM_EDITAL}}</td>
+            <td><span class="pill pill-na">Não se aplica</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>4. Cadastros, certidões e regularidade institucional</h2>
+    <p class="section-note">Documentos emitidos por terceiros (Receita Federal, prefeitura, órgãos ambientais, plataformas de governo). Verificar sempre a validade na data do envio, não só a existência do documento.</p>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th></th><th>Documento</th><th>Referência</th><th>Situação</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="chk">&#9633;</td>
+            <td class="item"><strong>Comprovante de inscrição no CNPJ</strong><span>Emitido pela Receita Federal, dentro do prazo de validade do edital.</span></td>
+            <td class="ref">{{ITEM_EDITAL_CNPJ}}</td>
+            <td><span class="pill pill-req">Pendente</span></td>
+          </tr>
+          <tr>
+            <td class="chk">&#9633;</td>
+            <td class="item"><strong>Certidões negativas de débitos (federal, estadual, municipal, FGTS, trabalhista)</strong><span>Conferir se o edital exige todas ou apenas parte delas.</span></td>
+            <td class="ref">{{ITEM_EDITAL_CERTIDOES}}</td>
+            <td><span class="pill pill-block">Eliminatório</span></td>
+          </tr>
+          <tr>
+            <td class="chk">&#9633;</td>
+            <td class="item"><strong>{{CADASTRO_OU_LICENCA_ESPECIFICA: SINIR, licença ambiental, CEBAS, alvará}}</strong><span>{{OBSERVACAO_DE_VALIDADE}}</span></td>
+            <td class="ref">{{ITEM_EDITAL}}</td>
+            <td><span class="pill pill-req">Pendente</span></td>
+          </tr>
+          <tr>
+            <td class="chk">&#9633;</td>
+            <td class="item"><strong>Comprovante de endereço da sede</strong><span>Precisa estar em nome da própria OSC, não de pessoa física.</span></td>
+            <td class="ref">{{ITEM_EDITAL}}</td>
+            <td><span class="pill pill-req">Pendente</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>5. Comprovações físicas, fotográficas e territoriais <span class="tag">quando o edital exigir</span></h2>
+    <p class="section-note">Só se aplica quando o edital pede evidência do espaço físico, da infraestrutura ou do território de atuação. Marque "Não se aplica" e apague a incerteza se o edital não exigir nada disto.</p>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th></th><th>Comprovação</th><th>Referência</th><th>Situação</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="chk">&#9633;</td>
+            <td class="item"><strong>Relatório fotográfico da sede ou do espaço de execução</strong><span>Área interna, externa e equipamentos já existentes.</span></td>
+            <td class="ref">{{ITEM_EDITAL}}</td>
+            <td><span class="pill pill-na">Não se aplica</span></td>
+          </tr>
+          <tr>
+            <td class="chk">&#9633;</td>
+            <td class="item"><strong>{{COMPROVACAO_TERRITORIAL: mapa de abrangência, declaração de funcionamento no território}}</strong><span>{{OBSERVACAO}}</span></td>
+            <td class="ref">{{ITEM_EDITAL}}</td>
+            <td><span class="pill pill-na">Não se aplica</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>6. Levantamentos internos que a OSC precisa produzir</h2>
+    <p class="section-note">Não vêm prontos de nenhum órgão externo: nascem de um levantamento feito pela própria organização (listas nominais, dados de beneficiários, autodeclarações). Costuma ser o gargalo de tempo, não de burocracia.</p>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th></th><th>O que levantar</th><th>Para que serve</th><th>Situação</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="chk">&#9633;</td>
+            <td class="item"><strong>{{LEVANTAMENTO_1: lista nominal de beneficiários, autodeclaração de gênero e raça}}</strong><span>{{PARA_QUE_SERVE}}</span></td>
+            <td class="ref">{{REFERENCIA}}</td>
+            <td><span class="pill pill-req">Pendente</span></td>
+          </tr>
+          <tr>
+            <td class="chk">&#9633;</td>
+            <td class="item"><strong>{{LEVANTAMENTO_2}}</strong><span>{{PARA_QUE_SERVE}}</span></td>
+            <td class="ref">{{REFERENCIA}}</td>
+            <td><span class="pill pill-req">Pendente</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>7. Só se a OSC for selecionada <span class="tag">fase de celebração</span></h2>
+    <p class="section-note">Não trava o envio da proposta hoje. Vale adiantar o que já estiver pronto, mas não é motivo para atrasar a submissão.</p>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th></th><th>Documento</th><th>Referência</th><th>Situação</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="chk">&#9633;</td>
+            <td class="item"><strong>Estatuto social registrado e alterações</strong></td>
+            <td class="ref">{{ITEM_EDITAL}}</td>
+            <td><span class="pill pill-later">Fase de celebração</span></td>
+          </tr>
+          <tr>
+            <td class="chk">&#9633;</td>
+            <td class="item"><strong>Ata de eleição da diretoria atual</strong></td>
+            <td class="ref">{{ITEM_EDITAL}}</td>
+            <td><span class="pill pill-later">Fase de celebração</span></td>
+          </tr>
+          <tr>
+            <td class="chk">&#9633;</td>
+            <td class="item"><strong>{{DOCUMENTO_CELEBRACAO: comprovante de experiência prévia, certidões adicionais}}</strong></td>
+            <td class="ref">{{ITEM_EDITAL}}</td>
+            <td><span class="pill pill-later">Fase de celebração</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>8. Pendência com risco jurídico ou de divergência</h2>
+    <p class="section-note">Reservado para o tipo de problema que não é "falta o documento", e sim "o documento existe mas tem uma inconsistência" (vencido, nome divergente, órgão errado). Preencher só quando existir um caso assim; apagar a seção se não houver nenhum.</p>
+    <div class="callout">
+      <p class="callout-label">Exemplo de uso</p>
+      <p><strong>{{NOME_DO_DOCUMENTO_COM_PROBLEMA}}</strong>: {{DESCRICAO_DA_DIVERGENCIA_OU_VENCIMENTO}}. {{ENCAMINHAMENTO_PARA_RESOLVER}}.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>9. Manuais, normas e fontes de apoio do edital</h2>
+    <p class="section-note">Documentos normativos que não entram na submissão, mas orientam a leitura de todos os itens acima. Em edital simples, pode se resumir ao próprio texto do edital; em edital complexo, costuma haver manual do proponente, portaria, instrução normativa e FAQ separados.</p>
+    <ul class="source-list">
+      <li><strong>Edital publicado</strong><span> · {{LINK_OU_LOCAL_DO_EDITAL}}</span></li>
+      <li><strong>Manual do proponente</strong><span> · {{LINK_MANUAL_PROPONENTE}}</span></li>
+      <li><strong>Portaria ou instrução normativa de base</strong><span> · {{NORMA_DE_BASE}}</span></li>
+      <li><strong>Perguntas frequentes (FAQ) do órgão</strong><span> · {{LINK_FAQ}}</span></li>
+      <li><strong>Tutorial da plataforma de submissão</strong><span> · {{LINK_TUTORIAL_PLATAFORMA}}</span></li>
+      <li><strong>Contato do órgão para dúvidas</strong><span> · {{EMAIL_OU_TELEFONE_ORGAO}}</span></li>
+    </ul>
+  </section>
+
+  <footer>
+    <span>Checklist elaborado a partir de {{EDITAL_NOME_COMPLETO}} e dos documentos enviados por {{OSC_NOME}} em {{DATA_LEVANTAMENTO}}.</span>
+    <span>Documento de apoio à submissão, não substitui a leitura integral do edital e seus anexos.</span>
+  </footer>
+
+</div>
+</body>
+</html>

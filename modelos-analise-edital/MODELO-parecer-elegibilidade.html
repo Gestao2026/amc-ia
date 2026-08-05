@@ -1,0 +1,467 @@
+<!--
+  MODELO. Parecer de elegibilidade (CaptaDoc).
+
+  Como usar
+  1. Substitua todo texto entre {{ }} pelo dado real do edital e da OSC.
+  2. Este documento so pode ser gerado depois de rodar o checklist de 13 pontos
+     (.claude/rules/checklist-triagem-captadoc.md). As secoes 1 a 8 abaixo mapeiam
+     direto para esses 13 pontos; nenhuma pode ficar em branco, mesmo quando a resposta
+     e "este edital nao traz esta informacao" (lacuna do edital, nao lacuna do parecer).
+  3. O veredito (APTO / APTO COM PENDENCIAS / INAPTO NO MOMENTO) usa exatamente a
+     linguagem do Gate de Elegibilidade do CLAUDE.md. Nunca troque por sinonimo.
+  4. A secao 6 (quadro de aderencia) e o coracao do documento: cada requisito do edital
+     vira uma linha comparada com a situacao real da OSC. A coluna "Como tornar elegivel"
+     so fica vazia quando o status for "Atende": todo "Nao atende" ou "Atende parcialmente"
+     precisa de uma solucao concreta, viavel e legal, nunca um generico "regularizar".
+  5. A secao 9 (Caminhos para elegibilidade) agrupa as solucoes da secao 6 por prazo de
+     resolucao. E o que direciona o proximo passo do captador quando o veredito nao e APTO.
+  6. Cores e pilulas seguem o mesmo sistema visual do checklist de documentos e da auditoria
+     de banca, para o captador reconhecer o padrao nos tres documentos.
+-->
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Parecer de elegibilidade {{PROPONENTE_SIGLA}} · {{EDITAL_IDENTIFICACAO}}</title>
+<style>
+  :root{
+    --paper:#F2F4EC;
+    --paper-raised:#FFFFFF;
+    --surface-2:#E8ECDE;
+    --ink:#1B2A1E;
+    --ink-soft:#4C5B49;
+    --ink-faint:#7C8A78;
+    --green-deep:#1F4738;
+    --green-mid:#2E6A4E;
+    --gold:#9A6B1F;
+    --gold-soft:#F3E7CC;
+    --critical:#9A3324;
+    --critical-bg:#FBEAE4;
+    --warn:#8A5A14;
+    --warn-bg:#FBF0DD;
+    --ok:#2F6B4F;
+    --ok-bg:#E6F1EA;
+    --info:#2B577A;
+    --info-bg:#E4EEF5;
+    --neutral:#626F60;
+    --neutral-bg:#E9ECE3;
+    --hairline:#D6DCC7;
+    --shadow: 0 1px 2px rgba(27,42,30,0.06), 0 8px 24px rgba(27,42,30,0.06);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#101812; --paper-raised:#161F17; --surface-2:#1E2A1F;
+      --ink:#E8EEE4; --ink-soft:#A9B6A2; --ink-faint:#829080;
+      --green-deep:#8FCBA9; --green-mid:#79B592;
+      --gold:#D9AE5C; --gold-soft:#332813;
+      --critical:#E7907A; --critical-bg:#3A2018;
+      --warn:#E3BE7C; --warn-bg:#3A2E14;
+      --ok:#8FD4AE; --ok-bg:#173226;
+      --info:#8FB9DA; --info-bg:#182A38;
+      --neutral:#AAB4A6; --neutral-bg:#212B21;
+      --hairline:#2A342A;
+      --shadow: 0 1px 2px rgba(0,0,0,0.4), 0 8px 24px rgba(0,0,0,0.35);
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#101812; --paper-raised:#161F17; --surface-2:#1E2A1F;
+    --ink:#E8EEE4; --ink-soft:#A9B6A2; --ink-faint:#829080;
+    --green-deep:#8FCBA9; --green-mid:#79B592;
+    --gold:#D9AE5C; --gold-soft:#332813;
+    --critical:#E7907A; --critical-bg:#3A2018;
+    --warn:#E3BE7C; --warn-bg:#3A2E14;
+    --ok:#8FD4AE; --ok-bg:#173226;
+    --info:#8FB9DA; --info-bg:#182A38;
+    --neutral:#AAB4A6; --neutral-bg:#212B21;
+    --hairline:#2A342A;
+    --shadow: 0 1px 2px rgba(0,0,0,0.4), 0 8px 24px rgba(0,0,0,0.35);
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:var(--paper); color:var(--ink);
+    font-family:"Charter","Bitstream Charter","Sitka Small",Georgia,"Noto Serif",serif;
+    line-height:1.5; -webkit-font-smoothing:antialiased;
+  }
+  .sans{ font-family:"Seravek","Segoe UI","Helvetica Neue",Arial,sans-serif; }
+  .mono{ font-family:"SF Mono","Cascadia Mono",Consolas,"Liberation Mono",monospace; letter-spacing:0.01em; }
+
+  .wrap{ max-width:1020px; margin:0 auto; padding:40px 24px 96px; }
+
+  header.doc-head{ border-bottom:2px solid var(--green-deep); padding-bottom:20px; margin-bottom:28px; }
+  .eyebrow{
+    font-family:"Seravek","Segoe UI",Arial,sans-serif; text-transform:uppercase;
+    letter-spacing:0.14em; font-size:11.5px; color:var(--green-mid); font-weight:600; margin:0 0 10px;
+  }
+  h1{
+    font-family:"Iowan Old Style","Sitka Text",Georgia,"Noto Serif",serif;
+    font-size:clamp(26px,4vw,34px); line-height:1.15; margin:0 0 10px;
+    color:var(--green-deep); text-wrap:balance; font-weight:700;
+  }
+  .subtitle{ font-size:16px; color:var(--ink-soft); margin:0; max-width:70ch; }
+  .meta-row{
+    display:flex; flex-wrap:wrap; gap:8px 22px; margin-top:16px;
+    font-family:"Seravek","Segoe UI",Arial,sans-serif; font-size:13px; color:var(--ink-soft);
+  }
+  .meta-row strong{ color:var(--ink); font-weight:600; }
+
+  .veredito{
+    border-radius:10px; border:1px solid var(--hairline); box-shadow:var(--shadow);
+    padding:22px 26px; margin:24px 0 30px; background:var(--paper-raised);
+    display:flex; flex-wrap:wrap; gap:18px 28px; align-items:center; justify-content:space-between;
+  }
+  .veredito.apto{ border-color:var(--ok); background:var(--ok-bg); }
+  .veredito.pendencias{ border-color:var(--warn); background:var(--warn-bg); }
+  .veredito.inapto{ border-color:var(--critical); background:var(--critical-bg); }
+  .veredito .rotulo{ font-family:"Seravek","Segoe UI",Arial,sans-serif; }
+  .veredito .rotulo .eyebrow-v{
+    font-size:11px; text-transform:uppercase; letter-spacing:0.12em; color:var(--ink-faint); margin:0 0 6px; display:block;
+  }
+  .veredito .status-grande{
+    font-family:"Iowan Old Style","Sitka Text",Georgia,serif; font-size:28px; font-weight:700; margin:0; color:var(--ink);
+  }
+  .veredito.apto .status-grande{ color:var(--ok); }
+  .veredito.pendencias .status-grande{ color:var(--warn); }
+  .veredito.inapto .status-grande{ color:var(--critical); }
+  .veredito .explicacao{ font-family:"Seravek","Segoe UI",Arial,sans-serif; font-size:14px; color:var(--ink-soft); max-width:46ch; }
+  .veredito .proximo-passo{
+    font-family:"Seravek","Segoe UI",Arial,sans-serif; font-size:13px; color:var(--ink);
+    background:var(--paper-raised); border:1px solid var(--hairline); border-radius:8px; padding:12px 16px; max-width:280px;
+  }
+  .veredito .proximo-passo b{ display:block; font-size:11px; text-transform:uppercase; letter-spacing:0.08em; color:var(--ink-faint); margin-bottom:4px; }
+
+  .stat-row{ display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:14px; margin-bottom:36px; }
+  .stat{ background:var(--paper-raised); border:1px solid var(--hairline); border-radius:10px; padding:16px 20px; box-shadow:var(--shadow); }
+  .stat .label{ font-family:"Seravek","Segoe UI",Arial,sans-serif; font-size:11.5px; text-transform:uppercase; letter-spacing:0.07em; color:var(--ink-faint); margin-bottom:8px; }
+  .stat .value{ font-family:"Seravek","Segoe UI",Arial,sans-serif; font-variant-numeric:tabular-nums; font-size:28px; font-weight:700; color:var(--ink); }
+  .stat.ok .value{ color:var(--ok); }
+  .stat.warn .value{ color:var(--warn); }
+  .stat.bad .value{ color:var(--critical); }
+
+  .fact-panel{ background:var(--paper-raised); border:1px solid var(--hairline); border-radius:8px; box-shadow:var(--shadow); padding:4px 0; margin:0 0 8px; overflow:hidden; }
+  .fact-row{ display:flex; border-bottom:1px solid var(--hairline); }
+  .fact-row:last-child{ border-bottom:none; }
+  .fact-label{ flex:0 0 240px; padding:12px 16px; font-family:"Seravek","Segoe UI",Arial,sans-serif; font-size:12.5px; text-transform:uppercase; letter-spacing:0.05em; color:var(--ink-faint); }
+  .fact-value{ flex:1; padding:12px 16px; font-size:14.5px; color:var(--ink); }
+
+  section{ margin-bottom:40px; }
+  h2{
+    font-family:"Iowan Old Style","Sitka Text",Georgia,serif; font-size:21px; color:var(--green-deep);
+    margin:0 0 4px; display:flex; align-items:baseline; gap:10px; flex-wrap:wrap;
+  }
+  h2 .tag{ font-family:"SF Mono","Cascadia Mono",Consolas,monospace; font-size:12px; color:var(--ink-soft); font-weight:400; }
+  .section-note{ font-family:"Seravek","Segoe UI",Arial,sans-serif; font-size:14px; color:var(--ink-soft); margin:0 0 16px; max-width:74ch; }
+
+  .callout{ border-left:4px solid var(--critical); background:var(--critical-bg); color:var(--ink); border-radius:4px; padding:16px 20px; margin-bottom:20px; }
+  .callout.ok{ border-left-color:var(--ok); background:var(--ok-bg); }
+  .callout.info{ border-left-color:var(--info); background:var(--info-bg); }
+  .callout.warn{ border-left-color:var(--warn); background:var(--warn-bg); }
+  .callout .callout-label{ font-family:"Seravek","Segoe UI",Arial,sans-serif; text-transform:uppercase; letter-spacing:0.1em; font-size:11px; font-weight:700; color:var(--critical); margin-bottom:6px; }
+  .callout.ok .callout-label{ color:var(--ok); }
+  .callout.info .callout-label{ color:var(--info); }
+  .callout.warn .callout-label{ color:var(--warn); }
+  .callout p{ margin:0 0 8px; font-size:15px; }
+  .callout p:last-child{ margin-bottom:0; }
+
+  .table-scroll{ overflow-x:auto; border-radius:8px; box-shadow:var(--shadow); }
+  table{ width:100%; border-collapse:collapse; background:var(--paper-raised); font-family:"Seravek","Segoe UI",Arial,sans-serif; font-size:13.5px; min-width:720px; }
+  thead th{ text-align:left; background:var(--green-deep); color:var(--paper); font-weight:600; font-size:11.5px; text-transform:uppercase; letter-spacing:0.06em; padding:10px 14px; }
+  tbody td{ padding:11px 14px; border-bottom:1px solid var(--hairline); vertical-align:top; color:var(--ink); }
+  tbody tr:last-child td{ border-bottom:none; }
+  td.item strong{ display:block; color:var(--ink); font-weight:600; }
+  td.item span{ color:var(--ink-soft); font-size:12.5px; }
+  td.ref{ font-family:"SF Mono","Cascadia Mono",Consolas,monospace; font-size:12px; color:var(--ink-soft); white-space:nowrap; }
+  td.solucao{ max-width:280px; }
+
+  .pill{ display:inline-block; font-family:"Seravek","Segoe UI",Arial,sans-serif; font-size:10.5px; font-weight:700; letter-spacing:0.03em; padding:3px 8px; border-radius:99px; white-space:nowrap; print-color-adjust:exact; -webkit-print-color-adjust:exact; }
+  .pill-ok{ background:var(--ok-bg); color:var(--ok); border:1px solid var(--ok); }
+  .pill-parcial{ background:var(--warn-bg); color:var(--warn); border:1px solid var(--warn); }
+  .pill-nao{ background:var(--critical-bg); color:var(--critical); border:1px solid var(--critical); }
+  .pill-na{ background:var(--neutral-bg); color:var(--neutral); border:1px solid var(--neutral); }
+
+  .legend{ display:flex; flex-wrap:wrap; gap:8px 14px; margin:0 0 16px; font-family:"Seravek","Segoe UI",Arial,sans-serif; font-size:12px; color:var(--ink-soft); }
+
+  .caminho-group{ margin-top:18px; }
+  .caminho-group h3{ font-family:"Seravek","Segoe UI",Arial,sans-serif; font-size:12.5px; text-transform:uppercase; letter-spacing:0.06em; color:var(--ink-faint); font-weight:700; margin:0 0 10px; }
+  .caminho-group ol{ margin:0; padding-left:0; list-style:none; display:flex; flex-direction:column; gap:10px; }
+  .caminho-group li{ font-family:"Seravek","Segoe UI",Arial,sans-serif; font-size:14px; color:var(--ink-soft); display:flex; gap:12px; align-items:flex-start; line-height:1.55; background:var(--paper-raised); border:1px solid var(--hairline); border-radius:8px; padding:12px 16px; }
+  .caminho-group li .n{ flex:none; width:22px; height:22px; border-radius:6px; font-size:11px; font-weight:700; display:flex; align-items:center; justify-content:center; margin-top:1px; }
+  .caminho-group.imediato .n{ background:var(--critical-bg); color:var(--critical); }
+  .caminho-group.ajuste .n{ background:var(--warn-bg); color:var(--warn); }
+  .caminho-group.medio .n{ background:var(--info-bg); color:var(--info); }
+  .caminho-group.estrategico .n{ background:var(--gold-soft); color:var(--gold); }
+  .caminho-group li strong{ color:var(--ink); }
+
+  footer{ margin-top:56px; padding-top:20px; border-top:1px solid var(--hairline); font-family:"Seravek","Segoe UI",Arial,sans-serif; font-size:12.5px; color:var(--ink-faint); display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px; }
+
+  @media print{ body{ background:#fff; } .wrap{ padding:16px; max-width:none; } .table-scroll{ box-shadow:none; } }
+  @media (max-width:620px){ .meta-row{ flex-direction:column; gap:4px; } .veredito{ flex-direction:column; align-items:flex-start; } .fact-row{ flex-direction:column; } .fact-label{ flex:none; padding-bottom:2px; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="doc-head">
+    <p class="eyebrow">CaptaDoc · Parecer de Elegibilidade · Atualizado em {{DATA_ATUALIZACAO}}</p>
+    <h1>Parecer de elegibilidade</h1>
+    <p class="subtitle">{{EDITAL_NOME_COMPLETO}} ({{EDITAL_IDENTIFICACAO}}), avaliado para {{OSC_NOME}}</p>
+    <div class="meta-row">
+      <span><strong>OSC avaliada:</strong> {{OSC_NOME}} ({{OSC_MUNICIPIO_UF}})</span>
+      <span><strong>Órgão financiador:</strong> {{ORGAO_FINANCIADOR}}</span>
+      <span><strong>Categoria ou linha pretendida:</strong> {{CATEGORIA_OU_LINHA}}</span>
+    </div>
+  </header>
+
+  <!-- Troque a classe do bloco abaixo para "apto", "pendencias" ou "inapto" conforme o veredito -->
+  <div class="veredito pendencias">
+    <div class="rotulo">
+      <span class="eyebrow-v">Veredito</span>
+      <p class="status-grande">{{VEREDITO: APTO | APTO COM PENDÊNCIAS | INAPTO NO MOMENTO}}</p>
+    </div>
+    <p class="explicacao">{{JUSTIFICATIVA_DO_VEREDITO_EM_UMA_OU_DUAS_FRASES}}</p>
+    <div class="proximo-passo">
+      <b>Pode avançar para a proposta?</b>
+      {{RESPOSTA_GATE_DE_ELEGIBILIDADE: Sim, caminho livre. | Sim, em paralelo, mas a submissão depende de regularizar as pendências abaixo. | Não, resolver antes de escrever qualquer proposta.}}
+    </div>
+  </div>
+
+  <div class="stat-row">
+    <div class="stat ok">
+      <div class="label">Requisitos atendidos</div>
+      <div class="value">{{N_ATENDE}} de {{N_TOTAL}}</div>
+    </div>
+    <div class="stat warn">
+      <div class="label">Pendências regularizáveis</div>
+      <div class="value">{{N_PENDENTE_REGULARIZAVEL}}</div>
+    </div>
+    <div class="stat bad">
+      <div class="label">Bloqueadores sem solução no momento</div>
+      <div class="value">{{N_BLOQUEADOR_SEM_SOLUCAO}}</div>
+    </div>
+  </div>
+
+  <section>
+    <h2>1. O edital em síntese <span class="tag">objeto, justificativa, eixos</span></h2>
+    <p class="section-note">Base para todo o resto do parecer. Se algum destes campos não estiver claro no texto do edital, registre "o edital não especifica" em vez de deixar em branco.</p>
+    <div class="fact-panel">
+      <div class="fact-row"><div class="fact-label">Objeto do edital</div><div class="fact-value">{{OBJETO_DO_EDITAL}}</div></div>
+      <div class="fact-row"><div class="fact-label">Justificativa ou problema que o edital busca resolver</div><div class="fact-value">{{JUSTIFICATIVA_DO_EDITAL}}</div></div>
+      <div class="fact-row"><div class="fact-label">Eixos, linhas temáticas ou categorias</div><div class="fact-value">{{EIXOS_OU_LINHAS_TEMATICAS}}</div></div>
+      <div class="fact-row"><div class="fact-label">Valor total e por proposta</div><div class="fact-value">{{VALOR_TOTAL}} no total, até {{VALOR_MAXIMO_POR_PROPOSTA}} por proposta</div></div>
+      <div class="fact-row"><div class="fact-label">Quantidade de propostas contempladas</div><div class="fact-value">{{QUANTIDADE_PROPOSTAS_PREVISTA}}</div></div>
+      <div class="fact-row"><div class="fact-label">Prazo de inscrição e vigência</div><div class="fact-value">{{PRAZO_INSCRICAO}}, vigência de {{VIGENCIA}}</div></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>2. Quem pode e quem não pode participar</h2>
+    <p class="section-note">Requisitos gerais de participação e impedimentos previstos no edital, antes de qualquer critério de pontuação.</p>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Exigência do edital</th><th>Referência</th><th>Situação real da OSC</th><th>Atende?</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="item"><strong>Natureza jurídica exigida</strong><span>{{NATUREZA_JURIDICA_EXIGIDA}}</span></td>
+            <td class="ref">{{ITEM_EDITAL}}</td>
+            <td>{{NATUREZA_JURIDICA_DA_OSC}}</td>
+            <td><span class="pill pill-ok">Atende</span></td>
+          </tr>
+          <tr>
+            <td class="item"><strong>Tempo mínimo de existência do CNPJ</strong><span>{{TEMPO_MINIMO_CNPJ_EXIGIDO}}</span></td>
+            <td class="ref">{{ITEM_EDITAL}}</td>
+            <td>{{IDADE_REAL_DO_CNPJ}}</td>
+            <td><span class="pill pill-ok">Atende</span></td>
+          </tr>
+          <tr>
+            <td class="item"><strong>Tempo mínimo de atuação na área do edital</strong><span>{{TEMPO_MINIMO_ATUACAO_EXIGIDO}}</span></td>
+            <td class="ref">{{ITEM_EDITAL}}</td>
+            <td>{{TEMPO_REAL_DE_ATUACAO}}</td>
+            <td><span class="pill pill-parcial">Atende parcialmente</span></td>
+          </tr>
+          <tr>
+            <td class="item"><strong>Território elegível</strong><span>{{TERRITORIO_EXIGIDO}}</span></td>
+            <td class="ref">{{ITEM_EDITAL}}</td>
+            <td>{{TERRITORIO_DA_OSC}}</td>
+            <td><span class="pill pill-ok">Atende</span></td>
+          </tr>
+          <tr>
+            <td class="item"><strong>Área de atuação exigida (estatutária ou de fato)</strong><span>{{AREA_ATUACAO_EXIGIDA}}</span></td>
+            <td class="ref">{{ITEM_EDITAL}}</td>
+            <td>{{AREA_ATUACAO_DA_OSC}}</td>
+            <td><span class="pill pill-nao">Não atende</span></td>
+          </tr>
+          <tr>
+            <td class="item"><strong>Impedimentos previstos (inadimplência, punição, vínculo com o poder público)</strong><span>{{IMPEDIMENTOS_LISTADOS_NO_EDITAL}}</span></td>
+            <td class="ref">{{ITEM_EDITAL}}</td>
+            <td>{{SITUACAO_DA_OSC_QUANTO_A_IMPEDIMENTOS}}</td>
+            <td><span class="pill pill-ok">Atende</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>3. Categorias ou linhas de financiamento</h2>
+    <p class="section-note">Quando o edital divide o financiamento em categorias com regras próprias (valor, público, despesas permitidas), identificar qual categoria se aplica à OSC antes de seguir. Apagar esta seção se o edital tiver categoria única.</p>
+    <div class="fact-panel">
+      <div class="fact-row"><div class="fact-label">Categoria recomendada para esta OSC</div><div class="fact-value">{{CATEGORIA_RECOMENDADA}}</div></div>
+      <div class="fact-row"><div class="fact-label">Por que esta categoria</div><div class="fact-value">{{JUSTIFICATIVA_DA_ESCOLHA_DE_CATEGORIA}}</div></div>
+      <div class="fact-row"><div class="fact-label">Valor e regras específicas desta categoria</div><div class="fact-value">{{REGRAS_DA_CATEGORIA}}</div></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>4. Base de cálculo externa e variável, quando existir <span class="tag">IDHM, população, renda</span></h2>
+    <p class="section-note">Alguns editais pontuam ou desempatam por um índice externo ao próprio edital (IDHM do município, faixa de população do IBGE, renda per capita). Quando existir, extrair a tabela real de faixas e valores, não uma direção genérica. Quando não existir, registrar isso explicitamente.</p>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Índice ou faixa</th><th>Valor de {{MUNICIPIO_OU_TERRITORIO_DA_OSC}}</th><th>Pontuação correspondente</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>{{NOME_DO_INDICE: ex. IDHM}}</td>
+            <td>{{VALOR_DO_INDICE_NO_TERRITORIO}}</td>
+            <td>{{PONTOS_OU_EFEITO_NA_ELEGIBILIDADE}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="section-note" style="margin-top:10px;">{{REGISTRO_SE_NAO_HOUVER_BASE_EXTERNA: "Este edital não utiliza nenhuma base de cálculo externa."}}</p>
+  </section>
+
+  <section>
+    <h2>5. Contrapartida, prestação de contas e acessibilidade</h2>
+    <p class="section-note">Exigências que não eliminam a proposta na largada, mas que a OSC precisa confirmar que consegue cumprir ao longo da execução.</p>
+    <div class="fact-panel">
+      <div class="fact-row"><div class="fact-label">Contrapartida exigida</div><div class="fact-value">{{CONTRAPARTIDA_EXIGIDA_E_SE_A_OSC_TEM_CONDICOES}}</div></div>
+      <div class="fact-row"><div class="fact-label">Regras de prestação de contas relevantes</div><div class="fact-value">{{REGRAS_PRESTACAO_CONTAS}}</div></div>
+      <div class="fact-row"><div class="fact-label">Acessibilidade e democratização do acesso</div><div class="fact-value">{{EXIGENCIAS_DE_ACESSIBILIDADE_SE_HOUVER}}</div></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>6. Quadro de aderência, requisito a requisito <span class="tag">coração do parecer</span></h2>
+    <p class="section-note">Todo requisito de elegibilidade e habilitação do edital, comparado com a situação real da OSC. Todo "Não atende" ou "Atende parcialmente" precisa de uma solução concreta na última coluna, nunca ficar vazia.</p>
+    <div class="legend">
+      <span><span class="pill pill-ok">Atende</span></span>
+      <span><span class="pill pill-parcial">Atende parcialmente</span></span>
+      <span><span class="pill pill-nao">Não atende</span></span>
+      <span><span class="pill pill-na">Não se aplica</span></span>
+    </div>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Requisito</th><th>Referência</th><th>Status</th><th>Como tornar elegível</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="item"><strong>{{REQUISITO_1}}</strong><span>{{SITUACAO_REAL_DA_OSC_1}}</span></td>
+            <td class="ref">{{ITEM_EDITAL_1}}</td>
+            <td><span class="pill pill-ok">Atende</span></td>
+            <td class="solucao">{{VAZIO_QUANDO_ATENDE}}</td>
+          </tr>
+          <tr>
+            <td class="item"><strong>{{REQUISITO_2}}</strong><span>{{SITUACAO_REAL_DA_OSC_2}}</span></td>
+            <td class="ref">{{ITEM_EDITAL_2}}</td>
+            <td><span class="pill pill-parcial">Atende parcialmente</span></td>
+            <td class="solucao">{{SOLUCAO_VIAVEL_E_LEGAL_2: ex. protocolar a certidão em atraso, ainda dentro do prazo do edital}}</td>
+          </tr>
+          <tr>
+            <td class="item"><strong>{{REQUISITO_3}}</strong><span>{{SITUACAO_REAL_DA_OSC_3}}</span></td>
+            <td class="ref">{{ITEM_EDITAL_3}}</td>
+            <td><span class="pill pill-nao">Não atende</span></td>
+            <td class="solucao">{{SOLUCAO_VIAVEL_E_LEGAL_3: ex. formalizar parceria em rede com entidade que atenda ao tempo mínimo de atuação, atuando como executora conjunta}}</td>
+          </tr>
+          <tr>
+            <td class="item"><strong>{{REQUISITO_N}}</strong><span>Repita esta linha para cada requisito relevante do edital</span></td>
+            <td class="ref">{{ITEM_EDITAL_N}}</td>
+            <td><span class="pill pill-na">Não se aplica</span></td>
+            <td class="solucao">{{OBSERVACAO}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>7. Itens financiáveis e vedados que afetam a elegibilidade</h2>
+    <p class="section-note">Não é o orçamento técnico completo (isso é tarefa do CaptaBudget), mas os limites que, se ignorados agora, eliminam a proposta depois.</p>
+    <div class="callout warn">
+      <p class="callout-label">Atenção na elaboração</p>
+      <p>{{DESPESAS_VEDADAS_RELEVANTES_PARA_ESTA_OSC}}</p>
+      <p>{{TETO_OU_PERCENTUAL_POR_CATEGORIA_RELEVANTE}}</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>8. Riscos de inabilitação</h2>
+    <p class="section-note">Priorizados do maior para o menor risco real, considerando o perfil desta OSC especificamente, não uma lista genérica de riscos do edital.</p>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Risco</th><th>Por que existe para esta OSC</th><th>Gravidade</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="item"><strong>{{RISCO_1}}</strong></td>
+            <td>{{POR_QUE_SE_APLICA_1}}</td>
+            <td><span class="pill pill-nao">Alto</span></td>
+          </tr>
+          <tr>
+            <td class="item"><strong>{{RISCO_2}}</strong></td>
+            <td>{{POR_QUE_SE_APLICA_2}}</td>
+            <td><span class="pill pill-parcial">Médio</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>9. Caminhos para tornar a OSC elegível</h2>
+    <p class="section-note">Reúne as soluções da seção 6, organizadas por prazo de resolução. É o plano de ação quando o veredito não é APTO. Cada item deve ser uma ação concreta e legal, nunca uma orientação vaga.</p>
+
+    <div class="caminho-group imediato">
+      <h3>Regularização imediata (dias)</h3>
+      <ol>
+        <li><span class="n">1</span> <span><strong>{{ACAO_IMEDIATA_1}}</strong>: {{DETALHE_E_ONDE_PROVIDENCIAR}}</span></li>
+        <li><span class="n">2</span> <span><strong>{{ACAO_IMEDIATA_2}}</strong>: {{DETALHE_E_ONDE_PROVIDENCIAR}}</span></li>
+      </ol>
+    </div>
+
+    <div class="caminho-group ajuste">
+      <h3>Ajuste formal (semanas)</h3>
+      <ol>
+        <li><span class="n">3</span> <span><strong>{{AJUSTE_FORMAL_1: alteração de estatuto, ata, endereço}}</strong>: {{DETALHE_DO_PROCEDIMENTO}}</span></li>
+      </ol>
+    </div>
+
+    <div class="caminho-group medio">
+      <h3>Solução de médio prazo (meses)</h3>
+      <ol>
+        <li><span class="n">4</span> <span><strong>{{SOLUCAO_MEDIO_PRAZO_1: aguardar tempo mínimo de existência, formar parceria em rede com entidade mais madura}}</strong>: {{DETALHE_E_PRAZO_ESTIMADO}}</span></li>
+      </ol>
+    </div>
+
+    <div class="caminho-group estrategico">
+      <h3>Alternativa estratégica</h3>
+      <ol>
+        <li><span class="n">5</span> <span><strong>{{ALTERNATIVA_ESTRATEGICA: mudar de categoria dentro do mesmo edital, ou recomendar buscar outro edital mais alinhado ao perfil atual da OSC}}</strong>: {{JUSTIFICATIVA}}</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <section>
+    <h2>10. Recomendação final</h2>
+    <div class="callout {{CLASSE_CALLOUT_CONFORME_VEREDITO: ok | warn | critical}}">
+      <p class="callout-label">Recomendação do CaptaDoc</p>
+      <p>{{RECOMENDACAO_FINAL_EM_LINGUAGEM_DIRETA}}</p>
+      <p>{{CHECKLIST_DOCUMENTAL_RESUMIDO_COM_REMISSAO}}: ver checklist completo em {{CAMINHO_DO_ARQUIVO_DE_CHECKLIST}}.</p>
+    </div>
+  </section>
+
+  <footer>
+    <span>Parecer elaborado a partir de {{EDITAL_NOME_COMPLETO}} e do perfil de {{OSC_NOME}} em {{DATA_LEVANTAMENTO}}.</span>
+    <span>Gate de Elegibilidade: nenhuma proposta deve ser escrita antes deste parecer.</span>
+  </footer>
+
+</div>
+</body>
+</html>

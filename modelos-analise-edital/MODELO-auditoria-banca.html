@@ -1,0 +1,257 @@
+<!--
+  MODELO. Auditoria de banca (CaptaScore).
+
+  Como usar
+  1. Substitua todo texto entre {{ }} pelo dado real do edital, da proposta e do orcamento.
+  2. Este documento so faz sentido depois da proposta (CaptaBuilder) e do orcamento
+     (CaptaBudget) estarem prontos. E a ultima estacao antes da submissao.
+  3. Os 3 cartoes do topo (sem regularizacao / com regularizacao / teto real) usam a mesma
+     logica do exemplo ObservaQuintal: nota hoje, nota projetada se resolver as pendencias
+     listadas, e o teto que o projeto alcanca mesmo com tudo resolvido (alguns criterios
+     travam por natureza do projeto, nao por documento faltando).
+  4. Os pesos da tabela de criterios devem somar 100. Se o edital tiver criterios e pesos
+     proprios, usar exatamente os dele; so usar os genericos de metodo-captar.md quando
+     o edital nao especificar.
+  5. Os 4 grupos do checklist final (bloqueia / decide a nota / leva ao teto / so na
+     contratacao) sao a saida mais acionavel do documento: cada item precisa ser uma
+     tarefa concreta, nao uma orientacao vaga.
+  6. Cores e pilulas seguem o mesmo sistema visual do checklist de documentos e do parecer
+     de elegibilidade, para o captador reconhecer o padrao nos tres documentos.
+-->
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Auditoria de banca {{PROPONENTE_SIGLA}} · {{EDITAL_IDENTIFICACAO}}</title>
+<style>
+  :root{
+    --bg:#F2F5EC; --surface:#FDFDFA; --surface-2:#EAEEE1;
+    --ink:#1E2B20; --ink-soft:#51604F; --ink-faint:#7C8A78;
+    --border:#D7DCC9; --accent:#3E6B49; --accent-ink:#2C4E35; --accent-soft:#E3EBDD;
+    --gold:#A9711F; --gold-soft:#F1E4CC;
+    --good:#3E6B49; --good-soft:#E3EBDD;
+    --bad:#A2402A; --bad-soft:#F7E3DC;
+    --shadow: 0 1px 2px rgba(30,43,32,.06), 0 8px 24px -12px rgba(30,43,32,.18);
+  }
+  :root[data-theme="dark"]{
+    --bg:#121C15; --surface:#182219; --surface-2:#20301F;
+    --ink:#ECF1E7; --ink-soft:#B7C4AF; --ink-faint:#8AA083;
+    --border:#2C3D2A; --accent:#83BC8E; --accent-ink:#BEE0C2; --accent-soft:#22331F;
+    --gold:#D9A64C; --gold-soft:#2E2718;
+    --good:#83BC8E; --good-soft:#20331F;
+    --bad:#E38B70; --bad-soft:#38231C;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px -12px rgba(0,0,0,.5);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#121C15; --surface:#182219; --surface-2:#20301F;
+      --ink:#ECF1E7; --ink-soft:#B7C4AF; --ink-faint:#8AA083;
+      --border:#2C3D2A; --accent:#83BC8E; --accent-ink:#BEE0C2; --accent-soft:#22331F;
+      --gold:#D9A64C; --gold-soft:#2E2718;
+      --good:#83BC8E; --good-soft:#20331F;
+      --bad:#E38B70; --bad-soft:#38231C;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px -12px rgba(0,0,0,.5);
+    }
+  }
+
+  *{box-sizing:border-box;}
+  body{ margin:0; background:var(--bg); color:var(--ink); font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif; -webkit-font-smoothing:antialiased; }
+  .sans{ font-family:"Segoe UI","Seravek","Helvetica Neue",Arial,sans-serif; }
+
+  .wrap{ max-width:960px; margin:0 auto; padding:48px 24px 80px; }
+
+  header.doc{ display:flex; flex-direction:column; gap:10px; padding-bottom:28px; border-bottom:1px solid var(--border); margin-bottom:32px; }
+  .eyebrow{ font-family:"Segoe UI",sans-serif; font-size:12px; letter-spacing:.09em; text-transform:uppercase; color:var(--accent-ink); font-weight:600; }
+  h1{ font-size:clamp(28px,4vw,38px); line-height:1.12; margin:0; font-weight:600; text-wrap:balance; color:var(--ink); }
+  .sub{ font-family:"Segoe UI",sans-serif; color:var(--ink-soft); font-size:15px; max-width:68ch; }
+  .meta{ display:flex; flex-wrap:wrap; gap:8px 18px; font-family:"Segoe UI",sans-serif; font-size:13px; color:var(--ink-faint); margin-top:4px; }
+  .meta span b{ color:var(--ink-soft); font-weight:600; }
+
+  .stat-row{ display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:14px; margin-bottom:36px; }
+  .stat{ background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:18px 20px; box-shadow:var(--shadow); }
+  .stat .label{ font-family:"Segoe UI",sans-serif; font-size:12px; text-transform:uppercase; letter-spacing:.07em; color:var(--ink-faint); margin-bottom:8px; }
+  .stat .value{ font-family:"Segoe UI",sans-serif; font-variant-numeric:tabular-nums; font-size:30px; font-weight:700; color:var(--ink); display:flex; align-items:baseline; gap:6px; }
+  .stat .value .of10{ font-size:14px; font-weight:500; color:var(--ink-faint); }
+  .meter{ margin-top:12px; height:6px; border-radius:99px; background:var(--surface-2); overflow:hidden; position:relative; }
+  .meter i{ display:block; height:100%; border-radius:99px; background:var(--accent); }
+  .stat.projected .value{ color:var(--gold); }
+  .stat.projected .meter i{ background:var(--gold); }
+  .stat .delta{ font-family:"Segoe UI",sans-serif; font-size:12.5px; color:var(--ink-faint); margin-top:8px; }
+  .stat.ceiling{ border-style:dashed; background:transparent; box-shadow:none; }
+  .stat.ceiling .value{ color:var(--accent-ink); }
+  .stat.ceiling .meter i{ background:repeating-linear-gradient(135deg,var(--accent-ink),var(--accent-ink) 4px,transparent 4px,transparent 8px); }
+
+  h2{ font-size:20px; font-weight:600; margin:0 0 4px; color:var(--ink); }
+  .section-note{ font-family:"Segoe UI",sans-serif; font-size:13.5px; color:var(--ink-soft); margin:0 0 16px; max-width:72ch; }
+
+  .table-scroll{ overflow-x:auto; border:1px solid var(--border); border-radius:10px; box-shadow:var(--shadow); background:var(--surface); }
+  table{ border-collapse:collapse; width:100%; min-width:760px; font-family:"Segoe UI",sans-serif; font-size:13.5px; }
+  thead th{ text-align:left; font-size:11.5px; text-transform:uppercase; letter-spacing:.06em; color:var(--ink-faint); font-weight:600; padding:13px 16px; border-bottom:1px solid var(--border); background:var(--surface-2); white-space:nowrap; }
+  tbody td{ padding:14px 16px; border-bottom:1px solid var(--border); color:var(--ink-soft); vertical-align:top; }
+  tbody tr:last-child td{ border-bottom:none; }
+  td.criterio{ color:var(--ink); font-weight:600; max-width:190px; }
+  td.num{ font-variant-numeric:tabular-nums; text-align:right; white-space:nowrap; color:var(--ink); font-weight:600; }
+  td.regulariza{ max-width:260px; }
+
+  .pill{ display:inline-flex; align-items:center; gap:6px; padding:4px 10px; border-radius:99px; font-size:12px; font-weight:600; white-space:nowrap; }
+  .pill.good{ background:var(--good-soft); color:var(--good); }
+  .pill.bad{ background:var(--bad-soft); color:var(--bad); }
+  .pill::before{ content:""; width:6px; height:6px; border-radius:99px; background:currentColor; }
+
+  .callout{ margin-top:22px; padding:16px 20px; background:var(--accent-soft); border:1px solid var(--border); border-radius:10px; font-family:"Segoe UI",sans-serif; font-size:13.5px; color:var(--ink); line-height:1.55; }
+  .callout b{ color:var(--accent-ink); }
+
+  .checklist{ margin-top:44px; }
+  .cl-group{ margin-top:18px; }
+  .cl-group h3{ font-family:"Segoe UI",sans-serif; font-size:12.5px; text-transform:uppercase; letter-spacing:.06em; color:var(--ink-faint); font-weight:700; margin:0 0 10px; }
+  .cl-group ol{ margin:0; padding-left:0; list-style:none; display:flex; flex-direction:column; gap:8px; }
+  .cl-group li{ font-family:"Segoe UI",sans-serif; font-size:14px; color:var(--ink-soft); display:flex; gap:10px; align-items:flex-start; line-height:1.5; }
+  .cl-group li .n{ flex:none; width:20px; height:20px; border-radius:6px; background:var(--surface-2); color:var(--ink-faint); font-size:11px; font-weight:700; display:flex; align-items:center; justify-content:center; margin-top:1px; }
+  .cl-group.block .n{ background:var(--bad-soft); color:var(--bad); }
+  .cl-group.decide .n{ background:var(--gold-soft); color:var(--gold); }
+  .cl-group.max .n{ background:var(--accent-soft); color:var(--accent-ink); }
+  .cl-group.rec .n{ background:var(--good-soft); color:var(--good); }
+
+  .reescrita{ margin-top:44px; padding:18px 20px; border:1px dashed var(--border); border-radius:10px; font-family:"Segoe UI",sans-serif; font-size:13.5px; color:var(--ink-soft); }
+  .reescrita h3{ margin:0 0 8px; font-size:14px; color:var(--ink); font-weight:700; }
+
+  footer.doc{ margin-top:56px; padding-top:18px; border-top:1px solid var(--border); font-family:"Segoe UI",sans-serif; font-size:12px; color:var(--ink-faint); display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px; }
+
+  @media (max-width:600px){ .wrap{ padding:32px 16px 64px; } td.criterio{ max-width:140px; } td.regulariza{ max-width:200px; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="doc">
+    <div class="eyebrow">AMC IA · Avaliação Técnica CaptaScore</div>
+    <h1>{{NOME_DO_PROJETO}}</h1>
+    <div class="sub">Quadro de aderência aos critérios de julgamento de {{EDITAL_NOME_COMPLETO}} ({{EDITAL_IDENTIFICACAO}}), {{CATEGORIA_OU_LINHA}}.</div>
+    <div class="meta">
+      <span>Cliente: <b>{{OSC_NOME}}</b></span>
+      <span>Instrumento: <b>{{TIPO_INSTRUMENTO}}</b></span>
+      <span>Atualizado em <b>{{DATA_ATUALIZACAO}}</b></span>
+    </div>
+  </header>
+
+  <div class="stat-row">
+    <div class="stat">
+      <div class="label">Nota sem regularização</div>
+      <div class="value">{{NOTA_ATUAL}} <span class="of10">/ 10</span></div>
+      <div class="meter"><i style="width:{{NOTA_ATUAL_PERCENTUAL}}%"></i></div>
+      <div class="delta">Situação hoje, com a proposta como está</div>
+    </div>
+    <div class="stat projected">
+      <div class="label">Nota com regularização</div>
+      <div class="value">{{NOTA_PROJETADA}} <span class="of10">/ 10</span></div>
+      <div class="meter"><i style="width:{{NOTA_PROJETADA_PERCENTUAL}}%"></i></div>
+      <div class="delta">Se as pendências listadas abaixo forem resolvidas</div>
+    </div>
+    <div class="stat ceiling">
+      <div class="label">Teto real do projeto</div>
+      <div class="value">{{NOTA_TETO}} <span class="of10">/ 10</span></div>
+      <div class="meter"><i style="width:{{NOTA_TETO_PERCENTUAL}}%"></i></div>
+      <div class="delta">{{EXPLICACAO_CURTA_DO_TETO: por que não chega a 10 mesmo com tudo resolvido}}</div>
+    </div>
+  </div>
+
+  <h2>Critérios de avaliação, peso a peso</h2>
+  <p class="section-note">Usar os critérios e pesos do próprio edital quando ele os especificar; só recorrer aos critérios genéricos do Método Captar quando o edital não trouxer os seus.</p>
+
+  <div class="table-scroll">
+    <table>
+      <thead>
+        <tr>
+          <th>Critério</th>
+          <th style="text-align:right">Peso</th>
+          <th style="text-align:right">Sem regularização</th>
+          <th style="text-align:right">Com regularização</th>
+          <th style="text-align:right">Teto real</th>
+          <th>Situação</th>
+          <th>O que falta para o teto</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="criterio">{{CRITERIO_1}}</td>
+          <td class="num">{{PESO_1}}</td>
+          <td class="num">{{NOTA_ATUAL_1}}</td>
+          <td class="num">{{NOTA_PROJETADA_1}}</td>
+          <td class="num">{{NOTA_TETO_1}}</td>
+          <td><span class="pill good">Aprovado</span></td>
+          <td class="regulariza">{{O_QUE_FALTA_1}}</td>
+        </tr>
+        <tr>
+          <td class="criterio">{{CRITERIO_2}}</td>
+          <td class="num">{{PESO_2}}</td>
+          <td class="num">{{NOTA_ATUAL_2}}</td>
+          <td class="num">{{NOTA_PROJETADA_2}}</td>
+          <td class="num">{{NOTA_TETO_2}}</td>
+          <td><span class="pill bad">Reprovado</span></td>
+          <td class="regulariza">{{O_QUE_FALTA_2}}</td>
+        </tr>
+        <tr>
+          <td class="criterio">{{CRITERIO_N}}</td>
+          <td class="num">{{PESO_N}}</td>
+          <td class="num">{{NOTA_ATUAL_N}}</td>
+          <td class="num">{{NOTA_PROJETADA_N}}</td>
+          <td class="num">{{NOTA_TETO_N}}</td>
+          <td><span class="pill good">Aprovado</span></td>
+          <td class="regulariza">{{O_QUE_FALTA_N}}, repetir esta linha para cada critério do edital</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout">
+    <b>{{CRITERIO_COM_CORTE_MINIMO}}</b> {{EXPLICACAO_DO_CORTE_ELIMINATORIO_SE_HOUVER}}. {{EXPLICACAO_DO_TETO_GERAL: quais critérios travam por leitura interpretativa da banca ou por dado que só existe depois da execução, não por documento faltando}}.
+  </div>
+
+  <div class="checklist">
+    <h2>O que regularizar, com prazo</h2>
+
+    <div class="cl-group block">
+      <h3>Bloqueia a submissão</h3>
+      <ol>
+        <li><span class="n">1</span> {{ACAO_BLOQUEADORA_1}}</li>
+        <li><span class="n">2</span> {{ACAO_BLOQUEADORA_2}}</li>
+      </ol>
+    </div>
+
+    <div class="cl-group decide">
+      <h3>Não bloqueia, mas decide a nota</h3>
+      <ol>
+        <li><span class="n">3</span> {{ACAO_DECISIVA_1}}</li>
+        <li><span class="n">4</span> {{ACAO_DECISIVA_2}}</li>
+      </ol>
+    </div>
+
+    <div class="cl-group max">
+      <h3>Leva ao teto real</h3>
+      <ol>
+        <li><span class="n">5</span> {{ACAO_TETO_1}}</li>
+      </ol>
+    </div>
+
+    <div class="cl-group rec">
+      <h3>Recomendado, só exigido na contratação</h3>
+      <ol>
+        <li><span class="n">6</span> {{ACAO_RECOMENDADA_1}}</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="reescrita">
+    <h3>Reescrita dos campos críticos (versão nota 9,5)</h3>
+    <p>{{NOTA_SOBRE_REESCRITA: indicar quais campos da proposta foram reescritos pelo CaptaScore e onde encontrar a versão revisada, ex. objetivos específicos e metodologia, ver proposta.md seção X}}</p>
+  </div>
+
+  <footer class="doc">
+    <span>AMC IA · CaptaScore</span>
+    <span>{{NOME_DO_PROJETO}} · {{EDITAL_IDENTIFICACAO}}</span>
+  </footer>
+
+</div>
+</body>
+</html>
