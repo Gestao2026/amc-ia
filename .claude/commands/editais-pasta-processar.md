@@ -15,6 +15,24 @@ Confira se `python3 scripts/captahub-api.py testar` responde (CaptaHub conectado
 responder, avise que a checagem de duplicidade vai usar só a base local (`base-editais/`),
 sem conferir ao vivo, e prossiga mesmo assim.
 
+**Origem padrão dos editais.** Quando o captador pedir para cadastrar editais sem indicar
+outro caminho, a origem é a pasta matriz externa:
+
+```
+C:\Users\rosep\Desktop\_82 - Rosepaula Aparecida Andrade Rodrigues\04 - Controle de Submissão_\01 - Mineração de Editais\02 - Editais Abertos
+```
+
+Essa pasta tem uma subpasta por instituição/programa, cada uma podendo conter o edital
+principal e anexos (cronograma, orçamento, modelos). Antes do Passo 2, copie para
+`editais-para-cadastrar/` apenas as subpastas/arquivos que ainda não foram processados
+(confira contra `origem_arquivo` em `editais-para-cadastrar/controles-criados.json` e
+contra `editais-para-cadastrar/processados/`, para não reprocessar o que já tem Controle
+criado). Dentro de cada subpasta copiada, trate como fonte principal o arquivo cujo nome
+remeta ao edital em si (ex: contém "edital", "regulamento", "política de patrocínio"); os
+demais (anexo de cronograma, orçamento, modelo) servem só de contexto complementar, não
+precisam virar um edital separado. Se o captador indicar outro caminho na conversa, use o
+caminho indicado em vez da pasta matriz.
+
 ## Passo 1. Anúncio
 
 ```
@@ -49,9 +67,25 @@ Para cada arquivo lido, monte os campos no formato do CaptaHub (ver
 
 Não invente dado que não está no arquivo. Campo não encontrado fica `null`.
 
+## Passo 4.1. Verificar prazo de inscrição (obrigatório, sempre)
+
+Para cada edital extraído com `is_continuous: false` e `deadline` preenchido, compare a
+`deadline` com a data de hoje.
+
+- Se `deadline` já passou, o edital **não é processado**: não roda duplicidade (Passo 5),
+  não roda o resolvedor de Controle (Passo 6), não move o arquivo para `processados/`.
+  Guarde `title`, `institution` e `deadline` numa lista à parte ("vencidos") para o
+  relatório final.
+- Se `is_continuous: true` ou `deadline` é `null` (programa contínuo ou prazo não
+  informado no arquivo), não há vencimento a checar; segue o fluxo normal.
+- Se `deadline` está dentro do prazo, segue o fluxo normal.
+
+Esta checagem é parte fixa do processo de cadastro em lote e roda em toda execução deste
+comando, não é opcional.
+
 ## Passo 5. Checar duplicidade
 
-Para cada edital extraído, rode:
+Para cada edital que passou pela checagem de prazo (Passo 4.1), rode:
 
 ```
 python3 scripts/editais-pasta-checar-duplicado.py --titulo "{title}" --orgao "{institution}" --url "{url}"
@@ -101,18 +135,66 @@ no Passo 5).
 6. Sem token do CaptaHub configurado (Passo 0), pule este passo inteiro: não há como criar
    nem atualizar Controle. Avise isso no relatório final.
 
+## Passo 6.1. Preparar o preenchimento manual da tela "Editar Controle"
+
+**Confirmado ao vivo (teste real, `PATCH /v1/projetos/{id}`, resposta `HTTP 422 Nenhum campo
+válido para atualizar`): a API pública do CaptaHub não aceita `prazo`/`deadline`,
+`is_continuous`, `categoria`/`category`, `abrangência`/`scope`, `valor_captador` nem
+`link_edital`/`url` no Controle.** Só é possível escrever via API: `nome`, `descricao`,
+`status`, `nota_tecnica`, `chance_aprovacao`, `valor_solicitado`, `valor_aprovado`,
+`data_submissao`, `cliente_id`, `edital_id`. O upload de PDF com preenchimento automático por
+IA existe só na tela do CaptaHub, sem endpoint equivalente conhecido na API pública.
+
+Por isso, para cada Controle **novo** criado no Passo 6, monte um bloco pronto para o
+captador colar na tela "Editar Controle" daquele card, com os dados já extraídos no Passo 4:
+
+```
+Controle: {title}
+Anexar PDF: {caminho do arquivo de origem}
+Nome do Edital: {title}
+Prazo do Edital: {deadline, formato dd/mm/aaaa} (ou marcar "Fluxo Contínuo" se is_continuous=true)
+Valor do Projeto: {value, formatado em R$, ou "não informado no edital" se null}
+Valor do Captador: definir com o captador (não vem do edital)
+Categoria: {category}
+Abrangência: {scope}{, UF, se houver}
+Descrição: {description}
+Link do Edital: {url, ou "não informado" se null}
+```
+
+Campo sem dado extraído do arquivo (`null`) entra como "não informado no edital", nunca
+inventado. Este passo não faz nenhuma chamada de escrita, só organiza o que já foi extraído
+para colagem manual; roda para todo Controle novo do lote, é parte fixa do processo.
+
 ## Passo 7. Relatório final
 
-Informe em poucas linhas, sem detalhe técnico:
+Informe em poucas linhas, sem detalhe técnico. Os editais que não viraram Controle **novo**,
+seja por prazo vencido (Passo 4.1) ou por já existir (catálogo, Passo 5, ou Controle no
+pipeline, Passo 6), entram juntos numa única lista, cada um com seu status:
 
 ```
-✅ Concluído: {N} arquivos lidos. {X} editais novos, {Y} já existiam (não duplicados no catálogo).
-Controles criados no CaptaHub: {X'} ({X''} vinculados a OSC compatível e já em Selecionado, {X'''} em Encontrar cliente)
-Controles já existentes, não duplicados: {Z} (backfill de edital_id feito em {Z'})
+✅ Concluído: {N} arquivos lidos.
+Controles novos criados no CaptaHub: {X} ({X''} vinculados a OSC compatível e já em Selecionado, {X'''} em Encontrar cliente)
 Novos: {lista com título e órgão}
-Já existentes (pulados): {lista com título e órgão}
+
+⚠️ Não viraram Controle novo no CaptaHub:
+- {título} ({órgão}) — vencido, prazo encerrado em {deadline}
+- {título} ({órgão}) — duplicado, já existe no catálogo do CaptaHub
+- {título} ({órgão}) — duplicado, já existe Controle no pipeline{, edital_id vinculado agora, se o backfill do Passo 6 item 2 rodou}
+
 Dados extraídos guardados também em: editais-para-cadastrar/controles-criados.json
 ```
+
+Logo em seguida, para cada Controle novo, apresente o bloco de preenchimento manual montado
+no Passo 6.1, um por edital, para o captador colar direto na tela "Editar Controle" (prazo,
+categoria, abrangência, valor do captador, link e o PDF a anexar não têm hoje escrita via
+API, ver Passo 6.1).
+
+Se não houve nenhum item vencido nem duplicado, omita a seção "Não viraram Controle novo".
+
+O arquivo dos editais vencidos (Passo 4.1) permanece em `editais-para-cadastrar/` (não é
+movido para `processados/`), para o captador decidir se remove ou arquiva manualmente. Os
+duplicados (catálogo ou Controle) são movidos normalmente para `processados/` (Passo 6 item 5),
+por já estarem tratados.
 
 Se o CaptaHub não estava conectado, avise: "CaptaHub não conectado, nenhum Controle foi
 aberto nem atualizado; edite `.env` e rode `/captahub-conectar` para ativar essa parte do

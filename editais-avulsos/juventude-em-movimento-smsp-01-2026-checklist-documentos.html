@@ -1,0 +1,493 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Checklist de documentos OSC a definir · SMSP Nº 01/2026</title>
+<style>
+  :root{
+    --paper:#F2F4EC;
+    --paper-raised:#FFFFFF;
+    --surface-2:#E8ECDE;
+    --ink:#1B2A1E;
+    --ink-soft:#4C5B49;
+    --ink-faint:#7C8A78;
+    --green-deep:#1F4738;
+    --green-mid:#2E6A4E;
+    --gold:#9A6B1F;
+    --gold-soft:#F3E7CC;
+    --critical:#9A3324;
+    --critical-bg:#FBEAE4;
+    --warn:#8A5A14;
+    --warn-bg:#FBF0DD;
+    --ok:#2F6B4F;
+    --ok-bg:#E6F1EA;
+    --info:#2B577A;
+    --info-bg:#E4EEF5;
+    --neutral:#626F60;
+    --neutral-bg:#E9ECE3;
+    --hairline:#D6DCC7;
+    --shadow: 0 1px 2px rgba(27,42,30,0.06), 0 8px 24px rgba(27,42,30,0.06);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#101812;
+      --paper-raised:#161F17;
+      --surface-2:#1E2A1F;
+      --ink:#E8EEE4;
+      --ink-soft:#A9B6A2;
+      --ink-faint:#829080;
+      --green-deep:#8FCBA9;
+      --green-mid:#79B592;
+      --gold:#D9AE5C;
+      --gold-soft:#332813;
+      --critical:#E7907A;
+      --critical-bg:#3A2018;
+      --warn:#E3BE7C;
+      --warn-bg:#3A2E14;
+      --ok:#8FD4AE;
+      --ok-bg:#173226;
+      --info:#8FB9DA;
+      --info-bg:#182A38;
+      --neutral:#AAB4A6;
+      --neutral-bg:#212B21;
+      --hairline:#2A342A;
+      --shadow: 0 1px 2px rgba(0,0,0,0.4), 0 8px 24px rgba(0,0,0,0.35);
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#101812; --paper-raised:#161F17; --surface-2:#1E2A1F;
+    --ink:#E8EEE4; --ink-soft:#A9B6A2; --ink-faint:#829080;
+    --green-deep:#8FCBA9; --green-mid:#79B592;
+    --gold:#D9AE5C; --gold-soft:#332813;
+    --critical:#E7907A; --critical-bg:#3A2018;
+    --warn:#E3BE7C; --warn-bg:#3A2E14;
+    --ok:#8FD4AE; --ok-bg:#173226;
+    --info:#8FB9DA; --info-bg:#182A38;
+    --neutral:#AAB4A6; --neutral-bg:#212B21;
+    --hairline:#2A342A;
+    --shadow: 0 1px 2px rgba(0,0,0,0.4), 0 8px 24px rgba(0,0,0,0.35);
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:var(--paper); color:var(--ink);
+    font-family:"Charter","Bitstream Charter","Sitka Small",Georgia,"Noto Serif",serif;
+    line-height:1.5; -webkit-font-smoothing:antialiased;
+  }
+  .sans{ font-family:"Seravek","Segoe UI","Helvetica Neue",Arial,sans-serif; }
+  .mono{ font-family:"SF Mono","Cascadia Mono",Consolas,"Liberation Mono",monospace; letter-spacing:0.01em; }
+
+  .wrap{ max-width:980px; margin:0 auto; padding:40px 24px 96px; }
+
+  header.doc-head{ border-bottom:2px solid var(--green-deep); padding-bottom:20px; margin-bottom:28px; }
+  .eyebrow{
+    font-family:"Seravek","Segoe UI",Arial,sans-serif; text-transform:uppercase;
+    letter-spacing:0.14em; font-size:11.5px; color:var(--green-mid); font-weight:600; margin:0 0 10px;
+  }
+  h1{
+    font-family:"Iowan Old Style","Sitka Text",Georgia,"Noto Serif",serif;
+    font-size:clamp(26px,4vw,34px); line-height:1.15; margin:0 0 10px;
+    color:var(--green-deep); text-wrap:balance; font-weight:700;
+  }
+  .subtitle{ font-size:16px; color:var(--ink-soft); margin:0; max-width:68ch; }
+  .meta-row{
+    display:flex; flex-wrap:wrap; gap:8px 22px; margin-top:16px;
+    font-family:"Seravek","Segoe UI",Arial,sans-serif; font-size:13px; color:var(--ink-soft);
+  }
+  .meta-row strong{ color:var(--ink); font-weight:600; }
+
+  .deadline{
+    display:flex; align-items:baseline; gap:12px; flex-wrap:wrap;
+    background:var(--critical-bg); color:var(--critical); border:1px solid var(--critical);
+    border-radius:6px; padding:14px 18px; margin:24px 0 28px;
+    font-family:"Seravek","Segoe UI",Arial,sans-serif;
+  }
+  .deadline .big{ font-size:20px; font-weight:700; font-variant-numeric:tabular-nums; white-space:nowrap; }
+  .deadline .txt{ font-size:14px; line-height:1.4; }
+
+  .fact-panel{
+    background:var(--paper-raised); border:1px solid var(--hairline); border-radius:8px;
+    box-shadow:var(--shadow); padding:4px 0; margin:0 0 28px; overflow:hidden;
+  }
+  .fact-row{ display:flex; border-bottom:1px solid var(--hairline); }
+  .fact-row:last-child{ border-bottom:none; }
+  .fact-label{
+    flex:0 0 220px; padding:12px 16px; font-family:"Seravek","Segoe UI",Arial,sans-serif;
+    font-size:12.5px; text-transform:uppercase; letter-spacing:0.05em; color:var(--ink-faint);
+  }
+  .fact-value{ flex:1; padding:12px 16px; font-size:14.5px; color:var(--ink); }
+
+  section{ margin-bottom:40px; }
+  h2{
+    font-family:"Iowan Old Style","Sitka Text",Georgia,serif; font-size:21px; color:var(--green-deep);
+    margin:0 0 4px; display:flex; align-items:baseline; gap:10px; flex-wrap:wrap;
+  }
+  h2 .tag{ font-family:"SF Mono","Cascadia Mono",Consolas,monospace; font-size:12px; color:var(--ink-soft); font-weight:400; }
+  .section-note{
+    font-family:"Seravek","Segoe UI",Arial,sans-serif; font-size:14px; color:var(--ink-soft);
+    margin:0 0 16px; max-width:70ch;
+  }
+
+  .callout{ border-left:4px solid var(--critical); background:var(--critical-bg); color:var(--ink); border-radius:4px; padding:16px 20px; margin-bottom:20px; }
+  .callout.ok{ border-left-color:var(--ok); background:var(--ok-bg); }
+  .callout.info{ border-left-color:var(--info); background:var(--info-bg); }
+  .callout .callout-label{
+    font-family:"Seravek","Segoe UI",Arial,sans-serif; text-transform:uppercase; letter-spacing:0.1em;
+    font-size:11px; font-weight:700; color:var(--critical); margin-bottom:6px;
+  }
+  .callout.ok .callout-label{ color:var(--ok); }
+  .callout.info .callout-label{ color:var(--info); }
+  .callout p{ margin:0 0 8px; font-size:15px; }
+  .callout p:last-child{ margin-bottom:0; }
+
+  .table-scroll{ overflow-x:auto; border-radius:8px; box-shadow:var(--shadow); }
+  table{
+    width:100%; border-collapse:collapse; background:var(--paper-raised);
+    font-family:"Seravek","Segoe UI",Arial,sans-serif; font-size:13.5px; min-width:600px;
+  }
+  thead th{
+    text-align:left; background:var(--green-deep); color:var(--paper); font-weight:600;
+    font-size:11.5px; text-transform:uppercase; letter-spacing:0.06em; padding:10px 14px;
+  }
+  tbody td{ padding:11px 14px; border-bottom:1px solid var(--hairline); vertical-align:top; color:var(--ink); }
+  tbody tr:last-child td{ border-bottom:none; }
+  tbody tr.done td{ opacity:0.62; }
+  td.chk{ width:26px; text-align:center; font-size:16px; color:var(--ink-soft); }
+  td.ref{ font-family:"SF Mono","Cascadia Mono",Consolas,monospace; font-size:12px; color:var(--ink-soft); white-space:nowrap; }
+  td.item strong{ display:block; color:var(--ink); font-weight:600; }
+  td.item span{ color:var(--ink-soft); font-size:12.5px; }
+
+  .pill{
+    display:inline-block; font-family:"Seravek","Segoe UI",Arial,sans-serif; font-size:10.5px;
+    font-weight:700; letter-spacing:0.03em; padding:3px 8px; border-radius:99px; white-space:nowrap;
+    print-color-adjust:exact; -webkit-print-color-adjust:exact;
+  }
+  .pill-block{ background:var(--critical-bg); color:var(--critical); border:1px solid var(--critical); }
+  .pill-req{ background:var(--warn-bg); color:var(--warn); border:1px solid var(--warn); }
+  .pill-later{ background:var(--info-bg); color:var(--info); border:1px solid var(--info); }
+  .pill-done{ background:var(--ok-bg); color:var(--ok); border:1px solid var(--ok); }
+  .pill-na{ background:var(--neutral-bg); color:var(--neutral); border:1px solid var(--neutral); }
+
+  .source-list{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:10px; }
+  .source-list li{
+    background:var(--paper-raised); border:1px solid var(--hairline); border-radius:8px;
+    padding:12px 16px; box-shadow:var(--shadow); font-family:"Seravek","Segoe UI",Arial,sans-serif; font-size:13.5px;
+  }
+  .source-list strong{ display:block; color:var(--ink); font-size:14px; margin-bottom:2px; }
+  .source-list span{ color:var(--ink-soft); }
+  .source-list a{ color:var(--green-mid); }
+
+  .legend{
+    display:flex; flex-wrap:wrap; gap:8px 14px; margin:0 0 28px;
+    font-family:"Seravek","Segoe UI",Arial,sans-serif; font-size:12px; color:var(--ink-soft);
+  }
+  .legend span{ display:inline-flex; align-items:center; gap:6px; }
+
+  footer{
+    margin-top:56px; padding-top:20px; border-top:1px solid var(--hairline);
+    font-family:"Seravek","Segoe UI",Arial,sans-serif; font-size:12.5px; color:var(--ink-faint);
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;
+  }
+
+  @media print{ body{ background:#fff; } .wrap{ padding:16px; max-width:none; } .table-scroll{ box-shadow:none; } }
+  @media (max-width:620px){ .meta-row{ flex-direction:column; gap:4px; } .deadline{ flex-direction:column; } .fact-row{ flex-direction:column; } .fact-label{ flex:none; padding-bottom:2px; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="doc-head">
+    <p class="eyebrow">Assessoria de Captação · Checklist de Documentos · Atualizado em 05/08/2026</p>
+    <h1>Checklist de documentos, anexos e manuais</h1>
+    <p class="subtitle">Edital de Chamamento Público SMSP Nº 01/2026 (Juventude em Movimento), seleção de uma OSC para executar projeto de qualificação profissional e trabalho protegido para jovens e adolescentes de 14 a 29 anos, com foco na prevenção ao trabalho infantil no tráfico de drogas</p>
+    <div class="meta-row">
+      <span><strong>Proponente:</strong> OSC ainda não definida (edital avulso, sem vínculo com nenhuma organização da carteira)</span>
+      <span><strong>Projeto:</strong> Juventude em Movimento</span>
+      <span><strong>Forma de envio:</strong> e-mail único, convenioseparcerias.seguranca@pbh.gov.br</span>
+    </div>
+  </header>
+
+  <div class="deadline">
+    <span class="big mono">13/08/2026, até 23:59h</span>
+    <span class="txt">Prazo final de envio da proposta e dos documentos de habilitação (item 6.4 do edital). Depois desse horário, nenhum documento ou complemento é aceito.</span>
+  </div>
+
+  <div class="legend">
+    <span><span class="pill pill-done">Resolvido</span> já anexado ou emitido</span>
+    <span><span class="pill pill-req">Pendente</span> falta providenciar</span>
+    <span><span class="pill pill-block">Bloqueador</span> item eliminatório sem este documento</span>
+    <span><span class="pill pill-later">Fase de celebração</span> só exigido se a OSC for selecionada</span>
+    <span><span class="pill pill-na">Não se aplica</span> checado, não vale para este edital</span>
+  </div>
+
+  <section>
+    <h2>1. Painel geral do edital</h2>
+    <p class="section-note">Dados administrativos que orientam a leitura do restante do checklist.</p>
+    <div class="fact-panel">
+      <div class="fact-row"><div class="fact-label">Órgão financiador</div><div class="fact-value">Secretaria Municipal de Segurança e Prevenção (SMSP/DCRI), Prefeitura de Belo Horizonte</div></div>
+      <div class="fact-row"><div class="fact-label">Objeto do edital</div><div class="fact-value">Planejamento, execução e acompanhamento do projeto Juventude em Movimento, voltado à qualificação e capacitação de jovens e adolescentes (14 a 29 anos), com foco no trabalho protegido e na qualificação profissional</div></div>
+      <div class="fact-row"><div class="fact-label">Valor total e por proposta</div><div class="fact-value">R$ 300.000,00 no total, integralmente destinado à única proposta selecionada (não há divisão entre proponentes)</div></div>
+      <div class="fact-row"><div class="fact-label">Quantidade de propostas contempladas</div><div class="fact-value">1 (uma), a proposta melhor classificada na etapa competitiva</div></div>
+      <div class="fact-row"><div class="fact-label">Vigência do instrumento</div><div class="fact-value">18 meses a partir da assinatura, prorrogável conforme conveniência e disponibilidade orçamentária</div></div>
+      <div class="fact-row"><div class="fact-label">Instrumento jurídico</div><div class="fact-value">Termo de colaboração (Lei Federal nº 13.019/2014)</div></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>2. Declarações e anexos do próprio edital <span class="tag">assinar sem alterar o formato</span></h2>
+    <p class="section-note">Modelos oficiais fornecidos pelo edital, para preencher e assinar sem alteração de formato.</p>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th></th><th>Documento</th><th>Referência</th><th>Situação</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="chk">&#9633;</td>
+            <td class="item"><strong>Anexo IV. Declaração de Habilitação</strong><span>Firmada pelo representante legal, afirmando natureza de OSC e comprometendo-se a apresentar a documentação de celebração.</span></td>
+            <td class="ref">Item 13.1, II</td>
+            <td><span class="pill pill-block">Bloqueador</span></td>
+          </tr>
+          <tr>
+            <td class="chk">&#9633;</td>
+            <td class="item"><strong>Anexo V. Declaração Art. 39 da Lei nº 13.019/2014</strong><span>Impedimentos legais e cumprimento do art. 7º, XXXIII, da Constituição (proibição de trabalho infantil).</span></td>
+            <td class="ref">Item 15.1, XIII</td>
+            <td><span class="pill pill-later">Fase de celebração</span></td>
+          </tr>
+          <tr>
+            <td class="chk">&#9633;</td>
+            <td class="item"><strong>Anexo VI. Atestado de regularidade da prestação de contas ou declaração de inexistência de parceria com o Município</strong></td>
+            <td class="ref">Item 15.1, XV</td>
+            <td><span class="pill pill-later">Fase de celebração</span></td>
+          </tr>
+          <tr>
+            <td class="chk">&#9633;</td>
+            <td class="item"><strong>Anexo XIV. Declaração sobre instalações e condições materiais</strong><span>Existência de instalações próprias ou previsão de contratar/adquirir com recursos da parceria.</span></td>
+            <td class="ref">Item 15.1, XIV</td>
+            <td><span class="pill pill-later">Fase de celebração</span></td>
+          </tr>
+          <tr>
+            <td class="chk">&#9633;</td>
+            <td class="item"><strong>Anexo III. Minuta do Termo de Colaboração</strong><span>Não é documento a produzir pela OSC: é preenchida e assinada pelo Município na celebração, depois da homologação.</span></td>
+            <td class="ref">Item 19.1</td>
+            <td><span class="pill pill-na">Não se aplica a este edital</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>3. Anexos técnicos do projeto <span class="tag">proposta, plano de trabalho, referência de preços</span></h2>
+    <p class="section-note">Aqui o conteúdo é redigido pela OSC dentro de um modelo, não apenas assinado.</p>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th></th><th>Documento</th><th>Referência</th><th>Situação</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="chk">&#9633;</td>
+            <td class="item"><strong>Anexo I. Modelo de Proposta</strong><span>12 seções: dados da OSC, apresentação e histórico, objeto, descrição, detalhamento da execução, metodologia, prazo, previsão de receitas e despesas, contrapartida. Sem nexo, ações/metas/indicadores, prazos ou valor global, a proposta é eliminada (item 12.4).</span></td>
+            <td class="ref">Item 11.1</td>
+            <td><span class="pill pill-block">Bloqueador</span></td>
+          </tr>
+          <tr>
+            <td class="chk">&#9633;</td>
+            <td class="item"><strong>Referência de preços (exequibilidade financeira)</strong><span>1 referência junto com a proposta. Se via sites/fornecedores, mínimo de 2 orçamentos por item, com cálculo da média de mercado.</span></td>
+            <td class="ref">Item 11.7</td>
+            <td><span class="pill pill-req">Pendente</span></td>
+          </tr>
+          <tr>
+            <td class="chk">&#9633;</td>
+            <td class="item"><strong>Anexo II. Plano de Trabalho consolidado</strong><span>Só exigido da OSC declarada vencedora, em até 10 dias úteis após a convocação, com o Quadro de Metas, forma de execução e cronograma de desembolso.</span></td>
+            <td class="ref">Item 16.1</td>
+            <td><span class="pill pill-later">Fase de celebração</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>4. Cadastros, certidões e regularidade institucional</h2>
+    <p class="section-note">Documentos emitidos por terceiros. Conferir a validade na data do envio, não só a existência do documento.</p>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th></th><th>Documento</th><th>Referência</th><th>Situação</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="chk">&#9633;</td>
+            <td class="item"><strong>Comprovante de inscrição no CNPJ</strong><span>Sítio oficial da Receita Federal, comprovando cadastro ativo há no mínimo 1 ano.</span></td>
+            <td class="ref">Item 13.1, I</td>
+            <td><span class="pill pill-block">Bloqueador</span></td>
+          </tr>
+          <tr>
+            <td class="chk">&#9633;</td>
+            <td class="item"><strong>Estatuto social registrado e eventuais alterações</strong><span>Exigido já na inscrição; repetido na celebração (item 15.1, I), com atenção ao art. 33 da Lei nº 13.019/2014.</span></td>
+            <td class="ref">Item 13.1, III</td>
+            <td><span class="pill pill-block">Bloqueador</span></td>
+          </tr>
+          <tr>
+            <td class="chk">&#9633;</td>
+            <td class="item"><strong>Ata de eleição e posse da atual diretoria</strong><span>Registrada na forma da lei; repetida na celebração (item 15.1, II).</span></td>
+            <td class="ref">Item 13.1, IV</td>
+            <td><span class="pill pill-block">Bloqueador</span></td>
+          </tr>
+          <tr>
+            <td class="chk">&#9633;</td>
+            <td class="item"><strong>Documento de identidade com foto e CPF do representante legal</strong><span>E do procurador, com a respectiva procuração, se houver.</span></td>
+            <td class="ref">Item 13.1, V</td>
+            <td><span class="pill pill-block">Bloqueador</span></td>
+          </tr>
+          <tr>
+            <td class="chk">&#9633;</td>
+            <td class="item"><strong>Certidão de Débitos Federais e Dívida Ativa da União</strong><span>Positiva com efeito de negativa é aceita (item 15.2).</span></td>
+            <td class="ref">Item 15.1, VI</td>
+            <td><span class="pill pill-later">Fase de celebração</span></td>
+          </tr>
+          <tr>
+            <td class="chk">&#9633;</td>
+            <td class="item"><strong>Certidão Negativa de Débitos Trabalhistas (CNDT)</strong></td>
+            <td class="ref">Item 15.1, VII</td>
+            <td><span class="pill pill-later">Fase de celebração</span></td>
+          </tr>
+          <tr>
+            <td class="chk">&#9633;</td>
+            <td class="item"><strong>Certificado de Regularidade do FGTS (CRF)</strong></td>
+            <td class="ref">Item 15.1, VIII</td>
+            <td><span class="pill pill-later">Fase de celebração</span></td>
+          </tr>
+          <tr>
+            <td class="chk">&#9633;</td>
+            <td class="item"><strong>Certidão de quitação de tributos municipais de Belo Horizonte</strong></td>
+            <td class="ref">Item 15.1, IX</td>
+            <td><span class="pill pill-later">Fase de celebração</span></td>
+          </tr>
+          <tr>
+            <td class="chk">&#9633;</td>
+            <td class="item"><strong>Comprovante de funcionamento no endereço declarado</strong><span>Conta de consumo ou contrato de locação em nome da OSC.</span></td>
+            <td class="ref">Item 15.1, X</td>
+            <td><span class="pill pill-later">Fase de celebração</span></td>
+          </tr>
+          <tr>
+            <td class="chk">&#9633;</td>
+            <td class="item"><strong>Cadastro no SUCAF (Sistema Único de Cadastro de Fornecedores), se houver</strong><span>Pode substituir o CNPJ e as 4 certidões (itens III e VI a IX do item 15.1), desde que ativo e regular.</span></td>
+            <td class="ref">Item 15.3</td>
+            <td><span class="pill pill-na">Não se aplica a este edital</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>5. Comprovações físicas, fotográficas e territoriais <span class="tag">quando o edital exigir</span></h2>
+    <p class="section-note">Este edital não exige nenhum documento fotográfico ou territorial já na inscrição. A Comissão de Seleção pode, de forma complementar e a seu critério, promover visita técnica à OSC ou aos locais indicados na proposta (item 12.6), mas isso não é um documento a anexar antecipadamente.</p>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th></th><th>Comprovação</th><th>Referência</th><th>Situação</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="chk">&#9633;</td>
+            <td class="item"><strong>Relatório fotográfico da sede ou do espaço de execução</strong></td>
+            <td class="ref">-</td>
+            <td><span class="pill pill-na">Não se aplica a este edital</span></td>
+          </tr>
+          <tr>
+            <td class="chk">&#9633;</td>
+            <td class="item"><strong>Visita técnica in loco</strong><span>Possível, a critério exclusivo da Comissão de Seleção, não é documento exigido da OSC.</span></td>
+            <td class="ref">Item 12.6</td>
+            <td><span class="pill pill-na">Não se aplica a este edital</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>6. Levantamentos internos que a OSC precisa produzir</h2>
+    <p class="section-note">Não vêm prontos de nenhum órgão externo; nascem de um levantamento feito pela própria organização. Aqui, ligados diretamente à pontuação do critério A (30 dos 100 pontos), costumam ser o gargalo de tempo desta OSC.</p>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th></th><th>O que levantar</th><th>Para que serve</th><th>Situação</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="chk">&#9633;</td>
+            <td class="item"><strong>Quadro Síntese de comprovação de experiência em comunidades vulneráveis de Belo Horizonte (Prevenção Social à Violência, público jovem)</strong><span>Portfólio, folders, jornais, revistas, vídeos ou comprovantes, um por trabalho diferente. Vale até 15 pontos (critério A1).</span></td>
+            <td class="ref">Item 12.2, quadro A</td>
+            <td><span class="pill pill-req">Pendente</span></td>
+          </tr>
+          <tr>
+            <td class="chk">&#9633;</td>
+            <td class="item"><strong>Quadro Síntese de experiência em projetos com entes públicos/privados envolvendo jovens vulneráveis em BH</strong><span>Cópia de convênios/contratos, extratos do Diário Oficial ou comprovantes com vigência/período de execução. Vale até 15 pontos (critério A2), por tempo total em meses.</span></td>
+            <td class="ref">Item 12.2, quadro A</td>
+            <td><span class="pill pill-req">Pendente</span></td>
+          </tr>
+          <tr>
+            <td class="chk">&#9633;</td>
+            <td class="item"><strong>Diretrizes e estratégias específicas para o Território L4 (Alto Vera Cruz, Taquaril, Granja de Freitas)</strong><span>Texto próprio dentro da proposta, não um documento externo, mas exige levantamento de conhecimento real do território para valer os 10 pontos do critério B2.</span></td>
+            <td class="ref">Item 12.2, quadro B</td>
+            <td><span class="pill pill-req">Pendente</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>7. Só se a OSC for selecionada <span class="tag">fase de celebração</span></h2>
+    <p class="section-note">Não trava o envio da proposta hoje. Reúne, em um só lugar, tudo que já aparece disperso nas seções 2 e 4, para não faltar nada no prazo de 10 dias úteis após a convocação (item 15.5).</p>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th></th><th>Documento</th><th>Referência</th><th>Situação</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="chk">&#9633;</td>
+            <td class="item"><strong>Relação nominal atualizada dos dirigentes</strong><span>Endereço, telefone, e-mail, RG e CPF de cada um, conforme o estatuto social.</span></td>
+            <td class="ref">Item 15.1, V</td>
+            <td><span class="pill pill-later">Fase de celebração</span></td>
+          </tr>
+          <tr>
+            <td class="chk">&#9633;</td>
+            <td class="item"><strong>Comprovante de experiência prévia na realização do objeto ou objeto semelhante</strong><span>Instrumentos de parceria, relatórios de atividades, publicações, currículos, declarações de terceiros ou prêmios.</span></td>
+            <td class="ref">Item 15.1, XI</td>
+            <td><span class="pill pill-later">Fase de celebração</span></td>
+          </tr>
+          <tr>
+            <td class="chk">&#9633;</td>
+            <td class="item"><strong>Assinatura do termo de colaboração</strong><span>Prazo máximo de 5 dias após a convocação, sob pena de decair o direito à parceria.</span></td>
+            <td class="ref">Item 17.1</td>
+            <td><span class="pill pill-later">Fase de celebração</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>8. Pendência com risco jurídico ou de divergência</h2>
+    <div class="callout">
+      <p class="callout-label">Risco de inelegibilidade por natureza jurídica</p>
+      <p><strong>Requisito de participação (item 7.1)</strong>: só podem participar instituições com natureza de Organização da Sociedade Civil, conforme art. 2º, inciso I, alíneas a, b ou c, da Lei nº 13.019/2014. Antes de vincular qualquer OSC da carteira a este Controle, confirmar que ela é de fato uma associação, fundação ou organização religiosa sem fins lucrativos, não uma empresa (LTDA, MEI, EIRELI). Caso já identificado: a Quintal Eh (Cinestratégico Soluções Criativas LTDA) não atende a esse requisito, por ser sociedade empresária com fins lucrativos.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>9. Manuais, normas e fontes de apoio do edital</h2>
+    <p class="section-note">Documentos normativos que não entram na submissão, mas orientam a leitura de todos os itens acima.</p>
+    <ul class="source-list">
+      <li><strong>Edital publicado</strong><span> · Portal das Parcerias (pbh.gov.br, Acesso Rápido, Portal das Parcerias, Chamamento Público, Dispensas e Inexigibilidade)</span></li>
+      <li><strong>Guia Prático de Parcerias (fontes de pesquisa de preços aceitas pela PGM)</strong><span> · https://prefeitura.pbh.gov.br/sites/default/files/estrutura-de-governo/procuradoria/GUIA%20PR%C3%81TICO%20DE%20PARCERIAS%20-%202019_1.pdf</span></li>
+      <li><strong>Norma de base</strong><span> · Lei Federal nº 13.019/2014 e Decreto Municipal nº 16.746/2017</span></li>
+      <li><strong>Perguntas frequentes (FAQ) do órgão</strong><span> · não identificado no texto do edital, verificar no Portal das Parcerias</span></li>
+      <li><strong>Tutorial da plataforma de submissão</strong><span> · não se aplica, o envio é por e-mail único, não por plataforma</span></li>
+      <li><strong>Contato do órgão para dúvidas</strong><span> · convenioseparcerias.seguranca@pbh.gov.br, prazo de resposta de 2 dias úteis</span></li>
+    </ul>
+  </section>
+
+  <footer>
+    <span>Checklist elaborado a partir do Edital de Chamamento Público SMSP Nº 01/2026 (Juventude em Movimento) em 05/08/2026. OSC ainda não definida, documento avulso (editais-avulsos/).</span>
+    <span>Documento de apoio à submissão, não substitui a leitura integral do edital e seus anexos.</span>
+  </footer>
+
+</div>
+</body>
+</html>

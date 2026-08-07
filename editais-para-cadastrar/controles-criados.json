@@ -197,5 +197,410 @@
     "osc_vinculada": null,
     "criado_em": "2026-08-03",
     "observacao": "Prazo originalmente encerrado em 30/07/2026; captador informou prorrogação para 17/08/2026, por isso entrou no pipeline após a checagem inicial."
+  },
+  {
+    "controle_id": "2c72d23e-6bf5-4596-a9a0-72eb84d51b64",
+    "title": "Edital ArcelorMittal Investe 2027",
+    "institution": "ArcelorMittal Pecém",
+    "category": "Desenvolvimento comunitário",
+    "scope": "Municipal",
+    "uf": "CE",
+    "value": 100000,
+    "deadline": "2026-08-16",
+    "is_continuous": false,
+    "url": null,
+    "description": "Apoio a OSCs e associações comunitárias no entorno da ArcelorMittal Pecém (São Gonçalo do Amarante e Caucaia, com extensão a Fortaleza e Paracuru-CE). Valor por projeto até R$ 100.000,00. Inscrições de 16/07/2026 a 16/08/2026.",
+    "tags": [
+      "desenvolvimento-comunitario",
+      "ceara",
+      "industria"
+    ],
+    "origem_arquivo": "_82.../02 - Editais Abertos/ACELLOR MITTAL/EDITAL_2027.pdf",
+    "osc_vinculada": null,
+    "criado_em": "2026-08-06"
+  },
+  {
+    "controle_id": "58a41135-1f19-4a9d-82f6-78699200f383",
+    "title": "Edital Social Lei de Incentivo à Reciclagem FAVORECICLE 2025",
+    "institution": "Banco do Nordeste do Brasil S.A.",
+    "category": "Meio Ambiente",
+    "scope": "Estadual",
+    "uf": null,
+    "value": 2000000,
+    "deadline": "2027-10-30",
+    "is_continuous": false,
+    "url": null,
+    "description": "Seleção de projetos de reciclagem via Lei de Incentivo à Reciclagem, em etapas sucessivas até 2027, para entidades da área básica de atuação do Banco do Nordeste (Região Nordeste e norte de MG/ES). Valor aprovado por projeto até R$ 2.000.000,00.",
+    "tags": [
+      "reciclagem",
+      "meio-ambiente",
+      "nordeste"
+    ],
+    "origem_arquivo": "_82.../02 - Editais Abertos/BANCO NORDESTE - RECICLAGEM/Edital Social _Reciclagem 2025_Final.pdf",
+    "osc_vinculada": null,
+    "criado_em": "2026-08-06"
+  },
+  {
+    "controle_id": "1a4352cf-ea44-40cf-ba69-611bc1dc6d35",
+    "title": "BIP Cultura - Banco de Incentivados Prosas",
+    "institution": "Prosas",
+    "category": "Cultura",
+    "scope": "Nacional",
+    "uf": null,
+    "value": null,
+    "deadline": null,
+    "is_continuous": true,
+    "url": null,
+    "description": "Vitrine digital gratuita e contínua (não é edital de seleção) para projetos já aprovados em leis de incentivo à Cultura, visando visibilidade para empresas patrocinadoras.",
+    "tags": [
+      "cultura",
+      "vitrine",
+      "leis-de-incentivo"
+    ],
+    "origem_arquivo": "_82.../02 - Editais Abertos/BIP CULTURA/BIP CULTURA.docx",
+    "osc_vinculada": {
+      "id": "511d1bbb-45bd-4ee4-ac8f-ca287a8461ea",
+      "nome": "Associação Indígena Berê Xikrin da TI Bacajá"
+    },
+    "criado_em": "2026-08-06"
+  },
+  {
+    "controle_id": "674f9402-d348-462f-a224-2b62ce5dab4a",
+    "title": "CBMM Investimento Social 2026",
+    "institution": "CBMM (Companhia Brasileira de Metalurgia e Mineração)",
+    "category": "Desenvolvimento comunitário",
+    "scope": "Municipal",
+    "uf": "MG",
+    "value": null,
+    "deadline": null,
+    "is_continuous": true,
+    "url": null,
+    "description": "Programa contínuo de investimento social da CBMM em Araxá-MG, nos pilares educação, saúde, cultura, esporte e dinamismo econômico, via FIA, Fundo do Idoso, Lei Federal do Esporte, Lei Rouanet, PRONAS/PCD e PRONON.",
+    "tags": [
+      "araxa",
+      "investimento-social",
+      "continuo"
+    ],
+    "origem_arquivo": "_82.../02 - Editais Abertos/CBMM/CBMM - 2026.docx",
+    "osc_vinculada": {
+      "id": "74c6f00b-316d-406b-812d-b3135c9903a7",
+      "nome": "Associação Semear Gestão e Organização para o Terceiro Setor"
+    },
+    "criado_em": "2026-08-06"
+  },
+  {
+    "controle_id": "5c0a115c-6319-4b39-a67e-375bfc9fe3c8",
+    "title": "Instituto EDP - Banco de Cadastro Contínuo de Projetos Sociais",
+    "institution": "Instituto EDP",
+    "category": "Desenvolvimento comunitário",
+    "scope": "Nacional",
+    "uf": null,
+    "value": null,
+    "deadline": null,
+    "is_continuous": true,
+    "url": null,
+    "description": "Canal contínuo de captação de projetos sociais e ambientais do Instituto EDP, via FIA, Fundo do Idoso, Lei de Incentivo à Reciclagem, Leis Estaduais de Cultura e Esporte, PRONAS/PCD e PRONON. Não aceita projetos aprovados via Lei Rouanet.",
+    "tags": [
+      "continuo",
+      "desenvolvimento-social"
+    ],
+    "origem_arquivo": "_82.../02 - Editais Abertos/EDP/EDP 2026.docx",
+    "osc_vinculada": null,
+    "criado_em": "2026-08-06"
+  },
+  {
+    "controle_id": "290a3326-b7ac-4204-bb85-76886efff300",
+    "title": "EMS Farmacêutica - Patrocínios e Doações",
+    "institution": "EMS S.A.",
+    "category": "Social",
+    "scope": "Nacional",
+    "uf": null,
+    "value": null,
+    "deadline": null,
+    "is_continuous": true,
+    "url": null,
+    "description": "Recebimento contínuo por e-mail de propostas de patrocínio/doação a projetos já aprovados em leis de incentivo, avaliadas conforme alinhamento com o posicionamento da marca EMS.",
+    "tags": [
+      "patrocinio",
+      "continuo"
+    ],
+    "origem_arquivo": "_82.../02 - Editais Abertos/EMS/EMS.docx + EMS Política de Patrocínios e Doações - Regulamento.pdf",
+    "osc_vinculada": null,
+    "criado_em": "2026-08-06"
+  },
+  {
+    "controle_id": "199da6a4-b33a-4988-a735-bc7816adf81d",
+    "title": "Floresta Viva 2025 - Recaatingar Edital 01/2026",
+    "institution": "Fundação Brasileira para o Desenvolvimento Sustentável (FBDS) / BNDES / Banco do Nordeste",
+    "category": "Meio Ambiente",
+    "scope": "Estadual",
+    "uf": null,
+    "value": 55200000,
+    "deadline": "2026-08-10",
+    "is_continuous": false,
+    "url": "https://floresta-viva.fbds.org.br/",
+    "description": "Apoio a projetos de recuperação socioprodutiva de terras degradadas na Caatinga (AL, BA, CE, MG, PB, PI, PE, RN, SE). Recursos totais R$ 55,2 milhões, em 2 ciclos: Ciclo 1 até 10/08/2026, Ciclo 2 de 15/10/2026 a 14/12/2026. Contrapartida mínima de 5% do valor solicitado.",
+    "tags": [
+      "caatinga",
+      "restauracao-ecologica",
+      "meio-ambiente"
+    ],
+    "origem_arquivo": "_82.../02 - Editais Abertos/FLORESTA VIVA/26.07.03.REGULAMENTO 2026.pdf (Floresta Viva - Recaatingar)",
+    "osc_vinculada": null,
+    "criado_em": "2026-08-06"
+  },
+  {
+    "controle_id": "de4ddc83-c827-42dc-96e6-2f7a4ead5ea3",
+    "title": "Impactarte - Instituto de Impacto Social",
+    "institution": "Impactarte - Instituto de Impacto Social",
+    "category": null,
+    "scope": null,
+    "uf": null,
+    "value": null,
+    "deadline": null,
+    "is_continuous": true,
+    "url": null,
+    "description": "Informação insuficiente extraída do material local (arquivo traz apenas o nome da organização, sem detalhes de edital, prazo ou critérios). Consultar diretamente o site da Impactarte.",
+    "tags": [
+      "revisar-manualmente"
+    ],
+    "origem_arquivo": "_82.../02 - Editais Abertos/IMPACTARTE/Impactarte.docx",
+    "osc_vinculada": null,
+    "criado_em": "2026-08-06"
+  },
+  {
+    "controle_id": "7223dd8a-c5c6-4d39-8446-8a4a625ad5a1",
+    "title": "APC - Assistência para Projetos Comunitários e de Segurança Humana",
+    "institution": "Consulado Geral do Japão em São Paulo",
+    "category": "Desenvolvimento comunitário",
+    "scope": "Nacional",
+    "uf": null,
+    "value": 90000,
+    "deadline": null,
+    "is_continuous": true,
+    "url": null,
+    "description": "Programa do governo japonês (desde 1989, no Brasil desde 1999) de apoio a organizações sem fins lucrativos com atuação socioeconômica comunitária. Teto de US$ 90.000,00 por projeto (aprox. 10 milhões de ienes).",
+    "tags": [
+      "japao",
+      "cooperacao-internacional"
+    ],
+    "origem_arquivo": "_82.../02 - Editais Abertos/JAPÃO/APC JAPAO 2026.docx",
+    "osc_vinculada": null,
+    "criado_em": "2026-08-06"
+  },
+  {
+    "controle_id": "7a9fc724-8a69-4b5d-b443-6e8957c7a3d0",
+    "title": "Instituto John Deere - Banco de Projetos",
+    "institution": "Instituto John Deere",
+    "category": "Desenvolvimento comunitário",
+    "scope": "Nacional",
+    "uf": null,
+    "value": null,
+    "deadline": null,
+    "is_continuous": true,
+    "url": null,
+    "description": "Banco de projetos contínuo do Instituto John Deere (não é edital), com avaliações trimestrais, nos pilares combate à fome, desenvolvimento comunitário e educação, via incentivo fiscal ou investimento privado.",
+    "tags": [
+      "continuo",
+      "trimestral"
+    ],
+    "origem_arquivo": "_82.../02 - Editais Abertos/JOHNDEERE/johndeere.docx",
+    "osc_vinculada": null,
+    "criado_em": "2026-08-06"
+  },
+  {
+    "controle_id": "7ec6b10c-8472-49be-9c14-7865b33b054c",
+    "title": "Edital Minasligas 2026-2027 - Projetos Sociais via Incentivo Fiscal",
+    "institution": "Minasligas",
+    "category": "Social",
+    "scope": "Municipal",
+    "uf": "MG",
+    "value": null,
+    "deadline": "2026-09-30",
+    "is_continuous": false,
+    "url": null,
+    "description": "Apoio a projetos sociais via leis de incentivo fiscal em municípios de MG (Buritizeiro, Grão Mogol, Ibiaí, João Pinheiro, Padre Carvalho, Pirapora, Região Metropolitana de BH, Rubelita, Três Marias, Ponto Chique, Jequitaí, São João da Lagoa) e BA (Simões Filho, Região Metropolitana de Salvador). Inscrições de maio a setembro de 2026 (dia exato não informado no material).",
+    "tags": [
+      "incentivo-fiscal",
+      "minas-gerais",
+      "bahia"
+    ],
+    "origem_arquivo": "_82.../02 - Editais Abertos/MINAS LIGA/Edital Minasligas 2026-2027.pdf",
+    "osc_vinculada": {
+      "id": "fdc40b53-a8d4-47b4-8fa7-074d3f627270",
+      "nome": "Associação Centro Missionário de Desenvolvimento Social - Levanta e Brilha"
+    },
+    "criado_em": "2026-08-06"
+  },
+  {
+    "controle_id": "02f84c35-c7ea-4e9b-adc2-718016d97289",
+    "title": "Diretrizes de Patrocínio Petrobras",
+    "institution": "Petrobras",
+    "category": "Social",
+    "scope": "Nacional",
+    "uf": null,
+    "value": null,
+    "deadline": null,
+    "is_continuous": true,
+    "url": null,
+    "description": "Diretrizes gerais de patrocínio da Petrobras (documento em formato de imagem, texto não extraído automaticamente). Programa distinto da Seleção Petrobras Cultural (edição anual com inscrições específicas).",
+    "tags": [
+      "patrocinio",
+      "continuo",
+      "revisar-manualmente"
+    ],
+    "origem_arquivo": "_82.../02 - Editais Abertos/PETROBRAS/Patrocínios Petrobras-Diretrizes Patrocínio Petrobras.pdf",
+    "osc_vinculada": null,
+    "criado_em": "2026-08-06"
+  },
+  {
+    "controle_id": "4534cb0b-0823-4898-bef4-892bc0d1b910",
+    "title": "Edital Social Grupo Porto 2026",
+    "institution": "Grupo Porto",
+    "category": "Social",
+    "scope": "Estadual",
+    "uf": null,
+    "value": null,
+    "deadline": "2026-08-31",
+    "is_continuous": false,
+    "url": null,
+    "description": "Apoio a projetos sociais nos estados Bahia, Minas Gerais, Paraná, Rio de Janeiro, Rio Grande do Sul e São Paulo. Inscrições de 19/05/2026 até 31 de um mes ilegivel no PDF de origem (verificar data exata antes de considerar vencido); resultado final previsto para 02/12/2026.",
+    "tags": [
+      "social",
+      "multi-estadual",
+      "revisar-manualmente"
+    ],
+    "origem_arquivo": "_82.../02 - Editais Abertos/PORTO/Edital Social – Grupo Porto 2026-Regulamento.pdf",
+    "osc_vinculada": null,
+    "criado_em": "2026-08-06"
+  },
+  {
+    "controle_id": "6c8c1cf9-a346-4440-8716-075eb40cfa92",
+    "title": "Edital de Chamamento Público SMSP nº 01/2026 - Juventude em Movimento",
+    "institution": "Prefeitura de Belo Horizonte - Secretaria Municipal de Segurança e Prevenção (SMSP)",
+    "category": "Assistência Social",
+    "scope": "Municipal",
+    "uf": "MG",
+    "value": 300000,
+    "deadline": "2026-08-13",
+    "is_continuous": false,
+    "url": null,
+    "description": "Seleção de OSC para termo de colaboração de execução do Projeto Juventude em Movimento (prevenção ao trabalho infantil no tráfico de drogas), Belo Horizonte-MG. Recursos R$ 300.000,00 (ROT). Entrega de propostas de 07/08/2026 a 13/08/2026.",
+    "tags": [
+      "belo-horizonte",
+      "juventude",
+      "prevencao"
+    ],
+    "origem_arquivo": "_82.../02 - Editais Abertos/PREFEITURA BH/edital-para-publicacao-assinado.pdf",
+    "osc_vinculada": {
+      "id": "74c6f00b-316d-406b-812d-b3135c9903a7",
+      "nome": "Associação Semear Gestão e Organização para o Terceiro Setor"
+    },
+    "criado_em": "2026-08-06"
+  },
+  {
+    "controle_id": "b5c9d5f1-e73a-47df-9527-1c6f338f7337",
+    "title": "Lojas Renner - Patrocínio Cultural Contínuo",
+    "institution": "Lojas Renner S.A.",
+    "category": "Cultura",
+    "scope": "Nacional",
+    "uf": null,
+    "value": null,
+    "deadline": null,
+    "is_continuous": true,
+    "url": null,
+    "description": "Inscrições contínuas ao longo do ano para projetos culturais (patrimônio artístico e cultural, moda, lifestyle, beleza, inovação, sustentabilidade), com pelo menos 150 dias de antecedência da realização.",
+    "tags": [
+      "cultura",
+      "continuo"
+    ],
+    "origem_arquivo": "_82.../02 - Editais Abertos/RENNER/RENNER.docx",
+    "osc_vinculada": null,
+    "criado_em": "2026-08-06"
+  },
+  {
+    "controle_id": "299cfa3a-2ca8-4d23-ab14-397df54c49ea",
+    "title": "Usiminas - Patrocínios e Doações (Investimento Direto)",
+    "institution": "Usiminas",
+    "category": "Social",
+    "scope": "Nacional",
+    "uf": null,
+    "value": null,
+    "deadline": null,
+    "is_continuous": true,
+    "url": null,
+    "description": "Recebimento de pedidos de patrocínio/doação da Usiminas via plataforma própria. A modalidade Investimento Direto (projetos já aprovados em leis de incentivo) costuma abrir no segundo semestre do ano; data exata não informada no material.",
+    "tags": [
+      "patrocinio",
+      "revisar-manualmente"
+    ],
+    "origem_arquivo": "_82.../02 - Editais Abertos/USIMINAS/USIMINAS–Programa de Investimento Social Corporativo-Diretrizes.pdf",
+    "osc_vinculada": null,
+    "criado_em": "2026-08-06"
+  },
+  {
+    "controle_id": "61263c77-4b71-450a-98ec-c743e6ac1714",
+    "title": "Wadhwani Charitable Foundation Grant Fund",
+    "institution": "Wadhwani Foundation",
+    "category": "Empreendedorismo / Geração de Emprego e Renda",
+    "scope": "Internacional",
+    "uf": null,
+    "value": 1000000,
+    "deadline": null,
+    "is_continuous": true,
+    "url": "https://wadhwanifoundation.org/pt/subsidio-do-wcf/",
+    "description": "Financiamento anual de até US$ 1 milhão (com possibilidade de investimento plurianual) para organizações da Índia, México, Brasil, Indonésia e Filipinas voltadas à criação e realização de empregos.",
+    "tags": [
+      "emprego-e-renda",
+      "internacional",
+      "fluxo-continuo"
+    ],
+    "origem_arquivo": "_82.../02 - Editais Abertos/WADHWANI/Wadhwani Charitable Foundation Grant Fund-Regulamento.pdf",
+    "osc_vinculada": null,
+    "criado_em": "2026-08-06"
+  },
+  {
+    "controle_id": "16643af7-bf49-46d4-b982-b6d473a0859a",
+    "title": "BIP Esporte - Banco de Incentivados Prosas",
+    "institution": "Prosas",
+    "category": "Esporte",
+    "scope": "Nacional",
+    "uf": null,
+    "value": null,
+    "deadline": null,
+    "is_continuous": true,
+    "url": null,
+    "description": "Vitrine digital gratuita e contínua (não é edital de seleção) para projetos já aprovados em leis de incentivo ao Esporte, visando visibilidade para empresas patrocinadoras.",
+    "tags": [
+      "esporte",
+      "vitrine",
+      "leis-de-incentivo"
+    ],
+    "origem_arquivo": "_82.../02 - Editais Abertos/BIP ESPORTE/BIP ESPORTE.docx",
+    "osc_vinculada": null,
+    "criado_em": "2026-08-06",
+    "observacao": "Criado manualmente porque o resolvedor marcou como falso positivo de duplicidade contra o BIP Cultura (84% de similaridade de titulo, mas sao programas diferentes)."
+  },
+  {
+    "controle_id": "443dd24e-d45c-4b13-aaeb-ebd52e6e4838",
+    "title": "Chamada Pública 2026/001 - Edital Rio Doce Participativo e Comunitário",
+    "institution": "Fundação Banco do Brasil (Fundação BB)",
+    "category": "Desenvolvimento comunitário",
+    "scope": "Estadual",
+    "uf": null,
+    "value": 225000000,
+    "deadline": "2026-08-18",
+    "is_continuous": false,
+    "url": "https://www.fbb.org.br",
+    "description": "Chamada Pública 2026/001 da Fundação Banco do Brasil para selecionar projetos comunitários de reparação e desenvolvimento socioeconômico em 49 municípios da Bacia do Rio Doce (MG e ES) e litoral norte do ES, no âmbito do Acordo Rio Doce (rompimento da barragem de Fundão). Recursos totais até R$ 225 milhões do Fundo de Participação Social do Rio Doce.",
+    "tags": [
+      "rio-doce",
+      "desenvolvimento-comunitario",
+      "fundacao-bb"
+    ],
+    "origem_arquivo": "_82.../02 - Editais Abertos/BB RIO DOCE/EDITAL-RIO-DOCE-PARTICIPATIVO-E-COMUNITARIO_2a-RETIFICACAO.pdf",
+    "osc_vinculada": null,
+    "criado_em": "2026-08-07",
+    "observacao": "Prazo originalmente encerrado em 29/07/2026; captador informou prorrogação para 18/08/2026, por isso entrou no pipeline após a checagem inicial (mesmo padrão já usado para o Barraginha/Anater)."
   }
 ]

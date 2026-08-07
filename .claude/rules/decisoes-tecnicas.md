@@ -157,3 +157,27 @@ Impacto: o que fica explicitamente fora desta implementação, por pedido do cap
 - Próximo passo combinado com o captador: testes com editais reais para validar ausência de duplicidade end-to-end, antes de retomar a decisão pendente sobre a sincronização da tela "Editar Controle" (captura de rede feita, mas decisão entre pedir ao CaptaHub vs. usar a rota crua do Supabase ainda em aberto).
 
 Data: 2026-07-31
+
+### SOL-0009. Checagem obrigatória de prazo vencido, e relatório unificado de tudo que não virou Controle novo
+
+Problema: `/editais-pasta-processar` extraía o campo `deadline` de cada edital (Passo 4), mas nunca comparava com a data atual antes de abrir o Controle no CaptaHub. Um edital com inscrição já encerrada podia virar Controle normalmente, poluindo o pipeline com oportunidades que não podem mais ser buscadas. Além disso, o relatório final já informava duplicados (catálogo, Passo 5, e Controle, Passo 6) e vencidos em blocos e formatos diferentes, dificultando ver de uma vez tudo que não gerou Controle novo e por quê.
+
+Solução: adicionado o Passo 4.1 ao comando (`.claude/commands/editais-pasta-processar.md`), obrigatório em toda execução: para todo edital com `is_continuous: false` e `deadline` preenchido, compara com a data de hoje. Se vencido, o edital não passa pela checagem de duplicidade (Passo 5) nem pelo resolvedor de Controle (Passo 6), e não é movido para `processados/` (fica na pasta para o captador decidir o destino). O relatório final (Passo 7) foi reformulado: vencidos e duplicados (tanto duplicado no catálogo de editais quanto duplicado como Controle já existente no pipeline) entram juntos numa única seção "Não viraram Controle novo no CaptaHub", cada item com seu status (vencido / duplicado no catálogo / duplicado no pipeline). Programas contínuos (`is_continuous: true`) ou sem `deadline` informado não entram na checagem de vencimento, por não terem vencimento.
+
+Alternativas descartadas: deixar o captador conferir manualmente o prazo depois de ver o relatório de Controles criados (o pedido explícito foi tornar essa checagem parte fixa do processo); manter vencidos e duplicados em seções separadas do relatório (o captador pediu explicitamente a visão consolidada, com status por item).
+
+Impacto: todo cadastro em lote via `/editais-pasta-processar` filtra editais vencidos automaticamente e relata, numa lista só, tudo que não resultou em Controle novo (vencido ou duplicado), com o motivo de cada um. O arquivo do edital vencido permanece em `editais-para-cadastrar/`; os duplicados continuam sendo movidos para `processados/`, por já estarem tratados.
+
+Data: 2026-08-06
+
+### SOL-0010. Fechada a decisão pendente do SOL-0008: API do CaptaHub não aceita os campos da tela "Editar Controle"
+
+Problema: o SOL-0008 tinha deixado em aberto se a sincronização campo a campo da tela "Editar Controle" (Prazo do Edital, Fluxo Contínuo, Valor do Projeto, Valor do Captador, Categoria, Abrangência, Descrição, Link do Edital, upload de PDF com preenchimento automático por IA) devia usar um endpoint oficial a pedir ao CaptaHub ou a rota crua do Supabase por trás da tela. O captador pediu explicitamente para essa etapa (preencher o Controle depois de criado) entrar no processo de cadastro em lote.
+
+Solução: testado ao vivo em produção, `PATCH /v1/projetos/{id}` no Controle da Ambipar (`628e9afb-26c0-45a1-9257-8bb0ad69f475`) com os nomes prováveis desses campos (`prazo`, `deadline`, `is_continuous`, `categoria`, `category`, `abrangencia`, `scope`, `valor_captador`, `link_edital`, `url`). Resposta: `HTTP 422 validation_error: Nenhum campo válido para atualizar`. Confirmado que a API pública do CaptaHub, hoje, só aceita escrever em `nome`, `descricao`, `status`, `nota_tecnica`, `chance_aprovacao`, `valor_solicitado`, `valor_aprovado`, `data_submissao`, `cliente_id`, `edital_id` num Controle (`GET /v1/projetos/{id}` também confirma que o objeto retornado só tem essas chaves, nenhuma das seis citadas acima existe no schema). O upload de PDF com IA não tem endpoint equivalente conhecido. Decisão do captador: por ora, esses seis campos e o PDF ficam manuais, preenchidos por ele direto na tela do CaptaHub. `/editais-pasta-processar` (Passo 6.1) passou a montar, para cada Controle novo, um bloco pronto com os dados já extraídos do edital (Passo 4) para colar nesses campos, incluindo o caminho do arquivo a anexar; `Valor do Captador` é sinalizado como "definir com o captador" (não vem do edital).
+
+Alternativas descartadas: usar a rota crua do Supabase por trás da tela (SOL-0008 já cogitava isso) — descartada pelo captador por ser rota não documentada e não oficial, que pode mudar ou quebrar sem aviso; pedir ao CaptaHub para expor esses campos na API — fica como possibilidade futura, mas não bloqueia o processo agora.
+
+Impacto: fecha a pendência do SOL-0008. `/editais-pasta-processar` nunca mais tenta (nem promete) preencher prazo, categoria, abrangência, valor do captador, link do edital ou anexar PDF via API; em vez disso entrega ao captador, no relatório final, o texto pronto para colar manualmente em cada Controle novo. Se o CaptaHub um dia expuser esses campos na API, revisar o Passo 6.1 para voltar a escrever automaticamente.
+
+Data: 2026-08-06

@@ -214,6 +214,7 @@ O sistema trabalha em dois contextos distintos, conforme a fase:
 |---|---|---|
 | Perfil da OSC | `minhas-oscs/{slug}/perfil-osc.md` | `.md` |
 | Edital analisado | `minhas-oscs/{slug}/projetos/{edital}/edital.md` | `.md` |
+| Edital analisado, sem OSC vinculada | `editais-avulsos/{edital-slug}.md` | `.md` |
 | Parecer de elegibilidade (CaptaDoc) | `minhas-oscs/{slug}/projetos/{edital}/elegibilidade.md` | `.md` |
 | Proposta completa (CaptaBuilder) | `minhas-oscs/{slug}/projetos/{edital}/proposta.md` | `.md` |
 | Orçamento técnico (CaptaBudget) | `minhas-oscs/{slug}/projetos/{edital}/orcamento.md` | `.md` |
@@ -288,6 +289,7 @@ aderência ao edital, capacidade técnica, potencial de impacto, coerência meto
 - `/captahub-sincronizar`. Reconciliar carteira e pipeline com o CaptaHub nos dois sentidos (puxar atualizações e subir o que está só local).
 - `/edital-minerar`. Puxar os editais do CaptaHub e listar os mais alinhados ao perfil da OSC ativa (por escopo, valor, prazo e área).
 - `/edital-analisar`. Ler um edital (PDF, link ou texto colado) e extrair critérios, prazos, exigências, o que pontua e o que derruba.
+- `/edital-analisar-avulso`. Igual ao `/edital-analisar`, mas sem OSC: quando ainda não há organização definida para o edital, ou a OSC ativa não é elegível para ele. Salva em `editais-avulsos/`.
 
 **Projeto (os 4 agentes):**
 - `/projeto-elegibilidade`. CaptaDoc. Cruza edital com o perfil da OSC e dá o veredito: APTO, APTO COM PENDÊNCIAS ou INAPTO, com checklist documental.
