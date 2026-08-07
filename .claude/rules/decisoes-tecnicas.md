@@ -181,3 +181,15 @@ Alternativas descartadas: usar a rota crua do Supabase por trás da tela (SOL-00
 Impacto: fecha a pendência do SOL-0008. `/editais-pasta-processar` nunca mais tenta (nem promete) preencher prazo, categoria, abrangência, valor do captador, link do edital ou anexar PDF via API; em vez disso entrega ao captador, no relatório final, o texto pronto para colar manualmente em cada Controle novo. Se o CaptaHub um dia expuser esses campos na API, revisar o Passo 6.1 para voltar a escrever automaticamente.
 
 Data: 2026-08-06
+
+### SOL-0011. Destino fixo dos editais vencidos: pasta externa de histórico, não `editais-para-cadastrar/`
+
+Problema: o SOL-0009 definiu que o edital vencido não é processado (não roda duplicidade nem Controle), mas deixava o arquivo parado dentro de `editais-para-cadastrar/` "para o captador decidir depois". Na prática, isso empilhava arquivo vencido misturado com arquivo ainda não processado na mesma pasta de trabalho, e a decisão sobre onde arquivar ficava manual toda vez.
+
+Solução: o captador já mantém, fora do amc-ia, uma pasta de histórico dedicada a isso (`C:\Users\rosep\Desktop\_82 - Rosepaula Aparecida Andrade Rodrigues\04 - Controle de Submissão_\01 - Mineração de Editais\04 - Histórico de Editais _ Não Submetidos`, irmã da pasta matriz já usada como origem padrão, ver `[[reference_pasta_matriz_editais]]`), organizada em subpastas por instituição/edital. `/editais-pasta-processar` (Passo 4.1) passou a mover automaticamente o arquivo do edital vencido para lá (subpasta existente da mesma instituição/edital, se houver, ou subpasta nova numerada em sequência), em vez de deixá-lo em `editais-para-cadastrar/`.
+
+Alternativas descartadas: manter o arquivo em `editais-para-cadastrar/` só marcado como vencido no relatório (é o comportamento anterior, do SOL-0009; gerava acúmulo manual repetido); criar essa pasta de histórico dentro do próprio amc-ia (o captador já tem e usa uma estrutura própria no Desktop para isso, replicar duplicaria organização).
+
+Impacto: `.claude/commands/editais-pasta-processar.md` (Passo 4.1 e Passo 7) documenta o caminho fixo e a regra de subpasta por instituição. Editais vencidos nunca mais ficam soltos em `editais-para-cadastrar/` depois da execução do comando.
+
+Data: 2026-08-07

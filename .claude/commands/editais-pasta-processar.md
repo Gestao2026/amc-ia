@@ -73,15 +73,30 @@ Para cada edital extraído com `is_continuous: false` e `deadline` preenchido, c
 `deadline` com a data de hoje.
 
 - Se `deadline` já passou, o edital **não é processado**: não roda duplicidade (Passo 5),
-  não roda o resolvedor de Controle (Passo 6), não move o arquivo para `processados/`.
-  Guarde `title`, `institution` e `deadline` numa lista à parte ("vencidos") para o
-  relatório final.
+  não roda o resolvedor de Controle (Passo 6). Em vez de mover para `processados/`, mova
+  o(s) arquivo(s) de origem para a pasta externa de histórico (ver "Destino dos editais
+  vencidos" abaixo). Guarde `title`, `institution` e `deadline` numa lista à parte
+  ("vencidos") para o relatório final.
 - Se `is_continuous: true` ou `deadline` é `null` (programa contínuo ou prazo não
   informado no arquivo), não há vencimento a checar; segue o fluxo normal.
 - Se `deadline` está dentro do prazo, segue o fluxo normal.
 
 Esta checagem é parte fixa do processo de cadastro em lote e roda em toda execução deste
 comando, não é opcional.
+
+**Destino dos editais vencidos (regra fixa).** Mova o(s) arquivo(s) de origem do edital
+vencido para a pasta externa de histórico do captador (fora do amc-ia, não é
+`editais-para-cadastrar/processados/`):
+
+```
+C:\Users\rosep\Desktop\_82 - Rosepaula Aparecida Andrade Rodrigues\04 - Controle de Submissão_\01 - Mineração de Editais\04 - Histórico de Editais _ Não Submetidos
+```
+
+Essa pasta já tem uma subpasta por instituição/edital (ex: "03 - Edital Cemig FIA", "01 -
+Petrobrás"). Antes de mover, confira se já existe uma subpasta para aquela
+instituição/edital (pelo nome); se existir, acrescente o arquivo a ela. Se não existir,
+crie uma subpasta nova, numerada em sequência ao que já está lá (ex: "05 - Edital {nome}").
+Nunca apague o arquivo, só mova.
 
 ## Passo 5. Checar duplicidade
 
@@ -191,10 +206,11 @@ API, ver Passo 6.1).
 
 Se não houve nenhum item vencido nem duplicado, omita a seção "Não viraram Controle novo".
 
-O arquivo dos editais vencidos (Passo 4.1) permanece em `editais-para-cadastrar/` (não é
-movido para `processados/`), para o captador decidir se remove ou arquiva manualmente. Os
-duplicados (catálogo ou Controle) são movidos normalmente para `processados/` (Passo 6 item 5),
-por já estarem tratados.
+O arquivo dos editais vencidos (Passo 4.1) é movido para a pasta externa de histórico
+("04 - Histórico de Editais _ Não Submetidos", ver Passo 4.1), não fica em
+`editais-para-cadastrar/` nem vai para `processados/`. Os duplicados (catálogo ou
+Controle) são movidos normalmente para `processados/` (Passo 6 item 5), por já estarem
+tratados.
 
 Se o CaptaHub não estava conectado, avise: "CaptaHub não conectado, nenhum Controle foi
 aberto nem atualizado; edite `.env` e rode `/captahub-conectar` para ativar essa parte do
