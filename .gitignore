@@ -25,6 +25,12 @@ painel/pipeline-*.html
 __pycache__/
 *.pyc
 node_modules/
+desktop.ini
+*.bak
+*.code-workspace
+
+# Editais ja processados em lote (arquivos brutos, so ficam localmente)
+editais-para-cadastrar/processados/
 
 # Relatorios da sincronizacao automatica diaria (operacional, gerado local)
 logs/sincronizacao-diaria/
