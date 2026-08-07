@@ -193,3 +193,15 @@ Alternativas descartadas: manter o arquivo em `editais-para-cadastrar/` só marc
 Impacto: `.claude/commands/editais-pasta-processar.md` (Passo 4.1 e Passo 7) documenta o caminho fixo e a regra de subpasta por instituição. Editais vencidos nunca mais ficam soltos em `editais-para-cadastrar/` depois da execução do comando.
 
 Data: 2026-08-07
+
+### SOL-0012. Sincronização automática diária corrigida, e confirmado: commit local automático, push sempre manual
+
+Problema: a tarefa do Agendador de Tarefas do Windows `AMC-IA-SincronizacaoDiaria` (roda `scripts/sincronizacao-diaria.py` todo dia às 06h, faz commit local do que passa numa checagem técnica básica de sintaxe Python/JSON, nunca dá push) estava falhando todos os dias desde 02/08/2026 (código de erro 2). Causa raiz: a ação da tarefa apontava para `C:\Users\rosep\OneDrive - Organizacao Multidisciplinar De Voluntariado E-missao\Documentos\amc-ia\scripts\sincronizacao-diaria.py`, caminho de antes do projeto ser movido para `C:\amc-ia` (onde vive hoje); a tarefa nunca foi atualizada na migração. Investigação também achou uma pasta duplicada, `C:\amc-ia - Copia`, um clone antigo do mesmo repositório (ainda com o remote `upstream` do fork original configurado), provável resíduo dessa mesma migração; não está associada a nenhuma tarefa agendada ativa e não foi mexida.
+
+Solução: corrigido o argumento da tarefa via `Set-ScheduledTaskAction` para `C:\amc-ia\scripts\sincronizacao-diaria.py`, testado rodando o script manualmente (funcionou, commit local criado). Na mesma conversa, o captador colocou em pauta se valia a pena eliminar a intervenção manual por completo (também automatizar o push). Decisão explícita do captador: manter como está, commit automático diário sim, push para o GitHub sempre por pedido manual (numa conversa aqui ou direto pelo captador). Motivo discutido: a checagem do script só pega quebra técnica de sintaxe (Python/JSON), nunca conteúdo (valor errado, dado sensível que entrou sem querer); o repositório carrega dados reais de captação, então o push continua exigindo alguém ter olhado antes, como já dizia o comentário original do próprio script.
+
+Alternativas descartadas: automatizar também o push (ex: rodar `git push` no fim do `sincronizacao-diaria.py`, ou outra tarefa agendada separada para isso) — descartada explicitamente pelo captador nesta conversa, por remover o único ponto de revisão humana antes de publicar no GitHub.
+
+Impacto: a tarefa diária volta a funcionar a partir de 08/08/2026. Fica registrado, para não ser revisitado à toa: este projeto nunca deve ganhar push automático sem pedido explícito do captador, mesmo que o commit local continue automatizado. Se a pasta `C:\amc-ia - Copia` um dia for confirmada como lixo de migração, pode ser removida manualmente (fora do escopo desta decisão).
+
+Data: 2026-08-07
