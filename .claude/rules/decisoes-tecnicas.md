@@ -219,3 +219,31 @@ Alternativas descartadas: espelho unidirecional com `robocopy /MIR` agendado (fo
 Impacto: a partir de 08/08/2026 a pasta `_82` da Área de Trabalho é a fonte da verdade e o Drive é só destino. Consequências a não esquecer: (1) nunca ativar "Espelhar" nem "Fazer backup desta pasta" no app do Drive para a `_82`, porque isso reintroduz a mão dupla e não existe configuração no app que impeça; (2) arquivo apagado no Desktop continua existindo no Drive, já que o script não apaga nada; (3) arquivos nativos do Google (`.gdoc`, `.gsheet`, `.gslides`) nunca terão cópia local, só saem de lá baixados manualmente como Word ou PDF. O script vive fora deste repositório, em `C:\Users\rosep\Scripts\sincronizar-pasta-82\`, com logs por execução na subpasta `logs\`.
 
 Data: 2026-08-08
+
+### SOL-0014. Colchete em nome de arquivo é curinga no PowerShell: usar sempre `-LiteralPath`
+
+Problema: ao testar a sincronização da pasta `_82` (ver SOL-0013), notou-se que os mesmos 5 arquivos eram copiados em toda execução e nunca chegavam ao Google Drive. O script reportava "copiado" e `0 erros`, mas o arquivo não existia no destino. Causa raiz: os 5 arquivos tinham colchete no nome (`[PRORROGADO]202604_.pdf`, `...Multidisciplinar[1].pdf`, `...[www.papsfsa.com.br].pdf`, `...11°[1] (1).pdf`, `..._Ano_I[1] (1).docx`) e o script usava `Copy-Item -Path`. O parâmetro `-Path` interpreta `[` e `]` como classe de caracteres curinga, então o padrão passava a mirar um arquivo inexistente e a cópia não acontecia, sem gerar erro capturável. O efeito era o pior possível: perda silenciosa de backup, com o log afirmando sucesso.
+
+Solução: trocado `-Path` por `-LiteralPath` em todas as leituras e cópias de `sincronizar-pasta-82.ps1` (`Get-ChildItem`, `Test-Path`, `Copy-Item`), e substituído `Join-Path`/`Split-Path -Parent` por concatenação direta e `[System.IO.Path]::GetDirectoryName()`, porque `Split-Path -LiteralPath -Parent` é um conjunto de parâmetros ambíguo no PowerShell 5.1 e falha. Acrescentada também uma verificação pós-cópia (`if (-not (Test-Path -LiteralPath $destino)) { throw }`), para que uma cópia que não chega ao destino nunca mais seja contada como sucesso, qualquer que seja a causa futura.
+
+Comprovação: duas execuções seguidas. A primeira copiou os 4 arquivos que faltavam, a segunda copiou zero (antes, copiava 5 indefinidamente). Auditados os 10 arquivos com colchete no nome que existem na pasta `_82`: todos os 10 conferem no Drive, com tamanho idêntico ao original.
+
+Alternativas descartadas: escapar os colchetes com crase antes de passar para `-Path` (funciona, mas exige lembrar do escape em cada chamada nova, e o próximo caractere especial voltaria a quebrar); renomear os arquivos da captadora para remover colchete (mexe no dado dela para contornar limitação de ferramenta, e o padrão `[1]` aparece naturalmente em download de navegador).
+
+Impacto: regra geral para qualquer script deste projeto que manipule arquivos reais da captadora, cujos nomes vêm de download e trazem colchete, acento, `°`, parênteses e espaço: **usar sempre `-LiteralPath`, nunca `-Path`**. Vale também para `Get-ChildItem`, `Test-Path`, `Remove-Item` e `Get-Content`. Como o `-Path` falha em silêncio, toda operação de cópia que precise ser confiável deve confirmar o resultado depois de executar, em vez de confiar na ausência de exceção.
+
+Data: 2026-08-08
+
+### SOL-0015. Sincronização da `_82` de hora em hora, e vigia com alerta, sem push automático de e-mail
+
+Problema: depois de SOL-0013, a sincronização rodava uma vez por dia à 01h e as configurações da tarefa tinham `DisallowStartIfOnBatteries` e `StopIfGoingOnBatteries` ligados. Num laptop isso significa não rodar se a máquina não estiver na tomada à 01h. Os logs comprovaram o efeito: entre 27/07/2026 (criação da tarefa) e 01/08/2026 não houve nenhuma execução, seis dias sem backup. A captadora também pediu que, se a sincronização deixasse de acontecer, um relatório de alerta fosse gerado, enviado para gestao.mobilizando@gmail.com e sinalizado no chat.
+
+Solução: a tarefa `AMC-IA-Sincronizar-Pasta82` passou a rodar **de hora em hora** (gatilho às 01h com repetição `PT1H`) mais um gatilho **ao fazer logon**, sem trava de bateria e com `StartWhenAvailable`. O `sincronizar-pasta-82.ps1` passou a gravar `estado.json` com o resultado de cada execução. Criado `verificar-sincronizacao.ps1` e a tarefa `AMC-IA-Vigia-Pasta82` (09h e ao logon), que lê esse estado e, se passar de 24h sem sincronizar ou a última execução tiver falhado, gera `ALERTA - SINCRONIZACAO PASTA 82.txt` na Área de Trabalho com o diagnóstico e o passo a passo de verificação, e mostra notificação do Windows. Quando a situação normaliza, o alerta é apagado sozinho.
+
+Sobre o e-mail, limite real registrado para não ser reinvestigado: uma tarefa agendada do Windows só envia pela conta Gmail da captadora com uma senha de app, credencial que o assistente não cria nem manipula; e o conector Gmail disponível nesta sessão só expõe criação de rascunho, não envio. O `verificar-sincronizacao.ps1` já traz o bloco de envio pronto, lendo `SMTP_USUARIO`, `SMTP_SENHA_APP` e `ALERTA_DESTINO` de um `.env` em `C:\Users\rosep\Scripts\sincronizar-pasta-82\`, conforme a regra de segredos só no `.env`. Sem esse arquivo, o envio é pulado sem quebrar nada e o alerta continua funcionando pelos outros dois canais.
+
+Alternativas descartadas: rodar a sincronização na nuvem para cobrir o laptop desligado (impossível, a origem dos dados é o disco da máquina, nenhum serviço lê um disco sem energia); trabalhar direto na unidade `G:` para a nuvem ficar sempre atual (elimina a cópia local, exige internet para abrir qualquer arquivo e contraria `.claude/rules/fonte-documentos-clientes.md`, que define a pasta local como fonte única de verdade documental).
+
+Impacto: a janela de risco caiu de até 24h (na prática, já foram 6 dias) para no máximo 1 hora enquanto o laptop estiver ligado. Com o laptop desligado nada acontece, e não há como ser diferente, mas a sincronização dispara sozinha no logon seguinte. Ao abrir sessão, o assistente deve ler `estado.json` e sinalizar à captadora se a última sincronização falhou ou está parada há mais de 24h.
+
+Data: 2026-08-08
