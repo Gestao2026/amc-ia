@@ -7,10 +7,15 @@ valido). O que falha fica de fora do commit e vai para o relatorio do dia,
 em logs/sincronizacao-diaria/. Essa checagem nao substitui revisao humana
 de conteudo, so pega quebra tecnica.
 
-Nao faz "git push". O envio para o GitHub fica sempre para uma decisao
-manual (voce ou uma sessao do Claude Code), depois de revisar o que foi
-commitado. Isso existe de proposito: nenhuma alteracao sai do computador
-sem alguem ter olhado antes.
+Nao faz "git push", e continua sendo assim. Mas o envio deixou de ser manual
+em 09/08/2026: quem publica e a tarefa AMC-IA-Push-Diario, as 02h, rodando
+scripts/push-diario-seguro.ps1, que varre o conteudo antes de enviar e
+bloqueia se achar segredo, dado de cliente ou caminho pessoal. Esta tarefa
+roda as 01h30, meia hora antes, de proposito, para o push publicar o estado
+do dia e nao o da vespera. Ver SOL-0017 em .claude/rules/decisoes-tecnicas.md.
+
+Se este script falhar em commitar, as alteracoes ficam sem salvar, e o
+relatorio das 02h acusa isso como pendencia e gera alerta na Area de Trabalho.
 """
 import json
 import subprocess
