@@ -57,6 +57,38 @@ if (-not (Test-Path -LiteralPath $Drive)) {
     exit 1
 }
 
+$copiedToDrive = 0
+$somenteNoDrive = 0
+$conflitosResolvidos = 0
+$erros = 0
+
+# ---------- Backup de pastas externas ----------
+# Pastas que vivem fora da pasta mae (ex: os dados das OSCs em C:\amc-ia\minhas-oscs)
+# ganham uma copia dentro dela, para herdarem o envio ao Drive. Sem isso, esses
+# dados nao teriam backup em lugar nenhum.
+# Os contadores sao criados ACIMA de proposito: um erro aqui precisa sobreviver
+# ate o resumo final, e nao ser zerado depois.
+if ($BackupPastas -and $BackupPastas.Count -gt 0) {
+    foreach ($b in $BackupPastas) {
+        $origem  = $b.Origem
+        $destino = Join-Path $Desktop $b.Destino
+        if (-not (Test-Path -LiteralPath $origem)) {
+            Write-Log "AVISO: origem de backup nao encontrada, ignorada: $origem"
+            continue
+        }
+        try {
+            # /MIR aqui e seguro: o destino e uma pasta gerenciada só por este script.
+            $r = robocopy $origem $destino /MIR /FFT /R:1 /W:1 /NP /NFL /NDL /NJH /NJS
+            # robocopy usa 0 a 7 para sucesso; 8 ou mais e erro real.
+            if ($LASTEXITCODE -ge 8) { throw "robocopy retornou $LASTEXITCODE" }
+            Write-Log "Backup atualizado: $origem -> $($b.Destino)"
+        } catch {
+            $erros++
+            Write-Log "ERRO no backup de $origem : $($_.Exception.Message)"
+        }
+    }
+}
+
 $filesDesktop = Get-ChildItem -LiteralPath $Desktop -Recurse -File | ForEach-Object {
     [PSCustomObject]@{ Rel = $_.FullName.Substring($Desktop.Length); Length = $_.Length; Full = $_.FullName }
 }
@@ -68,11 +100,6 @@ $mapDesktop = @{}
 foreach ($f in $filesDesktop) { $mapDesktop[$f.Rel] = $f }
 $mapDrive = @{}
 foreach ($f in $filesDrive) { $mapDrive[$f.Rel] = $f }
-
-$copiedToDrive = 0
-$somenteNoDrive = 0
-$conflitosResolvidos = 0
-$erros = 0
 
 # Arquivos que so existem no Desktop -> copiar para o Drive
 foreach ($rel in $mapDesktop.Keys) {

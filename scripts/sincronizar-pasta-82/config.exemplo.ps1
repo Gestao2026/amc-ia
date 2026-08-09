@@ -21,3 +21,11 @@ $AlertaFile = "C:\Users\SEU_USUARIO\Desktop\ALERTA - SINCRONIZACAO PASTA 82.txt"
 
 # Horas sem sincronizar ate o vigia considerar que ha problema.
 $LimiteHoras = 24
+
+# Opcional. Pastas que ficam FORA da pasta mae mas precisam de backup no Drive.
+# O script copia cada uma para dentro da pasta mae antes de sincronizar, e assim
+# elas herdam o backup sem precisar de tarefa nova.
+# Destino e relativo a $Desktop. Deixe a lista vazia (@()) se nao precisar.
+$BackupPastas = @(
+    # @{ Origem = "C:\caminho\da\pasta"; Destino = "11 - Backup\nome-da-pasta" }
+)
