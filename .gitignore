@@ -34,3 +34,6 @@ editais-para-cadastrar/processados/
 
 # Relatorios da sincronizacao automatica diaria (operacional, gerado local)
 logs/sincronizacao-diaria/
+
+# Configuracao local da sincronizacao da pasta _82 (caminhos pessoais, repositorio e publico)
+scripts/sincronizar-pasta-82/config.local.ps1
