@@ -152,8 +152,16 @@ if ($qtdPendentes -eq 0) {
 function Estado-Tarefa($nome) {
     try {
         $i = Get-ScheduledTaskInfo -TaskName $nome -ErrorAction Stop
-        $ok = if ($i.LastTaskResult -eq 0) { "sucesso" } else { "FALHOU (codigo $($i.LastTaskResult))" }
-        return "$nome`r`n      Ultima execucao: $($i.LastRunTime)  ->  $ok`r`n      Proxima: $($i.NextRunTime)"
+        # 267011 = ainda nao rodou nenhuma vez. 267009 = esta rodando agora.
+        # Nenhum dos dois e falha, e tratar como falha geraria alarme falso.
+        $ok = switch ($i.LastTaskResult) {
+            0      { "sucesso" }
+            267011 { "ainda nao rodou nenhuma vez" }
+            267009 { "esta rodando agora" }
+            default { "FALHOU (codigo $($i.LastTaskResult))" }
+        }
+        $quando = if ($i.LastTaskResult -eq 267011) { "-" } else { $i.LastRunTime }
+        return "$nome`r`n      Ultima execucao: $quando  ->  $ok`r`n      Proxima: $($i.NextRunTime)"
     } catch { return "$nome`r`n      NAO ENCONTRADA. A tarefa pode ter sido apagada." }
 }
 
