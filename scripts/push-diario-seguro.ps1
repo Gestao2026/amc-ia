@@ -14,7 +14,8 @@
 
 param(
     [switch]$Autoteste,
-    [switch]$SoVerificar
+    [switch]$SoVerificar,
+    [switch]$PosCommit   # usado pelo vigia do commit: so varre e avisa, nao gera relatorio nem alerta
 )
 
 $ErrorActionPreference = "Continue"
@@ -90,6 +91,43 @@ if ($Autoteste) {
         Write-Output ("{0,-10} {1}" -f $status, $a.Desc)
         foreach ($x in $r) { Write-Output ("             -> " + $x) }
     }
+    exit 0
+}
+
+# ---------------------------------------------------------------
+# VIGIA DO COMMIT. Roda pelo hook post-commit, a cada alteracao salva.
+# Só varre e avisa na hora, para o problema aparecer no momento em que foi
+# criado, e nao so as 02h. Nao escreve relatorio nem alerta, para nao encher
+# a Area de Trabalho durante o trabalho normal.
+# ---------------------------------------------------------------
+if ($PosCommit) {
+    Set-Location $Repo
+    $pend = git log --oneline "origin/main..HEAD"
+    if (-not $pend) { Write-Output "Vigia do commit: nada pendente."; exit 0 }
+
+    $conteudo = (git diff "origin/main..HEAD") -join "`n"
+    $r = Find-Suspeitos $conteudo
+    foreach ($a in (git diff --name-only "origin/main..HEAD")) {
+        foreach ($p in @('\.env$', 'config\.local\.', '\.pem$', '\.key$', 'credenciais', 'senha')) {
+            if ($a -match $p) { $r += "Arquivo que nao pode ser publicado: $a" }
+        }
+        if ($a -match '^minhas-oscs/' -and $a -notmatch 'exemplo-instituto-semente' -and $a -notmatch 'MODELO-perfil-osc') {
+            $r += "Dado real de cliente: $a"
+        }
+    }
+    $r = $r | Sort-Object -Unique
+
+    if ($r.Count -gt 0) {
+        Write-Output ""
+        Write-Output "  ATENCAO, O VIGIA DO COMMIT ACHOU $($r.Count) ITEM(NS) SUSPEITO(S):"
+        foreach ($x in $r) { Write-Output "     - $x" }
+        Write-Output ""
+        Write-Output "  O commit foi salvo, mas o push das 02h vai BLOQUEAR isso."
+        Write-Output "  Reveja antes de seguir."
+        Write-Output ""
+        exit 2
+    }
+    Write-Output "Vigia do commit: limpo. $(@($pend).Count) alteracao(oes) pronta(s) para o push das 02h."
     exit 0
 }
 

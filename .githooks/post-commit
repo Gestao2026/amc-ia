@@ -1,0 +1,17 @@
+#!/bin/sh
+# Vigia do commit.
+#
+# Roda automaticamente depois de CADA commit neste repositorio e varre o que
+# esta pronto para ser publicado. Se achar segredo, dado de cliente ou caminho
+# pessoal, avisa na hora, em vez de a pessoa so descobrir as 02h, quando o push
+# automatico bloquear.
+#
+# Nao bloqueia nem desfaz o commit: o Git ignora o codigo de saida do post-commit.
+# E so um aviso, de proposito. Ver SOL-0017 em .claude/rules/decisoes-tecnicas.md.
+#
+# Ativado por: git config core.hooksPath .githooks
+
+powershell.exe -NoProfile -ExecutionPolicy Bypass \
+  -File "C:/amc-ia/scripts/push-diario-seguro.ps1" -PosCommit
+
+exit 0
