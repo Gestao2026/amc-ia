@@ -107,6 +107,12 @@ $bloqueado = $false
 $achados = @()
 $resultadoPush = ""
 
+# Tudo que exigir uma acao dela entra aqui. Se a lista terminar vazia, nenhum
+# alerta e criado. Se nao, vira arquivo na Area de Trabalho mais notificacao,
+# no mesmo modelo do vigia da pasta _82. A ideia e ela nunca precisar lembrar
+# de pedir nada manualmente.
+$pendencias = @()
+
 if ($qtdPendentes -eq 0) {
     $resultadoPush = "NADA A FAZER. Nao havia alteracao nova para publicar."
 } else {
@@ -134,6 +140,7 @@ if ($qtdPendentes -eq 0) {
     if ($achados.Count -gt 0) {
         $bloqueado = $true
         $resultadoPush = "BLOQUEADO. Encontrei $($achados.Count) item(ns) suspeito(s). Nada foi publicado."
+        $pendencias += "A publicacao no GitHub foi bloqueada por $($achados.Count) item(ns) suspeito(s). Precisa de revisao."
     } elseif ($SoVerificar) {
         $resultadoPush = "VERIFICADO E LIMPO. Modo de verificacao, nao publiquei."
     } else {
@@ -141,7 +148,9 @@ if ($qtdPendentes -eq 0) {
         if ($LASTEXITCODE -eq 0) {
             $resultadoPush = "PUBLICADO COM SUCESSO. $qtdPendentes alteracao(oes) enviada(s) ao GitHub."
         } else {
-            $resultadoPush = "FALHOU AO PUBLICAR. Motivo: " + (($saida | Select-Object -Last 3) -join " | ")
+            $motivo = (($saida | Select-Object -Last 3) -join " | ")
+            $resultadoPush = "FALHOU AO PUBLICAR. Motivo: $motivo"
+            $pendencias += "A publicacao no GitHub falhou. Motivo: $motivo"
         }
     }
 }
@@ -161,8 +170,14 @@ function Estado-Tarefa($nome) {
             default { "FALHOU (codigo $($i.LastTaskResult))" }
         }
         $quando = if ($i.LastTaskResult -eq 267011) { "-" } else { $i.LastRunTime }
+        if (@(0, 267011, 267009) -notcontains $i.LastTaskResult) {
+            $script:pendencias += "A tarefa automatica '$nome' falhou na ultima execucao (codigo $($i.LastTaskResult))"
+        }
         return "$nome`r`n      Ultima execucao: $quando  ->  $ok`r`n      Proxima: $($i.NextRunTime)"
-    } catch { return "$nome`r`n      NAO ENCONTRADA. A tarefa pode ter sido apagada." }
+    } catch {
+        $script:pendencias += "A tarefa automatica '$nome' nao existe mais. Pode ter sido apagada."
+        return "$nome`r`n      NAO ENCONTRADA. A tarefa pode ter sido apagada."
+    }
 }
 
 $blocoSync = "Sincronizacao da pasta _82: sem dados"
@@ -172,7 +187,21 @@ if (Test-Path -LiteralPath $EstadoSync) {
         $h = [math]::Round(((Get-Date) - [datetime]::ParseExact($e.ultima_execucao,"yyyy-MM-dd HH:mm:ss",$null)).TotalHours,1)
         $st = if ($e.sucesso -and $e.erros -eq 0) { "sucesso" } else { "COM PROBLEMA: $($e.motivo)" }
         $blocoSync = "Ultima execucao: $($e.ultima_execucao) (ha $h horas)  ->  $st`r`n      Arquivos enviados ao Drive: $($e.copiados_para_drive)  |  Erros: $($e.erros)"
-    } catch { $blocoSync = "Nao foi possivel ler o estado: $($_.Exception.Message)" }
+        if (-not $e.sucesso -or $e.erros -gt 0) { $pendencias += "A sincronizacao da pasta _82 falhou: $($e.motivo)" }
+        elseif ($h -gt 24) { $pendencias += "A pasta _82 esta ha $h horas sem sincronizar com o Google Drive" }
+    } catch {
+        $blocoSync = "Nao foi possivel ler o estado: $($_.Exception.Message)"
+        $pendencias += "Nao consegui ler o estado da sincronizacao da pasta _82"
+    }
+} else {
+    $pendencias += "A sincronizacao da pasta _82 nunca registrou execucao"
+}
+
+# Alteracoes que ficaram sem ser salvas. As 02h, depois do commit da 01h30,
+# isso indica que o commit automatico nao rodou ou nao conseguiu salvar.
+if ($statusCurto) {
+    $qtd = @($statusCurto -split "`r`n" | Where-Object { $_.Trim() }).Count
+    $pendencias += "$qtd arquivo(s) alterado(s) e ainda nao salvo(s) no historico do projeto"
 }
 
 # ---------------------------------------------------------------
@@ -219,18 +248,71 @@ if ($statusCurto) {
     $rel += "4. ARQUIVOS ALTERADOS E AINDA NAO SALVOS"
     $rel += "=================================================="
     $rel += $statusCurto
+    $rel += ""
+}
+$rel += "=================================================="
+$rel += "5. PRECISA DE ACAO?"
+$rel += "=================================================="
+if ($pendencias.Count -eq 0) {
+    $rel += "   NAO. Tudo rodou sozinho e deu certo. Nenhuma acao necessaria."
+} else {
+    $rel += "   SIM, $($pendencias.Count) item(ns):"
+    foreach ($p in $pendencias) { $rel += "      - $p" }
+    $rel += ""
+    $rel += "   Um alerta foi criado na Area de Trabalho."
 }
 
 $arquivoRel = Join-Path $RelatorioDir "relatorio-$hoje.txt"
 Set-Content -LiteralPath $arquivoRel -Value ($rel -join "`r`n") -Encoding utf8
 
-# Alerta na Area de Trabalho so quando algo exige acao dela.
-if ($bloqueado) {
-    Set-Content -LiteralPath $AlertaFile -Value ($rel -join "`r`n") -Encoding utf8
+# ---------------------------------------------------------------
+# 5. Alerta, no mesmo modelo do vigia da pasta _82
+# ---------------------------------------------------------------
+# So aparece quando algo exige acao dela. Some sozinho quando normaliza,
+# para que a presenca do arquivo signifique sempre "tem coisa pendente".
+if ($pendencias.Count -gt 0) {
+    $al = @()
+    $al += "ALERTA. ALGO NAS AUTOMACOES PRECISA DE VOCE"
+    $al += "Gerado em $(Get-Date -Format 'dd/MM/yyyy HH:mm')"
+    $al += ""
+    $al += "O QUE PRECISA DE ACAO ($($pendencias.Count) item(ns)):"
+    foreach ($p in $pendencias) { $al += "   - $p" }
+    if ($bloqueado) {
+        $al += ""
+        $al += "DETALHE DO QUE BLOQUEOU A PUBLICACAO:"
+        foreach ($a in $achados) { $al += "   - $a" }
+    }
+    $al += ""
+    $al += "NADA FOI PERDIDO. Seu trabalho continua salvo no computador."
+    $al += "Abra a conversa com o assistente e diga que apareceu este alerta."
+    $al += "Ele ja sabe onde procurar e o que fazer."
+    $al += ""
+    $al += "Relatorio completo: $arquivoRel"
+    $al += ""
+    $al += "Este arquivo some sozinho quando tudo voltar ao normal."
+
+    Set-Content -LiteralPath $AlertaFile -Value ($al -join "`r`n") -Encoding utf8
+
+    try {
+        Add-Type -AssemblyName System.Windows.Forms
+        $ni = New-Object System.Windows.Forms.NotifyIcon
+        $ni.Icon = [System.Drawing.SystemIcons]::Warning
+        $ni.BalloonTipTitle = "AMC IA: algo precisa de voce"
+        $ni.BalloonTipText  = "$($pendencias.Count) pendencia(s). Veja o alerta na Area de Trabalho."
+        $ni.Visible = $true
+        $ni.ShowBalloonTip(20000)
+        Start-Sleep -Seconds 12
+        $ni.Dispose()
+    } catch { }
 } elseif (Test-Path -LiteralPath $AlertaFile) {
     Remove-Item -LiteralPath $AlertaFile -Force -ErrorAction SilentlyContinue
 }
 
 Write-Output $resultadoPush
+if ($pendencias.Count -gt 0) {
+    Write-Output ""
+    Write-Output "PENDENCIAS QUE PRECISAM DE ACAO ($($pendencias.Count)):"
+    foreach ($p in $pendencias) { Write-Output "   - $p" }
+}
 Write-Output "Relatorio: $arquivoRel"
-if ($bloqueado) { exit 2 } else { exit 0 }
+if ($pendencias.Count -gt 0) { exit 2 } else { exit 0 }
