@@ -40,3 +40,7 @@ scripts/sincronizar-pasta-82/config.local.ps1
 
 # Relatorios diarios das automacoes (dados de execucao)
 logs/push-diario/
+
+# Painel de acompanhamento (resumo com dados reais de clientes, so local)
+logs/painel-acompanhamento.md
+logs/painel-acompanhamento.docx
