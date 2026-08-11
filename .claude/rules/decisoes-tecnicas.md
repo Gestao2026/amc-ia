@@ -301,3 +301,25 @@ Alternativas descartadas: manter a regra antiga de nunca apagar (era o pedido ex
 Impacto: a sincronização da `_82` agora é, na prática, um espelho de mão única completo (inclusão, modificação e exclusão), com duas redes de segurança: o manifesto (nunca apaga o que só existe na nuvem) e o circuito de exclusão em massa (nunca apaga tudo de uma vez sem confirmação). `estado.json` ganhou o campo `apagados_no_drive`. Documentos apagados no Drive por este processo normalmente vão para a Lixeira do Drive antes de sumir de vez, o que dá uma margem extra de recuperação.
 
 Data: 2026-08-10
+
+### SOL-0019. A trava de exclusão em massa se desarmava sozinha, e o alerta sumia antes de ser lido
+
+Problema: a captadora perguntou se a sincronização da `_82` estava correta e se tinha sobrado documento a mais no Drive. Tinha: 1.397 arquivos que não existiam na Área de Trabalho. A investigação achou a causa exata. Em 10/08/2026 às 22h, ela renomeou várias pastas de cliente de uma vez (`E-Missão` virou `E-Missão XXX`, `Mededicas -CAPTHUB` virou `Mededicas`, entre outras). Para o script, 1.444 arquivos (50,3% do manifesto) sumiram dos caminhos antigos ao mesmo tempo, e o circuito de segurança do SOL-0018 barrou a exclusão, como devia. O defeito estava no que vinha depois: o script gravava o manifesto novo mesmo tendo barrado a exclusão. Na execução seguinte, aqueles arquivos já não constavam do manifesto anterior, deixavam de ser candidatos e passavam a ser classificados para sempre como "nunca estiveram na Área de Trabalho", a mesma categoria que protege os arquivos nativos do Google. Ou seja, a trava se desarmava sozinha e a limpeza nunca mais aconteceria. Somava-se a isso um segundo defeito: o alerta na Área de Trabalho era removido em qualquer execução seguinte sem bloqueio, então ele apareceu às 22h e sumiu às 23h, antes de ela ter chance de vê-lo.
+
+Solução: três correções em `scripts/sincronizar-pasta-82/`, mais uma quarta encontrada durante o teste.
+1. **Manifesto preservado quando a trava dispara.** A pendência continua valendo nas execuções seguintes, até ser resolvida.
+2. **Alerta e pendência só saem quando a situação se resolve.** A lista completa dos arquivos barrados fica em `exclusao-pendente.json` (em `$DadosDir`, fora do repositório), e `verificar-sincronizacao.ps1` passou a acusar essa pendência mesmo quando a sincronização em si está rodando bem.
+3. **Liberação explícita**, por `-LiberarExclusao` ou pelo arquivo `liberar-exclusao.flag`, consumido na execução em que vale. É o único caminho para executar uma exclusão acima do limite: nunca deve ser liberada só por parecer alarme falso.
+4. **Código de saída explícito.** Sem ele, o código herdado era o do `robocopy` do backup, que devolve 1 quando copiou algum arquivo (sucesso, na tabela dele). O Agendador e o relatório diário liam esse 1 como falha e acusariam erro em dia normal.
+
+Também foi criada a convenção da pasta `VERIFICAR`, listada em `$IgnorarNoDrive`: uma área dentro da pasta do Drive, ignorada por completo pelo script (não conta como pendência, não é comparada e nunca é apagada), onde ficam separados os documentos que existem só na nuvem enquanto aguardam decisão da captadora.
+
+Tratamento do resíduo, decidido por ela em conversa: os arquivos extras não foram apagados de imediato, foram separados na `VERIFICAR` em dois grupos, duplicata de pasta renomeada e documento que só existe no Drive. Depois disso, 1.358 duplicatas foram excluídas com conferência de hash SHA256 dos dois lados, arquivo a arquivo, e as 33 sem cópia local ficaram guardadas (7 certidões negativas 2025 e balanços da E-Missão, estatutos da Rede Amor e Compaixão, contratos assinados do Ponto Cultural, Almira Lopes, Quintal Eh e NAME). Os 3 arquivos nativos do Google não foram tocados. A Área de Trabalho não foi alterada em nenhum momento, a pedido explícito dela: a pasta local é a fonte e só ela alimenta o Drive.
+
+Testado em ambiente isolado, com arquivos descartáveis: exclusão de 50% barrada, trava mantida na execução seguinte (o ponto que falhava antes), vigia acusando a pendência, liberação explícita executando as 50 exclusões, e pasta `VERIFICAR` mais arquivo só-da-nuvem preservados nos dois casos.
+
+Alternativas descartadas: baixar o limite de 30% para deixar passar renomeações grandes (trata o sintoma e enfraquece justamente a proteção contra leitura parcial da pasta); apagar automaticamente o que ficou órfão sem conferência de hash (nome e tamanho iguais não provam conteúdo igual, e aqui são documentos reais de cliente).
+
+Impacto: renomear pastas em massa continua disparando a trava, e isso é o correto. O que muda é que a pendência agora sobrevive, fica visível até ser resolvida e pode ser liberada de propósito. Regra que passa a valer: **exclusão barrada nunca deve ser liberada por parecer alarme falso, e duplicata só é apagada com hash conferido dos dois lados**. A conferência por nome e tamanho serve para triagem, nunca para decidir exclusão.
+
+Data: 2026-08-11

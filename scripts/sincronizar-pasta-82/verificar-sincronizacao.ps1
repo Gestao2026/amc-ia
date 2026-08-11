@@ -17,6 +17,7 @@ if (-not (Test-Path -LiteralPath $ConfigFile)) {
 $EstadoFile = Join-Path $DadosDir "estado.json"
 $EnvFile    = Join-Path $DadosDir ".env"
 $LogVigia   = Join-Path $DadosDir "logs\vigia.log"
+$PendenciaFile = Join-Path $DadosDir "exclusao-pendente.json"
 
 function Log-Vigia($msg) {
     Add-Content -Path $LogVigia -Value ("$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')  $msg") -Encoding utf8
@@ -57,6 +58,16 @@ if (-not (Test-Path -LiteralPath $EstadoFile)) {
         $motivo   = "Nao foi possivel ler o estado da sincronizacao"
         $detalhe  = "Erro ao ler $EstadoFile : $($_.Exception.Message)"
     }
+}
+
+# Exclusao barrada pelo circuito de seguranca e ainda nao resolvida. Enquanto essa
+# pendencia existir, o Drive esta com copias de arquivos que ja sairam do computador.
+# Ver SOL-0019: antes, isso passava despercebido e o resíduo ficava para sempre.
+if (-not $problema -and (Test-Path -LiteralPath $PendenciaFile)) {
+    $qtd = try { @((Get-Content -LiteralPath $PendenciaFile -Raw -Encoding utf8 | ConvertFrom-Json)).Count } catch { "varios" }
+    $problema = $true
+    $motivo   = "Ha uma exclusao aguardando confirmacao"
+    $detalhe  = "$qtd arquivo(s) sumiram da Area de Trabalho de uma vez e o circuito de seguranca barrou a exclusao no Drive. A sincronizacao esta rodando normalmente; o que esta parado e so essa limpeza.`r`nLista completa: $PendenciaFile`r`nSe a exclusao foi intencional, avise para liberar. Se nao foi, confira se os arquivos voltaram para a Area de Trabalho."
 }
 
 # ---------- 2. Tudo certo: limpa alerta antigo e sai ----------

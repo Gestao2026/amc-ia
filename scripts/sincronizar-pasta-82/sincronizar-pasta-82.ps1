@@ -7,8 +7,14 @@
 # Em caso de mesmo caminho com tamanho ou data de modificacao diferente, a Area de Trabalho
 # vence e sobrescreve a copia no Drive.
 #
-# Historico das decisoes em .claude/rules/decisoes-tecnicas.md (SOL-0013 a SOL-0018).
+# Historico das decisoes em .claude/rules/decisoes-tecnicas.md (SOL-0013 a SOL-0019).
 # Os caminhos reais ficam em config.local.ps1, fora do controle de versao.
+
+# -LiberarExclusao autoriza, nesta execucao, uma exclusao que o circuito de seguranca
+# barrou por ser grande demais. Usar so depois de conferir que a limpeza foi mesmo
+# intencional. O mesmo efeito e obtido criando o arquivo liberar-exclusao.flag em
+# $DadosDir, que e consumido (apagado) na execucao seguinte.
+param([switch]$LiberarExclusao)
 
 $ErrorActionPreference = "Stop"
 
@@ -27,6 +33,14 @@ $Timestamp = Get-Date -Format "yyyy-MM-dd_HHmmss"
 $LogFile = Join-Path $LogDir "sync_$Timestamp.log"
 $EstadoFile = Join-Path $DadosDir "estado.json"
 $ManifestFile = Join-Path $DadosDir "manifesto-desktop.json"
+$PendenciaFile = Join-Path $DadosDir "exclusao-pendente.json"
+$LiberacaoFile = Join-Path $DadosDir "liberar-exclusao.flag"
+
+# Pastas de primeiro nivel do Drive que este script ignora por completo: nao conta como
+# "so no Drive", nao compara e nunca apaga. VERIFICAR e a area onde ficam separados os
+# documentos que existem so na nuvem, aguardando decisao (ver SOL-0019). Sem isso, ela
+# apareceria como dezenas de pendencias em todo relatorio diario.
+if (-not $IgnorarNoDrive) { $IgnorarNoDrive = @("VERIFICAR") }
 
 function Write-Log($msg) {
     $line = "$(Get-Date -Format 'HH:mm:ss')  $msg"
@@ -118,6 +132,9 @@ $filesDesktop = Get-ChildItem -LiteralPath $Desktop -Recurse -File | ForEach-Obj
 }
 $filesDrive = Get-ChildItem -LiteralPath $Drive -Recurse -File | ForEach-Object {
     [PSCustomObject]@{ Rel = $_.FullName.Substring($Drive.Length); Length = $_.Length; LastWriteTime = $_.LastWriteTime; Full = $_.FullName }
+} | Where-Object {
+    $primeiroNivel = ($_.Rel -split '\\')[1]
+    $IgnorarNoDrive -notcontains $primeiroNivel
 }
 
 $mapDesktop = @{}
@@ -137,9 +154,23 @@ $candidatosExclusao = @($manifestoAnterior | Where-Object { -not $mapDesktop.Con
 $LimiteExclusaoPercentual = 0.30
 $LimiteExclusaoMinimo = 15
 $bloqueiaExclusaoEmMassa = $false
+$proporcaoExclusao = 0
 if ($manifestoAnterior.Count -gt 0 -and $candidatosExclusao.Count -gt $LimiteExclusaoMinimo) {
     $proporcaoExclusao = $candidatosExclusao.Count / $manifestoAnterior.Count
     if ($proporcaoExclusao -gt $LimiteExclusaoPercentual) { $bloqueiaExclusaoEmMassa = $true }
+}
+
+# Liberacao explicita: por parametro (-LiberarExclusao) ou pelo arquivo de flag, que e
+# consumido aqui para nao valer em execucoes futuras.
+$liberado = $false
+if ($LiberarExclusao) { $liberado = $true }
+if (Test-Path -LiteralPath $LiberacaoFile) {
+    $liberado = $true
+    Remove-Item -LiteralPath $LiberacaoFile -Force -ErrorAction SilentlyContinue
+}
+if ($bloqueiaExclusaoEmMassa -and $liberado) {
+    Write-Log "Exclusao em massa LIBERADA explicitamente. Prosseguindo com $($candidatosExclusao.Count) exclusoes no Drive."
+    $bloqueiaExclusaoEmMassa = $false
 }
 
 if ($bloqueiaExclusaoEmMassa) {
@@ -169,12 +200,26 @@ O QUE FAZER
 
 Alguns dos itens envolvidos (ate 20):
 $($candidatosExclusao | Select-Object -First 20 | ForEach-Object { "- $_" } | Out-String)
-Este alerta some sozinho na proxima execucao normal (sem exclusao em massa).
+Este alerta NAO some sozinho. Ele fica ate a situacao ser resolvida, de um dos dois jeitos:
+os arquivos voltarem a existir na Area de Trabalho, ou a exclusao ser liberada de proposito.
+A lista completa dos arquivos envolvidos esta em:
+$PendenciaFile
 "@
     Set-Content -LiteralPath $AlertaExclusaoFile -Value $relatorioExclusao -Encoding utf8
+    # Registra a pendencia completa, para nao se perder entre execucoes.
+    try {
+        ConvertTo-Json -InputObject @($candidatosExclusao) | Set-Content -Path $PendenciaFile -Encoding utf8
+    } catch {
+        Write-Log "AVISO: nao foi possivel salvar a lista da exclusao pendente: $($_.Exception.Message)"
+    }
 } else {
+    # O alerta so sai quando nao ha mais nada barrado. Antes desta correcao ele sumia na
+    # execucao seguinte, mesmo com a pendencia intacta, e a captadora nunca chegava a ve-lo.
     if (Test-Path -LiteralPath $AlertaExclusaoFile) {
         Remove-Item -LiteralPath $AlertaExclusaoFile -Force -ErrorAction SilentlyContinue
+    }
+    if (Test-Path -LiteralPath $PendenciaFile) {
+        Remove-Item -LiteralPath $PendenciaFile -Force -ErrorAction SilentlyContinue
     }
     foreach ($rel in $candidatosExclusao) {
         try {
@@ -261,10 +306,21 @@ foreach ($rel in $mapDesktop.Keys) {
 
 # Grava o manifesto desta execucao (o que existe agora na Area de Trabalho), para a
 # proxima execucao saber o que foi apagado.
-try {
-    ConvertTo-Json -InputObject @($mapDesktop.Keys) | Set-Content -Path $ManifestFile -Encoding utf8
-} catch {
-    Write-Log "AVISO: nao foi possivel salvar o manifesto desta execucao: $($_.Exception.Message)"
+#
+# EXCECAO IMPORTANTE: quando o circuito de seguranca barrou uma exclusao em massa, o
+# manifesto anterior e PRESERVADO. Sem isso a trava se desarmava sozinha: o manifesto novo
+# ja nao continha os arquivos sumidos, entao na execucao seguinte eles deixavam de ser
+# candidatos e a limpeza nunca mais aconteceria. Foi exatamente o que ocorreu em 10/08/2026
+# (SOL-0019), quando 1.444 arquivos mudaram de caminho de uma vez por causa de pastas
+# renomeadas e ficaram duplicados no Drive para sempre.
+if ($bloqueiaExclusaoEmMassa) {
+    Write-Log "Manifesto anterior PRESERVADO por causa da exclusao barrada. A pendencia continua valendo na proxima execucao."
+} else {
+    try {
+        ConvertTo-Json -InputObject @($mapDesktop.Keys) | Set-Content -Path $ManifestFile -Encoding utf8
+    } catch {
+        Write-Log "AVISO: nao foi possivel salvar o manifesto desta execucao: $($_.Exception.Message)"
+    }
 }
 
 Write-Log "Resumo: $copiedToDrive copiados p/ Drive | $somenteNoDrive nunca estiveram na Area de Trabalho, ignorados | $conflitosResolvidos conflitos resolvidos (Area de Trabalho venceu) | $apagadosNoDrive apagados no Drive (sumiram da Area de Trabalho) | $erros erros"
@@ -278,3 +334,8 @@ Write-Output "Conflitos resolvidos (Area de Trabalho venceu): $conflitosResolvid
 Write-Output "Apagados no Drive (sumiram da Area de Trabalho): $apagadosNoDrive"
 Write-Output "Erros: $erros"
 Write-Output "Log completo: $LogFile"
+
+# Codigo de saida explicito. Sem isto, o codigo herdado era o do robocopy do backup, que
+# devolve 1 quando copiou algum arquivo (sucesso, na tabela dele). O Agendador de Tarefas
+# e o relatorio diario liam esse 1 como falha, e acusavam erro em dia perfeitamente normal.
+if ($erros -gt 0) { exit 1 } else { exit 0 }

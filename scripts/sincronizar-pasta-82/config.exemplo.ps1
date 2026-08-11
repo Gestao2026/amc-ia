@@ -29,3 +29,9 @@ $LimiteHoras = 24
 $BackupPastas = @(
     # @{ Origem = "C:\caminho\da\pasta"; Destino = "11 - Backup\nome-da-pasta" }
 )
+
+# Opcional. Pastas de primeiro nivel que existem SO no Drive e devem ser ignoradas por
+# completo: nao contam como pendencia, nao sao comparadas e nunca sao apagadas.
+# Se voce nao definir nada aqui, o padrao do script e @("VERIFICAR"), que e a area onde
+# ficam separados os documentos que existem so na nuvem, aguardando decisao (SOL-0019).
+# $IgnorarNoDrive = @("VERIFICAR")
