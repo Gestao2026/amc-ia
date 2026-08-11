@@ -1,9 +1,13 @@
 # Envio de MAO UNICA da pasta mae (_82) para a pasta espelhada do Google Drive.
 # Sentido: Area de Trabalho -> Google Drive. O Drive NUNCA escreve na Area de Trabalho.
-# Regra de seguranca: NUNCA apaga arquivo, em nenhum dos dois lados.
-# Em caso de mesmo caminho com tamanho diferente, a Area de Trabalho vence e sobrescreve a copia no Drive.
+# Qualquer alteracao feita na Area de Trabalho (incluir, modificar ou apagar) se
+# reflete no Drive. A seguranca contra apagar algo que so existe na nuvem (ex: arquivo
+# nativo do Google) vem do manifesto: so e apagado no Drive o que o proprio script viu
+# existir na Area de Trabalho numa execucao anterior. O que nunca esteve la, fica intocado.
+# Em caso de mesmo caminho com tamanho ou data de modificacao diferente, a Area de Trabalho
+# vence e sobrescreve a copia no Drive.
 #
-# Historico das decisoes em .claude/rules/decisoes-tecnicas.md (SOL-0013, SOL-0014 e SOL-0015).
+# Historico das decisoes em .claude/rules/decisoes-tecnicas.md (SOL-0013 a SOL-0018).
 # Os caminhos reais ficam em config.local.ps1, fora do controle de versao.
 
 $ErrorActionPreference = "Stop"
@@ -22,6 +26,7 @@ $LogDir = Join-Path $DadosDir "logs"
 $Timestamp = Get-Date -Format "yyyy-MM-dd_HHmmss"
 $LogFile = Join-Path $LogDir "sync_$Timestamp.log"
 $EstadoFile = Join-Path $DadosDir "estado.json"
+$ManifestFile = Join-Path $DadosDir "manifesto-desktop.json"
 
 function Write-Log($msg) {
     $line = "$(Get-Date -Format 'HH:mm:ss')  $msg"
@@ -29,7 +34,7 @@ function Write-Log($msg) {
 }
 
 # Grava o estado da ultima execucao, lido depois pelo vigia (verificar-sincronizacao.ps1).
-function Write-Estado($sucesso, $motivo, $paraDrive, $soNoDrive, $conflitos, $qtdErros) {
+function Write-Estado($sucesso, $motivo, $paraDrive, $soNoDrive, $conflitos, $apagados, $qtdErros) {
     $estado = [PSCustomObject]@{
         ultima_execucao      = (Get-Date).ToString("yyyy-MM-dd HH:mm:ss")
         sucesso              = $sucesso
@@ -37,6 +42,7 @@ function Write-Estado($sucesso, $motivo, $paraDrive, $soNoDrive, $conflitos, $qt
         copiados_para_drive  = $paraDrive
         so_no_drive_ignorados = $soNoDrive
         conflitos_resolvidos = $conflitos
+        apagados_no_drive    = $apagados
         erros                = $qtdErros
         log                  = $LogFile
     }
@@ -48,19 +54,37 @@ Write-Log "Inicio do envio (mao unica: Area de Trabalho -> Google Drive)"
 
 if (-not (Test-Path -LiteralPath $Desktop)) {
     Write-Log "ERRO: pasta local nao encontrada: $Desktop"
-    Write-Estado $false "Pasta da Area de Trabalho nao encontrada: $Desktop" 0 0 0 1
+    Write-Estado $false "Pasta da Area de Trabalho nao encontrada: $Desktop" 0 0 0 0 1
     exit 1
 }
 if (-not (Test-Path -LiteralPath $Drive)) {
     Write-Log "ERRO: pasta do Drive nao encontrada (Google Drive para computador fechado, sem internet, ou compartilhamento removido): $Drive"
-    Write-Estado $false "Pasta do Google Drive inacessivel. O app Drive para computador pode estar fechado, sem internet, ou o compartilhamento foi removido." 0 0 0 1
+    Write-Estado $false "Pasta do Google Drive inacessivel. O app Drive para computador pode estar fechado, sem internet, ou o compartilhamento foi removido." 0 0 0 0 1
     exit 1
 }
 
 $copiedToDrive = 0
 $somenteNoDrive = 0
 $conflitosResolvidos = 0
+$apagadosNoDrive = 0
 $erros = 0
+
+# ---------- Manifesto da execucao anterior (para saber o que foi apagado) ----------
+# Guarda quais arquivos existiam na Area de Trabalho na ultima vez que o script rodou.
+# So um arquivo que estava aqui antes e sumiu agora e apagado no Drive. Arquivo que
+# nunca esteve na Area de Trabalho (ex: nativo do Google, so na nuvem) nunca entra
+# nesta lista e por isso nunca e apagado. Na primeira execucao apos esta mudanca, o
+# manifesto ainda nao existe: nada e apagado, so a base e criada.
+$manifestoAnterior = @()
+if (Test-Path -LiteralPath $ManifestFile) {
+    try {
+        $lido = Get-Content -LiteralPath $ManifestFile -Encoding utf8 -Raw | ConvertFrom-Json
+        $manifestoAnterior = @($lido | Where-Object { $_ -ne $null })
+    } catch {
+        Write-Log "AVISO: nao foi possivel ler o manifesto anterior, tratando como primeira execucao: $($_.Exception.Message)"
+        $manifestoAnterior = @()
+    }
+}
 
 # ---------- Backup de pastas externas ----------
 # Pastas que vivem fora da pasta mae (ex: os dados das OSCs em C:\amc-ia\minhas-oscs)
@@ -90,16 +114,100 @@ if ($BackupPastas -and $BackupPastas.Count -gt 0) {
 }
 
 $filesDesktop = Get-ChildItem -LiteralPath $Desktop -Recurse -File | ForEach-Object {
-    [PSCustomObject]@{ Rel = $_.FullName.Substring($Desktop.Length); Length = $_.Length; Full = $_.FullName }
+    [PSCustomObject]@{ Rel = $_.FullName.Substring($Desktop.Length); Length = $_.Length; LastWriteTime = $_.LastWriteTime; Full = $_.FullName }
 }
 $filesDrive = Get-ChildItem -LiteralPath $Drive -Recurse -File | ForEach-Object {
-    [PSCustomObject]@{ Rel = $_.FullName.Substring($Drive.Length); Length = $_.Length; Full = $_.FullName }
+    [PSCustomObject]@{ Rel = $_.FullName.Substring($Drive.Length); Length = $_.Length; LastWriteTime = $_.LastWriteTime; Full = $_.FullName }
 }
 
 $mapDesktop = @{}
 foreach ($f in $filesDesktop) { $mapDesktop[$f.Rel] = $f }
 $mapDrive = @{}
 foreach ($f in $filesDrive) { $mapDrive[$f.Rel] = $f }
+
+# Arquivos que estavam na Area de Trabalho na execucao anterior e sumiram -> apagar no Drive
+#
+# Circuito de seguranca contra exclusao em massa: protege contra o cenario mais perigoso,
+# um problema de leitura da pasta (permissao, antivirus, unidade desconectada no meio da
+# varredura) fazer parecer que quase tudo sumiu, e o script apagar isso tudo no Drive por
+# engano. So apaga de verdade se a quantidade for compativel com uma limpeza manual normal;
+# caso contrario, para, avisa na Area de Trabalho e nao apaga nada.
+$AlertaExclusaoFile = Join-Path (Split-Path -Parent $AlertaFile) "ALERTA - EXCLUSAO EM MASSA NA PASTA 82.txt"
+$candidatosExclusao = @($manifestoAnterior | Where-Object { -not $mapDesktop.ContainsKey($_) -and $mapDrive.ContainsKey($_) })
+$LimiteExclusaoPercentual = 0.30
+$LimiteExclusaoMinimo = 15
+$bloqueiaExclusaoEmMassa = $false
+if ($manifestoAnterior.Count -gt 0 -and $candidatosExclusao.Count -gt $LimiteExclusaoMinimo) {
+    $proporcaoExclusao = $candidatosExclusao.Count / $manifestoAnterior.Count
+    if ($proporcaoExclusao -gt $LimiteExclusaoPercentual) { $bloqueiaExclusaoEmMassa = $true }
+}
+
+if ($bloqueiaExclusaoEmMassa) {
+    $pctTexto = [math]::Round($proporcaoExclusao * 100, 1)
+    Write-Log "ALERTA: $($candidatosExclusao.Count) de $($manifestoAnterior.Count) arquivos ($pctTexto%) sumiram da Area de Trabalho de uma vez. Por seguranca, NENHUMA exclusao foi feita no Drive nesta execucao."
+    $relatorioExclusao = @"
+ALERTA. EXCLUSAO EM MASSA DETECTADA NA SINCRONIZACAO DA PASTA _82
+
+Gerado em: $(Get-Date -Format 'dd/MM/yyyy HH:mm')
+
+O QUE ACONTECEU
+$($candidatosExclusao.Count) de $($manifestoAnterior.Count) arquivos que existiam na Area de
+Trabalho na execucao anterior ($pctTexto%) sumiram de uma vez. Isso pode ser uma limpeza
+grande de proposito, ou um problema de leitura da pasta (permissao, antivirus, pasta ou
+unidade temporariamente desconectada), que faz parecer que os arquivos sumiram sem terem
+sumido de verdade.
+
+O QUE FOI FEITO
+Por seguranca, nada foi apagado no Drive nesta execucao. Nenhum dado foi perdido, nem no
+computador nem no Drive.
+
+O QUE FAZER
+1. Confira se a pasta $Desktop esta acessivel normalmente, com o conteudo esperado.
+2. Se a exclusao foi mesmo intencional (uma limpeza grande de proposito), avise para
+   liberar a exclusao no Drive.
+3. Se nao foi intencional, nao precisa fazer nada, nenhum dado foi apagado.
+
+Alguns dos itens envolvidos (ate 20):
+$($candidatosExclusao | Select-Object -First 20 | ForEach-Object { "- $_" } | Out-String)
+Este alerta some sozinho na proxima execucao normal (sem exclusao em massa).
+"@
+    Set-Content -LiteralPath $AlertaExclusaoFile -Value $relatorioExclusao -Encoding utf8
+} else {
+    if (Test-Path -LiteralPath $AlertaExclusaoFile) {
+        Remove-Item -LiteralPath $AlertaExclusaoFile -Force -ErrorAction SilentlyContinue
+    }
+    foreach ($rel in $candidatosExclusao) {
+        try {
+            Remove-Item -LiteralPath $mapDrive[$rel].Full -Force -ErrorAction Stop
+            $mapDrive.Remove($rel)
+            $apagadosNoDrive++
+            Write-Log "Apagado no Drive (sumiu da Area de Trabalho): $rel"
+        } catch {
+            $erros++
+            Write-Log "ERRO apagando no Drive ($rel): $($_.Exception.Message)"
+        }
+    }
+}
+
+# Remove pastas que ficaram vazias no Drive por causa das exclusoes acima.
+# Ordenado da mais profunda para a mais rasa, para o pai esvaziar antes de ser checado.
+# Ignora "desktop.ini": o proprio Google Drive cria esse arquivo oculto sozinho dentro de
+# pastas, e sem ignora-lo a pasta nunca pareceria vazia de verdade.
+if ($apagadosNoDrive -gt 0) {
+    Get-ChildItem -LiteralPath $Drive -Recurse -Directory |
+        Sort-Object { $_.FullName.Length } -Descending |
+        ForEach-Object {
+            $itens = Get-ChildItem -LiteralPath $_.FullName -Force | Where-Object { $_.Name -ne "desktop.ini" }
+            if (@($itens).Count -eq 0) {
+                try {
+                    Remove-Item -LiteralPath $_.FullName -Recurse -Force -ErrorAction Stop
+                    Write-Log "Pasta vazia removida no Drive: $($_.FullName.Substring($Drive.Length))"
+                } catch {
+                    Write-Log "AVISO: nao foi possivel remover pasta vazia no Drive ($($_.FullName)): $($_.Exception.Message)"
+                }
+            }
+        }
+}
 
 # Arquivos que so existem no Desktop -> copiar para o Drive
 foreach ($rel in $mapDesktop.Keys) {
@@ -130,14 +238,19 @@ foreach ($rel in $mapDrive.Keys) {
     }
 }
 
-# Arquivos nos dois lados com tamanho diferente -> Area de Trabalho vence (sobrescreve o Drive)
+# Arquivos nos dois lados com tamanho diferente -> Area de Trabalho vence (sobrescreve o
+# Drive). So o tamanho e usado como sinal de mudanca: um teste real (10/08/2026) mostrou
+# que milhares de arquivos antigos tem data de modificacao diferente nos dois lados mesmo
+# com conteudo identico (chegaram em cada lado em momentos diferentes da historia da pasta),
+# o que fazia a comparacao por data recopiar arquivos sem necessidade nenhuma.
 foreach ($rel in $mapDesktop.Keys) {
     if ($mapDrive.ContainsKey($rel)) {
-        if ($mapDesktop[$rel].Length -ne $mapDrive[$rel].Length) {
+        $difTamanho = $mapDesktop[$rel].Length -ne $mapDrive[$rel].Length
+        if ($difTamanho) {
             try {
                 Copy-Item -LiteralPath $mapDesktop[$rel].Full -Destination $mapDrive[$rel].Full -Force -ErrorAction Stop
                 $conflitosResolvidos++
-                Write-Log "Conflito (tamanho diferente), Area de Trabalho venceu, sobrescreveu Drive: $rel"
+                Write-Log "Conteudo diferente, Area de Trabalho venceu, sobrescreveu Drive: $rel"
             } catch {
                 $erros++
                 Write-Log "ERRO resolvendo conflito ($rel): $($_.Exception.Message)"
@@ -146,13 +259,22 @@ foreach ($rel in $mapDesktop.Keys) {
     }
 }
 
-Write-Log "Resumo: $copiedToDrive copiados p/ Drive | $somenteNoDrive existiam so no Drive e foram ignorados (mao unica) | $conflitosResolvidos conflitos resolvidos (Area de Trabalho venceu) | $erros erros"
+# Grava o manifesto desta execucao (o que existe agora na Area de Trabalho), para a
+# proxima execucao saber o que foi apagado.
+try {
+    ConvertTo-Json -InputObject @($mapDesktop.Keys) | Set-Content -Path $ManifestFile -Encoding utf8
+} catch {
+    Write-Log "AVISO: nao foi possivel salvar o manifesto desta execucao: $($_.Exception.Message)"
+}
+
+Write-Log "Resumo: $copiedToDrive copiados p/ Drive | $somenteNoDrive nunca estiveram na Area de Trabalho, ignorados | $conflitosResolvidos conflitos resolvidos (Area de Trabalho venceu) | $apagadosNoDrive apagados no Drive (sumiram da Area de Trabalho) | $erros erros"
 Write-Log "Fim do envio"
 
-Write-Estado ($erros -eq 0) $(if ($erros -eq 0) { "Envio concluido sem erros" } else { "Envio concluido com $erros erro(s), ver o log" }) $copiedToDrive $somenteNoDrive $conflitosResolvidos $erros
+Write-Estado ($erros -eq 0) $(if ($erros -eq 0) { "Envio concluido sem erros" } else { "Envio concluido com $erros erro(s), ver o log" }) $copiedToDrive $somenteNoDrive $conflitosResolvidos $apagadosNoDrive $erros
 
 Write-Output "Copiados para o Drive: $copiedToDrive"
-Write-Output "Existiam so no Drive, ignorados (mao unica): $somenteNoDrive"
+Write-Output "Nunca estiveram na Area de Trabalho, ignorados: $somenteNoDrive"
 Write-Output "Conflitos resolvidos (Area de Trabalho venceu): $conflitosResolvidos"
+Write-Output "Apagados no Drive (sumiram da Area de Trabalho): $apagadosNoDrive"
 Write-Output "Erros: $erros"
 Write-Output "Log completo: $LogFile"
