@@ -23,6 +23,19 @@ A aba **GERAL** é ordenada pelo tempo que falta, do menor para o maior.
    Contínuo vai para 9999 (fim da fila), vence hoje vai para 9998, vencido entra pelo valor absoluto (o mais antigo primeiro) e o que ainda está no prazo entra como 1000 mais os dias.
 6. **O prazo da próxima etapa (coluna N, `=M-HOJE()`) não entra nesta atividade.** Ele mede o andamento interno do trabalho, não o vencimento do edital. Nunca usar essa coluna para ordenar.
 
+## Reposicionamento imediato (regra permanente)
+
+> Definida pela captadora em 11/08/2026.
+
+Sempre que ela lançar um edital novo na planilha e a data limite ficar fora da ordem de dias restantes, **reposicionar a linha na hora, sem perguntar**. Não deixar a correção para uma passada de arrumação depois: a lista precisa estar sempre lida de cima para baixo como fila de urgência.
+
+Como aplicar:
+1. Ao mexer na planilha por qualquer motivo, conferir o bloco com data (hoje, linhas 5 em diante) e ver se os prazos sobem sem quebra.
+2. Achou uma linha fora de ordem, mover o registro inteiro (colunas A a P, incluindo o link do edital com o hiperlink) para a posição correta, empurrando as demais.
+3. Não arrastar as colunas H, I e N junto: elas são fórmulas presas à própria linha e se refazem sozinhas na posição nova.
+4. Edital sem data (`Contínuo`) nunca entra nesse bloco; vai para o bloco de contínuos, no rodapé.
+5. Avisar em uma linha o que foi movido e para onde.
+
 ## Estrutura da aba GERAL (para não quebrar nada)
 
 Título mesclado em `A1`, cabeçalho na linha 2, dados a partir da linha 3, filtro em `A2:O112`.
@@ -55,11 +68,25 @@ Outras abas: `REPROVADOS` e `EXCLUIDOS` (mesmo layout, arquivo morto), `TABELA D
 4. A fórmula de ORDEM continua na coluna I, sem valor digitado por cima.
 5. Fazer backup antes de reordenar, no padrão já usado na pasta: `1 - Controle de Submissão_ (backup antes da {ação} DD-MM-AAAA).xlsx`.
 
-## Pendências conhecidas (11/08/2026)
+## Correções aplicadas em 11/08/2026
 
-Levantadas na leitura da planilha e ainda não corrigidas, aguardando decisão da captadora:
+Backup em `1 - Controle de Submissão_ (backup antes das correcoes 11-08-2026).xlsx`, na mesma pasta.
 
-- **Essencis Minas está na linha 5**, com prazo de 31 dias, acima de três editais com 2 dias. É a única quebra da ordenação no bloco com data.
-- **A coluna ORDEM está pela metade.** Só 21 linhas têm a fórmula. As células `I11` e `I43` receberam por engano uma fórmula que aponta para a coluna G e devolve texto, gerando `#VALOR!`, e a `I36` tem o nome de um cliente digitado dentro dela. Na prática a ordenação está sendo feita manualmente.
-- **A formatação condicional da coluna F não funciona.** Três regras foram salvas como texto entre aspas e outras apontam para `#REF!`. Nunca disparam.
-- **Linhas vazias mostram um número negativo enorme na coluna H**, porque célula vazia menos `HOJE()` dá isso, e a regra de cor as trata como muito atrasadas. É ruído visual em cerca de mil linhas; some se a fórmula testar se F está vazia antes de calcular.
+- **Essencis Minas voltou para a posição certa.** Estava na linha 5 com prazo de 31 dias, acima de três editais com 2 dias. Foi para a linha 15, entre o FSA/BRDE (24 dias) e o MINAS LIGA (50 dias). O bloco inteiro, da linha 5 à 25, ficou em ordem crescente.
+- **A fórmula de ORDEM foi restaurada nas linhas 3 a 300.** Antes só 21 linhas tinham fórmula; as células `I11` e `I43` traziam uma fórmula errada apontando para a coluna G, que devolvia `#VALOR!`. O nome "Ponto Cultural", que estava digitado dentro da `I36`, foi movido para a `J36` (CLIENTE), que é o lugar dele.
+- **As 9 regras de cor mortas da coluna F foram removidas.** Eram fórmulas salvas como texto entre aspas ou apontando para `#REF!`, que nunca disparavam. As 32 regras vivas (prazo e status) continuam intactas.
+- **As fórmulas de PRAZO (H) e do prazo da próxima etapa (N) passaram a testar se a data está vazia antes de calcular.** Linha em branco agora fica em branco, no lugar do número negativo gigante que aparecia em quase mil linhas.
+
+Fórmulas em vigor depois da correção:
+
+```
+H   =SE(F5="";"";SE(OU(F5="Continuo";F5="Contínuo";F5="CONTINUO";F5="CONTÍNUO";F5="Contìnuo");"Contínuo";F5-HOJE()))
+I   =SE(H5="";"";SE(ÉTEXTO(H5);9999;SE(H5=0;9998;SE(H5<0;ABS(H5);1000+H5))))
+N   =SE(M5="";"";M5-HOJE())
+```
+
+A coluna I (ORDEM) é oculta na planilha. Ela funciona como motor da ordenação, não como informação de tela.
+
+## Pendências que ficaram
+
+- As abas **REPROVADOS** e **EXCLUIDOS** têm as mesmas regras de cor mortas na coluna F e a mesma fórmula de prazo sem proteção contra linha vazia. Como são arquivo morto, ficaram sem mexer. Corrigir se um dia essas abas voltarem a ser consultadas.
