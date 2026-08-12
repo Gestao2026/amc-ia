@@ -16,12 +16,13 @@ A aba **GERAL** é ordenada pelo tempo que falta, do menor para o maior.
 2. **PRAZO (coluna H) é o sinalizador, calculado, nunca digitado.** É quantos dias faltam até a data limite:
    `=SE(OU(F5="Continuo";F5="Contínuo");"Contínuo";F5-HOJE())`
    Como usa `HOJE()`, recalcula sozinho a cada abertura da planilha.
-3. **A ordenação é do menor prazo para o maior.** Quem vence antes fica em cima.
-4. **Os contínuos ficam separados, em bloco próprio no rodapé.** Não têm data limite, então não entram na contagem regressiva e não podem ser misturados com quem tem prazo. Hoje são três blocos, separados por linha em branco: contínuos gerais, BIP Prosas e o bloco `DIVULGAR`.
-5. **A coluna ORDEM (I) é a auxiliar que traduz prazo em posição:**
-   `=SE(ÉTEXTO(H3);9999;SE(H3=0;9998;SE(H3<0;ABS(H3);1000+H3)))`
-   Contínuo vai para 9999 (fim da fila), vence hoje vai para 9998, vencido entra pelo valor absoluto (o mais antigo primeiro) e o que ainda está no prazo entra como 1000 mais os dias.
-6. **O prazo da próxima etapa (coluna N, `=M-HOJE()`) não entra nesta atividade.** Ele mede o andamento interno do trabalho, não o vencimento do edital. Nunca usar essa coluna para ordenar.
+3. **A ordenação é do menor prazo para o maior**, entre os editais ainda abertos. Quem vence antes fica em cima, e quem vence hoje fica no topo.
+4. **Os contínuos ficam separados, em bloco próprio, depois dos abertos.** Não têm data limite, então não entram na contagem regressiva e não podem ser misturados com quem tem prazo. Na GERAL são três blocos separados por linha em branco: contínuos gerais, BIP Prosas e o bloco `DIVULGAR`.
+5. **O que já venceu desce para o rodapé**, depois dos contínuos, do vencimento mais recente para o mais antigo. Decidido pela captadora em 11/08/2026: o que ainda dá para enviar tem que aparecer primeiro, e o vencido vira histórico. Quem não tem data limite nenhuma fica por último, para ela preencher.
+6. **A coluna ORDEM (I) é a auxiliar que traduz prazo em posição:**
+   `=SE(H3="";"";SE(ÉTEXTO(H3);5000;SE(H3>=0;H3;6000+ABS(H3))))`
+   Aberto entra pelos dias que faltam (0 a 4999), contínuo vira 5000 e vencido vira 6000 mais os dias de atraso. Assim a coluna oculta sempre concorda com a ordem que está na tela.
+7. **O prazo da próxima etapa (coluna N, `=M-HOJE()`) não entra nesta atividade.** Ele mede o andamento interno do trabalho, não o vencimento do edital. Nunca usar essa coluna para ordenar.
 
 ## Reposicionamento imediato (regra permanente)
 
@@ -81,9 +82,11 @@ Fórmulas em vigor depois da correção:
 
 ```
 H   =SE(F5="";"";SE(OU(F5="Continuo";F5="Contínuo";F5="CONTINUO";F5="CONTÍNUO";F5="Contìnuo");"Contínuo";F5-HOJE()))
-I   =SE(H5="";"";SE(ÉTEXTO(H5);9999;SE(H5=0;9998;SE(H5<0;ABS(H5);1000+H5))))
+I   =SE(H5="";"";SE(ÉTEXTO(H5);5000;SE(H5>=0;H5;6000+ABS(H5))))
 N   =SE(M5="";"";M5-HOJE())
 ```
+
+A fórmula de ORDEM acima substituiu, em 11/08/2026, a versão anterior (`...SE(H5<0;ABS(H5);1000+H5)`), que mandava todo edital vencido para cima de qualquer edital aberto. Na GERAL o defeito nunca apareceu, porque lá não fica edital vencido; nas planilhas dos clientes, que são histórico, ele colocava o vencido há três meses na frente do que fecha amanhã.
 
 A coluna I (ORDEM) é oculta na planilha. Ela funciona como motor da ordenação, não como informação de tela.
 
@@ -106,4 +109,17 @@ Cuidado que gerou perda e não pode se repetir: duas linhas da Almira Lopes tinh
 
 - As abas **REPROVADOS** e **EXCLUIDOS** têm as mesmas regras de cor mortas na coluna F e a mesma fórmula de prazo sem proteção contra linha vazia. Como são arquivo morto, ficaram sem mexer. Corrigir se um dia essas abas voltarem a ser consultadas.
 
-- **A coluna ORDEM discorda da ordem visível quando o edital já venceu.** A fórmula usa `ABS(H)` para prazo negativo, então um edital vencido há 8 dias recebe 8 e um vencido há 105 dias recebe 105: pela ORDEM, o vencido recente viria primeiro, e todo vencido viria antes de qualquer edital ainda aberto (que entra como 1000 mais os dias). A ordenação física aplicada segue a regra dita pela captadora, do menor tempo para o maior, então o vencido há mais tempo fica em cima e os abertos vêm depois. Na GERAL isso nunca apareceu, porque lá não há edital vencido; nas planilhas dos clientes, que são histórico, quase tudo está vencido. Decidir com a captadora qual das duas leituras vale e alinhar as duas pontas.
+## Armadilha de acento ao comparar em Python
+
+`"ontinu" in texto.lower()` **não** encontra `Contínuo`, porque o `í` acentuado não é o `i` do padrão. Esse erro classificou contínuos acentuados como "sem data limite" e os jogou para o fim da planilha, num primeiro passe da configuração dos clientes. Na base convivem quatro grafias reais: `Contínuo`, `Continuo`, `CONTÍNUO` e `Contìnuo` (esta com crase, provável erro de digitação).
+
+Qualquer comparação de texto em português neste projeto deve tirar o acento antes de comparar:
+
+```python
+import unicodedata
+def sem_acento(s):
+    return "".join(c for c in unicodedata.normalize("NFD", s)
+                   if unicodedata.category(c) != "Mn").lower()
+```
+
+A fórmula do Excel não tem esse problema porque lista as grafias uma a uma, mas ela também quebra se aparecer uma quinta grafia. Ao encontrar grafia nova, acrescentar à fórmula.
