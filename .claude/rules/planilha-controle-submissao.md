@@ -87,6 +87,23 @@ N   =SE(M5="";"";M5-HOJE())
 
 A coluna I (ORDEM) é oculta na planilha. Ela funciona como motor da ordenação, não como informação de tela.
 
+## As planilhas dos clientes (aplicado em 11/08/2026)
+
+A mesma configuração vale para a planilha `1 - Controle de Submissão.xlsx` de cada cliente, dentro de `06 - Clientes\{NN} - CaptaDrive - {cliente}\`, na aba **SUBMISSÕES**. São 18. Backup de todas em `06 - Clientes\_Backup planilhas 11-08-2026\`.
+
+Diferenças em relação à GERAL, que precisam ser respeitadas por qualquer script futuro:
+
+- **Não existe a coluna DOCUMENTAÇÃO.** Depois de PRÓXIMA ETAPA vem o prazo dela e OBS, e acabou.
+- **A coluna A é NÚMERO**, mas não é posição: em alguns clientes tem furo na sequência (o Ponto Cultural vai 1, 2, 3, 6, 5, 6...). É identificador do registro, então **anda junto com a linha** quando reordena. Nunca renumerar.
+- **A STK Produções tem uma coluna vazia a mais no meio**, então o prazo da próxima etapa fica em O, não em N. Localizar as colunas pelo texto do cabeçalho, nunca pela letra fixa.
+- **A lista de status tem 27 opções**, os 25 da GERAL mais `Selecionado` e `Recurso`, que só aparecem nas planilhas de cliente. Cada arquivo ganhou a sua aba `Status` e o intervalo nomeado `Lista_Status`.
+- **Linhas vazias com status preenchido.** Cerca de 900 linhas sem edital nenhum trazem `Selecionado` de um preenchimento antigo. Foram mantidas, a pedido da captadora de não apagar nada.
+- **As posições das linhas foram preservadas.** A reordenação trocou os registros entre as linhas que já ocupavam, sem compactar. No Ponto Cultural, que tem registros espalhados, sobraram dois contínuos lá nas linhas 99 e 100.
+
+Cuidado que gerou perda e não pode se repetir: duas linhas da Almira Lopes tinham uma **data digitada dentro da coluna de cálculo PRAZO**, com PRÓXIMA ETAPA vazia. Ao instalar a fórmula, a data foi sobrescrita. Foi recuperada do backup e devolvida para PRÓXIMA ETAPA. **Antes de escrever fórmula por cima de qualquer coluna calculada, varrer a coluna atrás de valor que não seja derivável** (data, texto, número digitado à mão) e decidir o destino de cada um. Vale a mesma lição do formato: a célula que recebe a fórmula precisa voltar para o formato Geral, senão herda o formato de data do valor antigo e mostra 1900-05-10 no lugar de 131 dias.
+
 ## Pendências que ficaram
 
 - As abas **REPROVADOS** e **EXCLUIDOS** têm as mesmas regras de cor mortas na coluna F e a mesma fórmula de prazo sem proteção contra linha vazia. Como são arquivo morto, ficaram sem mexer. Corrigir se um dia essas abas voltarem a ser consultadas.
+
+- **A coluna ORDEM discorda da ordem visível quando o edital já venceu.** A fórmula usa `ABS(H)` para prazo negativo, então um edital vencido há 8 dias recebe 8 e um vencido há 105 dias recebe 105: pela ORDEM, o vencido recente viria primeiro, e todo vencido viria antes de qualquer edital ainda aberto (que entra como 1000 mais os dias). A ordenação física aplicada segue a regra dita pela captadora, do menor tempo para o maior, então o vencido há mais tempo fica em cima e os abertos vêm depois. Na GERAL isso nunca apareceu, porque lá não há edital vencido; nas planilhas dos clientes, que são histórico, quase tudo está vencido. Decidir com a captadora qual das duas leituras vale e alinhar as duas pontas.
