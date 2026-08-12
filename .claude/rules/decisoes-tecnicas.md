@@ -323,3 +323,42 @@ Alternativas descartadas: baixar o limite de 30% para deixar passar renomeaçõe
 Impacto: renomear pastas em massa continua disparando a trava, e isso é o correto. O que muda é que a pendência agora sobrevive, fica visível até ser resolvida e pode ser liberada de propósito. Regra que passa a valer: **exclusão barrada nunca deve ser liberada por parecer alarme falso, e duplicata só é apagada com hash conferido dos dois lados**. A conferência por nome e tamanho serve para triagem, nunca para decidir exclusão.
 
 Data: 2026-08-11
+
+### SOL-0020. `projeto-atualizar --cliente-id` responde sucesso e não grava. Vínculo de OSC no Controle só funciona pela tela
+
+Problema: o SOL-0008 acrescentou `--cliente-id` e `--edital-id` ao subcomando `projeto-atualizar` de `scripts/captahub-api.py`, para atender ao ponto 3 do SOL-0007 (Controle existente ganha o vínculo de OSC que ainda não tinha). Na primeira vez que esse caminho foi exercitado num Controle real (11/08/2026, Controle "Programa Energisa Cultural", id `43dc7b51-91a2-401f-af7b-44359bdb473d`, vinculando a Bandeja Films, id `37c1ce9f-fb33-4fa9-a949-3ee27b9ee877`), a chamada retornou **HTTP 200 com mensagem de sucesso**, o `status` pedido foi gravado normalmente, e o `cliente_id` voltou `null` no corpo da resposta. Um `GET /v1/projetos/{id}` logo em seguida confirmou: `cliente_id` continua `null`. Ou seja, o servidor aceita o campo, responde sucesso e descarta o valor.
+
+Isso é pior que o comportamento documentado no SOL-0010, onde a API pelo menos recusava explicitamente com `422 validation_error: Nenhum campo válido para atualizar`. Aqui não há erro nenhum para o chamador detectar, e a saída do script diz "Projeto atualizado" com o novo status, o que reforça a impressão falsa de que tudo funcionou. O `--edital-id` não foi testado nesta rodada e deve ser tratado como igualmente suspeito até prova em contrário.
+
+Solução, enquanto o CaptaHub não corrigir: **o vínculo de OSC em um Controle é feito manualmente na tela "Editar Controle"**, junto com os seis campos que o SOL-0010 já tinha mandado para o preenchimento manual. Nenhum comando deste projeto deve afirmar que vinculou uma OSC com base na resposta da API. Se por algum motivo `projeto-atualizar --cliente-id` for usado, é obrigatório reler o Controle com `projeto --id` e conferir o `cliente_id` no retorno antes de reportar qualquer coisa ao captador, exatamente como a regra do SOL-0014 já obriga para cópia de arquivo: operação que falha em silêncio precisa de confirmação depois de executar, nunca de confiança na ausência de erro.
+
+Achado colateral da mesma investigação, que vale registrar: o Controle "Programa Energisa Cultural" que o `controle-resolver.py` apontou como duplicata (similaridade de título de 100%) é, na verdade, **resíduo dos testes de integração do SOL-0006**. Descrição "Teste integração / segundo teste", `valor_solicitado` 0, `data_submissao` 30/07/2026 e criação em 30/07/2026, a mesma data dos testes daquele registro. Consequência prática que ninguém tinha previsto: **registro de teste deixado no pipeline vira falso positivo de dedup e bloqueia a criação do Controle real**. Todo teste de integração que criar Controle precisa apagar o registro ao final, ou usar nome claramente sintético que nunca colida com edital de verdade.
+
+**Mapa real dos campos do PATCH, levantado por teste campo a campo no mesmo dia, contra o próprio registro de teste.** Corrige o SOL-0010, que listava `nome` e `descricao` como graváveis. Não são.
+
+| Campo | Comportamento real no `PATCH /v1/projetos/{id}` |
+|---|---|
+| `status` | Grava |
+| `nota_tecnica` | Grava |
+| `chance_aprovacao` | Grava |
+| `valor_solicitado` | Grava |
+| `valor_aprovado` | Grava |
+| `data_submissao` | Grava |
+| `nome` | **Rejeita** com `422 validation_error: Nenhum campo válido para atualizar` |
+| `descricao` | **Rejeita** com o mesmo 422 |
+| `cliente_id` | **Aceita, responde 200 e descarta.** Falha silenciosa |
+| `edital_id` | Não testado. Tratar como suspeito até prova em contrário |
+
+A boa notícia é que todo o fluxo de sincronização descrito no `CLAUDE.md` (subir valor solicitado, nota técnica, chance de aprovação, mudança de etapa e data de submissão) funciona de fato. O que não funciona é renomear, redescrever e vincular OSC.
+
+Consequência prática que dói: **registro de teste no pipeline não pode ser renomeado nem apagado pela API**, então não há como neutralizá-lo por script. Só a captadora resolve, na tela. Enquanto ele existir, o `controle-resolver.py` vai acusar duplicidade falsa para aquele edital, e quem estiver operando precisa saber disso para não deixar de criar o Controle real.
+
+Observação sobre a criação: no `POST /v1/projetos` o `descricao` **é** persistido (diferente do PATCH), e o servidor preenche `data_submissao` sozinho com a data de criação, mesmo sem nada ter sido submetido. Quem cria Controle deve conferir esse campo depois, ou a captadora vai ver data de submissão em card que nunca foi submetido.
+
+Mudança feita no `scripts/captahub-api.py` nesta rodada: `projeto-atualizar` ganhou `--nome` e `--descricao` (que foi assim que a rejeição dos dois campos apareceu) e passou a **conferir o retorno e avisar em texto** quando o `cliente_id` pedido não foi gravado, em vez de imprimir "Projeto atualizado" e deixar o operador achar que deu certo.
+
+Alternativas descartadas: usar a rota crua do Supabase por trás da tela para gravar o `cliente_id` (mesma recusa do SOL-0010, rota não documentada que pode quebrar sem aviso); apagar o Controle de teste pela API (não existe endpoint de exclusão no cliente, e exclusão de dado no CaptaHub é decisão da captadora, feita por ela na tela); renomear o Controle de teste para tirá-lo da colisão de dedup (tentado, recusado com 422).
+
+Impacto: fecha a lacuna deixada em aberto no SOL-0008, que assumia que `--cliente-id` funcionaria por o método do cliente aceitar qualquer campo via `**campos`. Aceitar não é gravar. O ponto 3 do SOL-0007 (Controle nasce vinculado à OSC quando a compatibilidade é ALTA) continua **não implementável via API**: o `controle-resolver.py` segue decidindo corretamente, mas quem executa o vínculo é a captadora, na tela. Se o CaptaHub um dia passar a gravar o `cliente_id`, revisar esta entrada junto com o SOL-0010.
+
+Data: 2026-08-11

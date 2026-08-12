@@ -466,11 +466,18 @@ def cmd_controle_criar(cli, args):
 
 def cmd_projeto_atualizar(cli, args):
     p = cli.atualizar_projeto(
-        args.id, status=args.status, nota_tecnica=args.nota_tecnica,
+        args.id, nome=args.nome, descricao=args.descricao,
+        status=args.status, nota_tecnica=args.nota_tecnica,
         chance_aprovacao=args.chance_aprovacao, valor_solicitado=args.valor_solicitado,
         valor_aprovado=args.valor_aprovado, data_submissao=args.data_submissao,
         cliente_id=args.cliente_id, edital_id=args.edital_id)
     print(f"Projeto atualizado: {p.get('nome')}  [{p.get('status')}]  (id {p.get('id')})")
+    # SOL-0020: o servidor responde sucesso e descarta cliente_id. Conferir sempre,
+    # nunca confiar na ausência de erro.
+    if args.cliente_id and p.get("cliente_id") != args.cliente_id:
+        print("AVISO: o cliente_id pedido NAO foi gravado pelo servidor "
+              f"(retornou {p.get('cliente_id')!r}). Vincule a OSC pela tela do CaptaHub. "
+              "Ver SOL-0020 em .claude/rules/decisoes-tecnicas.md.")
     _emitir_json("PROJETO_ATUALIZADO", p)
 
 
@@ -587,6 +594,9 @@ def construir_parser():
 
     ppa = sub.add_parser("projeto-atualizar", help="Atualiza um projeto (PATCH /v1/projetos/{id}).")
     ppa.add_argument("--id", required=True)
+    ppa.add_argument("--nome", help="Renomeia o Controle. Útil para tirar registro de teste "
+                                    "da colisão com o dedup (SOL-0020).")
+    ppa.add_argument("--descricao")
     ppa.add_argument("--status")
     ppa.add_argument("--nota-tecnica", dest="nota_tecnica", type=float)
     ppa.add_argument("--chance-aprovacao", dest="chance_aprovacao")
