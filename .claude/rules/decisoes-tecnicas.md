@@ -366,3 +366,29 @@ Alternativas descartadas: usar a rota crua do Supabase por trás da tela para gr
 Impacto: fecha a lacuna deixada em aberto no SOL-0008, que assumia que `--cliente-id` funcionaria por o método do cliente aceitar qualquer campo via `**campos`. Aceitar não é gravar. O ponto 3 do SOL-0007 (Controle nasce vinculado à OSC quando a compatibilidade é ALTA) continua **não implementável via API**: o `controle-resolver.py` segue decidindo corretamente, mas quem executa o vínculo é a captadora, na tela. Se o CaptaHub um dia passar a gravar o `cliente_id`, revisar esta entrada junto com o SOL-0010.
 
 Data: 2026-08-11
+
+### SOL-0021. Documento que "não abre" na pasta `_82` costuma ser caminho acima de 260 caracteres, não arquivo corrompido
+
+Problema: a captadora relatou que os PDFs de duas pastas não abriam (`PROJETOS CINEMA`, do Núcleo de arte e Música Esperança, e `parecer`, da Mededicas). O sintoma sugere arquivo corrompido, e o caminho intuitivo seria tentar reparar o PDF. Os cinco arquivos estavam íntegros: header e trailer corretos, todas as páginas renderizando, sem senha, gerados por Canva, Google Docs e Chrome. A causa era o limite MAX_PATH do Windows: os caminhos completos tinham entre 260 e 290 caracteres, e o Microsoft Edge (leitor de PDF padrão da máquina) não alcança arquivo acima de 259.
+
+Detalhe que atrapalha o diagnóstico e precisa ficar registrado: `LongPathsEnabled` já está em `1` no registro desta máquina, e mesmo assim o problema acontece. Essa chave só vale para processos que declaram suporte a caminho longo no manifesto. PowerShell e Python alcançam os arquivos normalmente (por isso um script não reproduz o defeito), o shell do Windows resolve o item, mas o Edge, sendo Chromium, falha. Ou seja, **checar o registro ou abrir o arquivo por script não descarta a hipótese**.
+
+Teste que prova a causa, e que deve ser o método sempre que o sintoma reaparecer: copiar o mesmo arquivo para um caminho curto e mandar o Edge renderizar os dois em headless, comparando o texto da saída.
+
+```
+msedge.exe --headless=new --disable-gpu --print-to-pdf={saida} --print-to-pdf-no-header file:///{uri}
+```
+
+Caminho de 290 caracteres devolveu `ERR_FILE_NOT_FOUND`; a mesma cópia byte a byte, em caminho de 108, renderizou o documento. Atenção ao ler o resultado: o Edge **gera PDF de saída nos dois casos**, porque imprime a própria página de erro. Conferir só a existência do arquivo de saída dá falso positivo; é obrigatório ler o texto da saída e procurar `ERR_FILE_NOT_FOUND`.
+
+Solução aplicada: encurtar o nome dos cinco arquivos até caberem no limite, sem tocar em pasta nenhuma, e reverificar cada um no Edge depois de renomear (mesma disciplina do SOL-0014: operação que falha em silêncio exige confirmação após executar, nunca confiança na ausência de erro). O registro de reversão de cada renomeação foi gravado antes da conferência.
+
+Dimensão real do problema, medida na varredura de toda a `_82`: **227 arquivos de 2.425 (9,36%) estavam inalcançáveis**, sendo 151 PDFs, 62 Word e 10 Excel. Concentração em Mededicas (115), Mineração de Editais (35), Ponto Cultural (33) e Núcleo de arte e Música Esperança (23). Depois da correção destes cinco, restam 222.
+
+Decisão da captadora, tomada nesta conversa: **corrigir sob demanda, cliente a cliente, conforme ela esbarrar no problema**, em vez de uma correção de uma vez só.
+
+Alternativas descartadas: renomear a pasta raiz `_82 - Rosepaula Aparecida Andrade Rodrigues` para `_82`, que economizaria 40 caracteres em todos os arquivos de uma vez e resolveria 201 dos 222 restantes (simulado, não aplicado). Descartada por escolha dela nesta conversa; se um dia for retomada, lembrar que ela exige atualizar `config.local.ps1` dos scripts de sincronização e refazer o manifesto do SOL-0018, e que sobrariam 21 arquivos com nome longo demais para corrigir individualmente. Também descartado tentar reparar os PDFs, que é o reflexo errado diante deste sintoma.
+
+Impacto: diante de "documento não abre" nesta pasta, a primeira checagem é o comprimento do caminho, antes de qualquer suspeita de corrupção. Regra que passa a valer para nomeação nas pastas de cliente: o limite útil é 259 caracteres para o caminho completo, e pastas fundas como `06 - Clientes\{NN} - CaptaDrive - {cliente}\01 - Gestão Documental\02 - Informações Institucionais\...` deixam pouca folga (na `PROJETOS CINEMA` sobram 29 caracteres para o nome do arquivo). Renomear poucos arquivos é seguro para a sincronização do SOL-0018, mas uma correção em massa precisa considerar a trava de exclusão do SOL-0019.
+
+Data: 2026-08-12
