@@ -346,8 +346,12 @@ Achado colateral da mesma investigação, que vale registrar: o Controle "Progra
 | `data_submissao` | Grava |
 | `nome` | **Rejeita** com `422 validation_error: Nenhum campo válido para atualizar` |
 | `descricao` | **Rejeita** com o mesmo 422 |
-| `cliente_id` | **Aceita, responde 200 e descarta.** Falha silenciosa |
+| `cliente_id` | **Não é campo válido.** Sozinho, devolve o mesmo 422. Acompanhado de um campo válido, a requisição passa com 200, o campo válido é gravado e o `cliente_id` é descartado sem aviso |
 | `edital_id` | Não testado. Tratar como suspeito até prova em contrário |
+
+Refinamento importante do diagnóstico, confirmado em segundo teste no mesmo dia, num Controle recém-criado (`ef4961f0-c2c9-4e76-9084-126adfcdf11b`): o servidor **não** tem um comportamento especial de "aceitar e ignorar" o `cliente_id`. Ele simplesmente valida a requisição contra a lista de campos permitidos, processa os que estão nela e descarta o resto em silêncio. Quando `cliente_id` vai sozinho, não sobra nenhum campo válido e vem o 422. Quando vai acompanhado de `status`, o `status` é gravado, a resposta é 200 e a impressão de sucesso é total. Ou seja, a falha silenciosa não é um defeito específico do `cliente_id`, é o desenho do endpoint: **qualquer campo fora da lista some sem aviso desde que a requisição carregue ao menos um campo válido**. Vale para qualquer chamada futura a este endpoint, não só para o vínculo de OSC.
+
+Confirmação de que a limitação é da API e não do modelo de dados: no mesmo levantamento, 26 dos 63 Controles do pipeline real já têm OSC vinculada, todos vinculados pela tela.
 
 A boa notícia é que todo o fluxo de sincronização descrito no `CLAUDE.md` (subir valor solicitado, nota técnica, chance de aprovação, mudança de etapa e data de submissão) funciona de fato. O que não funciona é renomear, redescrever e vincular OSC.
 
