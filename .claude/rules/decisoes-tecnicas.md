@@ -392,3 +392,19 @@ Alternativas descartadas: renomear a pasta raiz `_82 - Rosepaula Aparecida Andra
 Impacto: diante de "documento não abre" nesta pasta, a primeira checagem é o comprimento do caminho, antes de qualquer suspeita de corrupção. Regra que passa a valer para nomeação nas pastas de cliente: o limite útil é 259 caracteres para o caminho completo, e pastas fundas como `06 - Clientes\{NN} - CaptaDrive - {cliente}\01 - Gestão Documental\02 - Informações Institucionais\...` deixam pouca folga (na `PROJETOS CINEMA` sobram 29 caracteres para o nome do arquivo). Renomear poucos arquivos é seguro para a sincronização do SOL-0018, mas uma correção em massa precisa considerar a trava de exclusão do SOL-0019.
 
 Data: 2026-08-12
+
+### SOL-0022. Tarefa de push automático para o GitHub excluída (reverte o SOL-0017)
+
+Problema: a captadora pediu, em 13/08/2026, a exclusão da tarefa que salva os projetos no GitHub. O pedido reverte o SOL-0017, que tinha criado a publicação automática das 02h com guarda de conteúdo. Existiam duas tarefas candidatas, e só uma toca o GitHub: `AMC-IA-Push-Diario` (02h, publica) e `AMC-IA-SincronizacaoDiaria` (01h30, faz apenas commit local, nunca envia).
+
+Solução: excluída a tarefa agendada `AMC-IA-Push-Diario` (`Unregister-ScheduledTask`). A tarefa de commit local diário foi mantida, por não publicar nada. O script `scripts/push-diario-seguro.ps1` continua no repositório e continua sendo chamado pelo hook `post-commit` no modo `-PosCommit`, que só varre o conteúdo e avisa na hora, sem publicar. O comando `-SoVerificar` continua disponível para varrer sob demanda, e o push passa a ser feito manualmente por ele.
+
+Consequência que precisa ficar visível: o relatório diário em `logs/push-diario/` deixa de ser gerado, e com ele some o canal que também reportava o estado das tarefas agendadas e da sincronização da `_82`. O alerta na Área de Trabalho sobre publicação bloqueada também não aparece mais. A vigilância da pasta `_82` (SOL-0015 e SOL-0019) não foi afetada, continua pelas tarefas `AMC-IA-Sincronizar-Pasta82` e `AMC-IA-Vigia-Pasta82`.
+
+Alternativas descartadas: desativar a tarefa em vez de excluir (o pedido foi excluir); excluir também a tarefa de commit local (ela não salva no GitHub, então está fora do que foi pedido); apagar o `push-diario-seguro.ps1` e o hook `post-commit` (a guarda de conteúdo continua útil e é justamente o que protege o repositório público contra dado de cliente commitado sem querer).
+
+Como voltar atrás, se um dia for o caso: a definição da tarefa foi exportada antes da exclusão, mas para uma pasta temporária de sessão, que não sobrevive. Recriar a partir do SOL-0017 (02h, desperta o computador, roda na bateria, chama `scripts/push-diario-seguro.ps1`).
+
+Regra que continua valendo, do SOL-0017: **nenhuma automação deste projeto pode chamar `git push` direto**. Toda publicação passa por `push-diario-seguro.ps1`, agora sempre acionado por pedido.
+
+Data: 2026-08-13
