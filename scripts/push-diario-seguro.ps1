@@ -122,12 +122,12 @@ if ($PosCommit) {
         Write-Output "  ATENCAO, O VIGIA DO COMMIT ACHOU $($r.Count) ITEM(NS) SUSPEITO(S):"
         foreach ($x in $r) { Write-Output "     - $x" }
         Write-Output ""
-        Write-Output "  O commit foi salvo, mas o push das 02h vai BLOQUEAR isso."
+        Write-Output "  O commit foi salvo, mas a publicacao no GitHub vai BLOQUEAR isso."
         Write-Output "  Reveja antes de seguir."
         Write-Output ""
         exit 2
     }
-    Write-Output "Vigia do commit: limpo. $(@($pend).Count) alteracao(oes) pronta(s) para o push das 02h."
+    Write-Output "Vigia do commit: limpo. $(@($pend).Count) alteracao(oes) pronta(s) para publicar."
     exit 0
 }
 
