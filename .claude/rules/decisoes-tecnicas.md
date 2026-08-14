@@ -408,3 +408,41 @@ Como voltar atrás, se um dia for o caso: a definição da tarefa foi exportada 
 Regra que continua valendo, do SOL-0017: **nenhuma automação deste projeto pode chamar `git push` direto**. Toda publicação passa por `push-diario-seguro.ps1`, agora sempre acionado por pedido.
 
 Data: 2026-08-13
+
+### SOL-0023. Caminho longo se corrige encurtando a árvore de pastas, não o nome do arquivo
+
+> Complementa o SOL-0021, que tratou o mesmo limite de 260 caracteres do Windows pelo lado do arquivo. Aqui a correção é estrutural.
+
+Problema: a captadora não conseguia renomear um arquivo em `04 - Controle de Submissão_\01 - Mineração de Editais\02 - Editais Abertos\02 - Lei de Incentivo\03 - Fundos (Criança, Idoso e Saúde)\01 - Federal\01 - Com ou Sem Fins\01Brasil`, com o Windows recusando por nome longo. A causa não era o arquivo: **a pasta sozinha tinha 243 caracteres**, deixando 15 para o nome do arquivo. O prefixo fixo até a Mineração consome 120 caracteres, e a árvore de classificação (aberto/fechado, lei de incentivo, tipo de fundo, esfera, natureza do proponente, país) consumia os outros 123. A medição da árvore mostrou que não era caso isolado: 33 pastas com folga menor que 40 caracteres e 32 arquivos já inalcançáveis (o mais fundo com 313).
+
+Solução: encurtados os nomes repetidos da árvore de classificação, dentro de `02 - Editais Abertos`, em 25 pastas: `03 - Fundos (Criança, Idoso e Saúde)` virou `03 - Fundos` (ganho de 25), `01 - Com ou Sem Fins` virou `01 - Ambos` (10) e `06 - Natureza não informada` virou `06 - Sem info` (14). A pasta que travava caiu de 243 para 208 caracteres (folga de 15 para 50) e as pastas apertadas caíram de 33 para 12. Nenhum arquivo foi renomeado nem movido.
+
+A pasta raiz `02 - Editais Abertos` foi deliberadamente **preservada**, apesar de constar do escopo aprovado. Ela é a origem padrão do `/editais-pasta-processar` (`.claude/commands/editais-pasta-processar.md`, Passo 0), está na memória `reference_pasta_matriz_editais` e aparece no histórico de `editais-para-cadastrar/controles-criados.json`. O ganho seria de 8 caracteres, insuficiente para justificar quebrar a automação de cadastro em lote.
+
+Duas pastas não puderam ser renomeadas na execução, com `acesso negado`: a raiz e `01 - Cultura\01 - Federal\01 - Com ou Sem Fins`. Não é permissão (os atributos são normais), é handle aberto: a captadora estava trabalhando naquela pasta no mesmo momento, tinha acabado de salvar dois editais ali, e uma janela do Explorer posicionada em uma pasta trava a renomeação dela e de todas as pastas acima. Registro para não reinvestigar: **renomeação de pasta em massa deve ser feita com o Explorer fora da árvore**, e o `acesso negado` nesse contexto quase nunca é ACL.
+
+Por que não bastava renomear o arquivo: renomear é tecnicamente possível por script (PowerShell alcança caminho longo), mas seria uma armadilha. O arquivo ficaria salvo e o Edge, que é o leitor de PDF padrão da máquina, deixaria de abri-lo, exatamente o defeito diagnosticado no SOL-0021.
+
+Efeito na sincronização da `_82`: os 179 arquivos da Mineração mudam de caminho de uma vez. Como são 5,5% dos 3.231 arquivos da pasta, ficam abaixo do gatilho de 30% da trava de exclusão em massa (SOL-0019), então a sincronização seguinte apaga sozinha os caminhos antigos no Drive (com passagem pela Lixeira) e sobe a estrutura nova, sem pendência a liberar. Antes de qualquer renomeação em massa futura, medir essa proporção: acima de 30% a trava dispara e exige liberação explícita.
+
+Alternativas descartadas: renomear a pasta raiz `_82 - Rosepaula Aparecida Andrade Rodrigues` para `_82`, que renderia 40 caracteres em toda a pasta e resolveria a maioria dos 222 arquivos inalcançáveis de uma vez (recusada pela captadora aqui e no SOL-0021; exigiria atualizar `config.local.ps1` e refazer o manifesto do SOL-0018); renomear só o arquivo reclamado (deixaria as outras 32 pastas apertadas iguais, com o problema voltando na próxima).
+
+Data: 2026-08-14
+
+### SOL-0024. Hiperlink no Excel não anda junto com o texto: conferir sempre o par texto e destino
+
+Problema: a captadora relatou que, na planilha `1 - Controle de Submissão_.xlsx`, clicar em alguns endereços abria outro endereço. A conferência das 74 células clicáveis achou 8 links apontando para o lugar errado, 3 que abriam a página certa sem a âncora interna (a parte depois do `#`) e 9 células com endereço escrito e nenhum link (clicar não fazia nada). A causa não é corrupção nem erro de digitação: no formato xlsx o texto da célula vive na planilha e o destino do clique vive num arquivo de relacionamentos à parte, preso ao endereço da célula (`G43`), não ao conteúdo. Quando linha é movida, inserida ou apagada, o texto anda e a âncora do link fica onde estava. O resultado é um encadeamento em que o link de uma linha abre o endereço da linha vizinha.
+
+Ponto que atrapalha o diagnóstico e precisa ficar registrado: o defeito é **anterior** à reordenação por prazo de 11/08/2026 (o backup daquele dia já trazia o BRDE abrindo o Fundo Ecos e o Shell abrindo o BRDE), e a própria reordenação corrigiu alguns por acaso, ao reescrever a planilha. Ou seja, não adianta procurar culpado numa única edição: o desalinhamento se acumula em qualquer edição de linha feita com copiar e colar.
+
+Solução: regra única de correção, **o clique passa a abrir exatamente o endereço escrito na célula**. Onde o texto não é endereço (título de página, e-mail), o destino é decidido caso a caso: o Santander voltou para `mailto:`, a linha da Renner passou a apontar para o edital da Renner na Prosas (que estava preso na linha do STIHL), e os 6 textos de título que já apontavam para a página correta ficaram intactos. As 9 células com endereço escrito e sem link ganharam link.
+
+Detalhe técnico que vale para qualquer edição futura de planilha real da captadora: a correção foi feita **editando o XML dentro do xlsx**, trocando só o `Target` de cada relacionamento pelo `Id`, sem passar a planilha inteira pelo openpyxl. Motivo: `openpyxl.save()` reescreve tudo e é conhecido por perder configuração de impressão e extensões do Excel. A edição cirúrgica alterou 4 dos 19 arquivos internos, e a conferência antes de gravar confirmou 0 células de conteúdo alteradas, 119 regras de formatação condicional, validações de dados e células mescladas preservadas. Backup em `1 - Controle de Submissão_ (backup antes da correcao dos links 14-08-2026).xlsx`.
+
+Alternativas descartadas: reescrever a planilha com openpyxl (risco de perder formatação condicional e configuração de impressão numa planilha que já custou muito ajuste, ver `.claude/rules/planilha-controle-submissao.md`); confiar no destino atual e corrigir o texto escrito (o texto é o que a captadora colou da fonte, é a informação boa; o link é o que se desloca).
+
+Cuidado operacional descoberto no meio do trabalho: a planilha estava aberta no Excel e foi salva por ela às 11h54, no meio da conferência, deslocando as linhas entre uma leitura e outra. Antes de gravar qualquer planilha real, checar o arquivo de trava (`~$nome.xlsx`) e testar abertura para escrita, e abortar se estiver aberta, senão o salvamento dela sobrescreve a correção sem aviso.
+
+Impacto: a conferência do par texto e destino passa a fazer parte de qualquer mexida nessa planilha. Orientação dada à captadora para não reincidir: ao mudar linha de lugar, usar recortar e "Inserir células recortadas", que leva o link junto, em vez de copiar e colar o conteúdo.
+
+Data: 2026-08-14

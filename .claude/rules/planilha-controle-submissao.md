@@ -123,3 +123,15 @@ def sem_acento(s):
 ```
 
 A fórmula do Excel não tem esse problema porque lista as grafias uma a uma, mas ela também quebra se aparecer uma quinta grafia. Ao encontrar grafia nova, acrescentar à fórmula.
+
+## Links do edital (coluna G). Conferência obrigatória ao reordenar
+
+> Corrigido em 14/08/2026. Registro técnico completo em `.claude/rules/decisoes-tecnicas.md`, SOL-0024.
+
+No Excel, o endereço escrito na célula e o destino do clique são guardados em lugares separados: o destino fica preso ao endereço da célula (`G43`), não ao conteúdo. Mover, inserir ou apagar linha faz o texto andar e o link ficar parado, e o clique passa a abrir o endereço da linha vizinha.
+
+Regra: **o clique tem que abrir exatamente o endereço escrito na célula.** Sempre que reordenar a planilha, conferir esse par nas colunas que guardam link (G principalmente, mas também J, K, O e P, que já tiveram link).
+
+Ao mover linha, usar recortar e "Inserir células recortadas", que leva o link junto. Copiar e colar o conteúdo deixa o link para trás, e é a origem do problema.
+
+Onde o texto da célula é um título de página e não um endereço (Floresta Viva, Consulado do Japão, Ambipar, Sispro do Ibama, Brasilidades & Futuros), o link é deliberado e não deve ser reescrito automaticamente: conferir um a um.
