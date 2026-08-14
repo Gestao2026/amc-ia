@@ -446,3 +446,30 @@ Cuidado operacional descoberto no meio do trabalho: a planilha estava aberta no 
 Impacto: a conferência do par texto e destino passa a fazer parte de qualquer mexida nessa planilha. Orientação dada à captadora para não reincidir: ao mudar linha de lugar, usar recortar e "Inserir células recortadas", que leva o link junto, em vez de copiar e colar o conteúdo.
 
 Data: 2026-08-14
+
+### SOL-0024. "Mapa do Edital", formato fixo do checklist de edital para o cliente
+
+Problema: cada análise de edital saía num formato diferente. Comparados dois checklists produzidos com um dia de diferença (`editais-avulsos/pnab-ciclo-2-bh-04-2026-checklist.md` e `lmic-2026-multilinguagens-checklist.md`), eles divergem em estrutura, em ordem de seção e até no que consideram obrigatório: um abre por prazo, o outro por alerta de arquivamento; um traz 13 dimensões numeradas, o outro perguntas eliminatórias em quadro. Isso obrigava a captadora a reformatar antes de enviar ao cliente, e nada garantia que uma dimensão não fosse esquecida na próxima vez. Ela pediu dois formatos fixos e distintos, um para o cliente e um interno, cada um com nome próprio, para bastar dizer o nome e receber o documento certo.
+
+Solução: criado o **Mapa do Edital**, o formato para o cliente, com 18 seções fixas mais uma abertura de urgência, definidas por ela: dados gerais, modalidades, quem pode participar (com localidade e especificidades), quem não pode, categorias/linhas/vagas/valores, elegibilidade e habilitação, pontuação e desempate, cotas e ações afirmativas, checklist documental da inscrição, cronograma, itens financiáveis e vedados, contrapartida, acessibilidade e democratização, prestação de contas, riscos de inabilitação e de perda de ponto, divergências entre edital e anexos, anexos e o que é necessário para envio, e perguntas para o canal de dúvidas. Regra transversal que ela fez questão de registrar: em cada ponto, trazer também a especificidade que existir ali dentro, nunca só a regra geral.
+
+Três peças novas:
+- `.claude/commands/mapa-edital.md`, o comando. Dispara por `/mapa-edital` ou pelo nome falado ("gera o Mapa do Edital do X").
+- `scripts/mapa-edital.py`, o motor de layout. Converte um markdown estruturado (com bloco `---meta`) em `.docx` com capa, sumário, cabeçalho, rodapé com numeração de página, faixas de seção, quadros, caixas de destaque e de alerta, e itens com quadradinho para marcar. É markdown na origem porque o conteúdo muda a cada edital, mas o layout não pode mudar nunca.
+- `painel/marca/`, com a logo oficial em duas versões (fundo claro para o cabeçalho, vazada para o verde da capa), extraídas do kit oficial da marca.
+
+Identidade visual, com códigos oficiais conferidos no Manual de Marca e nos pixels do próprio arquivo do logo: verde `#1D624D`, dourado `#D1B484`, roxo `#7F126F` (caixas de alerta) e azul `#070552` (reserva). Tipografia: o manual pede Poppins nos títulos e Inter no corpo, mas nenhuma das duas está instalada nesta máquina; como fonte ausente vira substituição imprevisível no Word do cliente, o gerador ficou em Calibri. Se as duas forem instaladas aqui e na ponta, basta trocar `FONTE` e `FONTE_TITULO` no topo do script.
+
+Destino fixo de saída, definido por ela nesta conversa: `C:\Users\rosep\Desktop\CONTROLE EDITAIS\2. ANALISE EDITAIS`. Atenção, essa pasta fica na Área de Trabalho mas **fora** da `_82`, então não é coberta pela sincronização de mão única para o Drive (SOL-0013 e SOL-0018). O markdown de origem fica versionado em `editais-avulsos/`, que é o que garante poder regerar o documento.
+
+Bugs reais encontrados e corrigidos durante a construção, todos por conferência visual do PDF renderizado (Word COM para PDF, depois PyMuPDF para imagem), nunca por inspeção do XML:
+1. **Faixa de seção com fio vertical na emenda.** Montada como tabela de duas células (título à esquerda, número à direita), aparecia uma linha clara entre elas mesmo com todas as bordas zeradas. Refeita como célula única, com o número empurrado por tabulação à direita.
+2. **Faixa mais estreita que os quadros.** Sem `tblW` explícito, o Word ajustava a largura ao conteúdo, e a faixa terminava alguns milímetros antes das tabelas. Corrigido com largura fixa em twips e `tblLayout` fixo.
+3. **Subtítulo de quarto nível saía como texto cru.** O parser tratava `##`, `###` e listas, mas não `####`, então "#### Pessoa física" era impresso literalmente no documento entregue ao cliente.
+4. **Logo do cabeçalho invadindo a faixa da seção.** A imagem de 2,4 cm no cabeçalho ocupava 1,62 cm de altura, e com margem superior de 2 cm o cabeçalho avançava sobre o corpo. Ajustado para logo de 2,2 cm, distância de cabeçalho de 0,8 cm e margem superior de 2,9 cm.
+
+Alternativas descartadas: gerar `.doc` em HTML reaproveitando `md_para_html` e `doc_word` de `scripts/exportar-projeto.py`, como faz o `/descricao-edital` (o `.doc` em HTML não embute imagem de forma confiável no Word, e a logo é requisito aqui); um único formato servindo cliente e captadora, com seções condicionais (foi exatamente o que ela recusou, porque o documento do cliente não pode carregar análise de carteira nem estratégia comercial).
+
+Pendente, combinado com ela: o segundo formato, o checklist interno da captadora, ainda vai ser definido. Quando for, herda o mesmo motor `mapa-edital.py`, mudando só `NOME_DOCUMENTO` e o conteúdo, sem reescrever layout.
+
+Data: 2026-08-14
