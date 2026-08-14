@@ -473,3 +473,30 @@ Alternativas descartadas: gerar `.doc` em HTML reaproveitando `md_para_html` e `
 Pendente, combinado com ela: o segundo formato, o checklist interno da captadora, ainda vai ser definido. Quando for, herda o mesmo motor `mapa-edital.py`, mudando só `NOME_DOCUMENTO` e o conteúdo, sem reescrever layout.
 
 Data: 2026-08-14
+
+### SOL-0025. "Checklist Mobilizando", o par interno do Mapa do Edital, e a regra de nunca mandar abrir o edital
+
+> Completa o SOL-0024, que criou o formato para o cliente e deixou o formato interno como pendência.
+
+Problema: o SOL-0024 fechou o Mapa do Edital (documento do cliente) e registrou que o segundo formato, o interno da captadora, ainda seria definido. A captadora trouxe um modelo pronto para isso, o `Checklist Favelas 2.pdf` (checklist do Programa Rouanet nas Favelas 2, 13 páginas), pedindo que ele virasse o padrão interno, somado a tudo que o Mapa do Edital já cobre. E fez uma crítica específica ao modelo que ela mesma trouxe: os quadros de "Onde está" traziam **só o número do item do edital**, e ela não consegue ficar abrindo o edital a cada linha.
+
+Solução: criado o **Checklist Mobilizando**, com 22 seções, mais uma abertura "Leia antes de qualquer coisa". Ele funde a estrutura do Favelas 2 (impeditivos e riscos com solução na abertura, aplicação à carteira, lacunas, sequência de trabalho) com as 18 seções do Mapa do Edital. Peças novas: `.claude/commands/checklist-mobilizando.md`.
+
+**Regra de ouro do comando, e a razão de ele existir:** nunca mandar a captadora abrir o edital. Toda linha traz a informação completa escrita ali, e a localização (item e página) entra como conferência extra, nunca como substituto. Quando o edital remete a outro documento que não está na pasta (uma Instrução Normativa, uma lei estadual), isso é dito explicitamente e o que ficou de fora é listado, em vez de apontar um número que ela não tem como abrir.
+
+Achado técnico que virou regra de extração: no PDF do Ambev Brasilidades 2026, a numeração de subitem é renderizada em coluna lateral e sai **fora de ordem** na extração de texto (a página 5 devolve "1.2 1.1 1.4 1.5 1.6 1.7 1.3" para 8 parágrafos). Citar subitem nesse caso seria inventar precisão. A localização passou a usar o bloco numerado (2.1, 6.2, 6.4) mais a **página do PDF**, que são verificáveis, com aviso na abertura do documento explicando por quê.
+
+Reaproveitamento do motor: `scripts/mapa-edital.py` serve aos dois documentos. Ganhou os campos de meta `documento`, `chamada`, `nota_capa`, `fecho`, `rotulo_orgao`, `patrocinador` e `base_legal`, então o mesmo gerador produz "MAPA DO EDITAL" ou "CHECKLIST MOBILIZANDO" sem duplicar layout, como o SOL-0024 tinha previsto.
+
+Separação de pastas, pedida por ela na mesma conversa: `2. ANALISE EDITAIS` passou a ter `1. MAPA DO EDITAL (vai para a organizacao)` e `2. CHECKLIST (interno Mobilizando)`.
+
+**Onde cada origem é salva, e por quê.** O markdown do Mapa do Edital fica em `editais-avulsos/` (versionado). O do Checklist Mobilizando fica em `minhas-oscs/_carteira/checklists/`, **fora do controle de versão**, porque a seção 21 (aplicação à carteira) nomeia clientes reais, natureza jurídica e pendência documental, e o repositório é público (SOL-0016).
+
+Bugs de layout encontrados e corrigidos, todos por conferência visual do PDF renderizado:
+1. **Coluna de marcar larga demais.** Com `autofit`, o Word dava à coluna do quadradinho o mesmo peso das colunas de texto, e sobrava um vão vazio no meio do quadro. Criada `calcular_larguras`, que fixa em 0,9 cm qualquer coluna cujo cabeçalho seja um marcador (☐, ✓, OK ou vazio) e reparte o restante proporcionalmente ao volume de texto.
+2. **Coluna de rótulo curto quebrando palavra no meio.** A proporcionalidade pura deu à coluna "Risco ou impeditivo" largura insuficiente, e o Word quebrou "Proponente" em "Proponent / e". Corrigido amortecendo o peso (expoente 0,6) e subindo o piso para 3,2 cm.
+3. **Logo do cabeçalho parando no meio da página.** O estilo "Header" do Word já traz tabuladores próprios (centro em 4680 twips, direita em 9360), e os tabuladores adicionados ao parágrafo **somam-se** aos do estilo em vez de substituí-los. A primeira tabulação parava no tabulador de centro. Corrigido com `limpar_tabuladores`, que emite `w:tab val="clear"` nas duas posições do estilo antes de definir a do parágrafo. Vale para qualquer cabeçalho ou rodapé com conteúdo alinhado à direita.
+
+Alternativas descartadas: criar um segundo script para o documento interno (duplicaria o layout, e o SOL-0024 já tinha desenhado o motor para ser reaproveitado); manter a coluna "Onde está" só com o número, como no modelo original (é exatamente o que a captadora recusou); salvar o checklist interno em `editais-avulsos/` junto com os Mapas (publicaria nome de cliente em repositório público).
+
+Data: 2026-08-14

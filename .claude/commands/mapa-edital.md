@@ -8,7 +8,7 @@ Produz o **Mapa do Edital**: o checklist completo de um edital, em documento Wor
 
 Aciona também quando a captadora disser o nome, sem barra ("gera o Mapa do Edital do PNAB Ciclo 2", "faz um Mapa do Edital desse aqui").
 
-> Este é o formato **para o cliente**. Existe um segundo formato, interno, para a própria captadora. Não misturar os dois: o do cliente não traz avaliação de carteira, nome de outras organizações, precificação nem estratégia comercial.
+> Este é o formato **para o cliente**. O par interno é o **Checklist Mobilizando** (`/checklist-mobilizando`). Não misturar os dois: o do cliente não traz aplicação à carteira, nome de outras organizações, precificação nem estratégia comercial.
 
 ## Passo 0. Contexto
 
@@ -80,10 +80,10 @@ Use `- [ ]` em tudo que o cliente precisa conferir, e `-` só em desdobramento d
 ## Passo 5. Gerar o Word
 
 ```
-python scripts/mapa-edital.py "editais-avulsos/mapa-edital-{edital-slug}.md" --saida "C:/Users/rosep/Desktop/CONTROLE EDITAIS/2. ANALISE EDITAIS"
+python scripts/mapa-edital.py "editais-avulsos/mapa-edital-{edital-slug}.md" --saida "C:/Users/rosep/Desktop/CONTROLE EDITAIS/2. ANALISE EDITAIS/1. MAPA DO EDITAL (vai para a organizacao)"
 ```
 
-Esta pasta é o destino fixo de toda análise de edital, definido pela captadora em 14/08/2026.
+Destino fixo, definido pela captadora em 14/08/2026. A pasta irmã `2. CHECKLIST (interno Mobilizando)` guarda o documento interno, gerado por `/checklist-mobilizando`. Não misturar os dois.
 
 ## Passo 6. Entrega
 

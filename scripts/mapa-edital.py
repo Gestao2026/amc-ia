@@ -180,6 +180,20 @@ def sem_bordas(tabela):
     tblPr.append(borders)
 
 
+def limpar_tabuladores(paragrafo):
+    """Anula os tabuladores herdados do estilo, para valer so o do paragrafo."""
+    pPr = paragrafo._p.get_or_add_pPr()
+    tabs = pPr.find(qn("w:tabs"))
+    if tabs is None:
+        tabs = OxmlElement("w:tabs")
+        pPr.append(tabs)
+    for pos in ("4680", "9360"):   # centro e direita padrao do estilo Header
+        el = OxmlElement("w:tab")
+        el.set(qn("w:val"), "clear")
+        el.set(qn("w:pos"), pos)
+        tabs.append(el)
+
+
 def campo(paragrafo, instrucao):
     """Insere um campo do Word (usado para numeracao de pagina)."""
     run = paragrafo.add_run()
@@ -359,6 +373,53 @@ def caixa(doc, linhas, cor_fundo, cor_borda, rotulo=None):
     espacamento(depois, 0, 4, 1.0)
 
 
+MARCADORES_COLUNA = {"☐", "☑", "✓", "❑", "OK", "✓", ""}
+
+
+def calcular_larguras(dados, n_col):
+    """Reparte a largura util entre as colunas, proporcional ao volume de texto.
+
+    A coluna de marcar (o quadradinho) fica fixa e estreita: sem isso o Word lhe
+    da o mesmo peso das colunas de texto e sobra um vao vazio no meio do quadro.
+    """
+    cabecalho = [c.replace("**", "").strip() for c in dados[0]]
+    fixas = {}
+    for j in range(n_col):
+        if cabecalho[j] in MARCADORES_COLUNA:
+            fixas[j] = Cm(0.9)
+
+    restante = LARGURA_UTIL.cm - sum(v.cm for v in fixas.values())
+    livres = [j for j in range(n_col) if j not in fixas]
+    if not livres:
+        return [fixas.get(j, Cm(restante)) for j in range(n_col)]
+
+    pesos = []
+    for j in livres:
+        media = sum(len(linha[j]) for linha in dados) / max(len(dados), 1)
+        # expoente < 1 amortece a diferenca: sem isso a coluna de texto longo
+        # engole a de rotulo curto e o Word quebra palavra no meio
+        pesos.append(max(media, 8.0) ** 0.6)
+    total = sum(pesos)
+
+    minimo = min(3.2, restante / max(len(livres), 1))
+    larguras_livres = [max(restante * peso / total, minimo) for peso in pesos]
+    excesso = sum(larguras_livres) - restante
+    if excesso > 0:
+        folgados = [i for i, w in enumerate(larguras_livres) if w > minimo + 0.1]
+        for i in folgados:
+            larguras_livres[i] -= excesso / len(folgados)
+
+    saida = []
+    k = 0
+    for j in range(n_col):
+        if j in fixas:
+            saida.append(fixas[j])
+        else:
+            saida.append(Cm(larguras_livres[k]))
+            k += 1
+    return saida
+
+
 def quadro(doc, linhas):
     """Renderiza uma tabela markdown como quadro formatado."""
     dados = [celulas_de(l) for l in linhas if not eh_separador(l)]
@@ -369,9 +430,13 @@ def quadro(doc, linhas):
 
     tabela = doc.add_table(rows=len(dados), cols=n_col)
     tabela.alignment = WD_TABLE_ALIGNMENT.CENTER
-    tabela.autofit = True
+    tabela.autofit = False
     sem_bordas(tabela)
-    largura_total_pct(tabela)
+    largura_tabela(tabela, LARGURA_UTIL)
+    larguras = calcular_larguras(dados, n_col)
+    for linha in tabela.rows:
+        for j, celula in enumerate(linha.cells):
+            celula.width = larguras[j]
 
     for i, linha in enumerate(dados):
         cabecalho = i == 0
@@ -505,7 +570,7 @@ def montar_capa(doc, meta, logo_escuro):
 
     p = celula.add_paragraph()
     espacamento(p, 0, 12, 1.0)
-    r = p.add_run("Checklist completo para conferir antes de inscrever")
+    r = p.add_run(meta.get("chamada", "Checklist completo para conferir antes de inscrever"))
     r.font.size = Pt(10)
     r.font.name = FONTE
     r.font.color.rgb = RGBColor.from_string(DOURADO)
@@ -534,7 +599,9 @@ def montar_capa(doc, meta, logo_escuro):
 
     # Quadro de identificacao rapida logo abaixo da capa
     campos = [
-        ("Órgão responsável", meta.get("orgao", "")),
+        (meta.get("rotulo_orgao", "Órgão responsável"), meta.get("orgao", "")),
+        ("Patrocinador", meta.get("patrocinador", "")),
+        ("Base legal", meta.get("base_legal", "")),
         ("Prazo final de inscrição", meta.get("prazo", "")),
         ("Onde se inscreve", meta.get("plataforma", "")),
         ("Documento preparado em", meta.get("data", "")),
@@ -565,10 +632,11 @@ def montar_capa(doc, meta, logo_escuro):
 
     rodape_capa = doc.add_paragraph()
     espacamento(rodape_capa, 16, 0, 1.2)
-    r = rodape_capa.add_run(
+    r = rodape_capa.add_run(meta.get(
+        "nota_capa",
         "Este documento reúne, em um lugar só, tudo que o edital exige. "
-        "Cada quadradinho é um item para conferir. O que ficar sem marcar é o que ainda falta resolver."
-    )
+        "Cada quadradinho é um item para conferir. O que ficar sem marcar é o que ainda falta resolver.",
+    ))
     r.italic = True
     r.font.size = Pt(9.5)
     r.font.name = FONTE
@@ -612,18 +680,25 @@ def montar_cabecalho_rodape(doc, meta, logo):
     p.alignment = WD_ALIGN_PARAGRAPH.LEFT
     espacamento(p, 0, 4, 1.0)
     if logo:
+        # O estilo "Header" do Word ja traz tabuladores proprios (centro e direita),
+        # e os do paragrafo se somam a eles em vez de substitui-los. Sem limpar,
+        # a primeira tabulacao para no tabulador de centro e o logo fica no meio.
+        limpar_tabuladores(p)
         p.paragraph_format.tab_stops.add_tab_stop(LARGURA_UTIL, WD_TAB_ALIGNMENT.RIGHT)
     r = p.add_run(NOME_DOCUMENTO + "   ")
     r.bold = True
     r.font.size = Pt(8.5)
     r.font.name = FONTE
     r.font.color.rgb = RGBColor.from_string(VERDE_PROFUNDO)
-    r2 = p.add_run(meta.get("titulo", ""))
+    titulo_cab = meta.get("titulo", "")
+    if len(titulo_cab) > 34:
+        titulo_cab = titulo_cab[:33].rstrip() + "…"
+    r2 = p.add_run(titulo_cab)
     r2.font.size = Pt(8.5)
     r2.font.name = FONTE
     r2.font.color.rgb = RGBColor.from_string(CINZA_APOIO)
     if logo:
-        p.add_run("	").add_picture(logo, width=Cm(2.2))
+        p.add_run("	").add_picture(logo, width=Cm(2.0))
     borda_paragrafo(p, ["bottom"], DOURADO, 6)
 
     rod = secao.footer
@@ -788,6 +863,9 @@ def gerar(caminho_md, saida=None, raiz=None):
     secao.header_distance = Cm(0.8)
     secao.footer_distance = Cm(0.9)
 
+    global NOME_DOCUMENTO
+    NOME_DOCUMENTO = meta.get("documento", "MAPA DO EDITAL").upper()
+
     montar_cabecalho_rodape(doc, meta, logo)
     montar_capa(doc, meta, logo_escuro)
 
@@ -802,11 +880,12 @@ def gerar(caminho_md, saida=None, raiz=None):
     fio(doc)
     p = doc.add_paragraph()
     espacamento(p, 6, 0, 1.2)
-    r = p.add_run(
+    r = p.add_run(meta.get(
+        "fecho",
         f"Documento preparado por {MARCA} em {meta.get('data', '')}, "
         "com base no edital e nos anexos oficiais. "
-        "Em caso de divergência, prevalece sempre o texto publicado pelo órgão."
-    )
+        "Em caso de divergência, prevalece sempre o texto publicado pelo órgão.",
+    ))
     r.italic = True
     r.font.size = Pt(8.5)
     r.font.name = FONTE
