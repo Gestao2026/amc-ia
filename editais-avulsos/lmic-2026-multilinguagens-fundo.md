@@ -9,14 +9,16 @@ Fonte: pasta `MULTILINGUAGENS - 5` (edital, anexos I, II, III, IV, V e VII, mate
 
 ## 0. ALERTA DE PRAZO (LEIA ANTES DE TUDO)
 
-| Prazo | Data | Situação em 12/08/2026 |
+| Prazo | Data | Situação em 14/08/2026 (sexta) |
 |---|---|---|
 | Abertura das inscrições | 17/07/2026, 0h | Aberto |
-| **Encerramento das inscrições** | **17/08/2026, 17h** | **Faltam 5 dias** |
-| Canal de dúvidas (Art. 62): até 5 dias antes do encerramento | 12/08/2026 | **Último dia é hoje** |
+| **Encerramento das inscrições** | **17/08/2026 (segunda), 17h** | **Faltam 3 dias** |
+| Canal de dúvidas (Art. 62): até 5 dias antes do encerramento | 12/08/2026 | **Encerrado** |
 | Impugnação do Edital (Art. 64): 5 dias úteis da publicação | encerrado | Vencido |
 
-Consequência prática: qualquer dúvida sobre interpretação do edital precisa ir para o canal `pbh.gov.br/fundo2026` **hoje**. Depois disso só resta decidir pela leitura própria.
+Consequência prática: o canal de dúvidas fechou. Toda interpretação duvidosa precisa ser resolvida pela leitura mais conservadora, sem consulta oficial. A janela real de trabalho é hoje, o fim de semana e a manhã de segunda até as 17h.
+
+> Checklist operacional de conferência item a item, derivado deste documento: `editais-avulsos/lmic-2026-multilinguagens-checklist.md` (versão `.doc` na pasta do edital).
 
 ---
 
@@ -459,13 +461,15 @@ Achados na leitura cruzada dos documentos. Nenhum impede a inscrição, mas todo
 **Divergência de prazo com efeito prático:**
 11. O Art. 9º, VIII, fala em regularizar prestação de contas "até a data de homologação do presente Edital". O perguntas e respostas (questão 23) fala em "data de encerramento das inscrições". Trabalhar com a data mais restritiva, ou seja, estar regular já na inscrição.
 
-**Ambiguidade que vale confirmar hoje no canal de dúvidas:**
-12. O Art. 27 §1º diz que os arquivos anexados são os cinco tipos obrigatórios e, na sequência, que "será facultado o envio de até 5 arquivos, no máximo". O §2º trata dos anexos opcionais "respeitado o limite de arquivos do §1º". Já o perguntas e respostas (questão 30) afirma que os 5 arquivos são permitidos **além** dos documentos obrigatórios. As duas leituras mudam o planejamento de material complementar. Como o canal fecha hoje, ou se confirma agora, ou se trabalha pela leitura conservadora (5 arquivos no total, agrupando documentos por tipo em PDF único).
+**Ambiguidade dos 5 arquivos facultativos (resolvida com boa margem em 14/08/2026):**
+12. O Art. 27 §1º diz que os arquivos anexados são os cinco tipos obrigatórios e, na sequência, que "será facultado o envio de até 5 arquivos, no máximo". O §2º trata dos anexos opcionais "respeitado o limite de arquivos do §1º". Já o perguntas e respostas (questão 30) afirma que os 5 arquivos são permitidos **além** dos documentos obrigatórios. O Manual de Inscrições da plataforma confirma essa segunda leitura na prática: o passo de envio dos anexos obrigatórios é separado, e os **campos 47 a 51 são livres**, ou seja, cinco campos adicionais para material complementar. Evidência operacional forte, ainda que não seja alteração normativa. Como o canal de dúvidas fechou em 12/08, quem quiser margem zero de risco agrupa o material complementar em menos arquivos.
 
-**Situação dos documentos da pasta (revisado em 12/08/2026):**
-13. **Anexo VI, Minuta do Termo de Compromisso: está na pasta**, no arquivo `edital-lmic-multilinguagens-2026-anexo-vi.pdf`, 4 páginas. A versão anterior deste documento o dava como ausente, por erro de leitura da pasta. Vale ler antes de submeter, porque é ele que detalha as obrigações do empreendedor.
+**Situação dos documentos da pasta (revisado em 14/08/2026, na pasta `01 - Multilinguagens`):**
+13. **Anexo VI, Minuta do Termo de Compromisso: está na pasta**, no arquivo `edital-lmic-multilinguagens-2026-anexo-vi.pdf`, 4 páginas. Vale ler antes de submeter, porque é ele que detalha as obrigações do empreendedor.
 14. O arquivo de perguntas e respostas disponível é da edição **2025** (a própria resposta 8 cita subsetores do audiovisual, que não existe neste edital). Serve de referência de interpretação, não de norma.
-15. O arquivo `Cópia de Cópia de Inserir um subtítulo.pdf` é o **Breve Manual de Inscrições do Mapa Cultural BH**, com o passo a passo de cadastro e envio. O Manual de Inscrições específico de 2026, previsto no Art. 26 §1º para ser disponibilizado ao longo das inscrições, ainda deve ser conferido em `pbh.gov.br/fundo2026`.
+15. O arquivo `Manual de Inscrição.pdf` (25 páginas) é o **Breve Manual de Inscrições do Mapa Cultural BH**, genérico da LMIC, com o passo a passo de cadastro e envio. Confirmado que **não é** o Manual de Inscrições específico de 2026, previsto no Art. 26 §1º, que ainda deve ser conferido em `pbh.gov.br/fundo2026`.
+16. A subpasta `Form. edital-lmic-multilinguagens-2026` traz o Formulário de Inscrição oficial (45 páginas), a Planilha Financeira (`.xlsx`) e as Instruções de Preenchimento. Os Anexos IV e V (declarações de residência) estão na pasta em `.docx`, e só entram se o comprovante de residência não estiver em nome do proponente.
+17. **Alerta de arquivamento.** A pasta está sob `03 - Com fins lucrativos`, e isso contraria o edital: o Art. 9º veda pessoa jurídica com fins lucrativos, incluindo MEI. Só concorrem pessoa física domiciliada em BH e PJ sem fins lucrativos sediada em BH. Reclassificar a pasta para não induzir indicação errada numa próxima triagem.
 
 ---
 
