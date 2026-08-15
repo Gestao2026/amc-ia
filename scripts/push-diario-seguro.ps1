@@ -1,11 +1,15 @@
-# Push diario COM GUARDA + relatorio das automacoes.
+# Push COM GUARDA + relatorio das automacoes.
 #
-# Roda de madrugada. Antes de publicar qualquer coisa no GitHub, varre o conteudo
-# que seria publicado. Se achar algo suspeito (segredo, dado de cliente, caminho
-# pessoal, arquivo que deveria estar protegido), NAO publica e explica o motivo.
+# Antes de publicar qualquer coisa no GitHub, varre o conteudo que seria publicado.
+# Se achar algo suspeito (segredo, dado de cliente, caminho pessoal, arquivo que
+# deveria estar protegido), NAO publica e explica o motivo.
+#
+# Nao roda mais sozinho de madrugada: a tarefa das 02h foi apagada em 13/08/2026
+# (SOL-0022) e a publicacao voltou a ser sempre por pedido. Hoje ele e acionado
+# pelo hook post-commit (modo -PosCommit, so avisa) e por pedido em conversa.
 #
 # Contexto que justifica a guarda: o repositorio github.com/Gestao2026/amc-ia e
-# PUBLICO. Ver SOL-0016 e SOL-0017 em .claude/rules/decisoes-tecnicas.md.
+# PUBLICO. Ver SOL-0016, SOL-0017 e SOL-0022 em .claude/rules/decisoes-tecnicas.md.
 #
 # Uso:
 #   push-diario-seguro.ps1              execucao normal
@@ -67,6 +71,49 @@ function Find-Suspeitos($texto) {
 }
 
 # ---------------------------------------------------------------
+# ARQUIVO BINARIO. O detector acima le o texto do 'git diff', e Word, Excel e
+# PowerPoint nao aparecem la: o Git tenta converter com docx2txt.exe, que nao
+# existe nesta maquina, e o diff volta vazio. Sem isto, um .docx com dado de
+# cliente seria publicado sem a varredura nem perceber. Como sao pacotes zip,
+# da para ler o texto direto do XML de dentro.
+# ---------------------------------------------------------------
+function Texto-De-Pacote($caminho) {
+    try {
+        Add-Type -AssemblyName System.IO.Compression.FileSystem -ErrorAction Stop
+        $zip = [System.IO.Compression.ZipFile]::OpenRead($caminho)
+        $partes = @()
+        foreach ($item in $zip.Entries) {
+            if ($item.FullName -notmatch '\.(xml|rels)$') { continue }
+            $leitor = New-Object System.IO.StreamReader($item.Open())
+            $partes += $leitor.ReadToEnd()
+            $leitor.Close()
+        }
+        $zip.Dispose()
+        # Tira as marcacoes e deixa so o texto que a pessoa leria
+        return ($partes -join " ") -replace '<[^>]+>', ' '
+    } catch {
+        return $null
+    }
+}
+
+function Achados-Em-Binarios($arquivos) {
+    $r = @()
+    foreach ($a in $arquivos) {
+        if ($a -notmatch '\.(docx|dotx|xlsx|pptx)$') { continue }
+        $caminho = Join-Path $Repo $a
+        if (-not (Test-Path -LiteralPath $caminho)) { continue }   # apagado no commit
+        $texto = Texto-De-Pacote $caminho
+        if ($null -eq $texto) {
+            # Nao conseguir ler nao pode virar silencio: e justamente o caso perigoso
+            $r += "Nao consegui ler o conteudo de $a para varrer. Revise a mao antes de publicar."
+            continue
+        }
+        foreach ($x in (Find-Suspeitos $texto)) { $r += "$x  [dentro de $a]" }
+    }
+    return $r
+}
+
+# ---------------------------------------------------------------
 # AUTOTESTE. Prova que o detector funciona, sem publicar nada.
 # ---------------------------------------------------------------
 if ($Autoteste) {
@@ -107,6 +154,7 @@ if ($PosCommit) {
 
     $conteudo = (git diff "origin/main..HEAD") -join "`n"
     $r = Find-Suspeitos $conteudo
+    $r += Achados-Em-Binarios (git diff --name-only "origin/main..HEAD")
     foreach ($a in (git diff --name-only "origin/main..HEAD")) {
         foreach ($p in @('\.env$', 'config\.local\.', '\.pem$', '\.key$', 'credenciais', 'senha')) {
             if ($a -match $p) { $r += "Arquivo que nao pode ser publicado: $a" }
@@ -162,6 +210,7 @@ if ($qtdPendentes -eq 0) {
 
     # Arquivos que nunca podem ser publicados, mesmo que o conteudo pareca inofensivo
     $arquivos = git diff --name-only "origin/main..HEAD"
+    $achados += Achados-Em-Binarios $arquivos
     $proibidos = @('\.env$', 'config\.local\.', '\.pem$', '\.key$', 'credenciais', 'senha')
     foreach ($a in $arquivos) {
         foreach ($p in $proibidos) {
@@ -277,7 +326,12 @@ $rel += ""
 $rel += "=================================================="
 $rel += "3. TAREFAS AGENDADAS"
 $rel += "=================================================="
-foreach ($t in @('AMC-IA-Sincronizar-Pasta82','AMC-IA-Vigia-Pasta82','AMC-IA-SincronizacaoDiaria','AMC-IA-Push-Diario')) {
+# 'AMC-IA-Push-Diario' saiu desta lista de proposito. A tarefa das 02h foi apagada
+# a pedido da captadora em 13/08/2026 (SOL-0022): a publicacao no GitHub voltou a
+# ser sempre manual. Continuar procurando por ela acusava pendencia todo dia por
+# uma tarefa que nao deve existir. Se um dia a publicacao automatica voltar,
+# recriar a tarefa e devolver o nome aqui.
+foreach ($t in @('AMC-IA-Sincronizar-Pasta82','AMC-IA-Vigia-Pasta82','AMC-IA-SincronizacaoDiaria')) {
     $rel += "   " + (Estado-Tarefa $t)
 }
 $rel += ""
