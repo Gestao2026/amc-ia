@@ -89,7 +89,7 @@ vencido para a pasta externa de histórico do captador (fora do amc-ia, não é
 `editais-para-cadastrar/processados/`):
 
 ```
-C:\Users\rosep\Desktop\_82 - Rosepaula Aparecida Andrade Rodrigues\04 - Controle de Submissão_\01 - Mineração de Editais\04 - Histórico de Editais _ Não Submetidos
+C:\Users\rosep\Desktop\_82 - Rosepaula Aparecida Andrade Rodrigues\04 - Controle de Submissão_\01 - Mineração de Editais\06 - Histórico de Editais _ Não Submetidos
 ```
 
 Essa pasta já tem uma subpasta por instituição/edital (ex: "03 - Edital Cemig FIA", "01 -
