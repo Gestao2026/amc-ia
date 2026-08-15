@@ -77,17 +77,19 @@ Marcações aceitas pelo gerador: `## N. TÍTULO` (faixa verde numerada), `### S
 
 Use `- [ ]` em tudo que o cliente precisa conferir, e `-` só em desdobramento de um item já marcável. É o que transforma o documento em checklist de verdade.
 
-## Passo 5. Gerar o Word
+## Passo 5. Gerar o Word e o PDF
 
 ```
-python scripts/mapa-edital.py "editais-avulsos/mapa-edital-{edital-slug}.md" --saida "C:/Users/rosep/Desktop/CONTROLE EDITAIS/2. ANALISE EDITAIS/1. MAPA DO EDITAL (vai para a organizacao)"
+python scripts/mapa-edital.py "editais-avulsos/mapa-edital-{edital-slug}.md" --saida "C:/Users/rosep/Desktop/CONTROLE EDITAIS/2. CHEKLIST'S/1. MAPA DO EDITAL (vai para a organizacao)"
 ```
+
+O gerador salva o `.docx` e converte em `.pdf` no mesmo lugar. O PDF é o que vai para a organização, que abre em qualquer máquina sem depender do Word; o Word fica para quando ela precisar editar. Se o PDF não sair, o comando avisa na última linha e o `.docx` continua válido.
 
 Destino fixo, definido pela captadora em 14/08/2026. A pasta irmã `2. CHECKLIST (interno Mobilizando)` guarda o documento interno, gerado por `/checklist-mobilizando`. Não misturar os dois.
 
 ## Passo 6. Entrega
 
-Informe o caminho absoluto do `.docx`, o número de páginas e, em uma linha, o que ficou como lacuna do edital ou pendente de resposta do canal de dúvidas.
+Informe o caminho absoluto do `.pdf` e do `.docx`, o número de páginas e, em uma linha, o que ficou como lacuna do edital ou pendente de resposta do canal de dúvidas.
 
 Não crie Controle no CaptaHub por este comando. Quem faz isso é o `/descricao-edital` (ficha interna) ou o `/editais-pasta-processar` (cadastro em lote).
 

@@ -103,17 +103,17 @@ Marcações do gerador: `## N. TÍTULO`, `### Subtítulo`, `#### Sub-subtítulo`
 
 Em tabela, a coluna de marcar tem o cabeçalho `☐` e a célula `☐`. O gerador reconhece esse cabeçalho e fixa a coluna estreita.
 
-## Passo 5. Gerar o Word
+## Passo 5. Gerar o Word e o PDF
 
 ```
-python scripts/mapa-edital.py "minhas-oscs/_carteira/checklists/checklist-mobilizando-{slug}.md" --saida "C:/Users/rosep/Desktop/CONTROLE EDITAIS/2. ANALISE EDITAIS/2. CHECKLIST (interno Mobilizando)"
+python scripts/mapa-edital.py "minhas-oscs/_carteira/checklists/checklist-mobilizando-{slug}.md" --saida "C:/Users/rosep/Desktop/CONTROLE EDITAIS/2. CHEKLIST'S/2. CHECKLIST (interno Mobilizando)"
 ```
 
-O mesmo gerador serve aos dois documentos. O que muda é o campo `documento:` do bloco meta e o conteúdo.
+O mesmo gerador serve aos dois documentos. O que muda é o campo `documento:` do bloco meta e o conteúdo. Sai nos dois formatos: `.docx` para trabalhar e marcar, `.pdf` para ler no celular ou imprimir.
 
 ## Passo 6. Entrega
 
-Informe o caminho absoluto do `.docx`, o número de páginas, quais clientes passam no filtro de entrada e o que ficou como lacuna a levantar.
+Informe o caminho absoluto do `.pdf` e do `.docx`, o número de páginas, quais clientes passam no filtro de entrada e o que ficou como lacuna a levantar.
 
 ## Regras
 

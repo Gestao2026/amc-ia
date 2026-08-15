@@ -9,6 +9,10 @@ com capa, sumario, cabecalho, rodape e as secoes formatadas.
 Uso:
     python scripts/mapa-edital.py <caminho-do-markdown> [--saida <pasta ou arquivo .docx>]
 
+Sai sempre nos dois formatos: .docx (editavel) e .pdf (o que a organizacao abre sem
+depender do Word). O PDF e gerado pelo proprio Word, via scripts/docx-para-pdf.ps1.
+Use --sem-pdf para gerar so o Word.
+
 O markdown aceita:
     ## N. TITULO DA SECAO      -> faixa verde numerada
     ### Subtitulo              -> subtitulo verde com fio dourado
@@ -37,6 +41,7 @@ Bloco de metadados, nas primeiras linhas do arquivo, antes de qualquer secao:
 import argparse
 import os
 import re
+import subprocess
 import sys
 
 from docx import Document
@@ -904,16 +909,56 @@ def gerar(caminho_md, saida=None, raiz=None):
     return saida, logo
 
 
+def gerar_pdf(caminho_docx):
+    """Converte o .docx em PDF pelo Word. Devolve (caminho_pdf, erro).
+
+    O PDF e o formato que a organizacao abre sem depender do Word instalado, entao
+    ele faz parte da entrega, nao e extra. Quem converte e scripts/docx-para-pdf.ps1,
+    que preserva a instancia do Word ja aberta e confere o arquivo depois de gravar.
+    """
+    script = os.path.join(os.path.dirname(os.path.abspath(__file__)), "docx-para-pdf.ps1")
+    if not os.path.exists(script):
+        return None, "conversor nao encontrado: " + script
+
+    try:
+        r = subprocess.run(
+            ["powershell", "-NoProfile", "-ExecutionPolicy", "Bypass", "-File", script,
+             "-Arquivos", caminho_docx, "-Forcar"],
+            capture_output=True, text=True, encoding="utf-8", errors="replace",
+            timeout=600,
+        )
+    except Exception as e:  # Word ausente, COM travado, tempo esgotado
+        return None, str(e)
+
+    pdf = os.path.splitext(caminho_docx)[0] + ".pdf"
+    if r.returncode == 0 and os.path.exists(pdf) and os.path.getsize(pdf) > 0:
+        return pdf, None
+
+    detalhe = (r.stdout or "").strip() or (r.stderr or "").strip()
+    return None, detalhe or "o Word nao devolveu o PDF"
+
+
 def main():
-    ap = argparse.ArgumentParser(description="Gera o Mapa do Edital em Word.")
+    ap = argparse.ArgumentParser(description="Gera o Mapa do Edital em Word e em PDF.")
     ap.add_argument("markdown", help="Arquivo markdown de origem")
     ap.add_argument("--saida", help="Pasta de destino ou caminho .docx", default=None)
+    ap.add_argument("--sem-pdf", action="store_true", help="Gera so o Word, sem converter")
     args = ap.parse_args()
 
     caminho, logo = gerar(args.markdown, args.saida)
     print("=== MAPA DO EDITAL ===")
     print("Arquivo: " + caminho)
     print("Logo: " + (logo if logo else "não encontrado, capa gerada com a marca em texto"))
+
+    if args.sem_pdf:
+        return
+
+    pdf, erro = gerar_pdf(caminho)
+    if pdf:
+        print("PDF: " + pdf)
+    else:
+        print("PDF: não gerado (" + erro + "). "
+              "Abra o .docx no Word e use Arquivo, Exportar, Criar PDF.")
 
 
 if __name__ == "__main__":

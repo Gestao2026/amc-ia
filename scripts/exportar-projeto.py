@@ -23,6 +23,7 @@ projeto; com vários, lista as opções.
 
 import argparse
 import html
+import os
 import re
 import subprocess
 import sys
@@ -37,7 +38,26 @@ sys.stderr.reconfigure(encoding="utf-8")
 RAIZ = Path(__file__).resolve().parent.parent
 OSCS = RAIZ / "minhas-oscs"
 
-CHROME_MAC = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+# Navegadores que sabem imprimir em PDF pela linha de comando, em ordem de preferência.
+# A lista cobre Windows (onde o projeto roda hoje) e macOS. Até 14/08/2026 só havia o
+# caminho do macOS aqui, então o PDF nunca era gerado nesta máquina e o comando caía
+# sempre no aviso de "abra o -impressao.html e imprima à mão".
+NAVEGADORES_PDF = [
+    r"C:\Program Files\Google\Chrome\Application\chrome.exe",
+    r"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe",
+    os.path.expandvars(r"%LOCALAPPDATA%\Google\Chrome\Application\chrome.exe"),
+    r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe",
+    r"C:\Program Files\Microsoft\Edge\Application\msedge.exe",
+    "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+]
+
+
+def navegador_pdf():
+    """Primeiro navegador instalado que serve para imprimir em PDF, ou None."""
+    for caminho in NAVEGADORES_PDF:
+        if caminho and Path(caminho).exists():
+            return caminho
+    return None
 
 CSS_BASE = """
   body{font-family:'Calibri','Segoe UI',Arial,sans-serif;font-size:11.5pt;color:#1a1a1a;line-height:1.5}
@@ -251,26 +271,33 @@ def csv_de_tabelas(tabelas):
 
 
 def gerar_pdf(html_path, pdf_path):
-    if not Path(CHROME_MAC).exists():
+    navegador = navegador_pdf()
+    if not navegador:
         return False
-    try:
-        subprocess.run(
-            [CHROME_MAC, "--headless=new", "--disable-gpu", "--no-pdf-header-footer",
-             f"--print-to-pdf={pdf_path}", f"file://{html_path}"],
-            check=True, capture_output=True, timeout=60,
-        )
-        return Path(pdf_path).exists()
-    except Exception:
-        # tenta o headless clássico
+
+    origem = Path(html_path)
+    if not origem.exists():
+        return False
+    # as_uri() cuida de espaço, acento e da barra do Windows. Sem isso, o navegador
+    # não acha o arquivo, imprime a própria página de erro e ainda assim devolve um
+    # PDF, que passaria por sucesso (mesma armadilha registrada no SOL-0021).
+    uri = origem.as_uri()
+
+    tentativas = [
+        [navegador, "--headless=new", "--disable-gpu", "--no-pdf-header-footer",
+         f"--print-to-pdf={pdf_path}", uri],
+        [navegador, "--headless", "--disable-gpu",
+         f"--print-to-pdf={pdf_path}", uri],
+    ]
+    for comando in tentativas:
         try:
-            subprocess.run(
-                [CHROME_MAC, "--headless", "--disable-gpu",
-                 f"--print-to-pdf={pdf_path}", f"file://{html_path}"],
-                check=True, capture_output=True, timeout=60,
-            )
-            return Path(pdf_path).exists()
+            subprocess.run(comando, check=True, capture_output=True, timeout=120)
         except Exception:
-            return False
+            continue
+        saida = Path(pdf_path)
+        if saida.exists() and saida.stat().st_size > 0:
+            return True
+    return False
 
 
 # ── Orquestração ─────────────────────────────────────────────────────────────
