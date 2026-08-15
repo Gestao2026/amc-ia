@@ -500,3 +500,20 @@ Bugs de layout encontrados e corrigidos, todos por conferência visual do PDF re
 Alternativas descartadas: criar um segundo script para o documento interno (duplicaria o layout, e o SOL-0024 já tinha desenhado o motor para ser reaproveitado); manter a coluna "Onde está" só com o número, como no modelo original (é exatamente o que a captadora recusou); salvar o checklist interno em `editais-avulsos/` junto com os Mapas (publicaria nome de cliente em repositório público).
 
 Data: 2026-08-14
+
+### SOL-0026. Documento do Word era ponto cego da guarda de publicação, e a tarefa apagada virava alarme diário
+
+Problema: dois defeitos no `scripts/push-diario-seguro.ps1`, encontrados juntos ao converter para `.docx` os três modelos de análise de edital (parecer de elegibilidade, checklist de documentos e auditoria de banca).
+
+1. **Alarme falso diário.** O relatório conferia quatro tarefas agendadas, entre elas `AMC-IA-Push-Diario`, apagada de propósito em 13/08/2026 (SOL-0022). Toda execução acusava a pendência "a tarefa não existe mais, pode ter sido apagada", por uma tarefa que não deve existir. Alarme que aparece todo dia sem exigir ação treina a pessoa a ignorar o relatório inteiro, inclusive quando ele estiver certo.
+2. **Ponto cego real, e mais grave.** O detector varre o texto de `git diff`, e documento do Office não aparece lá. O Git para Windows mapeia `*.docx` para o driver `astextplain`, que chama `docx2txt.exe`, ausente nesta máquina. A conversão falha, o diff volta vazio e a varredura passa limpa. Como a guarda existe justamente para impedir que dado de cliente chegue a um repositório público (SOL-0016 e SOL-0017), e a AMC IA produz Word o tempo todo (Mapa do Edital, Checklist Mobilizando, `/projeto-exportar`), bastava um `.docx` com CNPJ, CPF ou nome de cliente ser versionado para a proteção deixar de valer sem ninguém notar. Até 14/08/2026 nenhum `.docx` era versionado, então o buraco existia sem consequência; os três modelos foram os primeiros a entrar.
+
+Solução: `AMC-IA-Push-Diario` saiu da lista conferida, com comentário no código explicando que a ausência é proposital, para ninguém devolver o nome sem querer. E o detector ganhou `Texto-De-Pacote` e `Achados-Em-Binarios`: `.docx`, `.dotx`, `.xlsx` e `.pptx` são pacotes zip, então o texto é lido direto dos XML de dentro (`System.IO.Compression`), sem depender de conversor externo. O achado sai com o nome do arquivo junto (`[dentro de caminho/arquivo.docx]`), porque o diff não mostra a linha. Quando a leitura do pacote falha, isso vira achado explícito, nunca silêncio: mesma disciplina do SOL-0014 e do SOL-0020, operação que falha em silêncio precisa de confirmação depois de executar.
+
+Testado em ramo descartável (`teste-vigia-docx`, apagado em seguida, mesmo procedimento do SOL-0017): um `.docx` com CPF e e-mail de terceiro foi detectado nas duas frentes, e os três modelos reais passaram limpos na varredura seguinte.
+
+Alternativas descartadas: instalar o `docx2txt` e configurar `.gitattributes` com `textconv` (resolveria o diff, mas amarra a proteção a uma dependência externa instalada nesta máquina, e o próximo computador voltaria a falhar em silêncio); não versionar `.docx` e deixar só o markdown de origem (funciona para os modelos, que são regeráveis, mas não protege o dia em que um Word entrar no repositório por outro caminho).
+
+Impacto: regra que passa a valer. **Toda proteção deste projeto que dependa de ler o conteúdo de um arquivo precisa tratar formato binário explicitamente**, porque a leitura vazia não gera erro, gera falso "limpo". Se um dia entrar `.pdf` versionado, ele continua sendo ponto cego: PDF não é zip e não foi coberto aqui.
+
+Data: 2026-08-14
