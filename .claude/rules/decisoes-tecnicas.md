@@ -577,3 +577,21 @@ Alternativas descartadas: apagar a pasta antiga junto com o resgate (ela aprovou
 Impacto: regra de diagnóstico que passa a valer. Diante de "o Drive está desatualizado", **conferir primeiro se existe pasta gêmea de nome parecido, antes de suspeitar da automação**. A checagem rápida é comparar a lista de pastas dos dois lados: um nome a mais no Drive é resíduo de renomeação. Isso vai se repetir, porque a captadora reorganiza e renomeia pastas com frequência (SOL-0019 e SOL-0023) e o modelo, por segurança, nunca apaga o que não conheceu.
 
 Data: 2026-08-17
+
+### SOL-0030. Ficha de edital é falso positivo estrutural da guarda de publicação. Primeira liberação revisada
+
+Problema: a publicação no GitHub estava bloqueada desde 15/08/2026 por 3 achados da guarda (`push-diario-seguro.ps1`): um CNPJ e dois e-mails de terceiro. A captadora pediu para "excluir essas informações sigilosas dos clientes" e publicar. A premissa do pedido não se sustentava: conferido item a item, **nenhum dos três era dado de cliente**. Todos estavam em `editais-avulsos/`, e eram dados públicos de quem financia (o CNPJ da patrocinadora do edital e dois canais oficiais de dúvida, um da empresa e um de uma secretaria estadual).
+
+A causa é estrutural, não um descuido: os padrões CNPJ e e-mail de terceiro existem para pegar dado de cliente, e **ficha de edital contém, por natureza, o CNPJ e o contato de quem paga**. Enquanto `editais-avulsos/` for versionado (e é, por decisão do SOL-0025, justamente porque não nomeia cliente, ao contrário do Checklist Mobilizando), todo edital novo tende a bloquear pelo mesmo motivo.
+
+Descoberta relevante para qualquer tentativa de "resolver apagando": a guarda varre o texto de `git diff origin/main..HEAD`, que é a diferença líquida entre o publicado e o local, **não** o histórico dos commits. Por isso apagar o dado funciona quando o arquivo é novo em relação a `origin/main` (o diff passa a mostrar só o conteúdo final), mas **não** funciona em arquivo que já está publicado: ali a remoção aparece como linha `-` contendo o próprio dado, e o achado continua. Foi o caso de `base-editais/editais-abertos.json`, que já tinha um desses e-mails publicado e por isso não foi tocado.
+
+Solução: apresentadas três saídas (ensinar o detector a não suspeitar desses dois padrões dentro de `editais-avulsos/`; apagar das fichas; publicar sem mexer). A captadora escolheu publicar sem mexer. Usado `push-diario-seguro.ps1 -Liberar`, opção que o próprio script já previa para esse caso ("e-mail institucional do proprio edital, CNPJ publico do patrocinador"), com a condição declarada no cabeçalho de nunca usar sem ter revisado o achado com ela antes. Publicados 21 commits (12/08 a 17/08); confirmado depois com `git fetch` que `origin/main` e `HEAD` ficaram no mesmo commit, em vez de confiar na mensagem de sucesso do script (mesma disciplina do SOL-0014 e do SOL-0020).
+
+Isto **não** afrouxa a regra do SOL-0017. Ela continua igual: bloqueio nunca deve ser liberado por *parecer* alarme falso. O que aconteceu aqui foi o contrário disso, a revisão item a item que a regra exige, com a conclusão registrada. A liberação fica marcada no relatório diário, não some.
+
+Alternativas descartadas: apagar o CNPJ e os e-mails das fichas (foi o pedido literal dela, recusado por ela mesma depois de eu mostrar que não era dado de cliente; mutilaria o canal de dúvidas escrito na ficha e não evitaria o próximo bloqueio); acrescentar os endereços a uma lista de permitidos genérica (vale para esses três e não para o próximo edital, e enfraquece a guarda em todo o repositório).
+
+Impacto: fica pendente e vale reoferecer quando o bloqueio repetir, a correção estrutural recusada nesta rodada: tratar CNPJ e e-mail institucional como esperados dentro de `editais-avulsos/`, mantendo o rigor em `minhas-oscs/`, `.env`, `config.local` e binários. Enquanto isso não for feito, cada edital novo versionado exige uma revisão manual e uma liberação.
+
+Data: 2026-08-17
