@@ -559,3 +559,21 @@ Alternativas descartadas: desligar a varredura de conteúdo para garantir que a 
 Impacto: closes o ciclo aberto por SOL-0017 e SOL-0022. Regra que continua valendo, e que esta entrada não muda: **nenhuma automação deste projeto pode chamar `git push` direto**, toda publicação passa por `push-diario-seguro.ps1`, e um bloqueio do detector nunca deve ser liberado por parecer alarme falso.
 
 Data: 2026-08-16
+
+### SOL-0029. "Drive desatualizado" costuma ser pasta gêmea de renomeação, não sincronização parada
+
+Problema: a captadora relatou que a sincronização da `_82` não estava rodando, porque foi conferir no Drive e achou a pasta desatualizada. A hipótese óbvia (tarefa agendada parada, como no SOL-0012, ou pasta do Drive inacessível) estava errada: a tarefa `AMC-IA-Sincronizar-Pasta82` rodou de hora em hora a noite toda, sem erro, e os 108 arquivos alterados nos três dias anteriores estavam todos no Drive. Confirmado sem depender do log, consultando a conta `gestao.mobilizando@gmail.com` direto pela API do Drive: a planilha de controle salva às 02h16 estava na nuvem às 02h59, com os mesmos 181.403 bytes.
+
+A causa real era uma **pasta gêmea**. Em 15/08/2026 a pasta local do cliente 10 foi renomeada de `10 - CaptaDrive - Núcleo de Arte e Música Esperança` para `10 - CaptaDrive - Núcleo Arte e Música Esperança` (perdeu o "de"). O script passou a alimentar a pasta nova e a antiga ficou parada no Drive, com 30 arquivos do estado anterior, porque ele só apaga no Drive o que viu existir na Área de Trabalho numa execução anterior (proteção do manifesto, SOL-0018). As duas aparecem lado a lado na tela do Drive, com nomes quase idênticos. O que fechou o diagnóstico foi o `viewedByMeTime` da API: ela abriu a pasta certa às 10h35 e a errada às 10h37, e ficou na errada.
+
+Solução desta rodada: resgatados para a Área de Trabalho os 5 arquivos que existiam só na pasta antiga, em `_RESGATE DRIVE 17-08-2026\Multilinguagens 2026 - antigo\`, com hash SHA256 conferido antes e depois da cópia, mais um `LEIA-ME.md` e o registro dos caminhos de origem. Nada foi apagado no Drive. Estrutura de origem achatada de propósito: mantida, o caminho passaria dos 259 caracteres e os arquivos deixariam de abrir (SOL-0021).
+
+Achado que muda como classificar resíduo, e que vale para qualquer limpeza futura: a primeira triagem indexou a Área de Trabalho por **nome + tamanho** e classificou 13 arquivos como "só no Drive, sem cópia local". Refeita a comparação por **tamanho + hash, ignorando o nome**, 3 deles eram byte a byte idênticos a documentos que já estavam na pasta certa, só com `(1)` no fim do nome (sufixo que o navegador põe em download repetido). Ou seja, **indexar por nome subestima o que já está salvo e superestima o resgate necessário**. A triagem correta é por conteúdo, sempre, como o SOL-0019 já exigia para exclusão.
+
+Ponto que ficou aberto e precisa de resposta dela: `projeto-completo.docx` e `orcamento.xlsx` foram alterados dentro da pasta antiga na manhã de 17/08 (11h18 e 10h37), depois da versão 5 do projeto já estar pronta na Área de Trabalho. Como a sincronização é de mão única, esse trabalho não voltou para o computador. Falta saber se foi ela pelo Drive ou se o CaptaDrive compartilhado com o cliente aponta para a pasta antiga, porque no segundo caso apagar a pasta tira o acesso do cliente e é preciso compartilhar a nova antes.
+
+Alternativas descartadas: apagar a pasta antiga junto com o resgate (ela aprovou só o resgate, e há edição de hoje lá dentro de origem não esclarecida); renomear a pasta antiga no Drive para `ZZ - NAO USAR` de imediato (proposto e não aprovado nesta conversa, segue pendente); baixar tudo da pasta antiga sem conferir conteúdo (traria de volta 3 duplicatas exatas e 4 `desktop.ini` do próprio Drive).
+
+Impacto: regra de diagnóstico que passa a valer. Diante de "o Drive está desatualizado", **conferir primeiro se existe pasta gêmea de nome parecido, antes de suspeitar da automação**. A checagem rápida é comparar a lista de pastas dos dois lados: um nome a mais no Drive é resíduo de renomeação. Isso vai se repetir, porque a captadora reorganiza e renomeia pastas com frequência (SOL-0019 e SOL-0023) e o modelo, por segurança, nunca apaga o que não conheceu.
+
+Data: 2026-08-17
