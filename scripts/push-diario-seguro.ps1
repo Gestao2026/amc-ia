@@ -15,11 +15,19 @@
 #   push-diario-seguro.ps1              execucao normal
 #   push-diario-seguro.ps1 -Autoteste   so testa o detector, nao publica nada
 #   push-diario-seguro.ps1 -SoVerificar varre e relata, mas nunca publica
+#   push-diario-seguro.ps1 -Liberar     publica mesmo com achado suspeito, so depois
+#                                        de a captadora ter revisado e confirmado que
+#                                        e falso alarme (ex: e-mail institucional do
+#                                        proprio edital, CNPJ publico do patrocinador).
+#                                        O achado continua aparecendo no relatorio,
+#                                        marcado como liberado manualmente. Nunca usar
+#                                        sem ter revisado o achado com ela primeiro.
 
 param(
     [switch]$Autoteste,
     [switch]$SoVerificar,
-    [switch]$PosCommit   # usado pelo vigia do commit: so varre e avisa, nao gera relatorio nem alerta
+    [switch]$PosCommit,  # usado pelo vigia do commit: so varre e avisa, nao gera relatorio nem alerta
+    [switch]$Liberar
 )
 
 $ErrorActionPreference = "Continue"
@@ -159,7 +167,7 @@ if ($PosCommit) {
         foreach ($p in @('\.env$', 'config\.local\.', '\.pem$', '\.key$', 'credenciais', 'senha')) {
             if ($a -match $p) { $r += "Arquivo que nao pode ser publicado: $a" }
         }
-        if ($a -match '^minhas-oscs/' -and $a -notmatch 'exemplo-instituto-semente' -and $a -notmatch 'MODELO-perfil-osc') {
+        if ($a -match '^minhas-oscs/' -and $a -notmatch 'exemplo-instituto-semente' -and $a -notmatch 'MODELO-perfil-osc' -and $a -ne 'minhas-oscs/.ativa') {
             $r += "Dado real de cliente: $a"
         }
     }
@@ -216,24 +224,31 @@ if ($qtdPendentes -eq 0) {
         foreach ($p in $proibidos) {
             if ($a -match $p) { $achados += "Arquivo que nao pode ser publicado: $a" }
         }
-        # Dados reais de OSC: so o exemplo e o modelo sao permitidos
-        if ($a -match '^minhas-oscs/' -and $a -notmatch 'exemplo-instituto-semente' -and $a -notmatch 'MODELO-perfil-osc') {
+        # Dados reais de OSC: so o exemplo, o modelo e o marcador de OSC ativa
+        # (minhas-oscs/.ativa so guarda o slug da pasta, sem documento nenhum,
+        # e ja era publicado desde o inicio do projeto) sao permitidos.
+        if ($a -match '^minhas-oscs/' -and $a -notmatch 'exemplo-instituto-semente' -and $a -notmatch 'MODELO-perfil-osc' -and $a -ne 'minhas-oscs/.ativa') {
             $achados += "Dado real de cliente: $a"
         }
     }
 
     $achados = $achados | Sort-Object -Unique
 
-    if ($achados.Count -gt 0) {
+    if ($achados.Count -gt 0 -and -not $Liberar) {
         $bloqueado = $true
         $resultadoPush = "BLOQUEADO. Encontrei $($achados.Count) item(ns) suspeito(s). Nada foi publicado."
         $pendencias += "A publicacao no GitHub foi bloqueada por $($achados.Count) item(ns) suspeito(s). Precisa de revisao."
     } elseif ($SoVerificar) {
         $resultadoPush = "VERIFICADO E LIMPO. Modo de verificacao, nao publiquei."
+        if ($achados.Count -gt 0) { $resultadoPush = "VERIFICADO. Encontrei $($achados.Count) item(ns) suspeito(s). Modo de verificacao, nao publiquei." }
     } else {
         $saida = git push origin main 2>&1
         if ($LASTEXITCODE -eq 0) {
-            $resultadoPush = "PUBLICADO COM SUCESSO. $qtdPendentes alteracao(oes) enviada(s) ao GitHub."
+            if ($achados.Count -gt 0) {
+                $resultadoPush = "PUBLICADO COM LIBERACAO MANUAL. $qtdPendentes alteracao(oes) enviada(s) ao GitHub, apesar de $($achados.Count) achado(s) (revisado(s) e liberado(s) por pedido explicito)."
+            } else {
+                $resultadoPush = "PUBLICADO COM SUCESSO. $qtdPendentes alteracao(oes) enviada(s) ao GitHub."
+            }
         } else {
             $motivo = (($saida | Select-Object -Last 3) -join " | ")
             $resultadoPush = "FALHOU AO PUBLICAR. Motivo: $motivo"
@@ -308,14 +323,16 @@ if ($qtdPendentes -gt 0) {
     $rel += "   Alteracoes envolvidas:"
     foreach ($c in $pendentes) { $rel += "      $c" }
 }
-if ($bloqueado) {
+if ($achados.Count -gt 0) {
     $rel += ""
-    $rel += "   O QUE ME FEZ PARAR:"
+    $rel += if ($bloqueado) { "   O QUE ME FEZ PARAR:" } else { "   ACHADOS REVISADOS E LIBERADOS MANUALMENTE:" }
     foreach ($a in $achados) { $rel += "      - $a" }
-    $rel += ""
-    $rel += "   O QUE FAZER: nada foi perdido, suas alteracoes continuam salvas no"
-    $rel += "   computador. Peca a revisao na proxima conversa. Se for alarme falso,"
-    $rel += "   a publicacao pode ser liberada manualmente."
+    if ($bloqueado) {
+        $rel += ""
+        $rel += "   O QUE FAZER: nada foi perdido, suas alteracoes continuam salvas no"
+        $rel += "   computador. Peca a revisao na proxima conversa. Se for alarme falso,"
+        $rel += "   a publicacao pode ser liberada manualmente."
+    }
 }
 $rel += ""
 $rel += "=================================================="
