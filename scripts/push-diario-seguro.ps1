@@ -4,9 +4,13 @@
 # Se achar algo suspeito (segredo, dado de cliente, caminho pessoal, arquivo que
 # deveria estar protegido), NAO publica e explica o motivo.
 #
-# Nao roda mais sozinho de madrugada: a tarefa das 02h foi apagada em 13/08/2026
-# (SOL-0022) e a publicacao voltou a ser sempre por pedido. Hoje ele e acionado
-# pelo hook post-commit (modo -PosCommit, so avisa) e por pedido em conversa.
+# Roda sozinho as 02h pela tarefa AMC-IA-Push-Diario, recriada em 16/08/2026
+# (SOL-0028, que reverteu a exclusao do SOL-0022). Tambem e acionado pelo hook
+# post-commit (modo -PosCommit, so avisa) e por pedido em conversa.
+#
+# Antes de publicar, desce o que estiver novo no GitHub (SOL-0031). Isso passou a
+# ser necessario quando o projeto tambem passou a ser trabalhado na nuvem: a main
+# do GitHub pode andar sem este computador ficar sabendo.
 #
 # Contexto que justifica a guarda: o repositorio github.com/Gestao2026/amc-ia e
 # PUBLICO. Ver SOL-0016, SOL-0017 e SOL-0022 em .claude/rules/decisoes-tecnicas.md.
@@ -193,10 +197,6 @@ if ($PosCommit) {
 Set-Location $Repo
 New-Item -ItemType Directory -Force -Path $RelatorioDir | Out-Null
 
-$statusCurto = (git status --short) -join "`r`n"
-$pendentes   = git log --oneline "origin/main..HEAD"
-$qtdPendentes = if ($pendentes) { @($pendentes).Count } else { 0 }
-
 $bloqueado = $false
 $achados = @()
 $resultadoPush = ""
@@ -207,7 +207,63 @@ $resultadoPush = ""
 # de pedir nada manualmente.
 $pendencias = @()
 
-if ($qtdPendentes -eq 0) {
+# ---------------------------------------------------------------
+# 0. Descer o que veio do GitHub, ANTES de comparar qualquer coisa
+# ---------------------------------------------------------------
+# Ver SOL-0031. Sem este passo, 'origin/main..HEAD' compara contra uma copia
+# velha do GitHub e o 'git push' e recusado por nao ser avanco direto, travando
+# a publicacao todo dia ate alguem rodar o 'git pull' na mao. O bloco resolve
+# sozinho o caso comum (baixar o que ela ja aprovou na nuvem) e para com aviso
+# no caso que exige decisao humana. Nunca deixa o repositorio no meio de uma
+# juncao pela metade: em conflito, desfaz e nao publica.
+$naoPublicar = $false
+$blocoGitHub = ""
+$ramoAtual = (git rev-parse --abbrev-ref HEAD 2>&1).Trim()
+
+if ($ramoAtual -ne "main") {
+    # O commit da 01h30 grava no ramo que estiver aberto, mas a publicacao envia
+    # sempre a main. Ramo trocado e esquecido faz o trabalho do dia sumir do fluxo.
+    $blocoGitHub = "PAREI. O projeto esta no ramo '$ramoAtual', e nao na main. Nao baixei nem publiquei nada."
+    $pendencias += "O projeto no computador esta no ramo '$ramoAtual'. A publicacao usa a main. Para voltar: git checkout main"
+    $naoPublicar = $true
+} else {
+    $saidaFetch = git fetch origin main 2>&1
+    if ($LASTEXITCODE -ne 0) {
+        $blocoGitHub = "Nao consegui consultar o GitHub. Motivo: $(($saidaFetch | Select-Object -Last 2) -join ' | ')"
+        $pendencias += "Nao consegui consultar o GitHub para ver se havia novidade. A publicacao ficou para a proxima execucao."
+        $naoPublicar = $true
+    } else {
+        $novidades = @(git log --oneline "HEAD..origin/main")
+        if ($novidades.Count -eq 0) {
+            $blocoGitHub = "Ja estava em dia com o GitHub, nada novo para baixar."
+        } else {
+            # Caso simples e mais comum: nada foi feito aqui desde a ultima
+            # publicacao, entao basta avancar. E o caso do que vem da nuvem.
+            git merge --ff-only origin/main 2>&1 | Out-Null
+            if ($LASTEXITCODE -eq 0) {
+                $blocoGitHub = "Baixei $($novidades.Count) alteracao(oes) que estavam no GitHub."
+            } else {
+                git merge --no-edit origin/main 2>&1 | Out-Null
+                if ($LASTEXITCODE -eq 0) {
+                    $blocoGitHub = "Juntei $($novidades.Count) alteracao(oes) do GitHub com o trabalho feito aqui."
+                } else {
+                    git merge --abort 2>&1 | Out-Null
+                    $blocoGitHub = "CONFLITO. O mesmo trecho foi alterado aqui e no GitHub. Desfiz a juncao e nao publiquei nada."
+                    $pendencias += "Ha conflito entre o trabalho deste computador e o que esta no GitHub. Precisa ser resolvido em conversa. Nada foi perdido."
+                    $naoPublicar = $true
+                }
+            }
+        }
+    }
+}
+
+$statusCurto = (git status --short) -join "`r`n"
+$pendentes   = git log --oneline "origin/main..HEAD"
+$qtdPendentes = if ($pendentes) { @($pendentes).Count } else { 0 }
+
+if ($naoPublicar) {
+    $resultadoPush = "NAO PUBLIQUEI. $blocoGitHub"
+} elseif ($qtdPendentes -eq 0) {
     $resultadoPush = "NADA A FAZER. Nao havia alteracao nova para publicar."
 } else {
     # ---------------------------------------------------------------
@@ -317,6 +373,7 @@ $rel += ""
 $rel += "=================================================="
 $rel += "1. PUBLICACAO NO GITHUB"
 $rel += "=================================================="
+$rel += "   Antes de publicar: $blocoGitHub"
 $rel += "   $resultadoPush"
 if ($qtdPendentes -gt 0) {
     $rel += ""
@@ -343,12 +400,12 @@ $rel += ""
 $rel += "=================================================="
 $rel += "3. TAREFAS AGENDADAS"
 $rel += "=================================================="
-# 'AMC-IA-Push-Diario' saiu desta lista de proposito. A tarefa das 02h foi apagada
-# a pedido da captadora em 13/08/2026 (SOL-0022): a publicacao no GitHub voltou a
-# ser sempre manual. Continuar procurando por ela acusava pendencia todo dia por
-# uma tarefa que nao deve existir. Se um dia a publicacao automatica voltar,
-# recriar a tarefa e devolver o nome aqui.
-foreach ($t in @('AMC-IA-Sincronizar-Pasta82','AMC-IA-Vigia-Pasta82','AMC-IA-SincronizacaoDiaria')) {
+# 'AMC-IA-Push-Diario' voltou para esta lista em 18/08/2026 (SOL-0031). Ela tinha
+# saido de proposito quando a tarefa foi apagada (SOL-0022), para nao acusar
+# pendencia todo dia por uma tarefa que nao devia existir. Como o SOL-0028
+# recriou a tarefa, o comentario tinha ficado desatualizado e uma falha da
+# publicacao das 02h deixaria de ser reportada.
+foreach ($t in @('AMC-IA-Push-Diario','AMC-IA-Sincronizar-Pasta82','AMC-IA-Vigia-Pasta82','AMC-IA-SincronizacaoDiaria')) {
     $rel += "   " + (Estado-Tarefa $t)
 }
 $rel += ""
